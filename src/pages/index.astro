@@ -46,6 +46,13 @@ const apps = [
         <p class="slogan">{slogan}</p>
       </section>
 
+      <section class="beta-banner">
+        <div class="beta-tag">[ <span class="accent-cyan">beta</span> <span class="accent-magenta">testers</span> wanted ]</div>
+        <h2>베타테스터 모집</h2>
+        <p>마이너스베타스튜디오의 새 앱을 출시 전에 가장 먼저 써보실 분을 찾아요. 아래 그룹에 가입하면 단어요·더치페이·약먹자 등 새 앱의 비공개 테스트에 참여할 수 있어요.</p>
+        <a class="beta-cta" href="https://groups.google.com/g/minusbetastudio" target="_blank" rel="noopener">그룹 가입하고 베타테스터 되기 →</a>
+      </section>
+
       <section class="block">
         <h2>회사 소개</h2>
         <p>{intro}</p>
@@ -137,6 +144,13 @@ const apps = [
       .hero-mark { font-family: var(--mono); font-size: 14px; color: var(--fg-dim); margin-bottom: 24px; }
       .hero h1 { font-size: 42px; margin-bottom: 16px; }
       .hero .slogan { font-size: 18px; color: var(--fg-dim); }
+
+      .beta-banner { margin-bottom: 64px; background: linear-gradient(135deg, rgba(0,229,255,0.07), rgba(255,0,170,0.07)); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
+      .beta-banner .beta-tag { font-family: var(--mono); font-size: 13px; color: var(--fg-dim); margin-bottom: 14px; }
+      .beta-banner h2 { font-size: 24px; margin-bottom: 12px; color: var(--fg); }
+      .beta-banner p { color: var(--fg-dim); font-size: 15px; margin-bottom: 22px; }
+      .beta-cta { display: inline-block; font-family: var(--mono); font-size: 14px; font-weight: 600; padding: 12px 20px; border: 1px solid var(--cyan); border-radius: 8px; color: var(--cyan); }
+      .beta-cta:hover { background: var(--cyan); color: var(--bg); }
 
       .block { margin-bottom: 64px; }
       .block h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-dim); margin-bottom: 24px; font-family: var(--mono); font-weight: 600; }
