@@ -52,6 +52,7 @@ const apps = [
           <a href="#about">회사소개</a>
           <a href="#business">사업분야</a>
           <a href="#portfolio">포트폴리오</a>
+          <a class="nav-ext" href="https://work.kangdaejong.com">작업일지 ↗</a>
         </div>
       </nav>
     </header>
@@ -106,6 +107,7 @@ const apps = [
             </article>
           ))}
         </div>
+        <a class="apps-all" href="https://work.kangdaejong.com/apps">전체 앱 보기 →</a>
       </section>
 
       <section class="block link-card-row">
@@ -167,6 +169,8 @@ const apps = [
       .nav-links { display: flex; gap: 20px; }
       .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--fg-dim); }
       .nav-links a:hover { color: var(--cyan); }
+      .nav-links a.nav-ext { color: var(--cyan); }
+      .nav-links a.nav-ext:hover { color: var(--magenta); }
       main { max-width: 760px; margin: 0 auto; padding: 96px 24px 64px; }
       a { color: var(--cyan); text-decoration: none; }
       a:hover { color: var(--magenta); }
@@ -207,6 +211,8 @@ const apps = [
       .platforms { display: flex; gap: 8px; }
       .platform { font-family: var(--mono); font-size: 11px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; color: var(--fg-dim); transition: border-color 0.15s, color 0.15s; }
       .platform:hover { border-color: var(--magenta); color: var(--magenta); }
+      .apps-all { display: inline-block; margin-top: 16px; font-family: var(--mono); font-size: 13px; color: var(--fg-dim); }
+      .apps-all:hover { color: var(--cyan); }
 
       .link-card-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
       .link-card { display: block; background: var(--bg-elev); border: 1px solid var(--border); padding: 24px; border-radius: 8px; color: var(--fg); border-bottom: none; }
