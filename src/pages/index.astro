@@ -42,29 +42,10 @@ const apps = [
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Pretendard:wght@400;500;700&display=swap" rel="stylesheet" />
     <title>{company.name}</title>
+    <script is:inline src="/mb-components.js" defer></script>
   </head>
   <body>
-    <header class="site-header">
-      <nav class="nav">
-        <a class="brand" href="#top"><img src="/minusbeta-badge.svg" alt={company.name} width="30" height="30" /></a>
-        <div class="nav-links">
-          <a class="active" href="/">회사소개</a>
-          <a href="https://founder.kangdaejong.com">대표소개</a>
-          <a href="https://work.kangdaejong.com/worklog">worklog</a>
-          <a href="https://work.kangdaejong.com/newsletter">newsletter</a>
-          <a href="https://work.kangdaejong.com/insights">insights</a>
-          <a href="https://work.kangdaejong.com/apps">products</a>
-          <a href="https://work.kangdaejong.com/system">system</a>
-          <a href="https://work.kangdaejong.com/lab">lab</a>
-        </div>
-      </nav>
-      <div class="nav-sub">
-        <a href="#about">소개</a>
-        <a href="#business">사업분야</a>
-        <a href="#portfolio">포트폴리오</a>
-        <a href="#contact">연락처</a>
-      </div>
-    </header>
+    <mb-header active="home"></mb-header>
     <main>
       <section class="hero" id="top">
         <img class="hero-logo" src="/minusbeta-badge.svg" alt="마이너스베타스튜디오 로고" width="88" height="88" />
@@ -126,19 +107,8 @@ const apps = [
         </ul>
       </section>
 
-      <footer>
-        <img class="footer-logo" src="/minusbeta-lockup-dark.svg" alt="마이너스베타스튜디오" width="84" height="95" />
-        <div class="biz">
-          <span>{company.name}</span>
-          <span>대표 {company.representative}</span>
-          <span>사업자등록번호 {company.bizNumber}</span>
-          <span>통신판매업신고번호 {company.mailOrderNumber}</span>
-          <span>{company.address}</span>
-          <span>{company.category}</span>
-        </div>
-        <div class="copy">© 2026 {company.name}. All rights reserved.</div>
-      </footer>
     </main>
+    <mb-footer></mb-footer>
 
     <style is:global>
       :root {
@@ -155,20 +125,9 @@ const apps = [
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html { scroll-behavior: smooth; }
       html, body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.65; }
-      [id] { scroll-margin-top: 104px; }
+      [id] { scroll-margin-top: 72px; }
 
-      .site-header { position: sticky; top: 0; z-index: 10; background: rgba(10,10,10,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
-      .nav { max-width: 760px; margin: 0 auto; padding: 14px 24px; display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
-      .nav .brand { display: inline-flex; align-items: center; }
-      .nav .brand img { height: 30px; width: 30px; display: block; }
-      .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
-      .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--fg-dim); }
-      .nav-links a:hover { color: var(--cyan); }
-      .nav-links a.active { color: var(--cyan); }
-      .nav-sub { max-width: 760px; margin: 0 auto; padding: 0 24px 12px; display: flex; gap: 16px; flex-wrap: wrap; }
-      .nav-sub a { font-family: var(--mono); font-size: 12px; color: var(--fg-dim); opacity: 0.7; }
-      .nav-sub a:hover { color: var(--magenta); opacity: 1; }
-      main { max-width: 760px; margin: 0 auto; padding: 96px 24px 64px; }
+      main { max-width: 760px; margin: 0 auto; padding: 48px 24px 64px; }
       a { color: var(--cyan); text-decoration: none; }
       a:hover { color: var(--magenta); }
       h1, h2, h3 { font-weight: 700; letter-spacing: -0.01em; }
@@ -211,17 +170,8 @@ const apps = [
       .contact li:last-child { border-bottom: 1px solid var(--border); }
       .contact .label { font-family: var(--mono); font-size: 12px; color: var(--fg-dim); text-transform: uppercase; letter-spacing: 0.1em; }
 
-      footer { margin-top: 96px; padding-top: 32px; border-top: 1px solid var(--border); font-family: var(--mono); font-size: 12px; color: var(--fg-dim); }
-      footer .footer-logo { width: 84px; height: auto; display: block; margin-bottom: 24px; opacity: 0.95; }
-      footer .biz { display: flex; flex-wrap: wrap; gap: 12px; row-gap: 6px; margin-bottom: 16px; }
-      footer .biz span:not(:last-child)::after { content: "  ·"; color: var(--border); margin-left: 12px; }
-      footer .copy { font-size: 11px; opacity: 0.7; }
-
       @media (max-width: 640px) {
-        main { padding: 64px 20px 48px; }
-        .nav { padding: 12px 20px; gap: 10px; }
-        .nav-links { gap: 12px; }
-        .nav-links a { font-size: 12px; }
+        main { padding: 32px 20px 48px; }
         .hero-logo { width: 64px; height: 64px; }
         .hero h1 { font-size: 32px; }
         .services li { grid-template-columns: 1fr; gap: 4px; }
