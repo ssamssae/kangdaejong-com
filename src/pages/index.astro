@@ -46,7 +46,7 @@ const apps = [
   <body>
     <header class="site-header">
       <nav class="nav">
-        <a class="brand" href="#top">{company.name}</a>
+        <a class="brand" href="#top"><img src="/minusbeta-badge.svg" alt={company.name} width="30" height="30" /></a>
         <div class="nav-links">
           <a href="/">회사소개</a>
           <a class="nav-ext" href="https://ceo.kangdaejong.com">대표소개</a>
@@ -156,8 +156,8 @@ const apps = [
 
       .site-header { position: sticky; top: 0; z-index: 10; background: rgba(10,10,10,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
       .nav { max-width: 760px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-      .nav .brand { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--fg); white-space: nowrap; }
-      .nav .brand:hover { color: var(--cyan); }
+      .nav .brand { display: inline-flex; align-items: center; }
+      .nav .brand img { height: 30px; width: 30px; display: block; }
       .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
       .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--fg-dim); }
       .nav-links a:hover { color: var(--cyan); }
@@ -218,7 +218,6 @@ const apps = [
       @media (max-width: 640px) {
         main { padding: 64px 20px 48px; }
         .nav { padding: 12px 20px; gap: 10px; }
-        .nav .brand { font-size: 12px; }
         .nav-links { gap: 12px; }
         .nav-links a { font-size: 12px; }
         .hero-logo { width: 64px; height: 64px; }
