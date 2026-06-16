@@ -48,32 +48,25 @@ const apps = [
       <nav class="nav">
         <a class="brand" href="#top">{company.name}</a>
         <div class="nav-links">
-          <a href="#about">회사소개</a>
-          <a href="#business">사업분야</a>
-          <a href="#portfolio">포트폴리오</a>
-          <a class="nav-ext" href="https://work.kangdaejong.com">작업일지 ↗</a>
+          <a href="/">회사소개</a>
+          <a class="nav-ext" href="https://ceo.kangdaejong.com">대표소개</a>
+          <a href="https://work.kangdaejong.com">작업일지</a>
+          <a href="https://work.kangdaejong.com/newsletter">뉴스레터</a>
+          <a href="https://work.kangdaejong.com/apps">products</a>
         </div>
       </nav>
+      <div class="nav-sub">
+        <a href="#about">소개</a>
+        <a href="#business">사업분야</a>
+        <a href="#portfolio">포트폴리오</a>
+        <a href="#contact">연락처</a>
+      </div>
     </header>
     <main>
       <section class="hero" id="top">
         <img class="hero-logo" src="/minusbeta-badge.svg" alt="마이너스베타스튜디오 로고" width="88" height="88" />
         <h1>{company.name}</h1>
         <p class="slogan">{slogan}</p>
-      </section>
-
-      <section class="beta-banner">
-        <div class="beta-tag">[ <span class="accent-cyan">beta</span> <span class="accent-magenta">testers</span> wanted ]</div>
-        <h2>베타테스터 모집</h2>
-        <p>마이너스베타스튜디오의 새 앱을 출시 전에 가장 먼저 써보실 분을 찾아요. 아래 ①그룹에 가입한 뒤 ②설치할 앱의 "테스터로 참여"를 누르면 Google Play에서 비공개 테스트 버전을 받을 수 있어요.</p>
-        <a class="beta-cta" href="https://groups.google.com/g/minusbetastudio" target="_blank" rel="noopener">① 그룹 가입하고 베타테스터 되기 →</a>
-        <div class="beta-optins">
-          <div class="beta-optins-label">② 가입 후, 설치할 앱의 테스터로 참여하기</div>
-          <div class="beta-optin-row">
-            <a class="optin-btn" href="https://play.google.com/apps/testing/com.daejongkang.wordyo" target="_blank" rel="noopener">단어요 →</a>
-            <a class="optin-btn" href="https://play.google.com/apps/testing/com.daejongkang.dutchpay" target="_blank" rel="noopener">더치페이 →</a>
-          </div>
-        </div>
       </section>
 
       <section class="block" id="about">
@@ -159,17 +152,20 @@ const apps = [
       * { box-sizing: border-box; margin: 0; padding: 0; }
       html { scroll-behavior: smooth; }
       html, body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.65; }
-      [id] { scroll-margin-top: 76px; }
+      [id] { scroll-margin-top: 104px; }
 
       .site-header { position: sticky; top: 0; z-index: 10; background: rgba(10,10,10,0.82); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
       .nav { max-width: 760px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
       .nav .brand { font-family: var(--mono); font-size: 14px; font-weight: 600; color: var(--fg); white-space: nowrap; }
       .nav .brand:hover { color: var(--cyan); }
-      .nav-links { display: flex; gap: 20px; }
+      .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
       .nav-links a { font-family: var(--mono); font-size: 13px; color: var(--fg-dim); }
       .nav-links a:hover { color: var(--cyan); }
       .nav-links a.nav-ext { color: var(--cyan); }
       .nav-links a.nav-ext:hover { color: var(--magenta); }
+      .nav-sub { max-width: 760px; margin: 0 auto; padding: 0 24px 12px; display: flex; gap: 16px; flex-wrap: wrap; }
+      .nav-sub a { font-family: var(--mono); font-size: 12px; color: var(--fg-dim); opacity: 0.7; }
+      .nav-sub a:hover { color: var(--magenta); opacity: 1; }
       main { max-width: 760px; margin: 0 auto; padding: 96px 24px 64px; }
       a { color: var(--cyan); text-decoration: none; }
       a:hover { color: var(--magenta); }
@@ -181,18 +177,6 @@ const apps = [
       .hero-logo { display: block; border-radius: 20px; margin-bottom: 24px; }
       .hero h1 { font-size: 42px; margin-bottom: 16px; }
       .hero .slogan { font-size: 18px; color: var(--fg-dim); }
-
-      .beta-banner { margin-bottom: 64px; background: linear-gradient(135deg, rgba(0,229,255,0.07), rgba(255,0,170,0.07)); border: 1px solid var(--border); border-radius: 12px; padding: 32px; }
-      .beta-banner .beta-tag { font-family: var(--mono); font-size: 13px; color: var(--fg-dim); margin-bottom: 14px; }
-      .beta-banner h2 { font-size: 24px; margin-bottom: 12px; color: var(--fg); }
-      .beta-banner p { color: var(--fg-dim); font-size: 15px; margin-bottom: 22px; }
-      .beta-cta { display: inline-block; font-family: var(--mono); font-size: 14px; font-weight: 600; padding: 12px 20px; border: 1px solid var(--cyan); border-radius: 8px; color: var(--cyan); }
-      .beta-cta:hover { background: var(--cyan); color: var(--bg); }
-      .beta-optins { margin-top: 24px; padding-top: 22px; border-top: 1px solid var(--border); }
-      .beta-optins-label { font-family: var(--mono); font-size: 13px; color: var(--fg-dim); margin-bottom: 14px; }
-      .beta-optin-row { display: flex; flex-wrap: wrap; gap: 10px; }
-      .optin-btn { display: inline-block; font-family: var(--mono); font-size: 13px; font-weight: 600; padding: 10px 16px; border: 1px solid var(--magenta); border-radius: 8px; color: var(--magenta); }
-      .optin-btn:hover { background: var(--magenta); color: var(--bg); }
 
       .block { margin-bottom: 64px; }
       .block h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-dim); margin-bottom: 24px; font-family: var(--mono); font-weight: 600; }
