@@ -17,7 +17,7 @@
     { key: 'worklog',    label: 'worklog',    href: 'https://work.kangdaejong.com/worklog' },
     { key: 'newsletter', label: 'newsletter', href: 'https://work.kangdaejong.com/newsletter' },
     { key: 'insights',   label: 'insights',   href: 'https://work.kangdaejong.com/insights' },
-    { key: 'products',   label: 'products',   href: 'https://work.kangdaejong.com/products' },
+    { key: 'products',   label: 'products',   href: 'https://work.kangdaejong.com/products/' },
     { key: 'system',     label: 'system',     href: 'https://work.kangdaejong.com/system' },
     { key: 'lab',        label: 'lab',        href: 'https://work.kangdaejong.com/lab' },
   ];
