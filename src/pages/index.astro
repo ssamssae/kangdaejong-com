@@ -12,7 +12,8 @@ const company = {
   newsletter: "https://daejongkang.substack.com",
 };
 
-const slogan = "덜어내서, 더 가볍게";
+const slogan = "Tools Worth Keeping.";
+const sloganKo = "덜어내서, 오래 남을 도구를 만듭니다.";
 const intro = "마이너스베타스튜디오는 강대종이 혼자 꾸리는 작은 스튜디오예요. 누군가의 하루가 조금 더 가벼워지면 좋겠다는 마음으로 메모요·한줄일기 같은 앱과 작은 웹 도구를 만들고 운영합니다. 필요할 때 AI 자동화와 여러 작업 노드를 활용해 반복 작업을 줄이고, 출시한 제품을 꾸준히 다듬어갑니다.";
 
 const services = [
@@ -69,7 +70,7 @@ const bridges = [
       <section class="hero" id="top">
         <img class="hero-logo" src="/minusbeta-badge.svg" alt="마이너스베타스튜디오 로고" width="88" height="88" />
         <h1>{company.name}</h1>
-        <p class="slogan">{slogan}</p>
+        <p class="slogan-ko">{sloganKo}</p>
       </section>
 
       <section class="block" id="open-tools">
@@ -93,6 +94,12 @@ const bridges = [
             </article>
           ))}
         </div>
+      </section>
+
+      <section class="brand-statement" aria-label="브랜드 슬로건">
+        <span class="statement-kicker">Minus Beta Studio</span>
+        <strong>{slogan}</strong>
+        <p>사람들이 지우지 않고 계속 두는 작은 앱과 도구를 만듭니다.</p>
       </section>
 
       <section class="block" id="about">
@@ -176,10 +183,34 @@ const bridges = [
       .accent-cyan { color: var(--cyan); }
       .accent-magenta { color: var(--magenta); }
 
-      .hero { margin-bottom: 96px; }
+      .hero { margin-bottom: 40px; }
       .hero-logo { display: block; border-radius: 20px; margin-bottom: 24px; }
-      .hero h1 { font-size: 42px; margin-bottom: 16px; }
-      .hero .slogan { font-size: 18px; color: var(--fg-dim); }
+      .hero h1 { font-size: 42px; margin-bottom: 20px; }
+      .hero .slogan-ko { font-size: 18px; color: var(--fg-dim); }
+
+      .brand-statement {
+        margin-bottom: 80px;
+        padding: 28px 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+      }
+      .statement-kicker {
+        display: block;
+        margin-bottom: 10px;
+        font-family: var(--mono);
+        font-size: 12px;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--cyan);
+      }
+      .brand-statement strong {
+        display: block;
+        font-family: var(--mono);
+        font-size: clamp(24px, 5vw, 42px);
+        line-height: 1.1;
+        margin-bottom: 12px;
+      }
+      .brand-statement p { color: var(--fg-dim); font-size: 16px; }
 
       .block { margin-bottom: 64px; }
       .block h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-dim); margin-bottom: 24px; font-family: var(--mono); font-weight: 600; }
@@ -233,6 +264,8 @@ const bridges = [
         main { padding: 32px 20px 48px; }
         .hero-logo { width: 64px; height: 64px; }
         .hero h1 { font-size: 32px; }
+        .hero .slogan-ko { font-size: 16px; }
+        .brand-statement { margin-bottom: 56px; padding: 22px 0; }
         .bridge-intro { grid-template-columns: 1fr; gap: 4px; }
         .bridge-grid { grid-template-columns: 1fr; }
         .bridge-card-top { display: block; }
