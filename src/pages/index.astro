@@ -30,6 +30,25 @@ const apps = [
     { label: "Android", url: "https://play.google.com/store/apps/details?id=com.daejongkang.hanjul" },
   ] },
 ];
+
+const bridges = [
+  {
+    name: "Codex Telegram Bridge",
+    status: "PUBLIC · v0.3.23",
+    desc: "Codex CLI REPL을 텔레그램에서 제어하는 공개 브릿지. 텍스트·이미지·영상·음성·파일 입력과 진행보고, reasoning mirror, typing recovery를 지원합니다.",
+    repo: "https://github.com/ssamssae/codex-telegram-bridge",
+    release: "https://github.com/ssamssae/codex-telegram-bridge/releases/tag/v0.3.23",
+    accent: "cyan",
+  },
+  {
+    name: "Claude Telegram Bridge",
+    status: "PUBLIC · v0.1.0",
+    desc: "Claude Code live tmux 세션을 텔레그램에 연결하는 공개 브릿지. claude -p 없이 세션 주입, transcript 추출, 미디어 local_path 전달로 동작합니다.",
+    repo: "https://github.com/ssamssae/claude-telegram-bridge",
+    release: "https://github.com/ssamssae/claude-telegram-bridge/releases/tag/v0.1.0",
+    accent: "magenta",
+  },
+];
 ---
 
 <!doctype html>
@@ -56,6 +75,29 @@ const apps = [
       <section class="block" id="about">
         <h2>회사 소개</h2>
         <p>{intro}</p>
+      </section>
+
+      <section class="block" id="open-tools">
+        <h2>공개 자동화 도구</h2>
+        <div class="bridge-intro">
+          <strong>Telegram Bridges</strong>
+          <span>마이너스베타스튜디오 5노드 자동화 운영에서 실제로 쓰는 Codex·Claude 전용 브릿지.</span>
+        </div>
+        <div class="bridge-grid">
+          {bridges.map((b) => (
+            <article class={`bridge-card bridge-card--${b.accent}`}>
+              <div class="bridge-card-top">
+                <h3>{b.name}</h3>
+                <span>{b.status}</span>
+              </div>
+              <p>{b.desc}</p>
+              <div class="bridge-links">
+                <a href={b.repo} target="_blank" rel="noopener">GitHub →</a>
+                <a href={b.release} target="_blank" rel="noopener">Release →</a>
+              </div>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section class="block" id="business">
@@ -142,6 +184,23 @@ const apps = [
       .block { margin-bottom: 64px; }
       .block h2 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--fg-dim); margin-bottom: 24px; font-family: var(--mono); font-weight: 600; }
 
+      .bridge-intro { display: grid; grid-template-columns: 200px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+      .bridge-intro strong { color: var(--cyan); font-size: 16px; }
+      .bridge-intro span { color: var(--fg-dim); }
+      .bridge-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .bridge-card { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 8px; padding: 24px; transition: border-color 0.15s; }
+      .bridge-card--cyan:hover { border-color: var(--cyan); }
+      .bridge-card--magenta:hover { border-color: var(--magenta); }
+      .bridge-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 12px; }
+      .bridge-card h3 { font-size: 18px; line-height: 1.35; color: var(--cyan); }
+      .bridge-card--magenta h3 { color: var(--magenta); }
+      .bridge-card-top span { flex: 0 0 auto; font-family: var(--mono); font-size: 10px; color: var(--fg-dim); line-height: 1.35; padding-top: 3px; }
+      .bridge-card p { color: var(--fg-dim); font-size: 14px; margin-bottom: 16px; }
+      .bridge-links { display: flex; flex-wrap: wrap; gap: 12px; font-family: var(--mono); font-size: 12px; }
+      .bridge-links a { color: var(--fg-dim); }
+      .bridge-card--cyan .bridge-links a:hover { color: var(--cyan); }
+      .bridge-card--magenta .bridge-links a:hover { color: var(--magenta); }
+
       .services { list-style: none; display: grid; gap: 16px; }
       .services li { display: grid; grid-template-columns: 200px 1fr; gap: 16px; padding: 16px 0; border-top: 1px solid var(--border); }
       .services li:last-child { border-bottom: 1px solid var(--border); }
@@ -174,6 +233,10 @@ const apps = [
         main { padding: 32px 20px 48px; }
         .hero-logo { width: 64px; height: 64px; }
         .hero h1 { font-size: 32px; }
+        .bridge-intro { grid-template-columns: 1fr; gap: 4px; }
+        .bridge-grid { grid-template-columns: 1fr; }
+        .bridge-card-top { display: block; }
+        .bridge-card-top span { display: block; margin-top: 5px; }
         .services li { grid-template-columns: 1fr; gap: 4px; }
         .apps { grid-template-columns: 1fr; }
         .link-card-row { grid-template-columns: 1fr; }
