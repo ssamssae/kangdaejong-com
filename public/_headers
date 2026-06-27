@@ -1,4 +1,4 @@
 # Shared canonical header/components — must propagate to all consumer sites fast.
 # Short cache (was default 4h, which made header edits invisible for hours). (T-260627-20)
 /mb-components.js
-  Cache-Control: public, max-age=60, must-revalidate
+  Cache-Control: public, max-age=0, must-revalidate
