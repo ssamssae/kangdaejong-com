@@ -5,7 +5,7 @@
  *
  * 사용법:
  *   <script src="https://kangdaejong.com/mb-components.js" defer></script>
- *   <mb-header active="home"></mb-header>   // active = home|founder|worklog|newsletter|insights|products|system|lab
+ *   <mb-header active="home"></mb-header>   // active = home|founder|workshop|worklog|newsletter|insights|products|system|lab
  *   <mb-footer></mb-footer>
  */
 (function () {
@@ -14,7 +14,8 @@
   const NAV = [
     { key: 'home',       label: '회사소개',   href: 'https://kangdaejong.com/' },
     { key: 'founder',    label: '대표소개',   href: 'https://founder.kangdaejong.com/' },
-    { key: 'worklog',    label: 'worklog',    href: 'https://work.kangdaejong.com/worklog' },
+    { key: 'workshop',   label: '작업장',     href: 'https://work.kangdaejong.com/' },
+    { key: 'worklog',    label: '작업일지',   href: 'https://work.kangdaejong.com/worklog' },
     { key: 'newsletter', label: 'newsletter', href: 'https://work.kangdaejong.com/newsletter' },
     { key: 'insights',   label: 'insights',   href: 'https://work.kangdaejong.com/insights' },
     { key: 'products',   label: 'products',   href: 'https://work.kangdaejong.com/products/' },
@@ -75,7 +76,7 @@
         <footer>
           <div class="links">
             <a href="https://github.com/ssamssae" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://work.kangdaejong.com/">작업일지</a>
+            <a href="https://work.kangdaejong.com/">작업장</a>
             <a href="mailto:minusbetastudio@gmail.com">minusbetastudio@gmail.com</a>
           </div>
           <div class="biz">
