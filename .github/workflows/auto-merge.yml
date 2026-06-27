@@ -92,13 +92,15 @@ jobs:
             fi
           fi
 
-          # ⚠️ 제거 금지 (DO NOT REMOVE) — design/style visual review gate.
+          # ⚠️ 제거 금지 (DO NOT REMOVE) — design/style + public content visual review gate.
           # Inherited from daejong-page T-260610-14. Web design/style changes
-          # require manual visual review before merge.
+          # require manual visual review before merge. T-260627-29: also hold
+          # public content data (src/data/, src/content/) so node edits to public
+          # pages (e.g. fleet-policy.json -> /policy) don't auto-publish unreviewed.
           if [ "$is_web_repo" = true ]; then
-            if grep -qiE '\.(css|scss|svg|astro)$|^public/.*\.html$' changed-files.txt; then
+            if grep -qiE '\.(css|scss|svg|astro)$|^public/.*\.html$|^src/data/|^src/content/' changed-files.txt; then
               sensitive=true
-              reasons+=("web design/style path")
+              reasons+=("web design/content path")
             fi
           fi
 
