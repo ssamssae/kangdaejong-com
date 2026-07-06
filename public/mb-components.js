@@ -70,7 +70,7 @@
         </style>
         <header class="hdr">
           <div class="inner">
-            <a class="brand" href="${BRAND_HREF}" aria-label="강대종 작업장 홈"><img src="${BADGE}" alt="" width="28" height="28"/><span>강대종 작업장</span></a>
+            <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="28" height="28"/><span>마이너스베타스튜디오</span></a>
             <div class="links">${primary}</div>
             <a class="cta" href="mailto:minusbetastudio@gmail.com">문의</a>
           </div>
