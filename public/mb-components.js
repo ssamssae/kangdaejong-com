@@ -47,7 +47,9 @@
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
         <style>
-          :host { ${PALETTE} display:block; }
+          /* 타이포 자족화: 호스트 페이지(회사소개/대표소개)의 line-height·letter-spacing
+             상속 차이로 헤더가 사이트마다 다르게 보이던 것 차단 — 두 사이트 동일 렌더. */
+          :host { ${PALETTE} display:block; line-height:1.65; letter-spacing:normal; font-style:normal; }
           .hdr { position:sticky; top:0; z-index:50; border-bottom:1px solid var(--mb-border); background:color-mix(in srgb, var(--mb-bg) 94%, transparent); backdrop-filter:blur(12px); font-family:var(--mb-sans); }
           .inner { width:min(calc(100% - 48px), 1120px); margin:0 auto; min-height:66px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
           .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:700; text-decoration:none; white-space:nowrap; }
