@@ -20,7 +20,7 @@ const checks = [
   },
   {
     label: "shared header products link uses canonical /products/",
-    ok: /key:\s*'products',\s*label:\s*'products',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/products\/'/.test(header),
+    ok: /key:\s*'products',\s*label:\s*'제품',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/products\/'/.test(header),
   },
   {
     label: "shared footer links to 작업장 root",

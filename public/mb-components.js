@@ -64,8 +64,11 @@
           .sub { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:0 0 12px; display:flex; gap:18px; flex-wrap:wrap; font-size:12px; }
           @media (max-width:760px) {
             .inner { width:min(calc(100% - 32px), 1120px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
+            .brand { grid-column:1; grid-row:1; }
             .brand span { display:none; }
-            .links { grid-column:1 / -1; justify-content:flex-start; }
+            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; align-self:start; gap:8px 16px; flex-wrap:wrap; overflow:visible; white-space:normal; font-size:13px; line-height:1.4; }
+            .cta { grid-column:2; grid-row:1; justify-self:end; align-self:center; width:auto; min-height:34px; padding:0 12px; font-size:13px; }
+            .sub { width:min(calc(100% - 32px), 1120px); padding-bottom:10px; gap:8px 18px; font-size:13px; }
           }
         </style>
         <header class="hdr">
