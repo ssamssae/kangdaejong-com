@@ -62,6 +62,9 @@
           .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:8px; background:var(--mb-accent); color:#ffffff; font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
           .cta:hover { background:var(--mb-accent-dim); color:#ffffff; }
           .sub { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:0 0 12px; display:flex; gap:18px; flex-wrap:wrap; font-size:12px; }
+          :host([active="founder"]) .links { font-size:15px; }
+          :host([active="founder"]) .cta { font-size:15px; }
+          :host([active="founder"]) .sub { font-size:13px; }
           @media (max-width:760px) {
             .inner { width:min(calc(100% - 32px), 1120px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
             .brand span { display:none; }

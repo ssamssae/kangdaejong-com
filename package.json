@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "verify:founder-header": "node scripts/verify-founder-header-size.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
