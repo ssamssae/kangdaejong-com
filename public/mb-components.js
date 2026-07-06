@@ -34,7 +34,7 @@
     --mb-bg:#ffffff; --mb-elev:#f7f7f7; --mb-fg:#111111; --mb-dim:#4f4f4f; --mb-mute:#777777;
     --mb-border:#dedede; --mb-soft:#eeeeee; --mb-accent:#2563eb; --mb-accent-dim:#1748b8;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
-    --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;
+    --mb-sans:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;
 
   class MbHeader extends HTMLElement {
