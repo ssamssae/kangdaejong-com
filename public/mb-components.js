@@ -11,16 +11,22 @@
 (function () {
   const BADGE = 'https://kangdaejong.com/minusbeta-badge.svg';
 
-  const NAV = [
-    { key: 'home',       label: '회사소개',   href: 'https://kangdaejong.com/' },
-    { key: 'founder',    label: '대표소개',   href: 'https://founder.kangdaejong.com/' },
-    { key: 'workshop',   label: '작업장',     href: 'https://work.kangdaejong.com/' },
-    { key: 'worklog',    label: '작업일지',   href: 'https://work.kangdaejong.com/worklog' },
-    { key: 'newsletter', label: 'newsletter', href: 'https://work.kangdaejong.com/newsletter' },
-    { key: 'insights',   label: 'insights',   href: 'https://work.kangdaejong.com/insights' },
-    { key: 'products',   label: 'products',   href: 'https://work.kangdaejong.com/products/' },
-    { key: 'system',     label: 'system',     href: 'https://work.kangdaejong.com/system' },
-    { key: 'lab',        label: 'lab',        href: 'https://work.kangdaejong.com/lab' },
+  // work.kangdaejong.com(작업장)의 Nav 헤더와 동일 구조로 통일 (2026-07-06):
+  //   1행 = 브랜드 + 주 메뉴(작업장/제품/작업일지/뉴스레터/인사이트/시스템) + 문의 CTA
+  //   2행 = 보조 메뉴(회사소개/대표소개/lab)
+  const BRAND_HREF = 'https://work.kangdaejong.com/';
+  const NAV_PRIMARY = [
+    { key: 'workshop',   label: '작업장',   href: 'https://work.kangdaejong.com/' },
+    { key: 'products',   label: '제품',     href: 'https://work.kangdaejong.com/products/' },
+    { key: 'worklog',    label: '작업일지', href: 'https://work.kangdaejong.com/worklog' },
+    { key: 'newsletter', label: '뉴스레터', href: 'https://work.kangdaejong.com/newsletter' },
+    { key: 'insights',   label: '인사이트', href: 'https://work.kangdaejong.com/insights' },
+    { key: 'system',     label: '시스템',   href: 'https://work.kangdaejong.com/system' },
+  ];
+  const NAV_SECONDARY = [
+    { key: 'home',    label: '회사소개', href: 'https://kangdaejong.com/' },
+    { key: 'founder', label: '대표소개', href: 'https://founder.kangdaejong.com/' },
+    { key: 'lab',     label: 'lab',      href: 'https://work.kangdaejong.com/lab' },
   ];
 
   // 공통 팔레트 (shadow DOM 안에서 자족 — 각 사이트 CSS 변수와 무관하게 동일하게 렌더)
@@ -34,28 +40,39 @@
   class MbHeader extends HTMLElement {
     connectedCallback() {
       const active = this.getAttribute('active') || '';
-      const links = NAV.map((n) =>
-        `<a href="${n.href}"${n.key === active ? ' class="active" aria-current="page"' : ''}>${n.label}</a>`
-      ).join('');
+      const mk = (n) =>
+        `<a href="${n.href}"${n.key === active ? ' class="active" aria-current="page"' : ''}>${n.label}</a>`;
+      const primary = NAV_PRIMARY.map(mk).join('');
+      const secondary = NAV_SECONDARY.map(mk).join('');
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
         <style>
           :host { ${PALETTE} display:block; }
-          .hdr { border-bottom:1px solid var(--mb-border); background:color-mix(in srgb, var(--mb-bg) 94%, transparent); backdrop-filter:blur(12px); position:sticky; top:0; z-index:50; }
-          .inner { max-width:1120px; margin:0 auto; padding:15px 24px; display:flex; align-items:center; gap:10px 22px; flex-wrap:wrap; }
-          .brand { display:inline-flex; align-items:center; flex:0 0 auto; }
-          .brand img { width:30px; height:30px; display:block; }
-          nav { display:flex; gap:18px; flex-wrap:wrap; font-family:var(--mb-mono); font-size:13px; }
-          nav a { color:var(--mb-dim); text-decoration:none; transition:color .15s; }
-          nav a:hover { color:var(--mb-fg); }
-          nav a.active { color:var(--mb-fg); font-weight:700; }
-          @media (max-width:640px) { .inner { padding:12px 20px; gap:10px 14px; } nav { gap:13px; } }
+          .hdr { position:sticky; top:0; z-index:50; border-bottom:1px solid var(--mb-border); background:color-mix(in srgb, var(--mb-bg) 94%, transparent); backdrop-filter:blur(12px); font-family:var(--mb-sans); }
+          .inner { width:min(calc(100% - 48px), 1120px); margin:0 auto; min-height:66px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
+          .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:700; text-decoration:none; white-space:nowrap; }
+          .brand img { width:28px; height:28px; display:block; }
+          .links { display:flex; align-items:center; justify-content:center; gap:22px; min-width:0; overflow-x:auto; scrollbar-width:none; font-size:14px; white-space:nowrap; }
+          .links::-webkit-scrollbar { display:none; }
+          .links a, .sub a { color:var(--mb-dim); text-decoration:none; transition:color .15s; }
+          .links a:hover, .sub a:hover, .links a.active, .sub a.active { color:var(--mb-fg); }
+          .links a.active, .sub a.active { font-weight:700; }
+          .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:8px; background:var(--mb-accent); color:#ffffff; font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
+          .cta:hover { background:var(--mb-accent-dim); color:#ffffff; }
+          .sub { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:0 0 12px; display:flex; gap:18px; flex-wrap:wrap; font-size:12px; }
+          @media (max-width:760px) {
+            .inner { width:min(calc(100% - 32px), 1120px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
+            .brand span { display:none; }
+            .links { grid-column:1 / -1; justify-content:flex-start; }
+          }
         </style>
         <header class="hdr">
           <div class="inner">
-            <a class="brand" href="https://kangdaejong.com/" aria-label="마이너스베타스튜디오"><img src="${BADGE}" alt="마이너스베타스튜디오" width="30" height="30"/></a>
-            <nav>${links}</nav>
+            <a class="brand" href="${BRAND_HREF}" aria-label="강대종 작업장 홈"><img src="${BADGE}" alt="" width="28" height="28"/><span>강대종 작업장</span></a>
+            <div class="links">${primary}</div>
+            <a class="cta" href="mailto:minusbetastudio@gmail.com">문의</a>
           </div>
+          <div class="sub">${secondary}</div>
         </header>`;
     }
   }
