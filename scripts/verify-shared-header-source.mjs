@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
 const header = read("public/mb-components.js");
+const footerComponent = header.split("class MbFooter")[1] || "";
 const index = read("src/pages/index.astro");
 
 const checks = [
@@ -23,10 +24,19 @@ const checks = [
     ok: /key:\s*'products',\s*label:\s*'제품',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/products\/'/.test(header),
   },
   {
-    label: "shared footer links to 작업장 root",
+    label: "shared footer matches work footer structure",
     ok:
-      /<a href="https:\/\/work\.kangdaejong\.com\/">작업장<\/a>/.test(header) &&
-      !/<a href="https:\/\/work\.kangdaejong\.com\/">작업일지<\/a>/.test(header),
+      /<div class="foot-head">\s*<strong>마이너스베타스튜디오<\/strong>\s*<a href="mailto:minusbetastudio@gmail\.com">minusbetastudio@gmail\.com<\/a>\s*<\/div>/.test(header) &&
+      /footer \{ width:min\(calc\(100% - 48px\), 1120px\); margin:0 auto; padding:34px 0 56px; border-top:1px solid var\(--mb-border\);/.test(header) &&
+      /\.foot-head \{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; \}/.test(header) &&
+      /\.biz \{ display:flex; flex-wrap:wrap; gap:6px 14px;/.test(header),
+  },
+  {
+    label: "shared footer removes legacy link-row footer",
+    ok:
+      !/<div class="links">/.test(footerComponent) &&
+      !/<a href="https:\/\/work\.kangdaejong\.com\/">작업장<\/a>/.test(footerComponent) &&
+      !/<a href="https:\/\/github\.com\/ssamssae" target="_blank" rel="noopener">GitHub<\/a>/.test(footerComponent),
   },
   {
     label: "company page points work root link at 작업장",
