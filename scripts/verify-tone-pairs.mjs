@@ -5,28 +5,28 @@ const header = readFileSync(new URL("../public/mb-components.js", import.meta.ur
 
 const checks = [
   {
-    label: "Memoyo app card keeps first tone mapping",
-    pattern: /{\s*name:\s*"메모요",\s*desc:[^}]*?accent:\s*"cyan",\s*platforms:/,
+    label: "Product list includes Memoyo live app",
+    pattern: /name:\s*"메모요",[\s\S]*?status:\s*"iOS · Android LIVE"/,
     source,
   },
   {
-    label: "Hanjul app card keeps second tone mapping",
-    pattern: /{\s*name:\s*"한줄일기",\s*desc:[^}]*?accent:\s*"magenta",\s*platforms:/,
+    label: "Product list includes Hanjul live app",
+    pattern: /name:\s*"한줄일기",[\s\S]*?status:\s*"iOS · Android LIVE"/,
     source,
   },
   {
-    label: "Worklog link card keeps first tone class",
-    pattern: /class="link-card tone-cyan"[\s\S]*?<h3 class="accent-cyan">작업장<\/h3>/,
+    label: "Company page keeps monochrome repeated cards",
+    pattern: /\.product-card,[\s\S]*?\.tool-card \{[\s\S]*?border: 1px solid var\(--border\);[\s\S]*?background: var\(--bg\);/,
     source,
   },
   {
-    label: "Newsletter link card keeps second tone class",
-    pattern: /class="link-card tone-magenta"[\s\S]*?<h3 class="accent-magenta">뉴스레터<\/h3>/,
+    label: "Connect list replaces old tone link cards",
+    pattern: /class="connect-list"[\s\S]*links\.map/,
     source,
   },
   {
-    label: "Legacy tone variables are mapped to monochrome values",
-    pattern: /--cyan:\s*#111111;[\s\S]*--magenta:\s*#555555;/,
+    label: "Legacy tone variables are removed",
+    pattern: /^(?![\s\S]*(--cyan|--magenta|tone-cyan|tone-magenta))/,
     source,
   },
   {
