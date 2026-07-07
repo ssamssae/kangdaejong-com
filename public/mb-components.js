@@ -88,17 +88,23 @@
       root.innerHTML = `
         <style>
           :host { ${PALETTE} display:block; }
-          footer { border-top:1px solid var(--mb-border); max-width:1120px; margin:72px auto 0; padding:32px 24px 64px; font-family:var(--mb-mono); font-size:12px; color:var(--mb-dim); }
-          .links { display:flex; gap:18px; flex-wrap:wrap; margin-bottom:18px; }
-          .links a { color:var(--mb-dim); text-decoration:none; transition:color .15s; }
-          .links a:hover { color:var(--mb-fg); }
-          .biz { display:flex; flex-direction:column; gap:4px; color:var(--mb-mute); }
+          footer { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:34px 0 56px; border-top:1px solid var(--mb-border); font-family:var(--mb-sans); color:var(--mb-mute); font-size:12px; }
+          .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; }
+          .foot-head strong { color:var(--mb-fg); font-size:14px; }
+          .foot-head a { color:var(--mb-fg); text-decoration:none; }
+          .foot-head a:hover { text-decoration:underline; }
+          .biz { display:flex; flex-wrap:wrap; gap:6px 14px; color:var(--mb-mute); }
           .copy { margin-top:16px; color:var(--mb-mute); }
+          @media (max-width:640px) {
+            footer { width:min(calc(100% - 32px), 1120px); padding-bottom:42px; }
+            .foot-head { display:block; }
+            .foot-head a { display:inline-block; margin-top:6px; }
+            .biz { flex-direction:column; gap:4px; }
+          }
         </style>
         <footer>
-          <div class="links">
-            <a href="https://github.com/ssamssae" target="_blank" rel="noopener">GitHub</a>
-            <a href="https://work.kangdaejong.com/">작업장</a>
+          <div class="foot-head">
+            <strong>마이너스베타스튜디오</strong>
             <a href="mailto:minusbetastudio@gmail.com">minusbetastudio@gmail.com</a>
           </div>
           <div class="biz">
