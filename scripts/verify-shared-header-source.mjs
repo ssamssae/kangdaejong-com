@@ -29,10 +29,9 @@ const checks = [
       !/<a href="https:\/\/work\.kangdaejong\.com\/">작업일지<\/a>/.test(header),
   },
   {
-    label: "company page points work root card at 작업장",
+    label: "company page points work root link at 작업장",
     ok:
-      /<h3 class="accent-cyan">작업장<\/h3>/.test(index) &&
-      /제품·작업일지·뉴스레터·인사이트를 모아둔 작업 허브/.test(index),
+      /label:\s*"작업장",\s*desc:\s*"제품, 작업일지, 뉴스레터, 인사이트를 모아둔 공개 허브\.",\s*href:\s*company\.work/.test(index),
   },
   {
     label: "company page uses canonical products link",

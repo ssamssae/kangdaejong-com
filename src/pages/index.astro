@@ -17,10 +17,11 @@ const slogan = "Tools Worth Keeping.";
 const sloganKo = "덜어내서, 오래 남을 도구를 만듭니다.";
 const intro = "마이너스베타스튜디오는 강대종이 운영하는 1인 스튜디오입니다. 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 운영합니다. 반복 작업은 AI 자동화와 작업 노드로 줄이고, 사람의 판단이 필요한 지점은 기록과 검증으로 남깁니다.";
 
-const heroStats = [
-  { label: "대표", value: company.representative },
-  { label: "형태", value: "1인 스튜디오" },
-  { label: "분야", value: "앱 · 웹 · 자동화" },
+const proofPoints = [
+  { label: "LIVE APPS", value: "4", desc: "직접 출시·운영 중인 앱" },
+  { label: "OPEN TOOLS", value: "2", desc: "공개 자동화 브릿지" },
+  { label: "STUDIO", value: "1인", desc: "기획부터 운영까지 직접" },
+  { label: "FIELD", value: "앱·웹·자동화", desc: "작은 도구 중심" },
 ];
 
 const focusAreas = [
@@ -114,30 +115,34 @@ const links = [
     <mb-header active="home"></mb-header>
     <main>
       <section class="hero" id="top" aria-labelledby="page-title">
-        <div class="hero-copy">
-          <p class="eyebrow">MINUS BETA STUDIO</p>
-          <h1 id="page-title">{company.name}</h1>
-          <p class="lead">{sloganKo} 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 오래 운영합니다.</p>
-          <div class="hero-actions" aria-label="주요 링크">
-            <a class="button primary" href={`mailto:${company.email}`}>문의하기</a>
-            <a class="button" href={company.work}>작업장 보기</a>
+        <div class="hero-inner">
+          <img class="hero-mark" src="/minusbeta-badge.svg" alt="" width="640" height="640" aria-hidden="true" />
+          <div class="hero-copy">
+            <p class="eyebrow">MINUS BETA STUDIO</p>
+            <h1 id="page-title">{company.name}</h1>
+            <p class="lead">{sloganKo} 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 오래 운영합니다.</p>
+            <div class="hero-actions" aria-label="주요 링크">
+              <a class="button primary" href={company.products}>제품 보기</a>
+              <a class="button" href={company.work}>작업장 보기</a>
+              <a class="button" href={`mailto:${company.email}`}>문의하기</a>
+            </div>
           </div>
         </div>
-        <aside class="hero-panel" aria-label="회사 요약">
-          <img src="/minusbeta-badge.svg" alt="마이너스베타스튜디오 로고" width="88" height="88" />
-          <strong>{slogan}</strong>
-          <p>더하기보다 빼기. 꼭 필요한 것만 남긴 도구를 만듭니다.</p>
-          <dl>
-            {heroStats.map((item) => (
-              <div>
-                <dt>{item.label}</dt>
-                <dd>{item.value}</dd>
-              </div>
-            ))}
-          </dl>
-        </aside>
       </section>
 
+      <section class="proof-strip" aria-label="스튜디오 요약">
+        <div class="proof-inner">
+          {proofPoints.map((item) => (
+            <div>
+              <span>{item.label}</span>
+              <strong>{item.value}</strong>
+              <p>{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <div class="page-shell">
       <section class="statement-section" aria-labelledby="statement-title">
         <div class="section-head">
           <p class="eyebrow">IDENTITY</p>
@@ -273,6 +278,7 @@ const links = [
           </div>
         </dl>
       </section>
+      </div>
     </main>
     <mb-footer></mb-footer>
 
@@ -316,11 +322,9 @@ const links = [
         scroll-margin-top: 96px;
       }
 
-      main {
-        width: min(calc(100% - 48px), 1120px);
-        margin: 0 auto;
-        padding: 52px 0 72px;
-      }
+      main { width: 100%; margin: 0; padding: 0 0 72px; }
+
+      .page-shell { width: min(calc(100% - 48px), 1120px); margin: 0 auto; }
 
       a {
         color: var(--fg);
@@ -344,18 +348,39 @@ const links = [
       }
 
       .hero {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(300px, 380px);
-        gap: 48px;
-        align-items: end;
-        min-height: 560px;
+        position: relative;
+        overflow: hidden;
+        min-height: min(540px, calc(100svh - 180px));
         border-bottom: 1px solid var(--border);
-        padding: 24px 0 52px;
+        background: var(--bg);
       }
 
-      .hero-copy,
-      .hero-panel {
+      .hero-inner {
+        position: relative;
+        width: min(calc(100% - 48px), 1120px);
+        min-height: inherit;
+        margin: 0 auto;
+        display: grid;
+        align-items: center;
+        padding: 64px 0 58px;
+      }
+
+      .hero-copy {
+        position: relative;
+        z-index: 1;
+        max-width: 760px;
         min-width: 0;
+      }
+
+      .hero-mark {
+        position: absolute;
+        right: clamp(-220px, -8vw, -72px);
+        bottom: clamp(-220px, -10vw, -84px);
+        width: min(58vw, 640px);
+        height: auto;
+        opacity: 0.055;
+        pointer-events: none;
+        user-select: none;
       }
 
       .eyebrow {
@@ -420,43 +445,12 @@ const links = [
         color: #ffffff;
       }
 
-      .hero-panel {
-        border-top: 1px solid var(--fg);
-        padding-top: 18px;
-      }
-
-      .hero-panel img {
-        display: block;
-        width: 88px;
-        height: 88px;
-        border-radius: 20px;
-        margin-bottom: 22px;
-      }
-
-      .hero-panel strong {
-        display: block;
-        color: var(--fg);
-        font-family: var(--mono);
-        font-size: 24px;
-        line-height: 1.15;
-        margin-bottom: 10px;
-      }
-
-      .hero-panel p {
-        color: var(--fg-dim);
-        font-size: 15px;
-        line-height: 1.7;
-        margin-bottom: 22px;
-      }
-
-      .hero-panel dl,
       .company-info {
         display: grid;
         grid-template-columns: 1fr;
         border-top: 1px solid var(--border);
       }
 
-      .hero-panel dl div,
       .company-info div {
         display: grid;
         grid-template-columns: 112px minmax(0, 1fr);
@@ -467,20 +461,62 @@ const links = [
         padding: 12px 0;
       }
 
-      .hero-panel dt,
       .company-info dt {
         color: var(--fg-mute);
         font-size: 13px;
         font-weight: 600;
       }
 
-      .hero-panel dd,
       .company-info dd {
         color: var(--fg);
         font-size: 15px;
         font-weight: 600;
         min-width: 0;
         overflow-wrap: anywhere;
+      }
+
+      .proof-strip {
+        border-bottom: 1px solid var(--border);
+        background: var(--bg);
+      }
+
+      .proof-inner {
+        width: min(calc(100% - 48px), 1120px);
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-left: 1px solid var(--border);
+      }
+
+      .proof-inner div {
+        min-width: 0;
+        min-height: 118px;
+        border-right: 1px solid var(--border);
+        padding: 18px;
+      }
+
+      .proof-inner span {
+        display: block;
+        color: var(--fg-mute);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 600;
+        margin-bottom: 18px;
+      }
+
+      .proof-inner strong {
+        display: block;
+        color: var(--fg);
+        font-size: 24px;
+        line-height: 1.2;
+        margin-bottom: 6px;
+        overflow-wrap: anywhere;
+      }
+
+      .proof-inner p {
+        color: var(--fg-dim);
+        font-size: 13px;
+        line-height: 1.55;
       }
 
       .statement-section,
@@ -702,9 +738,11 @@ const links = [
 
       @media (max-width: 900px) {
         .hero {
-          grid-template-columns: 1fr;
-          min-height: 0;
-          gap: 36px;
+          min-height: min(500px, calc(100svh - 170px));
+        }
+
+        .proof-inner {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .focus-list {
@@ -730,13 +768,18 @@ const links = [
       }
 
       @media (max-width: 640px) {
-        main {
+        .page-shell,
+        .hero-inner,
+        .proof-inner {
           width: min(calc(100% - 32px), 1120px);
-          padding: 36px 0 56px;
         }
 
-        .hero {
-          padding-bottom: 40px;
+        main {
+          padding-bottom: 56px;
+        }
+
+        .hero-inner {
+          padding: 44px 0 42px;
         }
 
         .hero h1 {
@@ -747,13 +790,24 @@ const links = [
           font-size: 17px;
         }
 
-        .hero-panel img {
-          width: 72px;
-          height: 72px;
-          border-radius: 16px;
+        .hero-mark {
+          right: -180px;
+          bottom: -150px;
+          width: 520px;
+          opacity: 0.05;
         }
 
-        .hero-panel dl div,
+        .proof-inner {
+          grid-template-columns: 1fr;
+          border-left: 0;
+        }
+
+        .proof-inner div {
+          min-height: 0;
+          border-right: 0;
+          padding: 16px 0;
+        }
+
         .company-info div {
           grid-template-columns: 1fr;
           gap: 3px;
