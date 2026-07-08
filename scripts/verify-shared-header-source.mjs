@@ -10,7 +10,7 @@ const index = read("src/pages/index.astro");
 const checks = [
   {
     label: "shared header documents workshop active key",
-    ok: /active = home\|founder\|workshop\|worklog\|newsletter\|insights\|products\|system\|lab/.test(header),
+    ok: /active = home\|founder\|workshop\|worklog\|newsletter\|insights\|products\|system\|cost\|lab/.test(header),
   },
   {
     label: "shared header has workshop root item",
@@ -23,6 +23,10 @@ const checks = [
   {
     label: "shared header products link uses canonical /products/",
     ok: /key:\s*'products',\s*label:\s*'제품',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/products\/'/.test(header),
+  },
+  {
+    label: "shared header includes cost disclosure in secondary nav",
+    ok: /key:\s*'cost',\s*label:\s*'비용공개',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/cost\/'/.test(header),
   },
   {
     label: "shared header matches work header desktop sizing",

@@ -5,7 +5,7 @@
  *
  * 사용법:
  *   <script src="https://kangdaejong.com/mb-components.js" defer></script>
- *   <mb-header active="home"></mb-header>   // active = home|founder|workshop|worklog|newsletter|insights|products|system|lab
+ *   <mb-header active="home"></mb-header>   // active = home|founder|workshop|worklog|newsletter|insights|products|system|cost|lab
  *   <mb-footer></mb-footer>
  */
 (function () {
@@ -13,7 +13,7 @@
 
   // work.kangdaejong.com(작업장)의 Nav 헤더와 동일 구조로 통일 (2026-07-06):
   //   1행 = 브랜드 + 주 메뉴(작업장/제품/작업일지/뉴스레터/인사이트/시스템) + 문의 CTA
-  //   2행 = 보조 메뉴(회사소개/대표소개/lab)
+  //   2행 = 보조 메뉴(회사소개/대표소개/비용공개/lab)
   const BRAND_HREF = 'https://work.kangdaejong.com/';
   const NAV_PRIMARY = [
     { key: 'workshop',   label: '작업장',   href: 'https://work.kangdaejong.com/' },
@@ -26,6 +26,7 @@
   const NAV_SECONDARY = [
     { key: 'home',    label: '회사소개', href: 'https://kangdaejong.com/' },
     { key: 'founder', label: '대표소개', href: 'https://founder.kangdaejong.com/' },
+    { key: 'cost',    label: '비용공개', href: 'https://work.kangdaejong.com/cost/' },
     { key: 'lab',     label: 'lab',      href: 'https://work.kangdaejong.com/lab' },
   ];
 
