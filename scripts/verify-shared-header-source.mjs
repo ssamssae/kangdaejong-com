@@ -3,6 +3,7 @@ import { readFileSync } from "node:fs";
 const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
 
 const header = read("public/mb-components.js");
+const headerComponent = header.split("class MbFooter")[0];
 const footerComponent = header.split("class MbFooter")[1] || "";
 const index = read("src/pages/index.astro");
 
@@ -22,6 +23,25 @@ const checks = [
   {
     label: "shared header products link uses canonical /products/",
     ok: /key:\s*'products',\s*label:\s*'제품',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/products\/'/.test(header),
+  },
+  {
+    label: "shared header matches work header desktop sizing",
+    ok:
+      /\.brand img \{ width:30px; height:30px; display:block; \}/.test(header) &&
+      /\.links \{[^}]*font-size:13px;[^}]*white-space:nowrap;[^}]*\}/.test(header) &&
+      /\.sub \{[^}]*font-size:13px;[^}]*\}/.test(header),
+  },
+  {
+    label: "shared header only bolds the current secondary page",
+    ok:
+      /\.links a\.active, \.sub a\.active \{ font-weight:700; \}/.test(header) &&
+      !/\.sub a\s*\{\s*font-weight:\s*700;\s*\}/.test(header),
+  },
+  {
+    label: "shared header mobile primary nav follows work header row behavior",
+    ok:
+      /\.links \{ grid-column:1 \/ -1; grid-row:2; justify-content:flex-start; gap:16px; \}/.test(header) &&
+      !/\.links \{[^}]*flex-wrap:wrap;[^}]*\}/.test(headerComponent),
   },
   {
     label: "shared footer matches work footer structure",

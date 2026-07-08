@@ -53,27 +53,26 @@
           .hdr { position:sticky; top:0; z-index:50; border-bottom:1px solid var(--mb-border); background:color-mix(in srgb, var(--mb-bg) 94%, transparent); backdrop-filter:blur(12px); font-family:var(--mb-sans); }
           .inner { width:min(calc(100% - 48px), 1120px); margin:0 auto; min-height:66px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
           .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:700; text-decoration:none; white-space:nowrap; }
-          .brand img { width:28px; height:28px; display:block; }
-          .links { display:flex; align-items:center; justify-content:center; gap:22px; min-width:0; overflow-x:auto; scrollbar-width:none; font-size:14px; white-space:nowrap; }
+          .brand img { width:30px; height:30px; display:block; }
+          .links { display:flex; align-items:center; justify-content:center; gap:22px; min-width:0; overflow-x:auto; scrollbar-width:none; font-size:13px; white-space:nowrap; }
           .links::-webkit-scrollbar { display:none; }
           .links a, .sub a { color:var(--mb-dim); text-decoration:none; transition:color .15s; }
           .links a:hover, .sub a:hover, .links a.active, .sub a.active { color:var(--mb-fg); }
           .links a.active, .sub a.active { font-weight:700; }
           .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:8px; background:var(--mb-accent); color:#ffffff; font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
           .cta:hover { background:var(--mb-accent-dim); color:#ffffff; }
-          .sub { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:0 0 12px; display:flex; gap:18px; flex-wrap:wrap; font-size:12px; }
+          .sub { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:0 0 12px; display:flex; gap:18px; flex-wrap:wrap; font-size:13px; }
           @media (max-width:760px) {
             .inner { width:min(calc(100% - 32px), 1120px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
-            .brand { grid-column:1; grid-row:1; }
             .brand span { display:none; }
-            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; align-self:start; gap:8px 16px; flex-wrap:wrap; overflow:visible; white-space:normal; font-size:13px; line-height:1.4; }
-            .cta { grid-column:2; grid-row:1; justify-self:end; align-self:center; width:auto; min-height:34px; padding:0 12px; font-size:13px; }
-            .sub { width:min(calc(100% - 32px), 1120px); padding-bottom:10px; gap:8px 18px; font-size:13px; }
+            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:16px; }
+            .cta { min-height:34px; padding:0 12px; }
+            .sub { width:min(calc(100% - 32px), 1120px); padding-bottom:10px; }
           }
         </style>
         <header class="hdr">
           <div class="inner">
-            <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="28" height="28"/><span>마이너스베타스튜디오</span></a>
+            <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="30" height="30"/><span>마이너스베타스튜디오</span></a>
             <div class="links">${primary}</div>
             <a class="cta" href="mailto:minusbetastudio@gmail.com">문의</a>
           </div>
