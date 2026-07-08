@@ -14,32 +14,39 @@ const company = {
 };
 
 const slogan = "Tools Worth Keeping.";
-const sloganKo = "덜어내서, 오래 남을 도구를 만듭니다.";
-const intro = "마이너스베타스튜디오는 강대종이 운영하는 1인 스튜디오입니다. 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 운영합니다. 반복 작업은 AI 자동화와 작업 노드로 줄이고, 사람의 판단이 필요한 지점은 기록과 검증으로 남깁니다.";
+const sloganKo = "작게 만들고, 오래 운영합니다.";
+const intro = "마이너스베타스튜디오는 강대종이 운영하는 1인 스튜디오입니다. 생활에 가까운 모바일 앱, 짧게 쓰는 웹 서비스, 실제 운영에서 쓰는 공개 자동화 도구를 직접 만들고 유지합니다.";
 
 const proofPoints = [
-  { label: "LIVE APPS", value: "4", desc: "직접 출시·운영 중인 앱" },
-  { label: "OPEN TOOLS", value: "2", desc: "공개 자동화 브릿지" },
-  { label: "STUDIO", value: "1인", desc: "기획부터 운영까지 직접" },
-  { label: "FIELD", value: "앱·웹·자동화", desc: "작은 도구 중심" },
+  { label: "LIVE APPS", value: "4", desc: "출시 후 직접 운영" },
+  { label: "OPEN TOOLS", value: "2", desc: "브릿지·자동화 공개" },
+  { label: "STUDIO", value: "1인", desc: "기획부터 고객응대까지" },
+  { label: "LOOP", value: "기록 기반", desc: "작업일지와 검증으로 개선" },
 ];
 
 const focusAreas = [
   {
     number: "01",
-    title: "모바일 앱",
-    desc: "메모, 일기, 복약, 정산처럼 매일 반복되는 일을 가볍게 만드는 iOS/Android 앱을 만듭니다.",
+    title: "생활 앱",
+    desc: "메모, 일기, 복약, 정산처럼 매일 반복되는 일을 빠르게 처리하는 작은 앱을 만듭니다.",
   },
   {
     number: "02",
-    title: "웹 서비스",
-    desc: "작은 유료 서비스와 공개 페이지를 직접 설계하고 배포하며, 사용 흐름이 짧은 도구를 우선합니다.",
+    title: "작업장 웹",
+    desc: "제품, 뉴스레터, 작업일지, 실험 페이지를 공개해 만드는 과정과 결과를 같이 남깁니다.",
   },
   {
     number: "03",
-    title: "자동화 도구",
-    desc: "실제 운영에서 쓰는 Codex·Claude 브릿지와 작업 노드 자동화를 공개 가능한 형태로 정리합니다.",
+    title: "운영 자동화",
+    desc: "반복 작업은 에이전트와 브릿지로 줄이고, 사람 판단이 필요한 지점은 검증 절차로 묶습니다.",
   },
+];
+
+const operatingLoop = [
+  { step: "BUILD", title: "작게 만든다", desc: "한 번에 거대한 제품보다, 문제 하나를 해결하는 단위로 시작합니다." },
+  { step: "SHIP", title: "바로 내보낸다", desc: "앱스토어, 웹, 공개 repo까지 실제 사용 가능한 형태로 배포합니다." },
+  { step: "WATCH", title: "계속 본다", desc: "테스터 피드백, 작업일지, 오류 로그를 모아 다음 수정의 근거로 씁니다." },
+  { step: "REFINE", title: "덜어낸다", desc: "기능을 늘리기보다 사용 흐름을 짧게 만들고 오래 남길 것만 남깁니다." },
 ];
 
 const apps = [
@@ -119,14 +126,26 @@ const links = [
           <img class="hero-mark" src="/minusbeta-badge.svg" alt="" width="640" height="640" aria-hidden="true" />
           <div class="hero-copy">
             <p class="eyebrow">MINUS BETA STUDIO</p>
-            <h1 id="page-title">{company.name}</h1>
-            <p class="lead">{sloganKo} 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 오래 운영합니다.</p>
+            <h1 id="page-title"><span>마이너스</span><span>베타스튜디오</span></h1>
+            <p class="tagline">{slogan}</p>
+            <p class="lead">{sloganKo} 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 검증하며 운영합니다.</p>
             <div class="hero-actions" aria-label="주요 링크">
               <a class="button primary" href={company.products}>제품 보기</a>
               <a class="button" href={company.work}>작업장 보기</a>
               <a class="button" href={`mailto:${company.email}`}>문의하기</a>
             </div>
           </div>
+          <aside class="hero-aside" aria-label="스튜디오 운영 요약">
+            <div class="aside-top">
+              <span>OPERATING STUDIO</span>
+              <strong>1 person</strong>
+            </div>
+            <ul>
+              <li><span>Build</span><strong>앱 · 웹 · 자동화</strong></li>
+              <li><span>Record</span><strong>작업일지 · 뉴스레터</strong></li>
+              <li><span>Open</span><strong>GitHub · 공개 도구</strong></li>
+            </ul>
+          </aside>
         </div>
       </section>
 
@@ -146,9 +165,12 @@ const links = [
       <section class="statement-section" aria-labelledby="statement-title">
         <div class="section-head">
           <p class="eyebrow">IDENTITY</p>
-          <h2 id="statement-title">더하기보다 빼기. 꼭 필요한 것만 남긴 도구를 만듭니다.</h2>
+          <h2 id="statement-title">혼자 만들지만 혼자만 보지 않습니다.</h2>
         </div>
-        <p>{intro}</p>
+        <div class="statement-grid">
+          <p>{intro}</p>
+          <p>제품은 출시 상태로, 과정은 작업장에, 도구는 공개 저장소에 남깁니다. 작게 시작한 도구가 오래 쓰이도록 기능보다 운영과 회복력을 먼저 봅니다.</p>
+        </div>
       </section>
 
       <section class="focus-section" aria-labelledby="focus-title">
@@ -168,6 +190,25 @@ const links = [
             </li>
           ))}
         </ol>
+      </section>
+
+      <section class="loop-section" aria-labelledby="loop-title">
+        <div class="section-head split">
+          <div>
+            <p class="eyebrow">OPERATING LOOP</p>
+            <h2 id="loop-title">만드는 방식</h2>
+          </div>
+          <p>작게 만들고, 빠르게 공개하고, 기록으로 다시 줄입니다.</p>
+        </div>
+        <div class="loop-list">
+          {operatingLoop.map((item) => (
+            <article>
+              <span>{item.step}</span>
+              <strong>{item.title}</strong>
+              <p>{item.desc}</p>
+            </article>
+          ))}
+        </div>
       </section>
 
       <section class="products-section" aria-labelledby="products-title">
@@ -361,6 +402,8 @@ const links = [
         min-height: inherit;
         margin: 0 auto;
         display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(260px, 348px);
+        gap: clamp(28px, 5vw, 56px);
         align-items: center;
         padding: 64px 0 58px;
       }
@@ -396,9 +439,22 @@ const links = [
         max-width: 760px;
         font-size: 76px;
         line-height: 1;
-        margin-bottom: 22px;
+        margin-bottom: 14px;
         overflow-wrap: anywhere;
         word-break: keep-all;
+      }
+
+      .hero h1 span {
+        display: inline-block;
+      }
+
+      .tagline {
+        color: var(--fg);
+        font-family: var(--mono);
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1.5;
+        margin-bottom: 18px;
       }
 
       .lead {
@@ -443,6 +499,67 @@ const links = [
         border-color: var(--accent-dim);
         background: var(--accent-dim);
         color: #ffffff;
+      }
+
+      .hero-aside {
+        position: relative;
+        z-index: 1;
+        width: 100%;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: rgba(247, 247, 247, 0.92);
+        padding: 20px;
+      }
+
+      .aside-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: baseline;
+        border-bottom: 1px solid var(--fg);
+        padding-bottom: 14px;
+      }
+
+      .aside-top span,
+      .hero-aside li span {
+        color: var(--fg-mute);
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 600;
+      }
+
+      .aside-top strong {
+        color: var(--fg);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+
+      .hero-aside ul {
+        display: grid;
+        list-style: none;
+      }
+
+      .hero-aside li {
+        display: grid;
+        grid-template-columns: 76px minmax(0, 1fr);
+        gap: 14px;
+        align-items: baseline;
+        border-bottom: 1px solid var(--border);
+        padding: 14px 0;
+      }
+
+      .hero-aside li:last-child {
+        border-bottom: 0;
+        padding-bottom: 0;
+      }
+
+      .hero-aside li strong {
+        color: var(--fg);
+        font-size: 15px;
+        line-height: 1.45;
+        overflow-wrap: anywhere;
       }
 
       .company-info {
@@ -521,6 +638,7 @@ const links = [
 
       .statement-section,
       .focus-section,
+      .loop-section,
       .products-section,
       .tools-section,
       .connect-section,
@@ -557,11 +675,17 @@ const links = [
         padding-bottom: 52px;
       }
 
-      .statement-section > p {
+      .statement-grid {
+        display: grid;
+        grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+        gap: 34px;
+      }
+
+      .statement-grid p {
         max-width: 820px;
         color: var(--fg-dim);
-        font-size: 19px;
-        line-height: 1.85;
+        font-size: 18px;
+        line-height: 1.82;
         word-break: keep-all;
       }
 
@@ -581,6 +705,7 @@ const links = [
       }
 
       .focus-list span,
+      .loop-list span,
       .product-card > span,
       .tool-top span,
       .connect-list em {
@@ -603,6 +728,37 @@ const links = [
         color: var(--fg-dim);
         font-size: 15px;
         line-height: 1.75;
+        word-break: keep-all;
+      }
+
+      .loop-list {
+        display: grid;
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        border-top: 1px solid var(--fg);
+        border-left: 1px solid var(--border);
+      }
+
+      .loop-list article {
+        min-width: 0;
+        min-height: 210px;
+        border-right: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+        padding: 18px;
+      }
+
+      .loop-list strong {
+        display: block;
+        color: var(--fg);
+        font-size: 19px;
+        line-height: 1.35;
+        margin: 42px 0 12px;
+        word-break: keep-all;
+      }
+
+      .loop-list p {
+        color: var(--fg-dim);
+        font-size: 14px;
+        line-height: 1.7;
         word-break: keep-all;
       }
 
@@ -741,8 +897,18 @@ const links = [
           min-height: min(500px, calc(100svh - 170px));
         }
 
+        .hero-inner {
+          grid-template-columns: 1fr;
+          align-items: start;
+        }
+
         .proof-inner {
           grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .statement-grid {
+          grid-template-columns: 1fr;
+          gap: 16px;
         }
 
         .focus-list {
@@ -755,6 +921,10 @@ const links = [
 
         .focus-list strong {
           margin-top: 34px;
+        }
+
+        .loop-list {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         .connect-list a {
@@ -815,6 +985,7 @@ const links = [
 
         .statement-section,
         .focus-section,
+        .loop-section,
         .products-section,
         .tools-section,
         .connect-section,
@@ -836,8 +1007,22 @@ const links = [
           padding-bottom: 42px;
         }
 
-        .statement-section > p {
+        .statement-grid p {
           font-size: 16px;
+        }
+
+        .loop-list {
+          grid-template-columns: 1fr;
+        }
+
+        .loop-list article {
+          min-height: 0;
+          padding: 16px 0;
+          border-right: 0;
+        }
+
+        .loop-list strong {
+          margin-top: 26px;
         }
 
         .product-grid,
