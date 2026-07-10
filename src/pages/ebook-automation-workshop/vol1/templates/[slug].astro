@@ -1,0 +1,30 @@
+---
+import EbookTemplatePage from "../../../../components/EbookTemplatePage.astro";
+
+export function getStaticPaths() {
+  const templates = {
+    "t01-repeat-work-inventory": { file: "t01-repeat-work-inventory.md", title: "템플릿 01. 반복 업무 지도" },
+    "t02-automation-priority-score": { file: "t02-automation-priority-score.md", title: "템플릿 02. 자동화 우선순위 점수표" },
+    "t03-ai-assistant-role-card": { file: "t03-ai-assistant-role-card.md", title: "템플릿 03. AI 비서 역할 카드" },
+    "t04-customer-reply-prompt": { file: "t04-customer-reply-prompt.md", title: "템플릿 04. 고객 답변 초안 프롬프트" },
+    "t05-naver-kakao-log": { file: "t05-naver-kakao-log.md", title: "템플릿 05. 네이버·카카오톡 고객응대 로그" },
+    "t06-content-calendar-prompt": { file: "t06-content-calendar-prompt.md", title: "템플릿 06. 7일 콘텐츠 캘린더 프롬프트" },
+    "t07-zoom-consulting-summary": { file: "t07-zoom-consulting-summary.md", title: "템플릿 07. 줌 상담 요약 정리" },
+    "t08-proposal-estimate-prompt": { file: "t08-proposal-estimate-prompt.md", title: "템플릿 08. 제안서·견적서 초안 프롬프트" },
+    "t09-weekly-automation-review": { file: "t09-weekly-automation-review.md", title: "템플릿 09. 주간 자동화 리뷰" },
+    "t10-privacy-quality-check": { file: "t10-privacy-quality-check.md", title: "템플릿 10. 개인정보·품질 점검표" },
+  };
+  return Object.entries(templates).map(([slug, meta]) => ({ params: { slug }, props: { meta } }));
+}
+
+const { meta } = Astro.props;
+---
+
+<EbookTemplatePage
+  meta={meta}
+  sourceSegments={["ebook-automation-workshop", "vol1", "templates"]}
+  rawBase="ebook-automation-workshop/vol1/templates"
+  eyebrow="AI AUTOMATION WORKSHOP · VOL1 APPENDIX"
+  sourceNote="「1인 회사를 위한 AI 자동화 작업장 만들기」 부록용 공개 템플릿"
+  description="1인 회사를 위한 AI 자동화 작업장 만들기 부록 템플릿"
+/>
