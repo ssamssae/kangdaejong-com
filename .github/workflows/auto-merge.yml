@@ -27,8 +27,36 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # ⚠️ 제거 금지 (DO NOT REMOVE) — shared-footer drift guard (T-260708-33, 2026-07-10).
+  # verify:shared-footer 가 npm run 수동 전용이라 자동 실효 0(장식)이던 것을 머지 경로에
+  # 연결: auto-merge job 이 needs: 로 의존하므로 footer 드리프트 PR 은 auto-merge 되지
+  # 않는다(fail-closed). pull_request_target 에서 PR 코드를 실행하는 job 이므로 secrets
+  # 참조 금지 + permissions contents:read 고정 — 이 격리를 약화하지 말 것.
+  verify-shared-sources:
+    runs-on: ubuntu-latest
+    if: >-
+      github.event.pull_request.draft == false &&
+      (startsWith(github.event.pull_request.head.ref, 'wsl/') ||
+       startsWith(github.event.pull_request.head.ref, 'macmini/') ||
+       startsWith(github.event.pull_request.head.ref, 'desktop/') ||
+       startsWith(github.event.pull_request.head.ref, 'desktop3060ti/') ||
+       startsWith(github.event.pull_request.head.ref, 'notebook/') ||
+       startsWith(github.event.pull_request.head.ref, 'notebook3060/') ||
+       startsWith(github.event.pull_request.head.ref, 'mac/')) &&
+      !contains(github.event.pull_request.labels.*.name, 'no-auto-merge')
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout PR merge result
+        uses: actions/checkout@v4
+        with:
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+      - name: Verify shared footer source
+        run: node scripts/verify-shared-footer-source.mjs
+
   auto-merge:
     runs-on: ubuntu-latest
+    needs: verify-shared-sources
     if: >-
       github.event.pull_request.draft == false &&
       (startsWith(github.event.pull_request.head.ref, 'wsl/') ||
