@@ -56,7 +56,17 @@ function markdownToHtml(source) {
 }
 
 const sourcePath = path.join(process.cwd(), "public", ...sourceSegments, meta.file);
-const rendered = markdownToHtml(fs.readFileSync(sourcePath, "utf8"));
+const source = fs.readFileSync(sourcePath, "utf8");
+// 페이지 헤더가 meta.title 로 <h1> 을 이미 그리므로, 본문 md 선두의 동일 제목 H1 은
+// 렌더에서만 건너뛴다 (원본 .md 다운로드/복사용 콘텐츠는 무변경).
+const sourceLines = source.replaceAll("\r\n", "\n").split("\n");
+const firstContentIndex = sourceLines.findIndex((line) => line.trim() !== "");
+const firstContentLine = firstContentIndex >= 0 ? sourceLines[firstContentIndex].trim() : "";
+const body =
+  /^#\s+/.test(firstContentLine) && firstContentLine.replace(/^#\s+/, "").trim() === meta.title.trim()
+    ? sourceLines.slice(firstContentIndex + 1).join("\n")
+    : source;
+const rendered = markdownToHtml(body);
 const rawUrl = `/${rawBase}/${meta.file}`;
 ---
 
