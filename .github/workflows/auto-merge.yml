@@ -53,6 +53,12 @@ jobs:
           ref: refs/pull/${{ github.event.pull_request.number }}/merge
       - name: Verify shared footer source
         run: node scripts/verify-shared-footer-source.mjs
+      # ⚠️ 제거 금지 (DO NOT REMOVE) — shared-header drift guard (T-260720-023, 2026-07-20).
+      # footer 와 동일 사유: verify:shared-header 가 npm 수동 전용 orphan(자동 실효 0)이던
+      # 것을 머지 경로에 연결. auto-merge 가 needs: verify-shared-sources 로 의존하므로 header
+      # (mb-header) 드리프트 PR 은 auto-merge 되지 않는다(fail-closed). 격리 조건은 footer 와 공유.
+      - name: Verify shared header source
+        run: node scripts/verify-shared-header-source.mjs
 
   auto-merge:
     runs-on: ubuntu-latest
