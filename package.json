@@ -10,6 +10,7 @@
     "build": "astro build",
     "verify:favicon-brand": "node scripts/verify-favicon-brand.mjs",
     "verify:shared-footer": "node scripts/verify-shared-footer-source.mjs",
+    "verify:shared-header": "node scripts/verify-shared-header-source.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
