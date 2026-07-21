@@ -11,23 +11,25 @@
 (function () {
   const BADGE = 'https://kangdaejong.com/minusbeta-badge.svg';
 
-  // work.kangdaejong.com(작업장)의 Nav 헤더와 동일 구조로 통일 (2026-07-06):
-  //   1행 = 브랜드 + 주 메뉴(작업장/제품/작업일지/뉴스레터/인사이트/시스템) + 문의 CTA
-  //   2행 = 보조 메뉴(회사소개/대표소개/비용공개/lab)
-  const BRAND_HREF = 'https://work.kangdaejong.com/';
+  // A안(콘텐츠 축, 2026-07-20 아니키 픽 · T-260720-029): 상단은 '작업장 3개'(제품/작업일지/
+  // 뉴스레터)만 노출하고, 나머지는 '더보기' 드롭다운으로 강등해 헤더를 슬림하게 유지한다.
+  //   브랜드 = 강대종/파운더 홈(kangdaejong.com)
+  //   1행 = 브랜드 + 주 메뉴(제품/작업일지/뉴스레터) + 더보기 드롭다운 + 문의 CTA
+  //   더보기 = 작업장/인사이트/시스템/비용공개/lab/회사소개/대표소개
+  const BRAND_HREF = 'https://kangdaejong.com/';
   const NAV_PRIMARY = [
-    { key: 'workshop',   label: '작업장',   href: 'https://work.kangdaejong.com/' },
     { key: 'products',   label: '제품',     href: 'https://work.kangdaejong.com/products/' },
     { key: 'worklog',    label: '작업일지', href: 'https://work.kangdaejong.com/worklog' },
     { key: 'newsletter', label: '뉴스레터', href: 'https://work.kangdaejong.com/newsletter' },
-    { key: 'insights',   label: '인사이트', href: 'https://work.kangdaejong.com/insights' },
-    { key: 'system',     label: '시스템',   href: 'https://work.kangdaejong.com/system' },
   ];
-  const NAV_SECONDARY = [
-    { key: 'home',    label: '회사소개', href: 'https://kangdaejong.com/' },
-    { key: 'founder', label: '대표소개', href: 'https://founder.kangdaejong.com/' },
-    { key: 'cost',    label: '비용공개', href: 'https://work.kangdaejong.com/cost/' },
-    { key: 'lab',     label: 'lab',      href: 'https://work.kangdaejong.com/lab' },
+  const NAV_MORE = [
+    { key: 'workshop', label: '작업장',   href: 'https://work.kangdaejong.com/' },
+    { key: 'insights', label: '인사이트', href: 'https://work.kangdaejong.com/insights' },
+    { key: 'system',   label: '시스템',   href: 'https://work.kangdaejong.com/system' },
+    { key: 'cost',     label: '비용공개', href: 'https://work.kangdaejong.com/cost/' },
+    { key: 'lab',      label: 'lab',      href: 'https://work.kangdaejong.com/lab' },
+    { key: 'home',     label: '회사소개', href: 'https://kangdaejong.com/' },
+    { key: 'founder',  label: '대표소개', href: 'https://founder.kangdaejong.com/' },
   ];
 
   // 공통 팔레트 (shadow DOM 안에서 자족 — 각 사이트 CSS 변수와 무관하게 동일하게 렌더)
@@ -44,7 +46,8 @@
       const mk = (n) =>
         `<a href="${n.href}"${n.key === active ? ' class="active" aria-current="page"' : ''}>${n.label}</a>`;
       const primary = NAV_PRIMARY.map(mk).join('');
-      const secondary = NAV_SECONDARY.map(mk).join('');
+      const more = NAV_MORE.map(mk).join('');
+      const moreActive = NAV_MORE.some((n) => n.key === active);
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
         <style>
@@ -55,30 +58,59 @@
           .inner { width:min(calc(100% - 48px), 1120px); margin:0 auto; min-height:66px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
           .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:700; text-decoration:none; white-space:nowrap; }
           .brand img { width:30px; height:30px; display:block; }
-          .links { display:flex; align-items:center; justify-content:center; gap:22px; min-width:0; overflow-x:auto; scrollbar-width:none; font-size:13px; white-space:nowrap; }
-          .links::-webkit-scrollbar { display:none; }
-          .links a, .sub a { color:var(--mb-dim); text-decoration:none; transition:color .15s; }
-          .links a:hover, .sub a:hover, .links a.active, .sub a.active { color:var(--mb-fg); }
-          .links a.active, .sub a.active { font-weight:700; }
+          .links { display:flex; align-items:center; justify-content:center; gap:22px; min-width:0; font-size:13px; white-space:nowrap; }
+          .links a { color:var(--mb-dim); text-decoration:none; transition:color .15s; }
+          .links a:hover, .links a.active { color:var(--mb-fg); }
+          .links a.active { font-weight:700; }
+          .actions { display:inline-flex; align-items:center; gap:12px; white-space:nowrap; }
+          .more { position:relative; display:inline-flex; }
+          .more-btn { display:inline-flex; align-items:center; gap:4px; min-height:34px; padding:0 6px; border:0; background:none; cursor:pointer; color:var(--mb-dim); font-family:inherit; font-size:13px; transition:color .15s; }
+          .more-btn:hover, .more-btn.active, .more.open .more-btn { color:var(--mb-fg); }
+          .more-btn.active { font-weight:700; }
+          .more-btn .chev { font-size:10px; transition:transform .15s; }
+          .more.open .more-btn .chev { transform:rotate(180deg); }
+          .more-panel { position:absolute; right:0; top:calc(100% + 8px); z-index:60; display:none; flex-direction:column; min-width:168px; padding:8px; background:var(--mb-bg); border:1px solid var(--mb-border); border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.12); }
+          .more.open .more-panel { display:flex; }
+          .more-panel a { padding:9px 10px; border-radius:7px; color:var(--mb-dim); text-decoration:none; font-size:13px; white-space:nowrap; transition:background .12s, color .12s; }
+          .more-panel a:hover { background:var(--mb-soft); color:var(--mb-fg); }
+          .more-panel a.active { color:var(--mb-fg); font-weight:700; background:var(--mb-soft); }
           .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:8px; background:var(--mb-accent); color:#ffffff; font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
           .cta:hover { background:var(--mb-accent-dim); color:#ffffff; }
-          .sub { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:0 0 12px; display:flex; gap:18px; flex-wrap:wrap; font-size:13px; }
           @media (max-width:760px) {
             .inner { width:min(calc(100% - 32px), 1120px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
             .brand span { display:none; }
-            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:16px; }
+            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:16px; overflow-x:auto; scrollbar-width:none; }
+            .links::-webkit-scrollbar { display:none; }
+            .actions { grid-column:2; grid-row:1; }
             .cta { min-height:34px; padding:0 12px; }
-            .sub { width:min(calc(100% - 32px), 1120px); padding-bottom:10px; }
           }
         </style>
         <header class="hdr">
           <div class="inner">
             <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="30" height="30"/><span>마이너스베타스튜디오</span></a>
             <div class="links">${primary}</div>
-            <a class="cta" href="mailto:minusbetastudio@gmail.com">문의</a>
+            <div class="actions">
+              <div class="more">
+                <button class="more-btn${moreActive ? ' active' : ''}" type="button" aria-haspopup="true" aria-expanded="false">더보기<span class="chev">▾</span></button>
+                <div class="more-panel" role="menu">${more}</div>
+              </div>
+              <a class="cta" href="mailto:minusbetastudio@gmail.com">문의</a>
+            </div>
           </div>
-          <div class="sub">${secondary}</div>
         </header>`;
+      const moreEl = root.querySelector('.more');
+      const btn = root.querySelector('.more-btn');
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const open = moreEl.classList.toggle('open');
+        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      root.querySelector('.more-panel').addEventListener('click', (e) => e.stopPropagation());
+      document.addEventListener('click', () => {
+        if (!moreEl.classList.contains('open')) return;
+        moreEl.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
     }
   }
 
