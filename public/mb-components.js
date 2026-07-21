@@ -98,17 +98,17 @@
             </div>
           </div>
         </header>`;
-      const more = root.querySelector('.more');
+      const moreEl = root.querySelector('.more');
       const btn = root.querySelector('.more-btn');
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
-        const open = more.classList.toggle('open');
+        const open = moreEl.classList.toggle('open');
         btn.setAttribute('aria-expanded', open ? 'true' : 'false');
       });
       root.querySelector('.more-panel').addEventListener('click', (e) => e.stopPropagation());
       document.addEventListener('click', () => {
-        if (!more.classList.contains('open')) return;
-        more.classList.remove('open');
+        if (!moreEl.classList.contains('open')) return;
+        moreEl.classList.remove('open');
         btn.setAttribute('aria-expanded', 'false');
       });
     }
