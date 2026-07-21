@@ -29,22 +29,23 @@ const checks = [
     ok: /key:\s*'cost',\s*label:\s*'비용공개',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/cost\/'/.test(header),
   },
   {
-    label: "shared header matches work header desktop sizing",
+    label: "shared header keeps desktop sizing (brand 30px, links 13px, dropdown 13px)",
     ok:
       /\.brand img \{ width:30px; height:30px; display:block; \}/.test(header) &&
       /\.links \{[^}]*font-size:13px;[^}]*white-space:nowrap;[^}]*\}/.test(header) &&
-      /\.sub \{[^}]*font-size:13px;[^}]*\}/.test(header),
+      /\.more-panel a \{[^}]*font-size:13px;[^}]*\}/.test(header),
   },
   {
-    label: "shared header only bolds the current secondary page",
+    label: "shared header only bolds the active nav item",
     ok:
-      /\.links a\.active, \.sub a\.active \{ font-weight:700; \}/.test(header) &&
-      !/\.sub a\s*\{\s*font-weight:\s*700;\s*\}/.test(header),
+      /\.links a\.active \{ font-weight:700; \}/.test(header) &&
+      /\.more-panel a\.active \{[^}]*font-weight:700;[^}]*\}/.test(header) &&
+      !/\.more-panel a \{[^}]*font-weight:\s*700;/.test(header),
   },
   {
-    label: "shared header mobile primary nav follows work header row behavior",
+    label: "shared header mobile keeps primary nav on its own row",
     ok:
-      /\.links \{ grid-column:1 \/ -1; grid-row:2; justify-content:flex-start; gap:16px; \}/.test(header) &&
+      /\.links \{[^}]*grid-column:1 \/ -1;[^}]*grid-row:2;[^}]*\}/.test(header) &&
       !/\.links \{[^}]*flex-wrap:wrap;[^}]*\}/.test(headerComponent),
   },
   {
@@ -70,6 +71,23 @@ const checks = [
   {
     label: "company page uses canonical products link",
     ok: !/work\.kangdaejong\.com\/apps/.test(index) && /work\.kangdaejong\.com\/products\//.test(index),
+  },
+  {
+    label: "A안 brand links to company/founder home (kangdaejong.com)",
+    ok: /const BRAND_HREF = 'https:\/\/kangdaejong\.com\/';/.test(header),
+  },
+  {
+    label: "A안 primary nav is 제품/작업일지/뉴스레터 (workshop demoted to dropdown)",
+    ok:
+      /const NAV_PRIMARY = \[[^\]]*key: 'products'[^\]]*key: 'worklog'[^\]]*key: 'newsletter'[^\]]*\]/.test(header) &&
+      !/const NAV_PRIMARY = \[[^\]]*key: 'workshop'/.test(header),
+  },
+  {
+    label: "A안 overflow items live in a 더보기 dropdown (NAV_MORE + panel)",
+    ok:
+      /const NAV_MORE = \[/.test(header) &&
+      /class="more-btn/.test(header) &&
+      /class="more-panel"/.test(header),
   },
 ];
 
