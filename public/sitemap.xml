@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 회사 랜딩 (src/pages/index.astro) -->
+  <url><loc>https://kangdaejong.com/</loc></url>
+  <!-- 혼자서 AI 팀 운영하기 Vol2 부록 공개 템플릿 (src/pages/ai-team-ebook/vol2/templates/[slug].astro) -->
+  <url><loc>https://kangdaejong.com/ai-team-ebook/vol2/templates/t01-task-queue</loc></url>
+  <url><loc>https://kangdaejong.com/ai-team-ebook/vol2/templates/t02-distribution-rules</loc></url>
+  <url><loc>https://kangdaejong.com/ai-team-ebook/vol2/templates/t03-approval-gate</loc></url>
+  <url><loc>https://kangdaejong.com/ai-team-ebook/vol2/templates/t04-incident-response</loc></url>
+  <!-- 업무 자동화 워크샵 Vol1 부록 공개 템플릿 (src/pages/ebook-automation-workshop/vol1/templates/[slug].astro) -->
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t01-repeat-work-inventory</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t02-automation-priority-score</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t04-customer-reply-prompt</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t05-naver-kakao-log</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t06-content-calendar-prompt</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t07-zoom-consulting-summary</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t08-proposal-estimate-prompt</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t09-weekly-automation-review</loc></url>
+  <url><loc>https://kangdaejong.com/ebook-automation-workshop/vol1/templates/t10-privacy-quality-check</loc></url>
+</urlset>
