@@ -1,0 +1,426 @@
+---
+const company = {
+  name: "마이너스베타스튜디오",
+  representative: "강대종",
+  email: "minusbetastudio@gmail.com",
+};
+
+const siteUrl = "https://kangdaejong.com/organization/";
+const description = `${company.name} 조직 구성 — 대표 ${company.representative} 1인이 방향과 결정을 맡고, AI 에이전트 5개가 반복 작업을 나눠 처리합니다.`;
+const ogImage = "https://kangdaejong.com/og-image.png";
+
+// 오케스트레이터 1 + 워커 4. 공개면이므로 코드네임·역할·기기 급까지만 적는다.
+const orchestrator = {
+  codename: "아테나",
+  mark: "ATH",
+  role: "오케스트레이터",
+  device: "맥",
+  desc: "작업을 쪼개 순서를 정하고, 어느 에이전트가 맡을지 배정합니다. 결과를 모아 반영해도 되는지 판단합니다.",
+};
+
+const workers = [
+  {
+    codename: "볼칸",
+    mark: "VUL",
+    role: "빌드 · 배포",
+    device: "맥 미니",
+    desc: "앱을 빌드하고 스토어에 올릴 파일을 만듭니다. 배포 실행도 이 자리에서 합니다.",
+  },
+  {
+    codename: "헤르메스",
+    mark: "HER",
+    role: "개발 · 변경 승인",
+    device: "맥북 프로",
+    desc: "기능을 구현하고 버그를 고칩니다. 다른 에이전트가 낸 변경을 검토해 반영 여부를 정합니다.",
+  },
+  {
+    codename: "라이덴",
+    mark: "RAI",
+    role: "개발 · 조사",
+    device: "리눅스",
+    desc: "기능 구현과 함께, 결정에 필요한 자료를 모아 정리합니다.",
+  },
+  {
+    codename: "테미스",
+    mark: "THE",
+    role: "리뷰 · 검증",
+    device: "데스크톱",
+    desc: "코드를 다시 읽고 테스트가 실제로 동작하는지 확인합니다. 놓친 문제를 되돌려 보냅니다.",
+  },
+];
+
+// 사람이 쥐고 있는 지점 — 「AI 가 알아서 다 한다」로 읽히지 않게 명시한다.
+const humanGates = [
+  { label: "방향", desc: "무엇을 만들지, 무엇을 접을지는 대표가 정합니다." },
+  { label: "검토", desc: "공개되는 변경은 사람이 눈으로 확인한 뒤 반영합니다." },
+  { label: "비용", desc: "돈이 나가는 동작은 사람이 켜야만 실행됩니다." },
+];
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="canonical" href={siteUrl} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={company.name} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:url" content={siteUrl} />
+    <meta property="og:title" content={`조직 구성 — ${company.name}`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={`조직 구성 — ${company.name}`} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Pretendard:wght@400;500;700&display=swap" rel="stylesheet" />
+    <title>조직 구성 — {company.name}</title>
+    <script is:inline src="/mb-components.js" defer></script>
+  </head>
+  <body>
+    <mb-header active="home"></mb-header>
+    <main>
+      <div class="page-shell">
+        <section class="intro-section" aria-labelledby="page-title">
+          <p class="eyebrow">ORGANIZATION</p>
+          <h1 id="page-title">사람 한 명과 AI 에이전트 다섯</h1>
+          <p class="lead">
+            {company.name}는 {company.representative} 1인 사업자입니다. 사람을 더 뽑는 대신, 반복되는
+            개발·빌드·검증 작업을 AI 에이전트에게 나눠 맡기는 방식으로 운영합니다.
+          </p>
+          <p class="lead sub">
+            자동화가 대신하는 것은 <strong>반복 작업</strong>이고, 무엇을 만들지와 무엇을 내보낼지는
+            사람이 정합니다. 아래 구조는 그 일을 어떻게 나눴는지를 보여줍니다.
+          </p>
+        </section>
+
+        <section class="chart-section" aria-labelledby="chart-title">
+          <div class="section-head">
+            <p class="eyebrow">STRUCTURE</p>
+            <h2 id="chart-title">역할 구성</h2>
+          </div>
+
+          <!-- 조직도 = CSS 로 직접 그린다(외부 이미지·CDN 없음).
+               데스크톱은 가로 4열, 모바일은 세로 스택으로 접히고 연결선도 같이 바뀐다.
+               스크린리더에는 중첩 목록으로 읽힌다. -->
+          <div class="chart" role="group" aria-labelledby="chart-title">
+            <div class="tier tier-lead">
+              <article class="node node-human">
+                <span class="node-badge">대표 · 사람</span>
+                <h3>{company.representative}</h3>
+                <p class="node-role">방향 결정 · 최종 확인</p>
+                <p class="node-desc">
+                  만들 것과 접을 것을 정하고, 공개되는 결과를 마지막에 확인합니다.
+                </p>
+              </article>
+            </div>
+
+            <div class="link link-vertical" aria-hidden="true"></div>
+
+            <div class="tier tier-orchestrator">
+              <article class="node node-agent is-orchestrator">
+                <span class="node-badge">AI · {orchestrator.role}</span>
+                <h3><span class="mark" aria-hidden="true">{orchestrator.mark}</span>{orchestrator.codename}</h3>
+                <p class="node-role">{orchestrator.device}</p>
+                <p class="node-desc">{orchestrator.desc}</p>
+              </article>
+            </div>
+
+            <div class="link link-branch" aria-hidden="true">
+              <span class="stem"></span>
+              <span class="bus"></span>
+            </div>
+
+            <ul class="tier tier-workers">
+              {workers.map((w) => (
+                <li>
+                  <article class="node node-agent">
+                    <span class="node-badge">AI · 워커</span>
+                    <h3><span class="mark" aria-hidden="true">{w.mark}</span>{w.codename}</h3>
+                    <p class="node-role">{w.role} · {w.device}</p>
+                    <p class="node-desc">{w.desc}</p>
+                  </article>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <p class="chart-note">
+            에이전트는 각자 맡은 작업 하나를 끝내면 결과를 되돌려 보냅니다. 서로 직접 지시하지 않고,
+            배정과 반영 판단은 오케스트레이터와 사람을 거칩니다.
+          </p>
+        </section>
+
+        <section class="human-section" aria-labelledby="human-title">
+          <div class="section-head">
+            <p class="eyebrow">HUMAN IN THE LOOP</p>
+            <h2 id="human-title">사람이 쥐고 있는 것</h2>
+          </div>
+          <dl class="human-grid">
+            {humanGates.map((g) => (
+              <div>
+                <dt>{g.label}</dt>
+                <dd>{g.desc}</dd>
+              </div>
+            ))}
+          </dl>
+        </section>
+
+        <section class="back-section" aria-label="관련 링크">
+          <a class="button" href="/">회사소개로 돌아가기</a>
+          <a class="button" href={`mailto:${company.email}`}>문의하기</a>
+        </section>
+      </div>
+    </main>
+    <!-- 공용 푸터는 배경이 투명이고 글자색이 #111 고정이다(shadow DOM 자족 팔레트).
+         다크에서 그대로 두면 검은 글자가 검은 배경에 묻혀 상호명·이메일이 사라진다
+         (실측 명암비 ≈ 1:1). 공용 컴포넌트를 고치면 4개 사이트 전 페이지에 영향이 가므로
+         이 페이지에서 푸터가 놓이는 띠만 밝게 받쳐 준다. 헤더는 스스로 흰 막대를 그리므로
+         결과적으로 위아래 크롬이 밝고 본문 캔버스가 어두운 구성이 된다. -->
+    <div class="chrome-band">
+      <mb-footer></mb-footer>
+    </div>
+
+    <style is:global>
+      :root {
+        --bg: #ffffff;
+        --bg-elev: #f7f7f7;
+        --fg: #111111;
+        --fg-dim: #4f4f4f;
+        --fg-mute: #777777;
+        --border: #dedede;
+        --border-soft: #eeeeee;
+        --accent: #2563eb;
+        --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+        --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+      }
+
+      /* 공용 헤더/푸터가 놓이는 띠. 두 모드 모두 밝게 고정한다 — 이유는 본문 주석 참조. */
+      .chrome-band { background: #ffffff; }
+
+      /* 다크 대응 — 랜딩과 같은 색 이름을 쓰고 값만 뒤집는다. */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f0f10;
+          --bg-elev: #17171a;
+          --fg: #f2f2f2;
+          --fg-dim: #b6b6ba;
+          --fg-mute: #8a8a90;
+          --border: #2c2c31;
+          --border-soft: #232327;
+          --accent: #7aa2ff;
+        }
+      }
+
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+
+      html { background: var(--bg); scroll-behavior: smooth; scrollbar-gutter: stable; }
+
+      body {
+        background: var(--bg);
+        color: var(--fg);
+        font-family: var(--sans);
+        line-height: 1.65;
+        text-rendering: geometricPrecision;
+      }
+
+      main { width: 100%; margin: 0; padding: 0 0 72px; }
+
+      .page-shell { width: min(calc(100% - 48px), 1120px); margin: 0 auto; }
+
+      a { color: var(--fg); text-decoration: none; }
+      a:hover { color: var(--accent); }
+
+      h1, h2, h3 { color: var(--fg); font-weight: 700; letter-spacing: 0; }
+      p { color: var(--fg-dim); }
+
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        color: var(--fg-mute);
+        text-transform: uppercase;
+      }
+
+      .intro-section { padding: 72px 0 56px; border-bottom: 1px solid var(--border-soft); }
+      .intro-section h1 { margin: 12px 0 20px; font-size: clamp(30px, 5vw, 46px); line-height: 1.25; }
+      .lead { max-width: 62ch; font-size: 17px; }
+      .lead.sub { margin-top: 14px; }
+      .lead strong { color: var(--fg); font-weight: 700; }
+
+      .section-head { margin-bottom: 28px; }
+      .section-head h2 { margin-top: 10px; font-size: clamp(22px, 3vw, 28px); }
+
+      .chart-section { padding: 56px 0; border-bottom: 1px solid var(--border-soft); }
+
+      /* ── 조직도 ─────────────────────────────────────────── */
+      .chart { display: flex; flex-direction: column; align-items: center; }
+
+      .tier { display: flex; justify-content: center; width: 100%; }
+      .tier-workers { list-style: none; gap: 16px; align-items: stretch; }
+      .tier-workers > li { display: flex; flex: 1 1 0; min-width: 0; }
+
+      .node {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        width: 100%;
+        max-width: 340px;
+        padding: 18px 20px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg);
+      }
+
+      .node-human { border-color: var(--fg); }
+      .is-orchestrator { background: var(--bg-elev); }
+
+      .node-badge {
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 600;
+        letter-spacing: 0.08em;
+        color: var(--fg-mute);
+        text-transform: uppercase;
+      }
+
+      .node h3 { display: flex; align-items: center; gap: 8px; font-size: 19px; }
+
+      .mark {
+        font-family: var(--mono);
+        font-size: 11px;
+        font-weight: 600;
+        padding: 2px 6px;
+        border: 1px solid var(--border);
+        border-radius: 5px;
+        color: var(--fg-mute);
+      }
+
+      .node-role { font-family: var(--mono); font-size: 12px; color: var(--fg-mute); }
+      .node-desc { font-size: 14px; line-height: 1.6; }
+
+      /* 연결선 — 전부 border 로 그린다. 이미지·아이콘 폰트 없음. */
+      .link-vertical { width: 1px; height: 28px; background: var(--border); }
+
+      .link-branch { position: relative; width: 100%; height: 46px; }
+      .link-branch .stem {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 1px;
+        height: 22px;
+        background: var(--border);
+      }
+      .link-branch .bus {
+        position: absolute;
+        top: 22px;
+        left: calc(12.5% - 0.5px);
+        right: calc(12.5% - 0.5px);
+        height: 24px;
+        border: 1px solid var(--border);
+        border-bottom: 0;
+        border-radius: 8px 8px 0 0;
+      }
+      /* 가운데 두 갈래를 세워 4갈래로 보이게 한다. */
+      .link-branch::before,
+      .link-branch::after {
+        content: "";
+        position: absolute;
+        top: 22px;
+        width: 1px;
+        height: 24px;
+        background: var(--border);
+      }
+      .link-branch::before { left: calc(37.5% - 0.5px); }
+      .link-branch::after { left: calc(62.5% - 0.5px); }
+
+      .chart-note {
+        max-width: 62ch;
+        margin: 32px auto 0;
+        font-size: 14px;
+        color: var(--fg-mute);
+        text-align: center;
+      }
+
+      /* ── 사람이 쥔 것 ───────────────────────────────────── */
+      .human-section { padding: 56px 0; border-bottom: 1px solid var(--border-soft); }
+      .human-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .human-grid > div {
+        padding: 20px;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        background: var(--bg);
+      }
+      .human-grid dt { margin-bottom: 6px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--fg-mute); text-transform: uppercase; }
+      .human-grid dd { font-size: 15px; color: var(--fg-dim); }
+
+      .back-section { display: flex; flex-wrap: wrap; gap: 12px; padding: 48px 0 0; }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px 18px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg);
+        font-size: 14px;
+        font-weight: 500;
+      }
+      .button:hover { border-color: var(--accent); color: var(--accent); }
+
+      /* ── 반응형 ─────────────────────────────────────────── */
+      @media (max-width: 900px) {
+        .human-grid { grid-template-columns: 1fr; }
+
+        /* 워커 4개를 세로로 접고, 연결선은 왼쪽 세로줄 + 각 항목 가로줄로 바꾼다. */
+        .tier-workers { flex-direction: column; align-items: stretch; gap: 12px; position: relative; padding-left: 22px; }
+        .tier-workers::before {
+          content: "";
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 50%;
+          width: 1px;
+          background: var(--border);
+        }
+        .tier-workers > li { position: relative; }
+        .tier-workers > li::before {
+          content: "";
+          position: absolute;
+          left: -22px;
+          top: 28px;
+          width: 22px;
+          height: 1px;
+          background: var(--border);
+        }
+        .node { max-width: none; }
+
+        .link-branch { height: 24px; }
+        .link-branch .bus,
+        .link-branch::before,
+        .link-branch::after { display: none; }
+        .link-branch .stem { height: 24px; left: 22px; }
+      }
+
+      @media (max-width: 640px) {
+        .page-shell { width: calc(100% - 32px); }
+        .intro-section { padding: 48px 0 40px; }
+        .chart-section,
+        .human-section { padding: 40px 0; }
+      }
+    </style>
+  </body>
+</html>
