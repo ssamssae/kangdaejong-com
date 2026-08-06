@@ -102,7 +102,11 @@ const rawUrl = `/${rawBase}/${meta.file}`;
 </html>
 
 <style>
-  :global(:root) { --bg: #fff; --bg-elev: #f7f7f7; --fg: #111; --fg-dim: #4f4f4f; --fg-mute: #777; --border: #dedede; --accent: #2563eb; --mono: "JetBrains Mono", ui-monospace, monospace; --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; }
+  :global(:root) { --bg: #fff; --bg-elev: #f7f7f7; --fg: #111; --fg-dim: #4f4f4f; --fg-mute: #777; --border: #dedede; --accent: #2563eb; --code-bg: #fafafa; --mono: "JetBrains Mono", ui-monospace, monospace; --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif; }
+  /* 다크 대응 (2026-08-06 T-260806-060) — 랜딩·조직도와 같은 값 세트. */
+  @media (prefers-color-scheme: dark) {
+    :global(:root) { --bg: #0f0f10; --bg-elev: #17171a; --fg: #f2f2f2; --fg-dim: #b6b6ba; --fg-mute: #8a8a90; --border: #2c2c31; --accent: #7aa2ff; --code-bg: #17171a; }
+  }
   :global(*) { box-sizing: border-box; }
   :global(html) { background: var(--bg); }
   :global(body) { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.65; }
@@ -121,7 +125,7 @@ const rawUrl = `/${rawBase}/${meta.file}`;
   .markdown-body :global(ul), .markdown-body :global(ol) { margin: 0 0 24px; padding-left: 1.35rem; color: var(--fg-dim); }
   .markdown-body :global(li) { padding-left: 5px; margin: 5px 0; }
   .markdown-body :global(code) { padding: .15em .35em; background: var(--bg-elev); font: .9em var(--mono); overflow-wrap: anywhere; }
-  .markdown-body :global(pre) { max-width: 100%; overflow-x: auto; margin: 24px 0; padding: 18px; border: 1px solid var(--border); background: #fafafa; -webkit-overflow-scrolling: touch; }
+  .markdown-body :global(pre) { max-width: 100%; overflow-x: auto; margin: 24px 0; padding: 18px; border: 1px solid var(--border); background: var(--code-bg); -webkit-overflow-scrolling: touch; }
   .markdown-body :global(pre code) { display: block; padding: 0; white-space: pre; background: transparent; font-size: 13px; line-height: 1.65; }
   .markdown-body :global(.table-wrap) { max-width: 100%; overflow-x: auto; margin: 24px 0 30px; border-top: 1px solid var(--fg); -webkit-overflow-scrolling: touch; }
   .markdown-body :global(table) { width: 100%; min-width: 620px; border-collapse: collapse; font-size: 14px; }

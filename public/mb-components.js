@@ -16,11 +16,14 @@
   //   브랜드 = 강대종/파운더 홈(kangdaejong.com)
   //   1행 = 브랜드 + 주 메뉴(제품/작업일지/뉴스레터) + 더보기 드롭다운 + 문의 CTA
   //   더보기 = 작업장/인사이트/시스템/비용공개/lab/회사소개/대표소개
+  // 2026-08-06 T-260806-060: 조직도를 더보기가 아니라 1행에 올린다(아니키 「헤더에서 바로」).
+  // A안의 '작업장 3개' 축과는 다른 성격(회사 소개면)이지만, 직접 노출이 명시 요구다.
   const BRAND_HREF = 'https://kangdaejong.com/';
   const NAV_PRIMARY = [
     { key: 'products',   label: '제품',     href: 'https://work.kangdaejong.com/products/' },
     { key: 'worklog',    label: '작업일지', href: 'https://work.kangdaejong.com/worklog' },
     { key: 'newsletter', label: '뉴스레터', href: 'https://work.kangdaejong.com/newsletter' },
+    { key: 'organization', label: '조직도', href: 'https://kangdaejong.com/organization/' },
   ];
   const NAV_MORE = [
     { key: 'workshop', label: '작업장',   href: 'https://work.kangdaejong.com/' },
@@ -36,9 +39,21 @@
   const PALETTE = `
     --mb-bg:#ffffff; --mb-elev:#f7f7f7; --mb-fg:#111111; --mb-dim:#4f4f4f; --mb-mute:#777777;
     --mb-border:#dedede; --mb-soft:#eeeeee; --mb-accent:#2563eb; --mb-accent-dim:#1748b8;
+    --mb-cta-fg:#ffffff; --mb-shadow:rgba(0,0,0,.12);
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;
+
+  // 다크 팔레트 (2026-08-06 T-260806-060). 색 '이름'은 그대로 두고 값만 뒤집는다 —
+  // organization.astro 가 쓰던 값과 같은 세트라 본문과 크롬이 한 톤으로 붙는다.
+  // CTA 는 배경만 뒤집으면 흰 글자가 밝은 파랑 위에 얹혀 명암비 2.5:1 로 깨진다.
+  // 그래서 다크에서는 글자를 어둡게 돌린다(#0f0f10 대비 7.7:1).
+  const PALETTE_DARK = `
+    --mb-bg:#0f0f10; --mb-elev:#17171a; --mb-fg:#f2f2f2; --mb-dim:#b6b6ba; --mb-mute:#8a8a90;
+    --mb-border:#2c2c31; --mb-soft:#232327; --mb-accent:#7aa2ff; --mb-accent-dim:#9db8ff;
+    --mb-cta-fg:#0f0f10; --mb-shadow:rgba(0,0,0,.55);
+  `;
+  const DARK_RULE = `@media (prefers-color-scheme: dark) { :host { ${PALETTE_DARK} } }`;
 
   class MbHeader extends HTMLElement {
     connectedCallback() {
@@ -54,6 +69,7 @@
           /* 타이포 자족화: 호스트 페이지(회사소개/대표소개)의 line-height·letter-spacing
              상속 차이로 헤더가 사이트마다 다르게 보이던 것 차단 — 두 사이트 동일 렌더. */
           :host { ${PALETTE} display:block; line-height:1.65; letter-spacing:normal; font-style:normal; }
+          ${DARK_RULE}
           .hdr { position:sticky; top:0; z-index:50; border-bottom:1px solid var(--mb-border); background:color-mix(in srgb, var(--mb-bg) 94%, transparent); backdrop-filter:blur(12px); font-family:var(--mb-sans); }
           .inner { width:min(calc(100% - 48px), 1120px); margin:0 auto; min-height:66px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
           .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:700; text-decoration:none; white-space:nowrap; }
@@ -69,13 +85,13 @@
           .more-btn.active { font-weight:700; }
           .more-btn .chev { font-size:10px; transition:transform .15s; }
           .more.open .more-btn .chev { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:0; top:calc(100% + 8px); z-index:60; display:none; flex-direction:column; min-width:168px; padding:8px; background:var(--mb-bg); border:1px solid var(--mb-border); border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,.12); }
+          .more-panel { position:absolute; right:0; top:calc(100% + 8px); z-index:60; display:none; flex-direction:column; min-width:168px; padding:8px; background:var(--mb-bg); border:1px solid var(--mb-border); border-radius:10px; box-shadow:0 10px 30px var(--mb-shadow); }
           .more.open .more-panel { display:flex; }
           .more-panel a { padding:9px 10px; border-radius:7px; color:var(--mb-dim); text-decoration:none; font-size:13px; white-space:nowrap; transition:background .12s, color .12s; }
           .more-panel a:hover { background:var(--mb-soft); color:var(--mb-fg); }
           .more-panel a.active { color:var(--mb-fg); font-weight:700; background:var(--mb-soft); }
-          .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:8px; background:var(--mb-accent); color:#ffffff; font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
-          .cta:hover { background:var(--mb-accent-dim); color:#ffffff; }
+          .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:8px; background:var(--mb-accent); color:var(--mb-cta-fg); font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
+          .cta:hover { background:var(--mb-accent-dim); color:var(--mb-cta-fg); }
           @media (max-width:760px) {
             .inner { width:min(calc(100% - 32px), 1120px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
             .brand span { display:none; }
@@ -120,6 +136,7 @@
       root.innerHTML = `
         <style>
           :host { ${PALETTE} display:block; }
+          ${DARK_RULE}
           footer { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:34px 0 56px; border-top:1px solid var(--mb-border); font-family:var(--mb-sans); color:var(--mb-mute); font-size:12px; }
           .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; }
           .foot-head strong { color:var(--mb-fg); font-size:14px; }

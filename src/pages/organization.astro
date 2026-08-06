@@ -99,7 +99,7 @@ const humanGates = [
     <script is:inline src="/mb-components.js" defer></script>
   </head>
   <body>
-    <mb-header active="home"></mb-header>
+    <mb-header active="organization"></mb-header>
     <main>
       <div class="page-shell">
         <section class="intro-section" aria-labelledby="page-title">
@@ -199,14 +199,10 @@ const humanGates = [
         </section>
       </div>
     </main>
-    <!-- 공용 푸터는 배경이 투명이고 글자색이 #111 고정이다(shadow DOM 자족 팔레트).
-         다크에서 그대로 두면 검은 글자가 검은 배경에 묻혀 상호명·이메일이 사라진다
-         (실측 명암비 ≈ 1:1). 공용 컴포넌트를 고치면 4개 사이트 전 페이지에 영향이 가므로
-         이 페이지에서 푸터가 놓이는 띠만 밝게 받쳐 준다. 헤더는 스스로 흰 막대를 그리므로
-         결과적으로 위아래 크롬이 밝고 본문 캔버스가 어두운 구성이 된다. -->
-    <div class="chrome-band">
-      <mb-footer></mb-footer>
-    </div>
+    <!-- 2026-08-06 T-260806-060: 공용 헤더/푸터가 다크 팔레트를 갖게 되어(mb-components.js)
+         이 페이지만 크롬을 밝게 받치던 .chrome-band 땜빵을 걷었다. 이제 위아래 크롬과
+         본문이 같은 톤으로 붙는다. -->
+    <mb-footer></mb-footer>
 
     <style is:global>
       :root {
@@ -221,9 +217,6 @@ const humanGates = [
         --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
         --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
       }
-
-      /* 공용 헤더/푸터가 놓이는 띠. 두 모드 모두 밝게 고정한다 — 이유는 본문 주석 참조. */
-      .chrome-band { background: #ffffff; }
 
       /* 다크 대응 — 랜딩과 같은 색 이름을 쓰고 값만 뒤집는다. */
       @media (prefers-color-scheme: dark) {
