@@ -455,8 +455,29 @@ const links = [
         --border-soft: #eeeeee;
         --accent: #2563eb;
         --accent-dim: #1748b8;
+        --cta-fg: #ffffff;
         --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
         --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+      }
+
+      /* 다크 대응 (2026-08-06 T-260806-060) — /organization/ 이 쓰던 값과 같은 세트.
+         색 '이름'은 그대로 두고 값만 뒤집으므로 밝은 모드 렌더는 한 픽셀도 안 바뀐다.
+         --cta-fg 는 채운 버튼 전용: 다크 액센트(#7aa2ff) 위에 흰 글자를 얹으면
+         명암비가 2.5:1 로 무너져서, 다크에서만 글자를 어둡게 돌린다(7.7:1). */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0f0f10;
+          --bg-elev: #17171a;
+          --bg-elev2: #202024;
+          --fg: #f2f2f2;
+          --fg-dim: #b6b6ba;
+          --fg-mute: #8a8a90;
+          --border: #2c2c31;
+          --border-soft: #232327;
+          --accent: #7aa2ff;
+          --accent-dim: #9db8ff;
+          --cta-fg: #0f0f10;
+        }
       }
 
       * {
@@ -607,7 +628,7 @@ const links = [
       .button.primary {
         border-color: var(--accent);
         background: var(--accent);
-        color: #ffffff;
+        color: var(--cta-fg);
       }
 
       .button:hover {
@@ -618,7 +639,7 @@ const links = [
       .button.primary:hover {
         border-color: var(--accent-dim);
         background: var(--accent-dim);
-        color: #ffffff;
+        color: var(--cta-fg);
       }
 
       .hero-aside {
@@ -627,7 +648,7 @@ const links = [
         width: 100%;
         border: 1px solid var(--border);
         border-radius: 8px;
-        background: rgba(247, 247, 247, 0.92);
+        background: color-mix(in srgb, var(--bg-elev) 92%, transparent);
         padding: 20px;
       }
 
