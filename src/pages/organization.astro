@@ -1,4 +1,8 @@
 ---
+// 타이포·간격·형태 토큰 정본 — 이 페이지에서 추출한 값이라 여기가 원본이지만,
+// 리터럴을 들고 있으면 토큰을 고칠 때 기준 페이지만 안 따라온다 (T-260807-018)
+import "../styles/tokens.css";
+
 const company = {
   name: "마이너스베타스튜디오",
   representative: "강대종",
@@ -214,8 +218,7 @@ const humanGates = [
         --border: #dedede;
         --border-soft: #eeeeee;
         --accent: #2563eb;
-        --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-        --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+        /* --mono·--sans 는 tokens.css 정본으로 이관 (T-260807-018) */
       }
 
       /* 다크 대응 — 랜딩과 같은 색 이름을 쓰고 값만 뒤집는다. */
@@ -240,7 +243,7 @@ const humanGates = [
         background: var(--bg);
         color: var(--fg);
         font-family: var(--sans);
-        line-height: 1.65;
+        line-height: var(--leading-body);
         text-rendering: geometricPrecision;
       }
 
@@ -256,23 +259,23 @@ const humanGates = [
 
       .eyebrow {
         font-family: var(--mono);
-        font-size: 12px;
+        font-size: var(--text-meta);
         font-weight: 600;
-        letter-spacing: 0.14em;
+        letter-spacing: var(--track-eyebrow);
         color: var(--fg-mute);
         text-transform: uppercase;
       }
 
-      .intro-section { padding: 72px 0 56px; border-bottom: 1px solid var(--border-soft); }
-      .intro-section h1 { margin: 12px 0 20px; font-size: clamp(30px, 5vw, 46px); line-height: 1.25; }
-      .lead { max-width: 62ch; font-size: 17px; }
+      .intro-section { padding: 72px 0 var(--pad-section); border-bottom: 1px solid var(--border-soft); }
+      .intro-section h1 { margin: 12px 0 20px; font-size: var(--text-h1); line-height: var(--leading-h1); }
+      .lead { max-width: var(--measure); font-size: var(--text-lead); }
       .lead.sub { margin-top: 14px; }
       .lead strong { color: var(--fg); font-weight: 700; }
 
       .section-head { margin-bottom: 28px; }
-      .section-head h2 { margin-top: 10px; font-size: clamp(22px, 3vw, 28px); }
+      .section-head h2 { margin-top: 10px; font-size: var(--text-h2); }
 
-      .chart-section { padding: 56px 0; border-bottom: 1px solid var(--border-soft); }
+      .chart-section { padding: var(--pad-section) 0; border-bottom: 1px solid var(--border-soft); }
 
       /* ── 조직도 ─────────────────────────────────────────── */
       .chart { display: flex; flex-direction: column; align-items: center; }
@@ -300,11 +303,11 @@ const humanGates = [
       .node-note {
         margin-left: 6px;
         font-family: var(--mono);
-        font-size: 11px;
+        font-size: var(--text-badge);
         font-weight: 400;
         color: var(--fg-mute);
       }
-      .tier-workers { list-style: none; gap: 16px; align-items: stretch; }
+      .tier-workers { list-style: none; gap: var(--gap-card); align-items: stretch; }
       .tier-workers > li { display: flex; flex: 1 1 0; min-width: 0; }
 
       .node {
@@ -315,7 +318,7 @@ const humanGates = [
         max-width: 340px;
         padding: 18px 20px;
         border: 1px solid var(--border);
-        border-radius: 12px;
+        border-radius: var(--radius-card);
         background: var(--bg);
       }
 
@@ -324,18 +327,18 @@ const humanGates = [
 
       .node-badge {
         font-family: var(--mono);
-        font-size: 11px;
+        font-size: var(--text-badge);
         font-weight: 600;
-        letter-spacing: 0.08em;
+        letter-spacing: var(--track-badge);
         color: var(--fg-mute);
         text-transform: uppercase;
       }
 
-      .node h3 { display: flex; align-items: center; gap: 8px; font-size: 19px; }
+      .node h3 { display: flex; align-items: center; gap: 8px; font-size: var(--text-h3); }
 
       .mark {
         font-family: var(--mono);
-        font-size: 11px;
+        font-size: var(--text-badge);
         font-weight: 600;
         padding: 2px 6px;
         border: 1px solid var(--border);
@@ -343,16 +346,16 @@ const humanGates = [
         color: var(--fg-mute);
       }
 
-      .node-role { font-family: var(--mono); font-size: 12px; color: var(--fg-mute); }
-      .node-desc { font-size: 14px; line-height: 1.6; }
+      .node-role { font-family: var(--mono); font-size: var(--text-meta); color: var(--fg-mute); }
+      .node-desc { font-size: var(--text-desc); line-height: var(--leading-desc); }
 
       /* 연결선 — 전부 border 로 그린다. 이미지·아이콘 폰트 없음. */
       .legal-note {
-        max-width: 62ch;
+        max-width: var(--measure);
         margin-top: 18px;
         padding-top: 14px;
         border-top: 1px solid var(--border-soft);
-        font-size: 14px;
+        font-size: var(--text-desc);
         color: var(--fg-mute);
       }
       .legal-note strong { color: var(--fg-dim); font-weight: 700; }
@@ -390,24 +393,24 @@ const humanGates = [
       .link-branch::after { left: calc(62.5% - 0.5px); }
 
       .chart-note {
-        max-width: 62ch;
+        max-width: var(--measure);
         margin: 32px auto 0;
-        font-size: 14px;
+        font-size: var(--text-desc);
         color: var(--fg-mute);
         text-align: center;
       }
 
       /* ── 사람이 쥔 것 ───────────────────────────────────── */
-      .human-section { padding: 56px 0; border-bottom: 1px solid var(--border-soft); }
-      .human-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+      .human-section { padding: var(--pad-section) 0; border-bottom: 1px solid var(--border-soft); }
+      .human-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--gap-card); }
       .human-grid > div {
         padding: 20px;
         border: 1px solid var(--border);
-        border-radius: 12px;
+        border-radius: var(--radius-card);
         background: var(--bg);
       }
-      .human-grid dt { margin-bottom: 6px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.08em; color: var(--fg-mute); text-transform: uppercase; }
-      .human-grid dd { font-size: 15px; color: var(--fg-dim); }
+      .human-grid dt { margin-bottom: 6px; font-family: var(--mono); font-size: var(--text-meta); letter-spacing: var(--track-badge); color: var(--fg-mute); text-transform: uppercase; }
+      .human-grid dd { font-size: var(--text-body); color: var(--fg-dim); }
 
       .back-section { display: flex; flex-wrap: wrap; gap: 12px; padding: 48px 0 0; }
 
@@ -416,9 +419,9 @@ const humanGates = [
         align-items: center;
         padding: 10px 18px;
         border: 1px solid var(--border);
-        border-radius: 8px;
+        border-radius: var(--radius-btn);
         background: var(--bg);
-        font-size: 14px;
+        font-size: var(--text-desc);
         font-weight: 500;
       }
       .button:hover { border-color: var(--accent); color: var(--accent); }
@@ -495,9 +498,9 @@ const humanGates = [
 
       @media (max-width: 640px) {
         .page-shell { width: calc(100% - 32px); }
-        .intro-section { padding: 48px 0 40px; }
+        .intro-section { padding: 48px 0 var(--pad-section-sm); }
         .chart-section,
-        .human-section { padding: 40px 0; }
+        .human-section { padding: var(--pad-section-sm) 0; }
       }
     </style>
   </body>
