@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+# CF 이메일 난독화 스텁 — 실제 페이지 아님, 구글 404 색인 오류 방지 (T-260808 서치콘솔 8/5 감지)
+Disallow: /cdn-cgi/
 
 Sitemap: https://kangdaejong.com/sitemap.xml
