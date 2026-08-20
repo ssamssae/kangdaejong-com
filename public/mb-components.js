@@ -5,7 +5,7 @@
  *
  * 사용법:
  *   <script src="https://kangdaejong.com/mb-components.js" defer></script>
- *   <mb-header active="home"></mb-header>   // active = home|founder|workshop|worklog|newsletter|insights|products|system|cost|lab
+ *   <mb-header active="home"></mb-header>   // active = home|founder|workshop|worklog|newsletter|insights|products|system|lab
  *   <mb-footer></mb-footer>
  */
 (function () {
@@ -29,7 +29,6 @@
     { key: 'workshop', label: '작업장',   href: 'https://work.kangdaejong.com/' },
     { key: 'insights', label: '인사이트', href: 'https://work.kangdaejong.com/insights' },
     { key: 'system',   label: '시스템',   href: 'https://work.kangdaejong.com/system' },
-    { key: 'cost',     label: '비용공개', href: 'https://work.kangdaejong.com/cost/' },
     { key: 'lab',      label: 'lab',      href: 'https://work.kangdaejong.com/lab' },
     { key: 'home',     label: '회사소개', href: 'https://kangdaejong.com/' },
     { key: 'founder',  label: '대표소개', href: 'https://founder.kangdaejong.com/' },

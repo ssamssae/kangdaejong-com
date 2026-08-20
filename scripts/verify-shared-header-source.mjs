@@ -10,7 +10,7 @@ const index = read("src/pages/index.astro");
 const checks = [
   {
     label: "shared header documents workshop active key",
-    ok: /active = home\|founder\|workshop\|worklog\|newsletter\|insights\|products\|system\|cost\|lab/.test(header),
+    ok: /active = home\|founder\|workshop\|worklog\|newsletter\|insights\|products\|system\|lab/.test(header),
   },
   {
     label: "shared header has workshop root item",
@@ -25,8 +25,15 @@ const checks = [
     ok: /key:\s*'products',\s*label:\s*'제품',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/products\/'/.test(header),
   },
   {
-    label: "shared header includes cost disclosure in secondary nav",
-    ok: /key:\s*'cost',\s*label:\s*'비용공개',\s*href:\s*'https:\/\/work\.kangdaejong\.com\/cost\/'/.test(header),
+    // T-260815-056 — 비용공개 항목을 헤더에서 내렸다. 종전 검사는 그것이 "있어야 한다"고
+    // 강제했다(2026-07-08 #21 이 의도적으로 노출시킨 뒤 고정). 의도가 뒤집혔으므로 검사도 뒤집는다.
+    // ★뒤집는 근거는 기억이 아니라 실측이다 — 링크 대상 work.kangdaejong.com/cost/ 가 HTTP 404 다.
+    //   즉 이 항목은 방문자를 "Page not found" 로 보내고 있었다(아니키 제보 2026-08-15 23:08).
+    // 이 검사는 실수로 되살아나는 것을 막는 가드다. 되돌리려면 cost 페이지 부활이 근거로 필요.
+    label: "shared header must not link the dead cost disclosure page",
+    ok:
+      !/key:\s*'cost'/.test(header) &&
+      !/work\.kangdaejong\.com\/cost\//.test(header),
   },
   {
     label: "shared header keeps desktop sizing (brand 30px, links 13px, dropdown 13px)",
