@@ -38,37 +38,31 @@ const focusAreas = [
   },
 ];
 
-const operatingLoop = [
-  { step: "BUILD", title: "작게 만든다", desc: "한 번에 거대한 제품보다, 문제 하나를 해결하는 단위로 시작합니다." },
-  { step: "SHIP", title: "바로 내보낸다", desc: "앱스토어, 웹, 공개 repo까지 실제 사용 가능한 형태로 배포합니다." },
-  { step: "WATCH", title: "계속 본다", desc: "테스터 피드백, 작업일지, 오류 로그를 모아 다음 수정의 근거로 씁니다." },
-  { step: "REFINE", title: "덜어낸다", desc: "기능을 늘리기보다 사용 흐름을 짧게 만들고 오래 남길 것만 남깁니다." },
-];
-
-// 모바일 앱 — 스토어 실측 기준(2026-08-05). 개수는 proofPoints 가 여기서 파생한다.
+// 모바일 앱 — 스토어 실측 기준. 개수는 proofPoints 가 여기서 파생한다.
+// 설명 정본은 daejong-page/src/data/products.ts 와 맞춘다.
 const apps = [
-  {
-    name: "메모요",
-    status: "iOS · Android LIVE",
-    desc: "빠르게 쓰고 지우는 심플 메모 앱.",
-    links: [
-      { label: "App Store", url: "https://apps.apple.com/kr/app/id6762068073" },
-      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.simple_memo_app" },
-    ],
-  },
   {
     name: "한줄일기",
     status: "iOS · Android LIVE",
-    desc: "하루 한 줄 기록과 AI 응원 답글.",
+    desc: "하루 한 줄로 남기는 일기. 감정 히트맵, 로컬 저장, 가입 없음.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6764308678" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.hanjul" },
     ],
   },
   {
+    name: "메모요",
+    status: "iOS · Android LIVE",
+    desc: "다크 테마의 심플 메모. 여러 개를 골라 한 번에 지울 수 있습니다.",
+    links: [
+      { label: "App Store", url: "https://apps.apple.com/kr/app/id6762068073" },
+      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.simple_memo_app" },
+    ],
+  },
+  {
     name: "더치페이 계산기",
     status: "iOS · Android LIVE",
-    desc: "모임 자리의 금액을 바로 나누는 정산 도구.",
+    desc: "모임 자리의 금액과 인원만 넣으면 바로 나누는 정산 도구.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6762072499" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.dutchpay" },
@@ -77,7 +71,7 @@ const apps = [
   {
     name: "약먹자",
     status: "iOS · Android LIVE",
-    desc: "복약 시간을 놓치지 않게 돕는 알림 앱.",
+    desc: "약 등록과 알림 시각만 정하면 복약 시간을 챙겨 주는 앱.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6762100639" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.yakmukja" },
@@ -131,18 +125,22 @@ const ebooks = [
   },
 ];
 
-const webProducts = [
-  {
-    name: "첫이름",
-    status: "웹 LIVE",
-    desc: "사주와 획수, 인명용 한자를 따져 아이 이름 후보를 뽑아주는 AI 작명 서비스.",
-    links: [{ label: "바로가기", url: "https://cheotireum.kangdaejong.com/" }],
-  },
-];
-
-const productCards = [...apps, ...webProducts];
+const featured = {
+  name: "첫이름",
+  status: "웹 · ₩19,900",
+  kicker: "대표 웹 서비스",
+  desc: "사주·획수·인명용 한자를 따져 아이 이름 후보를 뽑아 주는 AI 작명 서비스. 지금 바로 웹에서 쓸 수 있습니다.",
+  links: [{ label: "첫이름 열기", url: "https://cheotireum.kangdaejong.com/" }],
+};
 
 const tools = [
+  {
+    name: "Grok Telegram Bridge",
+    status: "오픈소스 · 공개 repo",
+    desc: "텔레그램으로 자기 컴퓨터의 Grok 세션을 부리는 브릿지. Claude·Codex 브릿지의 형제 도구입니다.",
+    repo: "https://github.com/ssamssae/grok-telegram-bridge",
+    releases: "https://github.com/ssamssae/grok-telegram-bridge/releases",
+  },
   {
     name: "Codex Telegram Bridge",
     status: "오픈소스 · 공개 repo",
@@ -159,16 +157,16 @@ const tools = [
   },
 ];
 
-// ★개수는 손으로 박지 않는다 — 목록에서 파생한다. 하드코딩 상수가 이 페이지 스테일의
-// 근인이었다(T-260805-084: LIVE APPS 4 로 굳어 실제 7 과 어긋남).
+const productNames = [featured.name, ...apps.map((app) => app.name)];
+
+// ★개수는 손으로 박지 않는다 — 목록에서 파생한다.
 const proofPoints = [
-  { label: "LIVE APPS", value: String(apps.length), desc: "출시 후 직접 운영" },
-  { label: "OPEN TOOLS", value: String(tools.length), desc: "브릿지·자동화 공개" },
-  { label: "STUDIO", value: "1인", desc: "기획부터 고객응대까지" },
-  { label: "LOOP", value: "기록 기반", desc: "작업일지와 검증으로 개선" },
+  { label: "출시 앱", value: String(apps.length), desc: "스토어에 올려 직접 운영" },
+  { label: "공개 도구", value: String(tools.length), desc: "실제로 쓰는 브릿지를 공개" },
+  { label: "운영", value: "1인", desc: "기획부터 고객응대까지" },
+  { label: "기록", value: "공개", desc: "작업일지와 뉴스레터로 남김" },
 ];
 
-// 링크 미리보기(카카오톡·슬랙·X)용 메타 — 설명 문구를 한 곳에서만 쓰고 og/twitter 가 파생한다.
 const siteUrl = "https://kangdaejong.com/";
 const description = `${company.name} — 오래 남을 앱, 웹 서비스, 공개 자동화 도구를 만드는 1인 스튜디오. 대표 ${company.representative}.`;
 const ogImage = `${siteUrl}og-image.png`;
@@ -207,43 +205,35 @@ const links = [
 
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Pretendard:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
     <title>{company.name}</title>
     <script is:inline src="/mb-components.js" defer></script>
   </head>
   <body>
     <mb-header active="home"></mb-header>
     <main>
-      <!-- 조직도 페이지와 같은 구성: page-shell 하나가 전 섹션을 감싸고,
-           섹션 경계는 풀블리드 괘선이 아니라 shell 폭의 소프트 보더다. -->
       <div class="page-shell">
       <section class="hero" id="top" aria-labelledby="page-title">
         <div class="hero-inner">
           <img class="hero-mark" src="/minusbeta-badge.svg" alt="" width="640" height="640" aria-hidden="true" />
           <div class="hero-copy">
-            <p class="eyebrow">MINUS BETA STUDIO</p>
+            <p class="eyebrow">1인 스튜디오 · 강대종</p>
             <h1 id="page-title"><span>마이너스</span><span>베타스튜디오</span></h1>
             <p class="tagline">{slogan}</p>
             <p class="lead">{sloganKo} 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 검증하며 운영합니다.</p>
+            <p class="hero-products" aria-label="지금 운영 중인 제품">
+              {productNames.join(" · ")}
+            </p>
             <div class="hero-actions" aria-label="주요 링크">
               <a class="button primary" href={company.products}>제품 보기</a>
               <a class="button" href={company.work}>작업장 보기</a>
               <a class="button" href={`mailto:${company.email}`}>문의하기</a>
             </div>
           </div>
-          <aside class="hero-aside" aria-label="스튜디오 운영 요약">
-            <div class="aside-top">
-              <span>OPERATING STUDIO</span>
-              <strong>1 person</strong>
-            </div>
-            <ul>
-              <li><span>Build</span><strong>앱 · 웹 · 자동화</strong></li>
-              <li><span>Record</span><strong>작업일지 · 뉴스레터</strong></li>
-              <li><span>Open</span><strong>GitHub · 공개 도구</strong></li>
-            </ul>
-          </aside>
         </div>
       </section>
 
@@ -259,24 +249,13 @@ const links = [
         </div>
       </section>
 
-      <section class="statement-section" aria-labelledby="statement-title">
-        <div class="section-head">
-          <p class="eyebrow">IDENTITY</p>
-          <h2 id="statement-title">혼자 만들지만 혼자만 보지 않습니다.</h2>
-        </div>
-        <div class="statement-grid">
-          <p>{intro}</p>
-          <p>제품은 출시 상태로, 과정은 작업장에, 도구는 공개 저장소에 남깁니다. 작게 시작한 도구가 오래 쓰이도록 기능보다 운영과 회복력을 먼저 봅니다.</p>
-        </div>
-      </section>
-
       <section class="focus-section" aria-labelledby="focus-title">
         <div class="section-head split">
           <div>
-            <p class="eyebrow">WHAT WE BUILD</p>
-            <h2 id="focus-title">하는 일</h2>
+            <p class="eyebrow">하는 일</p>
+            <h2 id="focus-title">혼자 만들지만, 혼자만 보지 않습니다.</h2>
           </div>
-          <p>기획, 개발, 배포, 운영을 한 흐름으로 묶어 빠르게 검증합니다.</p>
+          <p>{intro} 작게 만들고, 바로 내보내고, 기록으로 다시 줄입니다.</p>
         </div>
         <ol class="focus-list">
           {focusAreas.map((item) => (
@@ -289,35 +268,29 @@ const links = [
         </ol>
       </section>
 
-      <section class="loop-section" aria-labelledby="loop-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">OPERATING LOOP</p>
-            <h2 id="loop-title">만드는 방식</h2>
-          </div>
-          <p>작게 만들고, 빠르게 공개하고, 기록으로 다시 줄입니다.</p>
-        </div>
-        <div class="loop-list">
-          {operatingLoop.map((item) => (
-            <article>
-              <span>{item.step}</span>
-              <strong>{item.title}</strong>
-              <p>{item.desc}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-
       <section class="products-section" aria-labelledby="products-title">
         <div class="section-head split">
           <div>
-            <p class="eyebrow">PRODUCTS</p>
-            <h2 id="products-title">대표 제품</h2>
+            <p class="eyebrow">제품</p>
+            <h2 id="products-title">지금 쓸 수 있는 것들</h2>
           </div>
           <a class="text-link" href={company.products}>전체 제품 보기</a>
         </div>
+        <article class="product-card featured">
+          <div class="featured-copy">
+            <span>{featured.status}</span>
+            <p class="featured-kicker">{featured.kicker}</p>
+            <h3>{featured.name}</h3>
+            <p>{featured.desc}</p>
+            <div class="link-row">
+              {featured.links.map((link) => (
+                <a href={link.url} target="_blank" rel="noopener">{link.label} →</a>
+              ))}
+            </div>
+          </div>
+        </article>
         <div class="product-grid">
-          {productCards.map((app) => (
+          {apps.map((app) => (
             <article class="product-card">
               <span>{app.status}</span>
               <h3>{app.name}</h3>
@@ -335,10 +308,10 @@ const links = [
       <section class="ebooks-section" aria-labelledby="ebooks-title">
         <div class="section-head split">
           <div>
-            <p class="eyebrow">EBOOKS</p>
-            <h2 id="ebooks-title">전자책</h2>
+            <p class="eyebrow">전자책</p>
+            <h2 id="ebooks-title">운영하면서 묶은 글</h2>
           </div>
-          <p>운영하면서 정리한 작업 흐름을 글로 묶었습니다.</p>
+          <p>직접 굴리며 정리한 작업 흐름입니다. 이론서가 아닙니다.</p>
         </div>
         <div class="product-grid">
           {ebooks.map((book) => (
@@ -359,10 +332,10 @@ const links = [
       <section class="tools-section" aria-labelledby="tools-title">
         <div class="section-head split">
           <div>
-            <p class="eyebrow">OPEN TOOLS</p>
-            <h2 id="tools-title">공개 자동화 도구</h2>
+            <p class="eyebrow">공개 도구</p>
+            <h2 id="tools-title">내부에서 쓰는 브릿지를 공개합니다</h2>
           </div>
-          <p>내부에서 실제로 쓰는 도구를 공개 repo로 정리합니다.</p>
+          <p>폰에서 자기 컴퓨터의 AI를 부리려고 만든 도구입니다.</p>
         </div>
         <div class="tool-grid">
           {tools.map((tool) => (
@@ -384,10 +357,10 @@ const links = [
       <section class="connect-section" aria-labelledby="connect-title">
         <div class="section-head split">
           <div>
-            <p class="eyebrow">CONNECT</p>
-            <h2 id="connect-title">연결</h2>
+            <p class="eyebrow">연결</p>
+            <h2 id="connect-title">기록은 공개 페이지에, 연락은 메일로</h2>
           </div>
-          <p>제품과 기록은 공개 페이지에서, 연락은 이메일로 받습니다.</p>
+          <p>제품과 작업 과정은 작업장에서 볼 수 있습니다.</p>
         </div>
         <div class="connect-list">
           {links.map((link) => (
@@ -402,7 +375,7 @@ const links = [
 
       <section class="company-section" aria-labelledby="company-title">
         <div class="section-head">
-          <p class="eyebrow">COMPANY</p>
+          <p class="eyebrow">회사</p>
           <h2 id="company-title">회사 정보</h2>
         </div>
         <dl class="company-info">
@@ -508,45 +481,43 @@ const links = [
       a { color: var(--fg); text-decoration: none; }
       a:hover { color: var(--accent); }
 
-      h1, h2, h3 { color: var(--fg); font-weight: 700; letter-spacing: 0; }
+      h1, h2, h3 { color: var(--fg); font-weight: 700; letter-spacing: -0.03em; }
       p { color: var(--fg-dim); }
 
-      /* eyebrow — 조직도와 동일: 넓은 자간 + 대문자 */
       .eyebrow {
         font-family: var(--mono);
         font-size: var(--text-meta);
         font-weight: 600;
-        letter-spacing: var(--track-eyebrow);
+        letter-spacing: 0.06em;
         color: var(--fg-mute);
-        text-transform: uppercase;
       }
 
-      /* ── 섹션 리듬 — 굵은 괘선·큰 마진 대신 패딩 + 소프트 경계 (조직도 꼴) ── */
       main section {
-        padding: var(--pad-section) 0;
+        padding: 72px 0;
         border-bottom: 1px solid var(--border-soft);
       }
 
       .company-section { border-bottom: 0; }
 
-      .section-head { margin-bottom: 28px; }
-      .section-head h2 { margin-top: 10px; font-size: var(--text-h2); line-height: 1.3; }
+      .section-head { margin-bottom: 32px; }
+      .section-head h2 {
+        margin-top: 10px;
+        font-size: clamp(24px, 3.2vw, 34px);
+        line-height: 1.25;
+        word-break: keep-all;
+      }
 
-      /* 보조 설명은 우측 정렬 분리 대신 제목 아래 리드로 붙인다(조직도 lead.sub 꼴) */
       .section-head.split > p {
         max-width: var(--measure);
-        margin-top: 12px;
+        margin-top: 14px;
         font-size: var(--text-body);
         color: var(--fg-mute);
+        word-break: keep-all;
       }
 
       .section-head .text-link { display: inline-block; margin-top: 12px; }
 
-      /* ── 카드 — 조직도 node 패턴: 12px 라운드 + 얇은 보더 + 6px 스택 ── */
-      .hero-aside,
-      .proof-inner > div,
       .focus-list li,
-      .loop-list article,
       .connect-list a,
       .product-card,
       .tool-card {
@@ -554,16 +525,12 @@ const links = [
         border: 1px solid var(--border);
         border-radius: var(--radius-card);
         background: var(--bg);
-        padding: 18px 20px;
+        padding: 22px 22px;
       }
 
-      /* 카드 상단 라벨 — 조직도 node-badge 와 동일 규격 */
-      .aside-top span,
-      .hero-aside li span,
-      .proof-inner span,
       .focus-list li > span,
-      .loop-list article > span,
       .product-card > span,
+      .featured-copy > span,
       .tool-top span {
         font-family: var(--mono);
         font-size: var(--text-badge);
@@ -573,42 +540,42 @@ const links = [
         text-transform: uppercase;
       }
 
-      /* ── 히어로 — 조직도 intro-section 리듬 ── */
-      .hero { position: relative; overflow: hidden; padding: 72px 0 var(--pad-section); }
+      .hero { position: relative; overflow: hidden; padding: 88px 0 32px; }
 
       .hero-inner {
         position: relative;
         display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(260px, 340px);
-        gap: clamp(28px, 5vw, 56px);
-        align-items: center;
+        grid-template-columns: minmax(0, 1fr);
+        gap: 0;
+        align-items: end;
+        min-height: 52vh;
       }
 
-      .hero-copy { position: relative; z-index: 1; min-width: 0; }
+      .hero-copy { position: relative; z-index: 1; min-width: 0; max-width: 40rem; }
 
       .hero-mark {
         position: absolute;
-        right: -140px;
-        bottom: -160px;
-        width: min(48vw, 520px);
+        right: -120px;
+        top: -80px;
+        width: min(58vw, 640px);
         height: auto;
-        opacity: 0.05;
+        opacity: 0.07;
         pointer-events: none;
         user-select: none;
       }
 
       .hero h1 {
-        margin: 12px 0 10px;
-        font-size: var(--text-h1);
-        line-height: var(--leading-h1);
+        margin: 16px 0 14px;
+        font-size: clamp(40px, 8vw, 72px);
+        line-height: 0.98;
         overflow-wrap: anywhere;
         word-break: keep-all;
       }
 
-      .hero h1 span { display: inline-block; }
+      .hero h1 span { display: block; }
 
       .tagline {
-        margin-bottom: 16px;
+        margin-bottom: 18px;
         font-family: var(--mono);
         font-size: 13px;
         font-weight: 600;
@@ -617,15 +584,26 @@ const links = [
         text-transform: uppercase;
       }
 
-      .lead { max-width: var(--measure); font-size: var(--text-lead); }
+      .lead { max-width: var(--measure); font-size: var(--text-lead); word-break: keep-all; }
 
-      .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .hero-products {
+        margin-top: 22px;
+        max-width: 46rem;
+        font-family: var(--mono);
+        font-size: var(--text-meta);
+        line-height: 1.7;
+        letter-spacing: 0.02em;
+        color: var(--fg-mute);
+        word-break: keep-all;
+        overflow-wrap: break-word;
+      }
 
-      /* 버튼 — 조직도 .button 규격 (10px 18px · 500 · hover 액센트) */
+      .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+
       .button {
         display: inline-flex;
         align-items: center;
-        padding: 10px 18px;
+        padding: 12px 20px;
         border: 1px solid var(--border);
         border-radius: var(--radius-btn);
         background: var(--bg);
@@ -649,71 +627,39 @@ const links = [
         color: var(--cta-fg);
       }
 
-      /* 히어로 요약 카드 — 조직도 orchestrator 카드처럼 살짝 띄운 배경 */
-      .hero-aside { position: relative; z-index: 1; width: 100%; background: var(--bg-elev); }
+      .proof-strip { padding-top: 8px; padding-bottom: var(--pad-section); }
 
-      .aside-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 14px;
-        align-items: baseline;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 12px;
-      }
-
-      .aside-top strong {
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        color: var(--fg);
-        white-space: nowrap;
-      }
-
-      .hero-aside ul { display: grid; list-style: none; }
-
-      .hero-aside li {
-        display: grid;
-        grid-template-columns: 76px minmax(0, 1fr);
-        gap: 14px;
-        align-items: baseline;
-        border-bottom: 1px solid var(--border-soft);
-        padding: 12px 0;
-      }
-
-      .hero-aside li:last-child { border-bottom: 0; padding-bottom: 0; }
-
-      .hero-aside li strong {
-        color: var(--fg);
-        font-size: var(--text-desc);
-        font-weight: 500;
-        line-height: var(--leading-desc);
-        overflow-wrap: anywhere;
-      }
-
-      /* ── 스튜디오 요약 — 셀 괘선 스트립 대신 카드 그리드(조직도 human-grid 꼴) ── */
       .proof-inner {
         display: grid;
         grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: var(--gap-card);
+        gap: 0;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
       }
 
-      .proof-inner > div { display: flex; flex-direction: column; gap: 6px; }
+      .proof-inner > div {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        min-width: 0;
+        padding: 28px 20px 28px 0;
+      }
 
-      .proof-inner strong { color: var(--fg); font-size: 22px; line-height: 1.25; overflow-wrap: anywhere; }
+      .proof-inner > div + div { padding-left: 20px; border-left: 1px solid var(--border-soft); }
+
+      .proof-inner span {
+        font-family: var(--mono);
+        font-size: var(--text-badge);
+        font-weight: 600;
+        letter-spacing: var(--track-badge);
+        color: var(--fg-mute);
+        text-transform: uppercase;
+      }
+
+      .proof-inner strong { color: var(--fg); font-size: 28px; line-height: 1.15; letter-spacing: -0.04em; overflow-wrap: anywhere; }
 
       .proof-inner p { font-size: var(--text-desc); line-height: var(--leading-desc); }
 
-      /* ── IDENTITY — 2단 나눔 대신 리드 문단 스택(조직도 intro 꼴, 62ch) ── */
-      .statement-grid { display: grid; gap: 14px; }
-
-      .statement-grid p {
-        max-width: var(--measure);
-        font-size: var(--text-lead);
-        line-height: 1.75;
-        word-break: keep-all;
-      }
-
-      /* ── 하는 일 / 만드는 방식 — 괘선 셀 대신 카드 그리드 ── */
       .focus-list {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -721,41 +667,44 @@ const links = [
         list-style: none;
       }
 
-      .focus-list li { display: flex; flex-direction: column; gap: 6px; }
+      .focus-list li { display: flex; flex-direction: column; gap: 8px; }
 
       .focus-list strong { color: var(--fg); font-size: var(--text-h3); line-height: 1.3; }
 
       .focus-list p { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
 
-      .loop-list {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: var(--gap-card);
-      }
-
-      .loop-list article { display: flex; flex-direction: column; gap: 6px; }
-
-      .loop-list strong { color: var(--fg); font-size: var(--text-h3); line-height: 1.35; word-break: keep-all; }
-
-      .loop-list p { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
-
-      /* ── 제품·전자책·도구 카드 — 조직도 워커 카드 밀도(4열)·제목 19px ── */
       .product-grid,
       .tool-grid {
         display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: var(--gap-card);
       }
 
       .ebooks-section .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
-      .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 
       .product-card,
-      .tool-card { display: flex; flex-direction: column; gap: 6px; }
+      .tool-card { display: flex; flex-direction: column; gap: 8px; }
 
       .product-card:hover,
       .tool-card:hover { border-color: var(--accent); }
+
+      .product-card.featured {
+        margin-bottom: var(--gap-card);
+        padding: 32px;
+        background: var(--bg-elev);
+      }
+
+      .featured-copy { max-width: 40rem; display: flex; flex-direction: column; gap: 8px; }
+
+      .featured-kicker {
+        color: var(--fg);
+        font-size: var(--text-body);
+        font-weight: 600;
+      }
+
+      .product-card.featured h3 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.04em; }
 
       .product-card h3,
       .tool-card h3 {
@@ -768,7 +717,7 @@ const links = [
       .product-card p,
       .tool-card p { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
 
-      .link-row { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: auto; padding-top: 12px; }
+      .link-row { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: auto; padding-top: 14px; }
 
       .link-row a,
       .text-link {
@@ -786,7 +735,6 @@ const links = [
 
       .tool-top { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
 
-      /* ── 연결 — 행 리스트 대신 링크 카드(조직도 node 꼴: 이름/설명/메타) ── */
       .connect-list {
         display: grid;
         grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -820,7 +768,6 @@ const links = [
 
       .connect-list a:hover em { color: var(--accent); }
 
-      /* ── 회사 정보 — dt 를 조직도 라벨 규격(mono 12 · 자간)으로 ── */
       .company-info {
         display: grid;
         grid-template-columns: 1fr;
@@ -833,7 +780,7 @@ const links = [
         gap: 14px;
         align-items: baseline;
         border-bottom: 1px solid var(--border-soft);
-        padding: 12px 0;
+        padding: 14px 0;
       }
 
       .company-info dt {
@@ -859,18 +806,20 @@ const links = [
         text-underline-offset: 0.2em;
       }
 
-      /* ── 반응형 — 조직도와 같은 900 / 640 브레이크 ── */
       @media (max-width: 900px) {
-        .hero-inner { grid-template-columns: 1fr; align-items: start; }
+        .hero { padding-top: 56px; min-height: 0; }
+
+        .hero-inner { min-height: 0; }
 
         .proof-inner,
-        .loop-list,
         .product-grid,
-        .ebooks-section .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .ebooks-section .product-grid,
+        .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 
         .focus-list,
-        .tool-grid,
         .connect-list { grid-template-columns: 1fr; }
+
+        .proof-inner > div + div { padding-left: 16px; }
       }
 
       @media (max-width: 640px) {
@@ -878,16 +827,28 @@ const links = [
 
         main { padding-bottom: 56px; }
 
-        main section { padding: var(--pad-section-sm) 0; }
+        main section { padding: 48px 0; }
 
-        .hero { padding: 48px 0 var(--pad-section-sm); }
+        .hero { padding: 40px 0 12px; }
 
-        .hero-mark { right: -160px; bottom: -120px; width: 420px; opacity: 0.045; }
+        .hero-mark { right: -160px; top: -40px; width: 420px; opacity: 0.05; }
 
         .proof-inner,
-        .loop-list,
         .product-grid,
-        .ebooks-section .product-grid { grid-template-columns: 1fr; }
+        .ebooks-section .product-grid,
+        .tool-grid { grid-template-columns: 1fr; }
+
+        .proof-inner { border-bottom: 0; }
+
+        .proof-inner > div {
+          padding: 18px 0;
+          border-left: 0;
+          border-bottom: 1px solid var(--border-soft);
+        }
+
+        .proof-inner > div + div { padding-left: 0; }
+
+        .product-card.featured { padding: 22px; }
 
         .company-info div { grid-template-columns: 1fr; gap: 3px; }
       }

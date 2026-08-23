@@ -55,6 +55,14 @@ const checks = [
       /main \{ width: 100%;/.test(source) &&
       /\.page-shell \{ width: min\(calc\(100% - 48px\), 1120px\); margin: 0 auto;/.test(source),
   },
+  {
+    label: "open tools include the public Grok Telegram Bridge",
+    ok: /name:\s*"Grok Telegram Bridge"/.test(source) && /github\.com\/ssamssae\/grok-telegram-bridge/.test(source),
+  },
+  {
+    label: "featured web product keeps 첫이름 with live price",
+    ok: /name:\s*"첫이름"/.test(source) && /₩19,900/.test(source) && /cheotireum\.kangdaejong\.com/.test(source),
+  },
 ];
 
 const failures = checks.filter((check) => !check.ok);
