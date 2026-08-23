@@ -10,6 +10,8 @@
    색 팔레트는 이 파일에 없다 — 두 페이지가 이미 같은 세트를 쓰고
    (T-260806-060), verify-tone-pairs.mjs 가 index 소스의 리터럴을
    검사하므로 색 이관은 별도 PR 로 분리한다.
+
+   T-260823-020: 홈 히어로 큰 제목은 index.astro 의 .hero h1 에서만 키운다.
    ───────────────────────────────────────────────────────────── */
 :root {
   /* 서체 */
@@ -17,7 +19,7 @@
   --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
 
   /* 타입 스케일 — 조직도 페이지 실측값 */
-  --text-h1: clamp(30px, 5vw, 46px);  /* 페이지 제목 */
+  --text-h1: clamp(30px, 5vw, 46px);  /* 페이지 제목 (조직도·전자책). 홈 히어로는 index에서 별도 */
   --text-h2: clamp(22px, 3vw, 28px);  /* 섹션 제목 */
   --text-h3: 19px;                    /* 카드 제목 (조직도 node h3) */
   --text-lead: 17px;                  /* 리드 문단 */
