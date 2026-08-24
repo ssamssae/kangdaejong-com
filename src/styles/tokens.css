@@ -7,13 +7,30 @@
    여기를 보게 만든 이유는, 리터럴이 남아 있으면 토큰을 고쳤을 때 정작 기준
    페이지만 안 따라와 정본이 둘로 갈리기 때문이다. 값을 바꿀 땐 여기만 바꾼다.
 
-   색 팔레트는 이 파일에 없다 — 두 페이지가 이미 같은 세트를 쓰고
-   (T-260806-060), verify-tone-pairs.mjs 가 index 소스의 리터럴을
-   검사하므로 색 이관은 별도 PR 로 분리한다.
+   T-260824-046: 색은 작업장(daejong-page T-260824-014)과 같은 그록 톤.
+   검정 캔버스 · 흰 글자 · 헤어라인. OS 라이트/다크를 가르지 않는다.
+   페이지 :root 리터럴도 이 값과 같아야 한다(verify-tone-pairs.mjs).
 
    T-260823-020: 홈 히어로 큰 제목은 index.astro 의 .hero h1 에서만 키운다.
    ───────────────────────────────────────────────────────────── */
 :root {
+  color-scheme: dark;
+
+  --bg: #000000;
+  --bg-elev: #0d0d0d;
+  --bg-elev2: #141414;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.06);
+  --fg: #f2f2f2;
+  --fg-dim: #b0b0b0;
+  --fg-mute: #8a8a8a;
+  --accent: #f2f2f2;
+  --accent-dim: #c8c8c8;
+  --cta-fg: #000000;
+  --danger: #FF6B6B;
+  --accent-bg: #141414;
+  --code-bg: #141414;
+
   /* 서체 */
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
@@ -37,8 +54,8 @@
 
   /* 간격·형태 리듬 */
   --measure: 62ch;        /* 산문 최대 폭 */
-  --radius-card: 12px;    /* 카드 라운드 (조직도 node) */
-  --radius-btn: 8px;      /* 버튼·소형 요소 라운드 */
+  --radius-card: 0;       /* 그록 톤 — 라운드 없음 */
+  --radius-btn: 0;
   --gap-card: 16px;       /* 카드 그리드 간격 */
   --pad-section: 56px;    /* 섹션 상하 패딩 */
   --pad-section-sm: 40px; /* 섹션 상하 패딩 (640px 이하) */

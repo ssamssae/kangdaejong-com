@@ -236,39 +236,25 @@ const proofPoints = [
     <mb-footer></mb-footer>
 
     <style is:global>
+      /* 그록 톤 (T-260824-046) — tokens.css 와 같은 값. OS 라이트/다크를 가르지 않는다. */
       :root {
-        --bg: #ffffff;
-        --bg-elev: #f7f7f7;
-        --bg-elev2: #eeeeee;
-        --fg: #111111;
-        --fg-dim: #4f4f4f;
-        --fg-mute: #777777;
-        --border: #dedede;
-        --border-soft: #eeeeee;
-        --accent: #2563eb;
-        --accent-dim: #1748b8;
-        --cta-fg: #ffffff;
-      }
-
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg: #0f0f10;
-          --bg-elev: #17171a;
-          --bg-elev2: #202024;
-          --fg: #f2f2f2;
-          --fg-dim: #b6b6ba;
-          --fg-mute: #8a8a90;
-          --border: #2c2c31;
-          --border-soft: #232327;
-          --accent: #7aa2ff;
-          --accent-dim: #9db8ff;
-          --cta-fg: #0f0f10;
-        }
+        color-scheme: dark;
+        --bg: #000000;
+        --bg-elev: #0d0d0d;
+        --bg-elev2: #141414;
+        --fg: #f2f2f2;
+        --fg-dim: #b0b0b0;
+        --fg-mute: #8a8a8a;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-soft: rgba(255, 255, 255, 0.06);
+        --accent: #f2f2f2;
+        --accent-dim: #c8c8c8;
+        --cta-fg: #000000;
       }
 
       * { box-sizing: border-box; margin: 0; padding: 0; }
 
-      html { background: var(--bg); scroll-behavior: smooth; scrollbar-gutter: stable; }
+      html { color-scheme: dark; background: var(--bg); scroll-behavior: smooth; scrollbar-gutter: stable; }
 
       body {
         background: var(--bg);
@@ -485,7 +471,7 @@ const proofPoints = [
         height: 24px;
         border: 1px solid var(--border);
         border-bottom: 0;
-        border-radius: 8px 8px 0 0;
+        border-radius: 0;
       }
       .link-branch::before,
       .link-branch::after {

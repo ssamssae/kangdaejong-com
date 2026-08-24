@@ -35,23 +35,16 @@
   ];
 
   // 공통 팔레트 (shadow DOM 안에서 자족 — 각 사이트 CSS 변수와 무관하게 동일하게 렌더)
+  // 그록 톤 (T-260824-046) — 작업장 tokens.css 와 같은 검정 캔버스.
+  // OS 라이트/다크를 가르지 않는다. 이름(PALETTE_DARK)은 호스트 미디어쿼리 배선용으로 남긴다.
   const PALETTE = `
-    --mb-bg:#ffffff; --mb-elev:#f7f7f7; --mb-fg:#111111; --mb-dim:#4f4f4f; --mb-mute:#777777;
-    --mb-border:#dedede; --mb-soft:#eeeeee; --mb-accent:#2563eb; --mb-accent-dim:#1748b8;
-    --mb-cta-fg:#ffffff; --mb-shadow:rgba(0,0,0,.12);
+    --mb-bg:#000000; --mb-elev:#0d0d0d; --mb-fg:#f2f2f2; --mb-dim:#b0b0b0; --mb-mute:#8a8a8a;
+    --mb-border:rgba(255,255,255,0.08); --mb-soft:#141414; --mb-accent:#f2f2f2; --mb-accent-dim:#c8c8c8;
+    --mb-cta-fg:#000000; --mb-shadow:transparent;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;
-
-  // 다크 팔레트 (2026-08-06 T-260806-060). 색 '이름'은 그대로 두고 값만 뒤집는다 —
-  // organization.astro 가 쓰던 값과 같은 세트라 본문과 크롬이 한 톤으로 붙는다.
-  // CTA 는 배경만 뒤집으면 흰 글자가 밝은 파랑 위에 얹혀 명암비 2.5:1 로 깨진다.
-  // 그래서 다크에서는 글자를 어둡게 돌린다(#0f0f10 대비 7.7:1).
-  const PALETTE_DARK = `
-    --mb-bg:#0f0f10; --mb-elev:#17171a; --mb-fg:#f2f2f2; --mb-dim:#b6b6ba; --mb-mute:#8a8a90;
-    --mb-border:#2c2c31; --mb-soft:#232327; --mb-accent:#7aa2ff; --mb-accent-dim:#9db8ff;
-    --mb-cta-fg:#0f0f10; --mb-shadow:rgba(0,0,0,.55);
-  `;
+  const PALETTE_DARK = PALETTE;
   const DARK_RULE = `@media (prefers-color-scheme: dark) { :host { ${PALETTE_DARK} } }`;
 
   class MbHeader extends HTMLElement {
@@ -84,12 +77,12 @@
           .more-btn.active { font-weight:700; }
           .more-btn .chev { font-size:10px; transition:transform .15s; }
           .more.open .more-btn .chev { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:0; top:calc(100% + 8px); z-index:60; display:none; flex-direction:column; min-width:168px; padding:8px; background:var(--mb-bg); border:1px solid var(--mb-border); border-radius:10px; box-shadow:0 10px 30px var(--mb-shadow); }
+          .more-panel { position:absolute; right:0; top:calc(100% + 8px); z-index:60; display:none; flex-direction:column; min-width:168px; padding:8px; background:var(--mb-bg); border:1px solid var(--mb-border); border-radius:0; box-shadow:none; }
           .more.open .more-panel { display:flex; }
-          .more-panel a { padding:9px 10px; border-radius:7px; color:var(--mb-dim); text-decoration:none; font-size:13px; white-space:nowrap; transition:background .12s, color .12s; }
+          .more-panel a { padding:9px 10px; border-radius:0; color:var(--mb-dim); text-decoration:none; font-size:13px; white-space:nowrap; transition:background .12s, color .12s; }
           .more-panel a:hover { background:var(--mb-soft); color:var(--mb-fg); }
           .more-panel a.active { color:var(--mb-fg); font-weight:700; background:var(--mb-soft); }
-          .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:8px; background:var(--mb-accent); color:var(--mb-cta-fg); font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
+          .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:0; background:var(--mb-accent); color:var(--mb-cta-fg); font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
           .cta:hover { background:var(--mb-accent-dim); color:var(--mb-cta-fg); }
           @media (max-width:760px) {
             .inner { width:min(calc(100% - 32px), 1120px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
