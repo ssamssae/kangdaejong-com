@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 
 const source = readFileSync(new URL("../src/pages/index.astro", import.meta.url), "utf8");
+const organization = readFileSync(new URL("../src/pages/organization.astro", import.meta.url), "utf8");
 const header = readFileSync(new URL("../public/mb-components.js", import.meta.url), "utf8");
 
 const checks = [
@@ -38,6 +39,16 @@ const checks = [
     label: "Company page does not use old neon palette",
     pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa))/,
     source,
+  },
+  {
+    label: "Organization page uses the same bright accent as the homepage",
+    pattern: /--accent:\s*#2563eb;[\s\S]*--accent-dim:\s*#1748b8;/,
+    source: organization,
+  },
+  {
+    label: "Organization page does not use old neon palette",
+    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa))/,
+    source: organization,
   },
   {
     label: "Shared header uses the same bright monochrome palette",
