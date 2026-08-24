@@ -109,17 +109,12 @@ const rawUrl = `/${rawBase}/${meta.file}`;
      타이포 스케일·자간·행간·여백·형태는 위 frontmatter 의 tokens.css import 가 정본이다.
      종전에는 같은 값을 이 블록에 리터럴로 갖고 있었다 — 랜딩(T-260806-062)이 토큰으로
      옮겨간 뒤로는 두 벌이 따로 흘러 톤이 갈리는 자리였다.
-     ⚠️ 색은 여기 남긴다 — tokens.css 는 설계상 색을 담지 않고(파일 주석 9-11행),
-        이 세트는 랜딩·조직도와 이미 같은 값이다(T-260806-060). --code-bg 만 이 페이지 전용.
+     색은 tokens.css 그록 톤(T-260824-046). --code-bg 만 이 페이지가 한 번 더 박는다.
      ⚠️ 폭(900px)은 토큰으로 접지 않는다 — 랜딩 1120px 은 카드 그리드용이고 이 페이지는
         긴 마크다운 독서면이다. 배차문 「획일화가 아니라 톤 통일」에 따라 고유 구조는 남긴다. */
-  :global(:root) { --bg: #fff; --bg-elev: #f7f7f7; --fg: #111; --fg-dim: #4f4f4f; --fg-mute: #777; --border: #dedede; --border-soft: #eeeeee; --accent: #2563eb; --code-bg: #fafafa; }
-  /* 다크 대응 (2026-08-06 T-260806-060) — 랜딩·조직도와 같은 값 세트. */
-  @media (prefers-color-scheme: dark) {
-    :global(:root) { --bg: #0f0f10; --bg-elev: #17171a; --fg: #f2f2f2; --fg-dim: #b6b6ba; --fg-mute: #8a8a90; --border: #2c2c31; --border-soft: #232327; --accent: #7aa2ff; --code-bg: #17171a; }
-  }
+  :global(:root) { color-scheme: dark; --code-bg: #141414; }
   :global(*) { box-sizing: border-box; }
-  :global(html) { background: var(--bg); }
+  :global(html) { color-scheme: dark; background: var(--bg); }
   :global(body) { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: var(--leading-body); }
   :global(a) { color: var(--fg); text-decoration: underline; text-underline-offset: .2em; }
   :global(a:hover) { color: var(--accent); }

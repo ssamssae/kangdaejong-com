@@ -8,8 +8,8 @@ const orgAccent = source.match(/--accent:\s*(#[0-9a-fA-F]+);/)?.[1] ?? "";
 
 const checks = [
   {
-    label: "organization uses the homepage bright accent",
-    ok: homeAccent === "#2563eb" && orgAccent === homeAccent,
+    label: "organization uses the homepage grok accent",
+    ok: homeAccent === "#f2f2f2" && orgAccent === homeAccent,
   },
   {
     label: "hero uses the same watermarked brand layout as the homepage",
@@ -29,7 +29,7 @@ const checks = [
   },
   {
     label: "primary CTA matches homepage filled accent button",
-    ok: /class="button primary"/.test(source) && /--cta-fg:\s*#ffffff;/.test(source),
+    ok: /class="button primary"/.test(source) && /--cta-fg:\s*#000000;/.test(source),
   },
   {
     label: "role facts stay: Athena lead, Daejong intern, four workers",

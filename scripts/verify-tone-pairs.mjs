@@ -31,28 +31,28 @@ const checks = [
     source,
   },
   {
-    label: "CTA accent is the only saturated color",
-    pattern: /--accent:\s*#2563eb;[\s\S]*--accent-dim:\s*#1748b8;/,
+    label: "Company page uses grok canvas and inverted CTA",
+    pattern: /--bg:\s*#000000;[\s\S]*--accent:\s*#f2f2f2;[\s\S]*--cta-fg:\s*#000000;/,
     source,
   },
   {
-    label: "Company page does not use old neon palette",
-    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa))/,
+    label: "Company page does not use old neon or editorial blue",
+    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#2563eb|#7aa2ff|#4FE0C0))/,
     source,
   },
   {
-    label: "Organization page uses the same bright accent as the homepage",
-    pattern: /--accent:\s*#2563eb;[\s\S]*--accent-dim:\s*#1748b8;/,
+    label: "Organization page uses the same grok canvas as the homepage",
+    pattern: /--bg:\s*#000000;[\s\S]*--accent:\s*#f2f2f2;[\s\S]*--cta-fg:\s*#000000;/,
     source: organization,
   },
   {
-    label: "Organization page does not use old neon palette",
-    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa))/,
+    label: "Organization page does not use old neon or editorial blue",
+    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#2563eb|#7aa2ff|#4FE0C0))/,
     source: organization,
   },
   {
-    label: "Shared header uses the same bright monochrome palette",
-    pattern: /--mb-bg:#ffffff;[\s\S]*--mb-fg:#111111;[\s\S]*--mb-accent:#2563eb;/,
+    label: "Shared header uses the same grok palette",
+    pattern: /--mb-bg:#000000;[\s\S]*--mb-fg:#f2f2f2;[\s\S]*--mb-accent:#f2f2f2;/,
     source: header,
   },
 ];

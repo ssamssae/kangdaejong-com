@@ -22,12 +22,12 @@ import sharp from 'sharp';
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', 'og-image.png');
 
-// 팔레트 = minusbeta-lockup-dark.svg 와 동일 값. 여기서 새로 고르지 않는다.
-const BG = '#22262C';
-const MINT = '#4FE0C0';
-const FG = '#F5F5F5';
-const DIM = '#A0A0A0';
-const RULE = '#3A3F47';
+// 팔레트 = 그록 톤(T-260824-046). 배지·로크업과 같은 검정/흰 글자.
+const BG = '#000000';
+const MINT = '#f2f2f2';
+const FG = '#f2f2f2';
+const DIM = '#8a8a8a';
+const RULE = 'rgba(255,255,255,0.08)';
 const FONT = 'Helvetica, Arial, sans-serif'; // 로크업 SVG 와 같은 스택
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
