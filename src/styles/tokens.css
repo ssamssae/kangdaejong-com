@@ -7,57 +7,58 @@
    여기를 보게 만든 이유는, 리터럴이 남아 있으면 토큰을 고쳤을 때 정작 기준
    페이지만 안 따라와 정본이 둘로 갈리기 때문이다. 값을 바꿀 땐 여기만 바꾼다.
 
-   T-260830-054: 회사면은 그록 흑백 대신 첫이름·운세 쪽 남색+코퍼.
+   T-260831-005: 회사면 정본은 Linear.app 크롬(다크 캔버스·산세리프·인디고
+   액센트·가는 보더) + Stripe.com 섹션 리듬(큰 약속문, 증명 숫자, 카드).
+   레이아웃 복붙이 아니라 결만 가져온다. 남색+코퍼(T-260830-054)는 폐기.
    페이지 :root 리터럴도 이 값과 같아야 한다(verify-tone-pairs.mjs).
-   작업장 헤더 기본 팔레트(검정)는 mb-components.js 기본값으로 남긴다.
 
    T-260823-020: 홈 히어로 큰 제목은 index.astro 의 .hero h1 에서만 키운다.
    ───────────────────────────────────────────────────────────── */
 :root {
   color-scheme: dark;
 
-  --bg: #10161f;
-  --bg-elev: #182030;
-  --bg-elev2: #1e2736;
-  --border: rgba(212, 165, 116, 0.22);
-  --border-soft: rgba(243, 239, 230, 0.08);
-  --fg: #f3efe6;
-  --fg-dim: #c5c0b5;
-  --fg-mute: #8e8a82;
-  --accent: #d4a574;
-  --accent-dim: #e0b98a;
-  --cta-fg: #10161f;
+  --bg: #08090A;
+  --bg-elev: #121316;
+  --bg-elev2: #1A1B1F;
+  --border: rgba(226, 228, 231, 0.10);
+  --border-soft: rgba(226, 228, 231, 0.06);
+  --fg: #E2E4E7;
+  --fg-dim: #B0B3B8;
+  --fg-mute: #8A8D93;
+  --accent: #8FA4FF;
+  --accent-dim: #A8B8FF;
+  --cta-fg: #08090A;
   --danger: #FF6B6B;
-  --accent-bg: #1e2736;
-  --code-bg: #1e2736;
+  --accent-bg: #15171C;
+  --code-bg: #15171C;
 
-  /* 서체 */
+  /* Linear 크롬은 산세리프. --serif 는 옛 참조가 깨지지 않게 sans 와 같게 둔다. */
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-  --serif: "Noto Serif KR", "Iowan Old Style", Palatino, "Apple SD Gothic Neo", serif;
+  --serif: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
 
-  /* 타입 스케일 — 조직도 페이지 실측값 */
-  --text-h1: clamp(30px, 5vw, 46px);  /* 페이지 제목 (조직도·전자책). 홈 히어로는 index에서 별도 */
-  --text-h2: clamp(22px, 3vw, 28px);  /* 섹션 제목 */
-  --text-h3: 19px;                    /* 카드 제목 (조직도 node h3) */
-  --text-lead: 17px;                  /* 리드 문단 */
-  --text-body: 15px;                  /* 본문 (조직도 human-grid dd) */
-  --text-desc: 14px;                  /* 카드 설명 (조직도 node-desc) */
-  --text-meta: 12px;                  /* eyebrow · mono 메타 (조직도 node-role) */
-  --text-badge: 11px;                 /* 카드 상단 라벨 (조직도 node-badge) */
+  /* 타입 스케일 — Linear 큰 제목 + Stripe 섹션 제목 리듬 */
+  --text-h1: clamp(40px, 7vw, 72px);
+  --text-h2: clamp(26px, 3.4vw, 40px);
+  --text-h3: 18px;
+  --text-lead: 18px;
+  --text-body: 15px;
+  --text-desc: 14px;
+  --text-meta: 12px;
+  --text-badge: 11px;
 
   /* 자간·행간 */
-  --track-eyebrow: 0.14em;
+  --track-eyebrow: 0.12em;
   --track-badge: 0.08em;
   --leading-body: 1.65;
-  --leading-h1: 1.25;
+  --leading-h1: 1.04;
   --leading-desc: 1.6;
 
-  /* 간격·형태 리듬 */
-  --measure: 62ch;        /* 산문 최대 폭 */
-  --radius-card: 12px;
+  /* 간격·형태 리듬 — Stripe 섹션 공기, Linear 작은 라운드 */
+  --measure: 62ch;
+  --radius-card: 10px;
   --radius-btn: 8px;
-  --gap-card: 16px;       /* 카드 그리드 간격 */
-  --pad-section: 56px;    /* 섹션 상하 패딩 */
-  --pad-section-sm: 40px; /* 섹션 상하 패딩 (640px 이하) */
+  --gap-card: 16px;
+  --pad-section: 96px;
+  --pad-section-sm: 64px;
 }

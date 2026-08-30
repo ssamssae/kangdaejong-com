@@ -8,8 +8,8 @@ const orgAccent = source.match(/--accent:\s*(#[0-9a-fA-F]+);/)?.[1] ?? "";
 
 const checks = [
   {
-    label: "organization uses the homepage grok accent",
-    ok: homeAccent === "#f2f2f2" && orgAccent === homeAccent,
+    label: "organization uses the homepage Linear indigo accent",
+    ok: homeAccent === "#8FA4FF" && orgAccent === homeAccent,
   },
   {
     label: "hero uses the same watermarked brand layout as the homepage",
@@ -29,7 +29,7 @@ const checks = [
   },
   {
     label: "primary CTA matches homepage filled accent button",
-    ok: /class="button primary"/.test(source) && /--cta-fg:\s*#000000;/.test(source),
+    ok: /class="button primary"/.test(source) && /--cta-fg:\s*#08090A;/.test(source),
   },
   {
     label: "role facts stay: Athena lead, Daejong intern, four workers",
@@ -46,8 +46,8 @@ const checks = [
     ok: !/(#00e5ff|#00b8d4|#ff00aa|--cyan|--magenta)/.test(source),
   },
   {
-    label: "headings use the homepage editorial tracking",
-    ok: /h1, h2, h3 \{[\s\S]*letter-spacing: -0\.03em;/.test(source),
+    label: "headings use the homepage Linear tracking",
+    ok: /h1, h2, h3 \{[\s\S]*letter-spacing: -0\.045em;/.test(source),
   },
 ];
 

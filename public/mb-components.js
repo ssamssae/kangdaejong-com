@@ -35,20 +35,20 @@
   ];
 
   // 공통 팔레트 (shadow DOM 안에서 자족 — 각 사이트 CSS 변수와 무관하게 동일하게 렌더)
-  // 그록 톤 (T-260824-046) — 작업장 tokens.css 와 같은 검정 캔버스.
+  // T-260831-005: Linear.app 크롬. 회사/작업장/파운더가 같은 다크 고급 톤.
   // OS 라이트/다크를 가르지 않는다. 이름(PALETTE_DARK)은 호스트 미디어쿼리 배선용으로 남긴다.
   const PALETTE = `
-    --mb-bg:#000000; --mb-elev:#0d0d0d; --mb-fg:#f2f2f2; --mb-dim:#b0b0b0; --mb-mute:#8a8a8a;
-    --mb-border:rgba(255,255,255,0.08); --mb-soft:#141414; --mb-accent:#f2f2f2; --mb-accent-dim:#c8c8c8;
-    --mb-cta-fg:#000000; --mb-shadow:transparent;
+    --mb-bg:#08090A; --mb-elev:#121316; --mb-fg:#E2E4E7; --mb-dim:#B0B3B8; --mb-mute:#8A8D93;
+    --mb-border:rgba(226,228,231,0.10); --mb-soft:#1A1B1F; --mb-accent:#8FA4FF; --mb-accent-dim:#A8B8FF;
+    --mb-cta-fg:#08090A; --mb-shadow:transparent;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
-    --mb-sans:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+    --mb-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;
-  // 회사면(kangdaejong.com)만 tone="studio". 작업장 헤더는 기본 그록 검정 유지.
+  // tone="studio" 도 같은 Linear 크롬. 옛 남색+코퍼 분기는 폐기.
   const PALETTE_STUDIO = `
-    --mb-bg:#10161f; --mb-elev:#182030; --mb-fg:#f3efe6; --mb-dim:#c5c0b5; --mb-mute:#8e8a82;
-    --mb-border:rgba(212,165,116,0.22); --mb-soft:#1e2736; --mb-accent:#d4a574; --mb-accent-dim:#e0b98a;
-    --mb-cta-fg:#10161f; --mb-shadow:transparent;
+    --mb-bg:#08090A; --mb-elev:#121316; --mb-fg:#E2E4E7; --mb-dim:#B0B3B8; --mb-mute:#8A8D93;
+    --mb-border:rgba(226,228,231,0.10); --mb-soft:#1A1B1F; --mb-accent:#8FA4FF; --mb-accent-dim:#A8B8FF;
+    --mb-cta-fg:#08090A; --mb-shadow:transparent;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;

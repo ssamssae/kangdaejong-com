@@ -109,7 +109,8 @@ const proofPoints = [
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#08090A" />
     <title>조직 구성 — {company.name}</title>
     <script is:inline src="/mb-components.js" defer></script>
   </head>
@@ -238,20 +239,20 @@ const proofPoints = [
     <mb-footer tone="studio"></mb-footer>
 
     <style is:global>
-      /* 스튜디오 톤 (T-260830-054) — tokens.css 와 같은 값. */
+      /* Linear 크롬 (T-260831-005) — tokens.css 와 같은 값. */
       :root {
         color-scheme: dark;
-        --bg: #10161f;
-        --bg-elev: #182030;
-        --bg-elev2: #1e2736;
-        --fg: #f3efe6;
-        --fg-dim: #c5c0b5;
-        --fg-mute: #8e8a82;
-        --border: rgba(212, 165, 116, 0.22);
-        --border-soft: rgba(243, 239, 230, 0.08);
-        --accent: #d4a574;
-        --accent-dim: #e0b98a;
-        --cta-fg: #10161f;
+        --bg: #08090A;
+        --bg-elev: #121316;
+        --bg-elev2: #1A1B1F;
+        --fg: #E2E4E7;
+        --fg-dim: #B0B3B8;
+        --fg-mute: #8A8D93;
+        --border: rgba(226, 228, 231, 0.10);
+        --border-soft: rgba(226, 228, 231, 0.06);
+        --accent: #8FA4FF;
+        --accent-dim: #A8B8FF;
+        --cta-fg: #08090A;
       }
 
       * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -273,7 +274,7 @@ const proofPoints = [
       a { color: var(--fg); text-decoration: none; }
       a:hover { color: var(--accent); }
 
-      h1, h2, h3 { color: var(--fg); font-weight: 700; letter-spacing: -0.03em; }
+      h1, h2, h3 { color: var(--fg); font-family: var(--sans); font-weight: 600; letter-spacing: -0.045em; }
       p { color: var(--fg-dim); }
 
       .eyebrow {
@@ -285,18 +286,17 @@ const proofPoints = [
       }
 
       main section {
-        padding: 72px 0;
+        padding: var(--pad-section) 0;
         border-bottom: 1px solid var(--border-soft);
       }
 
       .back-section { border-bottom: 0; }
 
-      .section-head { margin-bottom: 32px; }
+      .section-head { margin-bottom: 40px; }
       .section-head h2 {
         margin-top: 10px;
-        font-family: var(--serif);
-        font-size: clamp(24px, 3.2vw, 34px);
-        line-height: 1.25;
+        font-size: var(--text-h2);
+        line-height: 1.18;
         word-break: keep-all;
       }
 
@@ -308,7 +308,17 @@ const proofPoints = [
         word-break: keep-all;
       }
 
-      .hero { position: relative; overflow: hidden; padding: 88px 0 32px; }
+      @media (min-width: 860px) {
+        .section-head.split {
+          display: grid;
+          grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
+          gap: 48px;
+          align-items: end;
+        }
+        .section-head.split > p { margin-top: 0; }
+      }
+
+      .hero { position: relative; overflow: hidden; padding: 104px 0 40px; }
 
       .hero-inner {
         position: relative;
@@ -334,9 +344,10 @@ const proofPoints = [
 
       .hero h1 {
         margin: 16px 0 14px;
-        font-family: var(--serif);
-        font-size: clamp(36px, 6.4vw, 64px);
-        line-height: 0.98;
+        font-size: var(--text-h1);
+        line-height: var(--leading-h1);
+        font-weight: 600;
+        letter-spacing: -0.05em;
         overflow-wrap: anywhere;
         word-break: keep-all;
       }
@@ -618,7 +629,7 @@ const proofPoints = [
       @media (max-width: 640px) {
         .page-shell { width: calc(100% - 32px); }
         main { padding-bottom: 56px; }
-        main section { padding: 48px 0; }
+        main section { padding: var(--pad-section-sm) 0; }
         .hero { padding: 40px 0 12px; }
         .hero-mark { right: -160px; top: -40px; width: 420px; opacity: 0.05; }
 
