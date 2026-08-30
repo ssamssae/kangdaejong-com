@@ -15,12 +15,13 @@ const ogImage = "https://kangdaejong.com/og-image.png";
 const tagline = "Human in the loop.";
 
 // 운영 대표(AI) 1 + 워커 4. 공개면이므로 코드네임·역할·기기 급까지만 적는다.
+// 역할 SoT = claude-automations/policy/routes.yaml (T-260830-053).
 const orchestrator = {
   codename: "아테나",
   mark: "ATH",
   role: "대표 · 운영 총괄",
   device: "맥",
-  desc: "작업을 쪼개 순서를 정하고, 어느 에이전트가 맡을지 배정합니다. 결과를 모아 반영해도 되는지 판단합니다.",
+  desc: "작업을 나누고 순서를 정합니다. 사람 지시가 오면 그 자리에서 바로 착수하고, 결과 반영도 합니다.",
 };
 
 // 인턴 = 지휘 라인 밖 감독 자리. 직함은 자칭이고, 권한의 내용은 아래 사람이 쥐고 있는 것 절이다.
@@ -38,28 +39,28 @@ const workers = [
     mark: "VUL",
     role: "빌드 · 배포",
     device: "맥 미니",
-    desc: "앱을 빌드하고 스토어에 올릴 파일을 만듭니다. 배포 실행도 이 자리에서 합니다.",
+    desc: "앱을 빌드하고 스토어에 올릴 파일을 만듭니다. 배포와 변경 반영도 이 자리에서 합니다.",
   },
   {
     codename: "헤르메스",
     mark: "HER",
-    role: "개발 · 변경 승인",
+    role: "개발 · 반영",
     device: "맥북 프로",
-    desc: "기능을 구현하고 버그를 고칩니다. 다른 에이전트가 낸 변경을 검토해 반영 여부를 정합니다.",
+    desc: "기능을 구현하고 버그를 고칩니다. 변경을 검토해 반영할 자격도 있습니다.",
   },
   {
     codename: "라이덴",
     mark: "RAI",
-    role: "개발 · 조사",
-    device: "리눅스",
-    desc: "기능 구현과 함께, 결정에 필요한 자료를 모아 정리합니다.",
+    role: "개발",
+    device: "윈도우",
+    desc: "기능을 구현합니다. 윈도우와 안드로이드 작업을 이 자리에서 합니다.",
   },
   {
     codename: "테미스",
     mark: "THE",
-    role: "리뷰 · 검증",
+    role: "검증 · 반영",
     device: "데스크톱",
-    desc: "코드를 다시 읽고 테스트가 실제로 동작하는지 확인합니다. 놓친 문제를 되돌려 보냅니다.",
+    desc: "코드를 다시 읽고 테스트가 동작하는지 확인합니다. 변경 반영 자격도 있습니다.",
   },
 ];
 
@@ -72,7 +73,7 @@ const humanGates = [
 
 const proofPoints = [
   { label: "운영 대표", value: "1", desc: "작업을 나눠 배정" },
-  { label: "워커", value: String(workers.length), desc: "구현 · 빌드 · 리뷰" },
+  { label: "워커", value: String(workers.length), desc: "구현 · 빌드 · 검증" },
   { label: "사람 감독", value: "1", desc: "지휘 라인 밖" },
   { label: "승인 지점", value: String(humanGates.length), desc: "사람이 켜야 실행" },
 ];
@@ -158,8 +159,9 @@ const proofPoints = [
               <h2 id="chart-title">누가 무엇을 맡는지</h2>
             </div>
             <p>
-              에이전트는 각자 맡은 작업 하나를 끝내면 결과를 되돌려 보냅니다. 서로 직접 지시하지 않고,
-              배정은 운영 대표를 거칩니다. 점선은 지휘가 아니라 감독 관계입니다.
+              에이전트는 맡은 작업을 끝내면 결과를 되돌려 보냅니다. 서로 직접 지시하지 않습니다.
+              평소 배정은 운영 대표가 나누고, 사람 지시가 있으면 그 자리에서 바로 착수합니다.
+              점선은 지휘가 아니라 감독 관계입니다.
             </p>
           </div>
 
