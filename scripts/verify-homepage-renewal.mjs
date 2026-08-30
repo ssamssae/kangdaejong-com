@@ -53,7 +53,7 @@ const checks = [
     ok:
       /<div class="page-shell">/.test(source) &&
       /main \{ width: 100%;/.test(source) &&
-      /\.page-shell \{ width: min\(calc\(100% - 48px\), 1120px\); margin: 0 auto;/.test(source),
+      /\.page-shell \{ width: min\(calc\(100% - 92px\), 1250px\); margin: 0 auto;/.test(source),
   },
   {
     label: "open tools include the public Grok Telegram Bridge",

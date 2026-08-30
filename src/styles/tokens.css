@@ -1,64 +1,61 @@
 /* ─────────────────────────────────────────────────────────────
    kangdaejong.com 디자인 토큰 — 타이포·간격·형태 정본 (T-260806-062)
 
-   /organization/ 페이지의 디자인 시스템에서 추출한 값이다.
-   참조자 = index.astro · components/EbookTemplatePage.astro(전자책 14페이지) ·
-   organization.astro(T-260807-018 로 리터럴 수렴 완료). 추출 원본인 조직도까지
-   여기를 보게 만든 이유는, 리터럴이 남아 있으면 토큰을 고쳤을 때 정작 기준
-   페이지만 안 따라와 정본이 둘로 갈리기 때문이다. 값을 바꿀 땐 여기만 바꾼다.
-
-   T-260831-005: 회사면 정본은 Linear.app 크롬(다크 캔버스·산세리프·인디고
-   액센트·가는 보더) + Stripe.com 섹션 리듬(큰 약속문, 증명 숫자, 카드).
-   레이아웃 복붙이 아니라 결만 가져온다. 남색+코퍼(T-260830-054)는 폐기.
+   T-260831-005 2단계: Linear.app 라이브 크롬 + Stripe.com 섹션 리듬.
+   정본 = 채팅 기준점 문서 (2026-08-31). 남색+코퍼·#8FA4FF 근사값은 폐기.
    페이지 :root 리터럴도 이 값과 같아야 한다(verify-tone-pairs.mjs).
-
-   T-260823-020: 홈 히어로 큰 제목은 index.astro 의 .hero h1 에서만 키운다.
    ───────────────────────────────────────────────────────────── */
 :root {
   color-scheme: dark;
 
   --bg: #08090A;
-  --bg-elev: #121316;
-  --bg-elev2: #1A1B1F;
-  --border: rgba(226, 228, 231, 0.10);
-  --border-soft: rgba(226, 228, 231, 0.06);
-  --fg: #E2E4E7;
-  --fg-dim: #B0B3B8;
-  --fg-mute: #8A8D93;
-  --accent: #8FA4FF;
-  --accent-dim: #A8B8FF;
+  --bg-elev: #0F1011;
+  --bg-elev2: #1C1C1F;
+  --bg-tint: #141516;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.05);
+  --fg: #F7F8F8;
+  --fg-dim: #D0D6E0;
+  --fg-mute: #8A8F98;
+  --fg-faint: #62666D;
+  --accent: #7170FF;
+  --accent-dim: #828FFF;
+  --accent-hover: #828FFF;
+  --accent-tint: #18182F;
+  --cta-bg: #E5E5E6;
   --cta-fg: #08090A;
   --danger: #FF6B6B;
-  --accent-bg: #15171C;
-  --code-bg: #15171C;
+  --accent-bg: #141516;
+  --code-bg: #141516;
 
-  /* Linear 크롬은 산세리프. --serif 는 옛 참조가 깨지지 않게 sans 와 같게 둔다. */
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-  --serif: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  --serif: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
 
-  /* 타입 스케일 — Linear 큰 제목 + Stripe 섹션 제목 리듬 */
-  --text-h1: clamp(40px, 7vw, 72px);
-  --text-h2: clamp(26px, 3.4vw, 40px);
-  --text-h3: 18px;
-  --text-lead: 18px;
-  --text-body: 15px;
+  --text-h1: clamp(38px, 6vw, 64px);
+  --text-h2: clamp(28px, 4vw, 48px);
+  --text-h3: 20px;
+  --text-lead: 16px;
+  --text-body: 16px;
   --text-desc: 14px;
-  --text-meta: 12px;
-  --text-badge: 11px;
+  --text-meta: 13px;
+  --text-badge: 12px;
 
-  /* 자간·행간 */
   --track-eyebrow: 0.12em;
   --track-badge: 0.08em;
-  --leading-body: 1.65;
-  --leading-h1: 1.04;
+  --leading-body: 1.50;
+  --leading-h1: 1.00;
   --leading-desc: 1.6;
 
-  /* 간격·형태 리듬 — Stripe 섹션 공기, Linear 작은 라운드 */
   --measure: 62ch;
-  --radius-card: 10px;
+  --radius-card: 12px;
   --radius-btn: 8px;
+  --radius-pill: 9999px;
   --gap-card: 16px;
-  --pad-section: 96px;
+  --pad-section: 128px;
   --pad-section-sm: 64px;
+  --pad-head-bottom: 96px;
+  --header-h: 72px;
+  --page-gutter: 46px;
+  --page-max: 1250px;
 }

@@ -45,8 +45,8 @@ const checks = [
   {
     label: "shared header only bolds the active nav item",
     ok:
-      /\.links a\.active \{ font-weight:700; \}/.test(header) &&
-      /\.more-panel a\.active \{[^}]*font-weight:700;[^}]*\}/.test(header) &&
+      /\.links a\.active \{ font-weight:510; \}/.test(header) &&
+      /\.more-panel a\.active \{[^}]*font-weight:510;[^}]*\}/.test(header) &&
       !/\.more-panel a \{[^}]*font-weight:\s*700;/.test(header),
   },
   {
@@ -59,7 +59,7 @@ const checks = [
     label: "shared footer matches work footer structure",
     ok:
       /<div class="foot-head">\s*<strong>마이너스베타스튜디오<\/strong>\s*<a href="mailto:minusbetastudio@gmail\.com">minusbetastudio@gmail\.com<\/a>\s*<\/div>/.test(header) &&
-      /footer \{ width:min\(calc\(100% - 48px\), 1120px\); margin:0 auto; padding:34px 0 56px; border-top:1px solid var\(--mb-border\);/.test(header) &&
+      /footer \{ width:min\(calc\(100% - 92px\), 1250px\); margin:0 auto; padding:34px 0 56px; border-top:1px solid var\(--mb-border\);/.test(header) &&
       /\.foot-head \{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; \}/.test(header) &&
       /\.biz \{ display:flex; flex-wrap:wrap; gap:6px 14px;/.test(header),
   },

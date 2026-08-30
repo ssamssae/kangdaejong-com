@@ -32,7 +32,7 @@ const checks = [
   },
   {
     label: "Company page uses Linear dark chrome",
-    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#8FA4FF;[\s\S]*--cta-fg:\s*#08090A;/,
+    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#7170FF;[\s\S]*--cta-fg:\s*#08090A;/,
     source,
   },
   {
@@ -52,7 +52,7 @@ const checks = [
   },
   {
     label: "Organization page uses the same Linear canvas as the homepage",
-    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#8FA4FF;[\s\S]*--cta-fg:\s*#08090A;/,
+    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#7170FF;[\s\S]*--cta-fg:\s*#08090A;/,
     source: organization,
   },
   {
@@ -62,12 +62,12 @@ const checks = [
   },
   {
     label: "Shared header default palette is Linear chrome",
-    pattern: /--mb-bg:#08090A;[\s\S]*--mb-fg:#E2E4E7;[\s\S]*--mb-accent:#8FA4FF;/,
+    pattern: /--mb-bg:#08090A;[\s\S]*--mb-fg:#F7F8F8;[\s\S]*--mb-accent:#7170FF;/,
     source: header,
   },
   {
     label: "Shared header studio palette matches Linear chrome",
-    pattern: /PALETTE_STUDIO[\s\S]*--mb-bg:#08090A;[\s\S]*--mb-accent:#8FA4FF;/,
+    pattern: /PALETTE_STUDIO[\s\S]*--mb-bg:#08090A;[\s\S]*--mb-accent:#7170FF;/,
     source: header,
   },
   {
