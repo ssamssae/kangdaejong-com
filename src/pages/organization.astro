@@ -109,12 +109,12 @@ const proofPoints = [
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet" />
     <title>조직 구성 — {company.name}</title>
     <script is:inline src="/mb-components.js" defer></script>
   </head>
   <body>
-    <mb-header active="organization"></mb-header>
+    <mb-header active="organization" tone="studio"></mb-header>
     <main>
       <div class="page-shell">
         <section class="hero" aria-labelledby="page-title">
@@ -235,23 +235,23 @@ const proofPoints = [
         </section>
       </div>
     </main>
-    <mb-footer></mb-footer>
+    <mb-footer tone="studio"></mb-footer>
 
     <style is:global>
-      /* 그록 톤 (T-260824-046) — tokens.css 와 같은 값. OS 라이트/다크를 가르지 않는다. */
+      /* 스튜디오 톤 (T-260830-054) — tokens.css 와 같은 값. */
       :root {
         color-scheme: dark;
-        --bg: #000000;
-        --bg-elev: #0d0d0d;
-        --bg-elev2: #141414;
-        --fg: #f2f2f2;
-        --fg-dim: #b0b0b0;
-        --fg-mute: #8a8a8a;
-        --border: rgba(255, 255, 255, 0.08);
-        --border-soft: rgba(255, 255, 255, 0.06);
-        --accent: #f2f2f2;
-        --accent-dim: #c8c8c8;
-        --cta-fg: #000000;
+        --bg: #10161f;
+        --bg-elev: #182030;
+        --bg-elev2: #1e2736;
+        --fg: #f3efe6;
+        --fg-dim: #c5c0b5;
+        --fg-mute: #8e8a82;
+        --border: rgba(212, 165, 116, 0.22);
+        --border-soft: rgba(243, 239, 230, 0.08);
+        --accent: #d4a574;
+        --accent-dim: #e0b98a;
+        --cta-fg: #10161f;
       }
 
       * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -294,6 +294,7 @@ const proofPoints = [
       .section-head { margin-bottom: 32px; }
       .section-head h2 {
         margin-top: 10px;
+        font-family: var(--serif);
         font-size: clamp(24px, 3.2vw, 34px);
         line-height: 1.25;
         word-break: keep-all;
@@ -333,6 +334,7 @@ const proofPoints = [
 
       .hero h1 {
         margin: 16px 0 14px;
+        font-family: var(--serif);
         font-size: clamp(36px, 6.4vw, 64px);
         line-height: 0.98;
         overflow-wrap: anywhere;

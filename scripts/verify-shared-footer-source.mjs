@@ -9,7 +9,7 @@ const footerComponent = components.split("class MbFooter")[1] || "";
 const checks = [
   {
     label: "company page renders the shared footer component",
-    ok: /<mb-footer><\/mb-footer>/.test(companyPage),
+    ok: /<mb-footer(?:\s[^>]*)?><\/mb-footer>/.test(companyPage),
   },
   {
     label: "shared component registers mb-footer for company and founder pages",

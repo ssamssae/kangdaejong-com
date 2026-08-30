@@ -44,8 +44,18 @@
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;
+  // 회사면(kangdaejong.com)만 tone="studio". 작업장 헤더는 기본 그록 검정 유지.
+  const PALETTE_STUDIO = `
+    --mb-bg:#10161f; --mb-elev:#182030; --mb-fg:#f3efe6; --mb-dim:#c5c0b5; --mb-mute:#8e8a82;
+    --mb-border:rgba(212,165,116,0.22); --mb-soft:#1e2736; --mb-accent:#d4a574; --mb-accent-dim:#e0b98a;
+    --mb-cta-fg:#10161f; --mb-shadow:transparent;
+    --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+    --mb-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+  `;
   const PALETTE_DARK = PALETTE;
   const DARK_RULE = `@media (prefers-color-scheme: dark) { :host { ${PALETTE_DARK} } }`;
+  const hostPalette = (el) => (el.getAttribute('tone') === 'studio' ? PALETTE_STUDIO : PALETTE);
+  const hostDarkRule = (el) => (el.getAttribute('tone') === 'studio' ? '' : DARK_RULE);
 
   class MbHeader extends HTMLElement {
     connectedCallback() {
@@ -60,8 +70,8 @@
         <style>
           /* 타이포 자족화: 호스트 페이지(회사소개/대표소개)의 line-height·letter-spacing
              상속 차이로 헤더가 사이트마다 다르게 보이던 것 차단 — 두 사이트 동일 렌더. */
-          :host { ${PALETTE} display:block; line-height:1.65; letter-spacing:normal; font-style:normal; }
-          ${DARK_RULE}
+          :host { ${hostPalette(this)} display:block; line-height:1.65; letter-spacing:normal; font-style:normal; }
+          ${hostDarkRule(this)}
           .hdr { position:sticky; top:0; z-index:50; border-bottom:1px solid var(--mb-border); background:color-mix(in srgb, var(--mb-bg) 94%, transparent); backdrop-filter:blur(12px); font-family:var(--mb-sans); }
           .inner { width:min(calc(100% - 48px), 1120px); margin:0 auto; min-height:66px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
           .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:700; text-decoration:none; white-space:nowrap; }
@@ -127,8 +137,8 @@
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
         <style>
-          :host { ${PALETTE} display:block; }
-          ${DARK_RULE}
+          :host { ${hostPalette(this)} display:block; }
+          ${hostDarkRule(this)}
           footer { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:34px 0 56px; border-top:1px solid var(--mb-border); font-family:var(--mb-sans); color:var(--mb-mute); font-size:12px; }
           .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; }
           .foot-head strong { color:var(--mb-fg); font-size:14px; }

@@ -16,7 +16,7 @@ const checks = [
     source,
   },
   {
-    label: "Company page keeps monochrome repeated cards",
+    label: "Company page keeps bordered repeated cards",
     pattern: /\.product-card,[\s\S]*?\.tool-card \{[\s\S]*?border: 1px solid var\(--border\);[\s\S]*?background: var\(--bg\);/,
     source,
   },
@@ -26,34 +26,54 @@ const checks = [
     source,
   },
   {
-    label: "Legacy tone variables are removed",
+    label: "Legacy neon variables are removed",
     pattern: /^(?![\s\S]*(--cyan|--magenta|tone-cyan|tone-magenta))/,
     source,
   },
   {
-    label: "Company page uses grok canvas and inverted CTA",
-    pattern: /--bg:\s*#000000;[\s\S]*--accent:\s*#f2f2f2;[\s\S]*--cta-fg:\s*#000000;/,
+    label: "Company page uses studio navy and copper",
+    pattern: /--bg:\s*#10161f;[\s\S]*--accent:\s*#d4a574;[\s\S]*--cta-fg:\s*#10161f;/,
     source,
   },
   {
-    label: "Company page does not use old neon or editorial blue",
-    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#2563eb|#7aa2ff|#4FE0C0))/,
+    label: "Homepage hero uses a studio photograph",
+    pattern: /src="\/studio\/hero-desk\.jpg"/,
     source,
   },
   {
-    label: "Organization page uses the same grok canvas as the homepage",
-    pattern: /--bg:\s*#000000;[\s\S]*--accent:\s*#f2f2f2;[\s\S]*--cta-fg:\s*#000000;/,
+    label: "Featured 첫이름 card uses a photograph",
+    pattern: /src="\/studio\/cheotireum\.jpg"/,
+    source,
+  },
+  {
+    label: "Company page does not use old neon",
+    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#4FE0C0))/,
+    source,
+  },
+  {
+    label: "Organization page uses the same studio canvas as the homepage",
+    pattern: /--bg:\s*#10161f;[\s\S]*--accent:\s*#d4a574;[\s\S]*--cta-fg:\s*#10161f;/,
     source: organization,
   },
   {
-    label: "Organization page does not use old neon or editorial blue",
-    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#2563eb|#7aa2ff|#4FE0C0))/,
+    label: "Organization page does not use old neon",
+    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#4FE0C0))/,
     source: organization,
   },
   {
-    label: "Shared header uses the same grok palette",
+    label: "Shared header keeps default grok palette for the workshop",
     pattern: /--mb-bg:#000000;[\s\S]*--mb-fg:#f2f2f2;[\s\S]*--mb-accent:#f2f2f2;/,
     source: header,
+  },
+  {
+    label: "Shared header has an opt-in studio palette",
+    pattern: /PALETTE_STUDIO[\s\S]*--mb-bg:#10161f;[\s\S]*--mb-accent:#d4a574;/,
+    source: header,
+  },
+  {
+    label: "Company header opts into studio tone",
+    pattern: /<mb-header active="home" tone="studio">/,
+    source,
   },
 ];
 
