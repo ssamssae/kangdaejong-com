@@ -7,33 +7,34 @@
    여기를 보게 만든 이유는, 리터럴이 남아 있으면 토큰을 고쳤을 때 정작 기준
    페이지만 안 따라와 정본이 둘로 갈리기 때문이다. 값을 바꿀 땐 여기만 바꾼다.
 
-   T-260824-046: 색은 작업장(daejong-page T-260824-014)과 같은 그록 톤.
-   검정 캔버스 · 흰 글자 · 헤어라인. OS 라이트/다크를 가르지 않는다.
+   T-260830-054: 회사면은 그록 흑백 대신 첫이름·운세 쪽 남색+코퍼.
    페이지 :root 리터럴도 이 값과 같아야 한다(verify-tone-pairs.mjs).
+   작업장 헤더 기본 팔레트(검정)는 mb-components.js 기본값으로 남긴다.
 
    T-260823-020: 홈 히어로 큰 제목은 index.astro 의 .hero h1 에서만 키운다.
    ───────────────────────────────────────────────────────────── */
 :root {
   color-scheme: dark;
 
-  --bg: #000000;
-  --bg-elev: #0d0d0d;
-  --bg-elev2: #141414;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-soft: rgba(255, 255, 255, 0.06);
-  --fg: #f2f2f2;
-  --fg-dim: #b0b0b0;
-  --fg-mute: #8a8a8a;
-  --accent: #f2f2f2;
-  --accent-dim: #c8c8c8;
-  --cta-fg: #000000;
+  --bg: #10161f;
+  --bg-elev: #182030;
+  --bg-elev2: #1e2736;
+  --border: rgba(212, 165, 116, 0.22);
+  --border-soft: rgba(243, 239, 230, 0.08);
+  --fg: #f3efe6;
+  --fg-dim: #c5c0b5;
+  --fg-mute: #8e8a82;
+  --accent: #d4a574;
+  --accent-dim: #e0b98a;
+  --cta-fg: #10161f;
   --danger: #FF6B6B;
-  --accent-bg: #141414;
-  --code-bg: #141414;
+  --accent-bg: #1e2736;
+  --code-bg: #1e2736;
 
   /* 서체 */
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  --serif: "Noto Serif KR", "Iowan Old Style", Palatino, "Apple SD Gothic Neo", serif;
 
   /* 타입 스케일 — 조직도 페이지 실측값 */
   --text-h1: clamp(30px, 5vw, 46px);  /* 페이지 제목 (조직도·전자책). 홈 히어로는 index에서 별도 */
@@ -54,8 +55,8 @@
 
   /* 간격·형태 리듬 */
   --measure: 62ch;        /* 산문 최대 폭 */
-  --radius-card: 0;       /* 그록 톤 — 라운드 없음 */
-  --radius-btn: 0;
+  --radius-card: 12px;
+  --radius-btn: 8px;
   --gap-card: 16px;       /* 카드 그리드 간격 */
   --pad-section: 56px;    /* 섹션 상하 패딩 */
   --pad-section-sm: 40px; /* 섹션 상하 패딩 (640px 이하) */
