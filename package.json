@@ -11,6 +11,7 @@
     "verify:favicon-brand": "node scripts/verify-favicon-brand.mjs",
     "verify:shared-footer": "node scripts/verify-shared-footer-source.mjs",
     "verify:shared-header": "node scripts/verify-shared-header-source.mjs",
+    "verify:organization-roster": "node scripts/verify-organization-roster.mjs",
     "verify:organization-tone": "node scripts/verify-organization-tone.mjs",
     "preview": "astro preview",
     "astro": "astro"
