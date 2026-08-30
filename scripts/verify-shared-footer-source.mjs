@@ -25,7 +25,7 @@ const checks = [
   },
   {
     label: "shared footer keeps the work footer width, padding, and border rhythm",
-    ok: /footer \{ width:min\(calc\(100% - 48px\), 1120px\); margin:0 auto; padding:34px 0 56px; border-top:1px solid var\(--mb-border\);/.test(footerComponent),
+    ok: /footer \{ width:min\(calc\(100% - 92px\), 1250px\); margin:0 auto; padding:34px 0 56px; border-top:1px solid var\(--mb-border\);/.test(footerComponent),
   },
   {
     label: "shared footer keeps business info as a wrapping inline row on desktop",

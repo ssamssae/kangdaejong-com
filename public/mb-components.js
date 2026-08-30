@@ -35,22 +35,22 @@
   ];
 
   // 공통 팔레트 (shadow DOM 안에서 자족 — 각 사이트 CSS 변수와 무관하게 동일하게 렌더)
-  // 그록 톤 (T-260824-046) — 작업장 tokens.css 와 같은 검정 캔버스.
+  // T-260831-005: Linear.app 크롬. 회사/작업장/파운더가 같은 다크 고급 톤.
   // OS 라이트/다크를 가르지 않는다. 이름(PALETTE_DARK)은 호스트 미디어쿼리 배선용으로 남긴다.
   const PALETTE = `
-    --mb-bg:#000000; --mb-elev:#0d0d0d; --mb-fg:#f2f2f2; --mb-dim:#b0b0b0; --mb-mute:#8a8a8a;
-    --mb-border:rgba(255,255,255,0.08); --mb-soft:#141414; --mb-accent:#f2f2f2; --mb-accent-dim:#c8c8c8;
-    --mb-cta-fg:#000000; --mb-shadow:transparent;
+    --mb-bg:#08090A; --mb-elev:#0F1011; --mb-fg:#F7F8F8; --mb-dim:#D0D6E0; --mb-mute:#8A8F98;
+    --mb-border:rgba(255,255,255,0.08); --mb-soft:#1C1C1F; --mb-accent:#7170FF; --mb-accent-dim:#828FFF;
+    --mb-cta-bg:#E5E5E6; --mb-cta-fg:#08090A; --mb-shadow:transparent;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
-    --mb-sans:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+    --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;
-  // 회사면(kangdaejong.com)만 tone="studio". 작업장 헤더는 기본 그록 검정 유지.
+  // tone="studio" 도 같은 Linear 크롬. 옛 남색+코퍼 분기는 폐기.
   const PALETTE_STUDIO = `
-    --mb-bg:#10161f; --mb-elev:#182030; --mb-fg:#f3efe6; --mb-dim:#c5c0b5; --mb-mute:#8e8a82;
-    --mb-border:rgba(212,165,116,0.22); --mb-soft:#1e2736; --mb-accent:#d4a574; --mb-accent-dim:#e0b98a;
-    --mb-cta-fg:#10161f; --mb-shadow:transparent;
+    --mb-bg:#08090A; --mb-elev:#0F1011; --mb-fg:#F7F8F8; --mb-dim:#D0D6E0; --mb-mute:#8A8F98;
+    --mb-border:rgba(255,255,255,0.08); --mb-soft:#1C1C1F; --mb-accent:#7170FF; --mb-accent-dim:#828FFF;
+    --mb-cta-bg:#E5E5E6; --mb-cta-fg:#08090A; --mb-shadow:transparent;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
-    --mb-sans:'Pretendard',-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+    --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;
   const PALETTE_DARK = PALETTE;
   const DARK_RULE = `@media (prefers-color-scheme: dark) { :host { ${PALETTE_DARK} } }`;
@@ -73,34 +73,34 @@
           :host { ${hostPalette(this)} display:block; line-height:1.65; letter-spacing:normal; font-style:normal; }
           ${hostDarkRule(this)}
           .hdr { position:sticky; top:0; z-index:50; border-bottom:1px solid var(--mb-border); background:color-mix(in srgb, var(--mb-bg) 94%, transparent); backdrop-filter:blur(12px); font-family:var(--mb-sans); }
-          .inner { width:min(calc(100% - 48px), 1120px); margin:0 auto; min-height:66px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
-          .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:700; text-decoration:none; white-space:nowrap; }
+          .inner { width:min(calc(100% - 92px), 1250px); margin:0 auto; min-height:72px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
+          .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:510; text-decoration:none; white-space:nowrap; }
           .brand img { width:30px; height:30px; display:block; }
           .links { display:flex; align-items:center; justify-content:center; gap:22px; min-width:0; font-size:13px; white-space:nowrap; }
-          .links a { color:var(--mb-dim); text-decoration:none; transition:color .15s; }
+          .links a { color:var(--mb-mute); text-decoration:none; transition:color .15s; }
           .links a:hover, .links a.active { color:var(--mb-fg); }
-          .links a.active { font-weight:700; }
+          .links a.active { font-weight:510; }
           .actions { display:inline-flex; align-items:center; gap:12px; white-space:nowrap; }
           .more { position:relative; display:inline-flex; }
           .more-btn { display:inline-flex; align-items:center; gap:4px; min-height:34px; padding:0 6px; border:0; background:none; cursor:pointer; color:var(--mb-dim); font-family:inherit; font-size:13px; transition:color .15s; }
           .more-btn:hover, .more-btn.active, .more.open .more-btn { color:var(--mb-fg); }
-          .more-btn.active { font-weight:700; }
+          .more-btn.active { font-weight:510; }
           .more-btn .chev { font-size:10px; transition:transform .15s; }
           .more.open .more-btn .chev { transform:rotate(180deg); }
           .more-panel { position:absolute; right:0; top:calc(100% + 8px); z-index:60; display:none; flex-direction:column; min-width:168px; padding:8px; background:var(--mb-bg); border:1px solid var(--mb-border); border-radius:0; box-shadow:none; }
           .more.open .more-panel { display:flex; }
           .more-panel a { padding:9px 10px; border-radius:0; color:var(--mb-dim); text-decoration:none; font-size:13px; white-space:nowrap; transition:background .12s, color .12s; }
           .more-panel a:hover { background:var(--mb-soft); color:var(--mb-fg); }
-          .more-panel a.active { color:var(--mb-fg); font-weight:700; background:var(--mb-soft); }
-          .cta { display:inline-flex; align-items:center; justify-content:center; min-height:38px; padding:0 14px; border-radius:0; background:var(--mb-accent); color:var(--mb-cta-fg); font-size:14px; font-weight:700; text-decoration:none; white-space:nowrap; }
-          .cta:hover { background:var(--mb-accent-dim); color:var(--mb-cta-fg); }
+          .more-panel a.active { color:var(--mb-fg); font-weight:510; background:var(--mb-soft); }
+          .cta { display:inline-flex; align-items:center; justify-content:center; min-height:32px; padding:0 12px; border-radius:9999px; background:var(--mb-cta-bg); color:var(--mb-cta-fg); font-size:13px; font-weight:510; text-decoration:none; white-space:nowrap; }
+          .cta:hover { background:var(--mb-cta-bg); color:var(--mb-cta-fg); filter:brightness(1.06); }
           @media (max-width:760px) {
-            .inner { width:min(calc(100% - 32px), 1120px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
+            .inner { width:min(calc(100% - 48px), 1250px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
             .brand span { display:none; }
             .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:16px; overflow-x:auto; scrollbar-width:none; }
             .links::-webkit-scrollbar { display:none; }
             .actions { grid-column:2; grid-row:1; }
-            .cta { min-height:34px; padding:0 12px; }
+            .cta { min-height:32px; padding:0 12px; }
           }
         </style>
         <header class="hdr">
@@ -139,7 +139,7 @@
         <style>
           :host { ${hostPalette(this)} display:block; }
           ${hostDarkRule(this)}
-          footer { width:min(calc(100% - 48px), 1120px); margin:0 auto; padding:34px 0 56px; border-top:1px solid var(--mb-border); font-family:var(--mb-sans); color:var(--mb-mute); font-size:12px; }
+          footer { width:min(calc(100% - 92px), 1250px); margin:0 auto; padding:34px 0 56px; border-top:1px solid var(--mb-border); font-family:var(--mb-sans); color:var(--mb-mute); font-size:12px; }
           .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; }
           .foot-head strong { color:var(--mb-fg); font-size:14px; }
           .foot-head a { color:var(--mb-fg); text-decoration:none; }
@@ -147,7 +147,7 @@
           .biz { display:flex; flex-wrap:wrap; gap:6px 14px; color:var(--mb-mute); }
           .copy { margin-top:16px; color:var(--mb-mute); }
           @media (max-width:640px) {
-            footer { width:min(calc(100% - 32px), 1120px); padding-bottom:42px; }
+            footer { width:min(calc(100% - 48px), 1250px); padding-bottom:42px; }
             .foot-head { display:block; }
             .foot-head a { display:inline-block; margin-top:6px; }
             .biz { flex-direction:column; gap:4px; }

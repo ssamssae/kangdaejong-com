@@ -31,8 +31,8 @@ const checks = [
     source,
   },
   {
-    label: "Company page uses studio navy and copper",
-    pattern: /--bg:\s*#10161f;[\s\S]*--accent:\s*#d4a574;[\s\S]*--cta-fg:\s*#10161f;/,
+    label: "Company page uses Linear dark chrome",
+    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#7170FF;[\s\S]*--cta-fg:\s*#08090A;/,
     source,
   },
   {
@@ -51,8 +51,8 @@ const checks = [
     source,
   },
   {
-    label: "Organization page uses the same studio canvas as the homepage",
-    pattern: /--bg:\s*#10161f;[\s\S]*--accent:\s*#d4a574;[\s\S]*--cta-fg:\s*#10161f;/,
+    label: "Organization page uses the same Linear canvas as the homepage",
+    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#7170FF;[\s\S]*--cta-fg:\s*#08090A;/,
     source: organization,
   },
   {
@@ -61,13 +61,13 @@ const checks = [
     source: organization,
   },
   {
-    label: "Shared header keeps default grok palette for the workshop",
-    pattern: /--mb-bg:#000000;[\s\S]*--mb-fg:#f2f2f2;[\s\S]*--mb-accent:#f2f2f2;/,
+    label: "Shared header default palette is Linear chrome",
+    pattern: /--mb-bg:#08090A;[\s\S]*--mb-fg:#F7F8F8;[\s\S]*--mb-accent:#7170FF;/,
     source: header,
   },
   {
-    label: "Shared header has an opt-in studio palette",
-    pattern: /PALETTE_STUDIO[\s\S]*--mb-bg:#10161f;[\s\S]*--mb-accent:#d4a574;/,
+    label: "Shared header studio palette matches Linear chrome",
+    pattern: /PALETTE_STUDIO[\s\S]*--mb-bg:#08090A;[\s\S]*--mb-accent:#7170FF;/,
     source: header,
   },
   {

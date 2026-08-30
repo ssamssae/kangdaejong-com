@@ -206,10 +206,11 @@ const links = [
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Serif+KR:wght@600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
+    <meta name="theme-color" content="#08090A" />
     <title>{company.name}</title>
     <script is:inline src="/mb-components.js" defer></script>
   </head>
@@ -432,21 +433,20 @@ const links = [
     <mb-footer tone="studio"></mb-footer>
 
     <style is:global>
-      /* 스튜디오 톤 (T-260830-054). 값은 src/styles/tokens.css 와 같아야 한다.
-         verify-tone-pairs.mjs 가 이 리터럴을 검사한다. */
+      /* Linear 크롬 (T-260831-005 기준점). 값은 src/styles/tokens.css 와 같아야 한다. */
       :root {
         color-scheme: dark;
-        --bg: #10161f;
-        --bg-elev: #182030;
-        --bg-elev2: #1e2736;
-        --fg: #f3efe6;
-        --fg-dim: #c5c0b5;
-        --fg-mute: #8e8a82;
-        --border: rgba(212, 165, 116, 0.22);
-        --border-soft: rgba(243, 239, 230, 0.08);
-        --accent: #d4a574;
-        --accent-dim: #e0b98a;
-        --cta-fg: #10161f;
+        --bg: #08090A;
+        --bg-elev: #0F1011;
+        --bg-elev2: #1C1C1F;
+        --fg: #F7F8F8;
+        --fg-dim: #D0D6E0;
+        --fg-mute: #8A8F98;
+        --border: rgba(255, 255, 255, 0.08);
+        --border-soft: rgba(255, 255, 255, 0.05);
+        --accent: #7170FF;
+        --accent-dim: #828FFF;
+        --cta-fg: #08090A;
       }
 
       * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -467,13 +467,12 @@ const links = [
 
       main { width: 100%; margin: 0; padding: 0 0 72px; }
 
-      .page-shell { width: min(calc(100% - 48px), 1120px); margin: 0 auto; }
+      .page-shell { width: min(calc(100% - 92px), 1250px); margin: 0 auto; }
 
       a { color: var(--fg); text-decoration: none; }
       a:hover { color: var(--accent); }
 
-      h1, h2, h3 { color: var(--fg); font-weight: 700; letter-spacing: -0.03em; }
-      h1, h2 { font-family: var(--serif); }
+      h1, h2, h3 { color: var(--fg); font-family: var(--sans); font-weight: 510; letter-spacing: -0.022em; }
       p { color: var(--fg-dim); }
 
       .eyebrow {
@@ -485,17 +484,17 @@ const links = [
       }
 
       main section {
-        padding: 72px 0;
+        padding: var(--pad-section) 0;
         border-bottom: 1px solid var(--border-soft);
       }
 
       .company-section { border-bottom: 0; }
 
-      .section-head { margin-bottom: 32px; }
+      .section-head { margin-bottom: var(--pad-head-bottom); }
       .section-head h2 {
         margin-top: 10px;
-        font-size: clamp(24px, 3.2vw, 34px);
-        line-height: 1.25;
+        font-size: var(--text-h2);
+        line-height: 1.18;
         word-break: keep-all;
       }
 
@@ -508,6 +507,17 @@ const links = [
       }
 
       .section-head .text-link { display: inline-block; margin-top: 12px; }
+
+      @media (min-width: 860px) {
+        .section-head.split {
+          display: grid;
+          grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
+          gap: 48px;
+          align-items: end;
+        }
+        .section-head.split > p,
+        .section-head.split .text-link { margin-top: 0; }
+      }
 
       .focus-list li,
       .connect-list a,
@@ -532,7 +542,7 @@ const links = [
         text-transform: uppercase;
       }
 
-      .hero { position: relative; overflow: hidden; padding: 88px 0 32px; }
+      .hero { position: relative; overflow: hidden; padding: 104px 0 40px; }
 
       .hero-inner {
         position: relative;
@@ -570,7 +580,7 @@ const links = [
         margin: 0;
         overflow: hidden;
         border: 1px solid var(--border);
-        border-radius: 16px;
+        border-radius: var(--radius-card);
         background: var(--bg-elev);
       }
 
@@ -601,8 +611,10 @@ const links = [
 
       .hero h1 {
         margin: 16px 0 14px;
-        font-size: clamp(40px, 8vw, 72px);
-        line-height: 0.98;
+        font-size: var(--text-h1);
+        line-height: var(--leading-h1);
+        font-weight: 510;
+        letter-spacing: -0.022em;
         overflow-wrap: anywhere;
         word-break: keep-all;
       }
@@ -638,13 +650,14 @@ const links = [
       .button {
         display: inline-flex;
         align-items: center;
-        padding: 12px 20px;
         border: 1px solid var(--border);
-        border-radius: var(--radius-btn);
+        border-radius: var(--radius-pill);
         background: var(--bg);
         color: var(--fg);
-        font-size: var(--text-desc);
-        font-weight: 500;
+        font-size: 13px;
+        font-weight: 510;
+        min-height: 32px;
+        padding: 0 12px;
       }
 
       .button:hover { border-color: var(--accent); color: var(--accent); }
@@ -652,8 +665,8 @@ const links = [
       .button.primary {
         border-color: var(--accent);
         background: var(--accent);
-        color: var(--cta-fg);
-        font-weight: 600;
+        color: var(--fg);
+        font-weight: 510;
       }
 
       .button.primary:hover {
@@ -880,11 +893,11 @@ const links = [
       }
 
       @media (max-width: 640px) {
-        .page-shell { width: calc(100% - 32px); }
+        .page-shell { width: calc(100% - 48px); }
 
         main { padding-bottom: 56px; }
 
-        main section { padding: 48px 0; }
+        main section { padding: var(--pad-section-sm) 0; }
 
         .hero { padding: 40px 0 12px; }
 

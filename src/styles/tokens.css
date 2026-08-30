@@ -1,63 +1,61 @@
 /* ─────────────────────────────────────────────────────────────
    kangdaejong.com 디자인 토큰 — 타이포·간격·형태 정본 (T-260806-062)
 
-   /organization/ 페이지의 디자인 시스템에서 추출한 값이다.
-   참조자 = index.astro · components/EbookTemplatePage.astro(전자책 14페이지) ·
-   organization.astro(T-260807-018 로 리터럴 수렴 완료). 추출 원본인 조직도까지
-   여기를 보게 만든 이유는, 리터럴이 남아 있으면 토큰을 고쳤을 때 정작 기준
-   페이지만 안 따라와 정본이 둘로 갈리기 때문이다. 값을 바꿀 땐 여기만 바꾼다.
-
-   T-260830-054: 회사면은 그록 흑백 대신 첫이름·운세 쪽 남색+코퍼.
+   T-260831-005 2단계: Linear.app 라이브 크롬 + Stripe.com 섹션 리듬.
+   정본 = 채팅 기준점 문서 (2026-08-31). 남색+코퍼·#8FA4FF 근사값은 폐기.
    페이지 :root 리터럴도 이 값과 같아야 한다(verify-tone-pairs.mjs).
-   작업장 헤더 기본 팔레트(검정)는 mb-components.js 기본값으로 남긴다.
-
-   T-260823-020: 홈 히어로 큰 제목은 index.astro 의 .hero h1 에서만 키운다.
    ───────────────────────────────────────────────────────────── */
 :root {
   color-scheme: dark;
 
-  --bg: #10161f;
-  --bg-elev: #182030;
-  --bg-elev2: #1e2736;
-  --border: rgba(212, 165, 116, 0.22);
-  --border-soft: rgba(243, 239, 230, 0.08);
-  --fg: #f3efe6;
-  --fg-dim: #c5c0b5;
-  --fg-mute: #8e8a82;
-  --accent: #d4a574;
-  --accent-dim: #e0b98a;
-  --cta-fg: #10161f;
+  --bg: #08090A;
+  --bg-elev: #0F1011;
+  --bg-elev2: #1C1C1F;
+  --bg-tint: #141516;
+  --border: rgba(255, 255, 255, 0.08);
+  --border-soft: rgba(255, 255, 255, 0.05);
+  --fg: #F7F8F8;
+  --fg-dim: #D0D6E0;
+  --fg-mute: #8A8F98;
+  --fg-faint: #62666D;
+  --accent: #7170FF;
+  --accent-dim: #828FFF;
+  --accent-hover: #828FFF;
+  --accent-tint: #18182F;
+  --cta-bg: #E5E5E6;
+  --cta-fg: #08090A;
   --danger: #FF6B6B;
-  --accent-bg: #1e2736;
-  --code-bg: #1e2736;
+  --accent-bg: #141516;
+  --code-bg: #141516;
 
-  /* 서체 */
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-  --serif: "Noto Serif KR", "Iowan Old Style", Palatino, "Apple SD Gothic Neo", serif;
+  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  --serif: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
 
-  /* 타입 스케일 — 조직도 페이지 실측값 */
-  --text-h1: clamp(30px, 5vw, 46px);  /* 페이지 제목 (조직도·전자책). 홈 히어로는 index에서 별도 */
-  --text-h2: clamp(22px, 3vw, 28px);  /* 섹션 제목 */
-  --text-h3: 19px;                    /* 카드 제목 (조직도 node h3) */
-  --text-lead: 17px;                  /* 리드 문단 */
-  --text-body: 15px;                  /* 본문 (조직도 human-grid dd) */
-  --text-desc: 14px;                  /* 카드 설명 (조직도 node-desc) */
-  --text-meta: 12px;                  /* eyebrow · mono 메타 (조직도 node-role) */
-  --text-badge: 11px;                 /* 카드 상단 라벨 (조직도 node-badge) */
+  --text-h1: clamp(38px, 6vw, 64px);
+  --text-h2: clamp(28px, 4vw, 48px);
+  --text-h3: 20px;
+  --text-lead: 16px;
+  --text-body: 16px;
+  --text-desc: 14px;
+  --text-meta: 13px;
+  --text-badge: 12px;
 
-  /* 자간·행간 */
-  --track-eyebrow: 0.14em;
+  --track-eyebrow: 0.12em;
   --track-badge: 0.08em;
-  --leading-body: 1.65;
-  --leading-h1: 1.25;
+  --leading-body: 1.50;
+  --leading-h1: 1.00;
   --leading-desc: 1.6;
 
-  /* 간격·형태 리듬 */
-  --measure: 62ch;        /* 산문 최대 폭 */
+  --measure: 62ch;
   --radius-card: 12px;
   --radius-btn: 8px;
-  --gap-card: 16px;       /* 카드 그리드 간격 */
-  --pad-section: 56px;    /* 섹션 상하 패딩 */
-  --pad-section-sm: 40px; /* 섹션 상하 패딩 (640px 이하) */
+  --radius-pill: 9999px;
+  --gap-card: 16px;
+  --pad-section: 128px;
+  --pad-section-sm: 64px;
+  --pad-head-bottom: 96px;
+  --header-h: 72px;
+  --page-gutter: 46px;
+  --page-max: 1250px;
 }
