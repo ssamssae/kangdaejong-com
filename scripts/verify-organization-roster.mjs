@@ -1,7 +1,7 @@
 import { readFileSync } from "node:fs";
 
-// T-260830-053 — 공개 조직도 스테프가 routes.yaml 과 어긋나면 이 검사가 빨강.
-//   실사고 축: 라이덴 기기를 「리눅스」로 두거나, 반영 자격을 헤르메스 한 자리에만 적기.
+// T-260831-012 — 공개 조직도 현재 로스터는 아테나 + 워커 2(헤르메스·볼칸).
+// 라이덴·테미스는 퇴사. 복직 표현으로 되살아나면 이 검사가 빨강.
 const source = readFileSync(
   new URL("../src/pages/organization.astro", import.meta.url),
   "utf8",
@@ -18,22 +18,23 @@ function workerBlock(name) {
 }
 
 const failures = [];
-const raiden = workerBlock("라이덴");
 const hermes = workerBlock("헤르메스");
 const vulcan = workerBlock("볼칸");
-const themis = workerBlock("테미스");
 
+if (/codename:\s*"라이덴"/.test(source)) {
+  failures.push("라이덴 must not appear as a current worker (퇴사)");
+}
+if (/codename:\s*"테미스"/.test(source)) {
+  failures.push("테미스 must not appear as a current worker (퇴사)");
+}
+if (/워커 4/.test(source) || /four workers/.test(source)) {
+  failures.push("stale 워커 4 copy is still present");
+}
+if (!/워커 2/.test(source)) {
+  failures.push("roster comment must say 워커 2");
+}
 if (/device:\s*"리눅스"/.test(source)) {
-  failures.push("no worker may list device 리눅스 (라이덴은 윈도우)");
-}
-if (!/device:\s*"윈도우"/.test(raiden)) {
-  failures.push("라이덴 device must be 윈도우");
-}
-if (!/안드로이드/.test(raiden)) {
-  failures.push("라이덴 desc must mention 안드로이드");
-}
-if (/반영/.test(raiden)) {
-  failures.push("라이덴 must not claim 반영 자격");
+  failures.push("no worker may list device 리눅스");
 }
 if (/개발 · 변경 승인/.test(source)) {
   failures.push("변경 승인을 헤르메스 단독 직함으로 두지 말 것");
@@ -43,9 +44,6 @@ if (!/반영/.test(hermes)) {
 }
 if (!/반영/.test(vulcan)) {
   failures.push("볼칸 must keep 반영 자격");
-}
-if (!/반영/.test(themis)) {
-  failures.push("테미스 must keep 반영 자격");
 }
 if (!/맥 미니/.test(vulcan)) {
   failures.push("볼칸 device must stay 맥 미니");

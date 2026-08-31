@@ -12,6 +12,10 @@ async function visitOrganization(page) {
   await expect(page.locator("main h1").first()).toBeVisible();
   await expect(page.getByRole("heading", { name: "아테나" })).toBeVisible();
   await expect(page.getByRole("heading", { name: "강대종" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "헤르메스" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "볼칸" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "라이덴" })).toHaveCount(0);
+  await expect(page.getByRole("heading", { name: "테미스" })).toHaveCount(0);
   await expect(page.getByText("인턴이 승인하는 세 지점")).toBeVisible();
   return consoleErrors;
 }

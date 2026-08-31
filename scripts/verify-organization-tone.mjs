@@ -32,14 +32,14 @@ const checks = [
     ok: /class="button primary"/.test(source) && /--cta-fg:\s*#08090A;/.test(source),
   },
   {
-    label: "role facts stay: Athena lead, Daejong intern, four workers",
+    label: "role facts stay: Athena lead, Daejong intern, two workers",
     ok:
       /codename:\s*"아테나"/.test(source) &&
       /title:\s*"인턴"/.test(source) &&
       /codename:\s*"볼칸"/.test(source) &&
       /codename:\s*"헤르메스"/.test(source) &&
-      /codename:\s*"라이덴"/.test(source) &&
-      /codename:\s*"테미스"/.test(source),
+      !/codename:\s*"라이덴"/.test(source) &&
+      !/codename:\s*"테미스"/.test(source),
   },
   {
     label: "page does not use the old neon work-site palette",
