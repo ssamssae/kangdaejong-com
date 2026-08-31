@@ -1,0 +1,68 @@
+---
+import "../styles/tokens.css";
+
+const dest = "https://work.kangdaejong.com/system/";
+const company = "마이너스베타스튜디오";
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content={`0;url=${dest}`} />
+    <link rel="canonical" href={dest} />
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#08090A" />
+    <title>시스템 — {company}</title>
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script is:inline src="/mb-components.js" defer></script>
+  </head>
+  <body>
+    <mb-header active="home" tone="studio"></mb-header>
+    <main>
+      <div class="page-shell">
+        <p class="eyebrow">SYSTEM</p>
+        <h1>시스템 문서는 작업장에 있습니다</h1>
+        <p>
+          회사홈에는 시스템 페이지가 없고, 운영 구조는 작업장에서 공개합니다.
+          자동으로 이동하지 않으면 아래 링크로 가세요.
+        </p>
+        <p><a href={dest}>work.kangdaejong.com/system/ →</a></p>
+      </div>
+    </main>
+    <mb-footer tone="studio"></mb-footer>
+    <style is:global>
+      :root {
+        color-scheme: dark;
+        --bg: #08090A;
+        --fg: #F7F8F8;
+        --fg-dim: #D0D6E0;
+        --fg-mute: #8A8F98;
+        --accent: #7170FF;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html, body { background: var(--bg); color: var(--fg); font-family: var(--sans); }
+      main { width: 100%; padding: 104px 0 72px; }
+      .page-shell { width: min(calc(100% - 92px), 720px); margin: 0 auto; }
+      .eyebrow {
+        font-family: var(--mono);
+        font-size: var(--text-meta);
+        font-weight: 600;
+        color: var(--fg-mute);
+        letter-spacing: 0.06em;
+      }
+      h1 {
+        margin: 16px 0 14px;
+        font-size: var(--text-h2);
+        font-weight: 510;
+        letter-spacing: -0.022em;
+        word-break: keep-all;
+      }
+      p { color: var(--fg-dim); font-size: var(--text-body); line-height: 1.6; word-break: keep-all; }
+      p + p { margin-top: 14px; }
+      a { color: var(--accent); }
+    </style>
+  </body>
+</html>

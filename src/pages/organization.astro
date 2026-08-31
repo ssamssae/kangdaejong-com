@@ -14,8 +14,8 @@ const description = `${company.name} 조직 구성 — 일상 운영은 AI 에�
 const ogImage = "https://kangdaejong.com/og-image.png";
 const tagline = "Human in the loop.";
 
-// 운영 대표(AI) 1 + 워커 4. 공개면이므로 코드네임·역할·기기 급까지만 적는다.
-// 역할 SoT = claude-automations/policy/routes.yaml (T-260830-053).
+// 운영 대표(AI) 1 + 워커 2. 공개면이므로 코드네임·역할·기기 급까지만 적는다.
+// 라이덴·테미스는 퇴사(복직 아님). 남은 AI = 아테나 + 헤르메스 + 볼칸.
 const orchestrator = {
   codename: "아테나",
   mark: "ATH",
@@ -47,20 +47,6 @@ const workers = [
     role: "개발 · 반영",
     device: "맥북 프로",
     desc: "기능을 구현하고 버그를 고칩니다. 변경을 검토해 반영할 자격도 있습니다.",
-  },
-  {
-    codename: "라이덴",
-    mark: "RAI",
-    role: "개발",
-    device: "윈도우",
-    desc: "기능을 구현합니다. 윈도우와 안드로이드 작업을 이 자리에서 합니다.",
-  },
-  {
-    codename: "테미스",
-    mark: "THE",
-    role: "검증 · 반영",
-    device: "데스크톱",
-    desc: "코드를 다시 읽고 테스트가 동작하는지 확인합니다. 변경 반영 자격도 있습니다.",
   },
 ];
 
@@ -167,7 +153,7 @@ const proofPoints = [
           </div>
 
           <!-- 조직도 = CSS 로 직접 그린다(외부 이미지·CDN 없음).
-               데스크톱은 가로 4열, 모바일은 세로 스택으로 접히고 연결선도 같이 바뀐다.
+               데스크톱은 가로 2열(워커), 모바일은 세로 스택으로 접히고 연결선도 같이 바뀐다.
                스크린리더에는 중첩 목록으로 읽힌다. -->
           <div class="chart" role="group" aria-labelledby="chart-title">
             <div class="tier tier-top">
@@ -481,24 +467,15 @@ const proofPoints = [
       .link-branch .bus {
         position: absolute;
         top: 22px;
-        left: calc(12.5% - 0.5px);
-        right: calc(12.5% - 0.5px);
+        left: calc(25% - 0.5px);
+        right: calc(25% - 0.5px);
         height: 24px;
         border: 1px solid var(--border);
         border-bottom: 0;
         border-radius: 0;
       }
       .link-branch::before,
-      .link-branch::after {
-        content: "";
-        position: absolute;
-        top: 22px;
-        width: 1px;
-        height: 24px;
-        background: var(--border);
-      }
-      .link-branch::before { left: calc(37.5% - 0.5px); }
-      .link-branch::after { left: calc(62.5% - 0.5px); }
+      .link-branch::after { display: none; }
 
       .focus-list {
         display: grid;
