@@ -73,7 +73,7 @@ const checks = [
   {
     label: "company page points work root link at 작업장",
     ok:
-      /label:\s*"작업장",\s*desc:\s*"제품, 작업일지, 뉴스레터, 인사이트를 모아둔 공개 허브\.",\s*href:\s*company\.work/.test(index),
+      /<a href=\{company\.work\}><span>작업장<\/span><strong>제품, 실험, 인사이트를 모아둔 공개 허브<\/strong>/.test(index),
   },
   {
     label: "company page uses canonical products link",
