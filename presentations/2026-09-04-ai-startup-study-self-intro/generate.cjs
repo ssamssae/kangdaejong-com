@@ -173,7 +173,7 @@ addText("한줄일기 · 메모요 · 약먹자", 0.70, 5.72, 2.45, 0.25, { font
 addText("AI 웹", 3.28, 5.39, 1.15, 0.28, { fontSize: 13, bold: true });
 addText("첫이름 — AI 사주 작명", 3.28, 5.72, 2.25, 0.25, { fontSize: 10, color: C.muted });
 addText("AI 자동화", 5.68, 5.39, 1.30, 0.28, { fontSize: 13, bold: true });
-addText("Codex · Claude · Grok Bridge", 5.68, 5.72, 2.35, 0.25, { fontSize: 10, color: C.muted });
+addText("Codex · Claude · Grok · Cursor Bridge", 5.68, 5.72, 2.35, 0.25, { fontSize: 10, color: C.muted });
 
 // Right panel
 slide.addShape(pptx.ShapeType.roundRect, {
