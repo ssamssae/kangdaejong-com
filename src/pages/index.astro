@@ -101,6 +101,24 @@ const apps = [
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.ssamssae.pomodoro" },
     ],
   },
+  {
+    name: "심플 가계부",
+    status: "iOS · Android LIVE",
+    desc: "하루 지출을 빠르게 적는 미니멀 가계부. 가입 없이 기기 안에서만 기록합니다.",
+    links: [
+      { label: "App Store", url: "https://apps.apple.com/kr/app/id6769037337" },
+      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.ssamssae.mini_expense" },
+    ],
+  },
+  {
+    name: "행운번호 생성기",
+    status: "iOS · Android LIVE",
+    desc: "1부터 45까지 중복 없는 숫자 6개를 한 번에 5세트 만드는 오프라인 도구.",
+    links: [
+      { label: "App Store", url: "https://apps.apple.com/kr/app/id6766077265" },
+      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.lottocalc" },
+    ],
+  },
 ];
 
 // 전자책 — 크몽 판매분. 문구는 정본 daejong-page/src/data/products.ts 와 맞춘다.
@@ -127,33 +145,44 @@ const ebooks = [
 
 const featured = {
   name: "첫이름",
-  status: "웹 · ₩19,900",
+  status: "웹 · iOS · Android · ₩19,900",
   kicker: "대표 웹 서비스",
-  desc: "사주·획수·인명용 한자를 따져 아이 이름 후보를 뽑아 주는 AI 작명 서비스. 지금 바로 웹에서 쓸 수 있습니다.",
-  links: [{ label: "첫이름 열기", url: "https://cheotireum.kangdaejong.com/" }],
+  desc: "사주·획수·인명용 한자를 따져 아이 이름 후보를 뽑아 주는 AI 작명 서비스. 웹과 스토어에서 쓸 수 있습니다.",
+  links: [
+    { label: "첫이름 열기", url: "https://cheotireum.kangdaejong.com/" },
+    { label: "App Store", url: "https://apps.apple.com/kr/app/id6791480413" },
+    { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.cheotireum" },
+  ],
 };
 
 const tools = [
   {
     name: "Grok Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
+    status: "오픈소스 · v0.5.1",
     desc: "텔레그램으로 자기 컴퓨터의 Grok 세션을 부리는 브릿지. Claude·Codex 브릿지의 형제 도구입니다.",
     repo: "https://github.com/ssamssae/grok-telegram-bridge",
-    releases: "https://github.com/ssamssae/grok-telegram-bridge/releases",
+    releases: "https://github.com/ssamssae/grok-telegram-bridge/releases/tag/v0.5.1",
   },
   {
     name: "Codex Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
+    status: "오픈소스 · v0.9.7",
     desc: "Codex CLI REPL을 텔레그램으로 제어하는 브릿지. 텍스트, 이미지, 영상, 음성, 파일 입력과 진행 보고를 지원합니다.",
     repo: "https://github.com/ssamssae/codex-telegram-bridge",
-    releases: "https://github.com/ssamssae/codex-telegram-bridge/releases",
+    releases: "https://github.com/ssamssae/codex-telegram-bridge/releases/tag/v0.9.7",
   },
   {
     name: "Claude Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
+    status: "오픈소스 · v0.14.1",
     desc: "Claude Code live tmux 세션을 텔레그램에 연결하는 브릿지. 세션 주입, transcript 추출, 미디어 전달 흐름을 다룹니다.",
     repo: "https://github.com/ssamssae/claude-telegram-bridge",
-    releases: "https://github.com/ssamssae/claude-telegram-bridge/releases",
+    releases: "https://github.com/ssamssae/claude-telegram-bridge/releases/tag/v0.14.1",
+  },
+  {
+    name: "Cursor Telegram Bridge",
+    status: "오픈소스 · v0.4.0",
+    desc: "이미 떠 있는 Cursor TUI 세션을 텔레그램으로 연결하는 브릿지. 긴 턴 대기, 모델 선택, 승인 버튼을 폰에서 다룹니다.",
+    repo: "https://github.com/ssamssae/cursor-telegram-bridge",
+    releases: "https://github.com/ssamssae/cursor-telegram-bridge/releases/tag/v0.4.0",
   },
 ];
 
