@@ -6,74 +6,49 @@ const header = readFileSync(new URL("../public/mb-components.js", import.meta.ur
 
 const checks = [
   {
-    label: "Product list includes Memoyo live app",
-    pattern: /name:\s*"메모요",[\s\S]*?status:\s*"iOS · Android LIVE"/,
+    label: "homepage uses the selected warm paper editorial canvas",
+    pattern: /--bg:\s*#F6F4EE;[\s\S]*--fg:\s*#181818;[\s\S]*--accent:\s*#6D63FF;[\s\S]*--mint:\s*#39B990;/,
     source,
   },
   {
-    label: "Product list includes Hanjul live app",
-    pattern: /name:\s*"한줄일기",[\s\S]*?status:\s*"iOS · Android LIVE"/,
+    label: "homepage opts into the editorial shared chrome",
+    pattern: /<mb-header active="home" tone="editorial">[\s\S]*<mb-footer tone="editorial"><\/mb-footer>/,
     source,
   },
   {
-    label: "Company page keeps bordered repeated cards",
-    pattern: /\.product-card,[\s\S]*?\.tool-card \{[\s\S]*?border: 1px solid var\(--border\);[\s\S]*?background: var\(--bg\);/,
+    label: "homepage hero keeps the Editorial Lab typography rather than the old split photo",
+    pattern: /\.hero h1 \{[\s\S]*font-size: clamp\(64px, 8\.4vw, 118px\);[\s\S]*font-weight: 850;[\s\S]*letter-spacing: -\.075em;/,
     source,
   },
   {
-    label: "Connect list replaces old tone link cards",
-    pattern: /class="connect-list"[\s\S]*links\.map/,
+    label: "homepage old studio photographs are removed from the new editorial composition",
+    pattern: /^(?![\s\S]*(hero-desk\.jpg|cheotireum\.jpg))/,
     source,
   },
   {
-    label: "Legacy neon variables are removed",
-    pattern: /^(?![\s\S]*(--cyan|--magenta|tone-cyan|tone-magenta))/,
+    label: "legacy neon variables stay removed",
+    pattern: /^(?![\s\S]*(--cyan|--magenta|tone-cyan|tone-magenta|#00e5ff|#ff00aa))/,
     source,
   },
   {
-    label: "Company page uses Linear dark chrome",
-    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#7170FF;[\s\S]*--cta-fg:\s*#08090A;/,
-    source,
-  },
-  {
-    label: "Homepage hero uses a studio photograph",
-    pattern: /src="\/studio\/hero-desk\.jpg"/,
-    source,
-  },
-  {
-    label: "Featured 첫이름 card uses a photograph",
-    pattern: /src="\/studio\/cheotireum\.jpg"/,
-    source,
-  },
-  {
-    label: "Company page does not use old neon",
-    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#4FE0C0))/,
-    source,
-  },
-  {
-    label: "Organization page uses the same Linear canvas as the homepage",
+    label: "organization page intentionally keeps its existing Linear dark canvas",
     pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#7170FF;[\s\S]*--cta-fg:\s*#08090A;/,
     source: organization,
   },
   {
-    label: "Organization page does not use old neon",
-    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#4FE0C0))/,
-    source: organization,
-  },
-  {
-    label: "Shared header default palette is Linear chrome",
-    pattern: /--mb-bg:#08090A;[\s\S]*--mb-fg:#F7F8F8;[\s\S]*--mb-accent:#7170FF;/,
+    label: "shared default and studio palettes remain Linear dark for sibling pages",
+    pattern: /const PALETTE = `[\s\S]*--mb-bg:#08090A;[\s\S]*const PALETTE_STUDIO = `[\s\S]*--mb-bg:#08090A;/,
     source: header,
   },
   {
-    label: "Shared header studio palette matches Linear chrome",
-    pattern: /PALETTE_STUDIO[\s\S]*--mb-bg:#08090A;[\s\S]*--mb-accent:#7170FF;/,
+    label: "shared component provides a dedicated editorial palette",
+    pattern: /const PALETTE_EDITORIAL = `[\s\S]*--mb-bg:#F6F4EE;[\s\S]*--mb-fg:#181818;[\s\S]*--mb-accent:#6D63FF;/,
     source: header,
   },
   {
-    label: "Company header opts into studio tone",
-    pattern: /<mb-header active="home" tone="studio">/,
-    source,
+    label: "editorial tone remains light regardless of OS color scheme",
+    pattern: /\['studio', 'editorial'\]\.includes\(el\.getAttribute\('tone'\)\) \? '' : DARK_RULE/,
+    source: header,
   },
 ];
 
@@ -81,9 +56,7 @@ const failures = checks.filter((check) => !check.pattern.test(check.source));
 
 if (failures.length > 0) {
   console.error("Tone pair verification failed:");
-  for (const failure of failures) {
-    console.error(`- ${failure.label}`);
-  }
+  for (const failure of failures) console.error(`- ${failure.label}`);
   process.exit(1);
 }
 

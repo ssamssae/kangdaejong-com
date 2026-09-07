@@ -3,7 +3,7 @@
 // ■왜 PNG 인가 (T-260805-087)
 //   repo 의 브랜드 자산은 SVG(minusbeta-badge.svg / minusbeta-lockup-dark.svg)뿐인데,
 //   ★카카오톡·슬랙·X 의 링크 미리보기는 SVG 를 og:image 로 읽지 않는다. 래스터가 필수다.
-//   그래서 같은 브랜드 요소(mβ 마크 · Minus Beta STUDIO 로크업 · 팔레트)를 그대로 쓰되
+//   그래서 같은 브랜드 요소(mβ 마크 · Minus Beta STUDIO 로크업 · Editorial Lab 팔레트)를 쓰되
 //   1200×630 PNG 로 굽는다. 새 팔레트·새 서체를 만들지 않는다.
 //
 // ■왜 한글이 안 들어가나
@@ -22,21 +22,24 @@ import sharp from 'sharp';
 
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'public', 'og-image.png');
 
-// 팔레트 = 그록 톤(T-260824-046). 배지·로크업과 같은 검정/흰 글자.
-const BG = '#000000';
-const MINT = '#f2f2f2';
-const FG = '#f2f2f2';
-const DIM = '#8a8a8a';
-const RULE = 'rgba(255,255,255,0.08)';
+// 팔레트 = 회사홈 Editorial Lab(T-260904-006). 웜 페이퍼 + 잉크 + 바이올렛/민트.
+const BG = '#F6F4EE';
+const PURPLE = '#6D63FF';
+const MINT = '#39B990';
+const FG = '#181818';
+const DIM = '#74716A';
+const RULE = '#C9C6BD';
 const FONT = 'Helvetica, Arial, sans-serif'; // 로크업 SVG 와 같은 스택
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <rect width="1200" height="630" fill="${BG}"/>
-  <text x="96" y="212" font-family="${FONT}" font-weight="700" font-size="148" fill="${MINT}" letter-spacing="4">mβ</text>
+  <rect x="0" y="0" width="18" height="630" fill="${PURPLE}"/>
+  <circle cx="1060" cy="158" r="72" fill="none" stroke="${MINT}" stroke-width="18"/>
+  <text x="96" y="212" font-family="${FONT}" font-weight="700" font-size="148" fill="${FG}" letter-spacing="4">mβ</text>
   <text x="96" y="356" font-family="${FONT}" font-weight="700" font-size="82" fill="${FG}" letter-spacing="1">Minus Beta</text>
-  <text x="100" y="416" font-family="${FONT}" font-weight="500" font-size="32" fill="${DIM}" letter-spacing="18">STUDIO</text>
+  <text x="100" y="416" font-family="${FONT}" font-weight="500" font-size="32" fill="${PURPLE}" letter-spacing="18">STUDIO</text>
   <line x1="96" y1="470" x2="1104" y2="470" stroke="${RULE}" stroke-width="2"/>
-  <text x="96" y="540" font-family="${FONT}" font-weight="700" font-size="38" fill="${MINT}" letter-spacing="0">Tools Worth Keeping.</text>
+  <text x="96" y="540" font-family="${FONT}" font-weight="700" font-size="38" fill="${FG}" letter-spacing="0">Tools Worth Keeping.</text>
   <text x="1104" y="540" font-family="${FONT}" font-weight="500" font-size="30" fill="${DIM}" text-anchor="end">kangdaejong.com</text>
 </svg>`;
 

@@ -1,5 +1,4 @@
 ---
-// 타이포·간격·형태 토큰 정본 — /organization/ 디자인 시스템에서 추출 (T-260806-062)
 import "../styles/tokens.css";
 
 const company = {
@@ -10,92 +9,62 @@ const company = {
   address: "서울특별시 마포구 만리재로10길 4 (공덕동)",
   category: "정보통신업 / 응용 소프트웨어 개발 및 공급업",
   email: "minusbetastudio@gmail.com",
-  github: "github.com/ssamssae",
+  github: "https://github.com/ssamssae",
   work: "https://work.kangdaejong.com/",
   products: "https://work.kangdaejong.com/products/",
-  newsletter: "https://minusbetastudio.substack.com",
+  worklog: "https://work.kangdaejong.com/worklog",
+  newsletter: "https://work.kangdaejong.com/newsletter",
 };
 
-const slogan = "Tools Worth Keeping.";
-const sloganKo = "작게 만들고, 오래 운영합니다.";
-const intro = "마이너스베타스튜디오는 강대종이 운영하는 1인 스튜디오입니다. 생활에 가까운 모바일 앱, 짧게 쓰는 웹 서비스, 실제 운영에서 쓰는 공개 자동화 도구를 직접 만들고 유지합니다.";
-
-const focusAreas = [
-  {
-    number: "01",
-    title: "생활 앱",
-    desc: "메모, 일기, 복약, 정산처럼 매일 반복되는 일을 빠르게 처리하는 작은 앱을 만듭니다.",
-  },
-  {
-    number: "02",
-    title: "작업장 웹",
-    desc: "제품, 뉴스레터, 작업일지, 실험 페이지를 공개해 만드는 과정과 결과를 같이 남깁니다.",
-  },
-  {
-    number: "03",
-    title: "운영 자동화",
-    desc: "반복 작업은 에이전트와 브릿지로 줄이고, 사람 판단이 필요한 지점은 검증 절차로 묶습니다.",
-  },
-];
-
-// 모바일 앱 — 스토어 실측 기준. 개수는 proofPoints 가 여기서 파생한다.
-// 설명 정본은 daejong-page/src/data/products.ts 와 맞춘다.
 const apps = [
   {
-    name: "한줄일기",
-    status: "iOS · Android LIVE",
-    desc: "하루 한 줄로 남기는 일기. 감정 히트맵, 로컬 저장, 가입 없음.",
+    name: "한줄일기", status: "iOS · Android LIVE", kind: "journal",
+    desc: "하루 한 줄이면 충분한 일기. 53주 감정 히트맵, 로컬 저장, 가입 없이 씁니다.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6764308678" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.hanjul" },
     ],
   },
   {
-    name: "메모요",
-    status: "iOS · Android LIVE",
-    desc: "다크 테마의 심플 메모. 여러 개를 골라 한 번에 지울 수 있습니다.",
+    name: "메모요", status: "iOS · Android LIVE", kind: "memo",
+    desc: "빠르게 적고 가볍게 정리하는 다크 테마 메모. 복수 선택 삭제를 지원합니다.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6762068073" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.simple_memo_app" },
     ],
   },
   {
-    name: "더치페이 계산기",
-    status: "iOS · Android LIVE",
-    desc: "모임 자리의 금액과 인원만 넣으면 바로 나누는 정산 도구.",
+    name: "더치페이 계산기", status: "iOS · Android LIVE", kind: "split",
+    desc: "금액과 인원만 넣으면 모임 자리의 정산을 바로 끝내는 계산기입니다.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6762072499" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.dutchpay" },
     ],
   },
   {
-    name: "약먹자",
-    status: "iOS · Android LIVE",
-    desc: "약 등록과 알림 시각만 정하면 복약 시간을 챙겨 주는 앱.",
+    name: "약먹자", status: "iOS · Android LIVE", kind: "pill",
+    desc: "약과 알림 시각만 정하면 매일 복약 시간을 챙겨 주는 작은 도구입니다.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6762100639" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.yakmukja" },
     ],
   },
   {
-    name: "단어요",
-    status: "iOS · Android LIVE",
-    desc: "영어 단어를 카드처럼 넘기며 외우는 미니 단어장.",
+    name: "단어요", status: "iOS · Android LIVE", kind: "word",
+    desc: "영어 단어를 카드처럼 넘겨 외우고 진행도와 즐겨찾기를 기기에 남깁니다.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6766556759" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.wordyo" },
     ],
   },
   {
-    name: "한컵",
-    status: "iOS LIVE",
-    desc: "하루 물 섭취량을 한 컵 단위로 세는 수분 트래커.",
+    name: "한컵", status: "iOS LIVE", kind: "water",
+    desc: "한 컵 단위로 오늘 마신 물과 일일 목표를 확인하는 수분 트래커입니다.",
     links: [{ label: "App Store", url: "https://apps.apple.com/kr/app/id6765536616" }],
   },
   {
-    name: "포모도로",
-    status: "iOS · Android LIVE",
-    desc: "25분 집중 + 5분 휴식 사이클을 재는 집중 타이머.",
+    name: "포모도로", status: "iOS · Android LIVE", kind: "timer",
+    desc: "25분 집중과 5분 휴식을 단순하게 반복하는 집중 타이머입니다.",
     links: [
       { label: "App Store", url: "https://apps.apple.com/kr/app/id6765536777" },
       { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.ssamssae.pomodoro" },
@@ -103,79 +72,64 @@ const apps = [
   },
 ];
 
-// 전자책 — 크몽 판매분. 문구는 정본 daejong-page/src/data/products.ts 와 맞춘다.
-const ebooks = [
+const services = [
   {
-    name: "1인회사 AI자동화",
-    status: "전자책 · ₩10,000",
-    desc: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했습니다.",
-    links: [{ label: "크몽에서 구매", url: "https://kmong.com/gig/786557" }],
+    name: "첫이름", title: "AI 사주 작명", status: "웹 서비스 · ₩19,900",
+    desc: "사주·획수·인명용 한자 분석에 AI 뜻풀이를 더해 아이 이름 후보와 리포트를 만듭니다.",
+    links: [{ label: "첫이름 열기", url: "https://cheotireum.kangdaejong.com/" }],
   },
   {
-    name: "혼자서 AI팀",
-    status: "전자책 · ₩15,000",
-    desc: "혼자 일하면서 여러 AI 역할을 팀처럼 구성하고 운영하는 방법을 정리했습니다.",
-    links: [{ label: "크몽에서 구매", url: "https://kmong.com/gig/786749" }],
+    name: "한장궁합", title: "결혼 궁합 한 장", status: "웹 서비스 · ₩19,900",
+    desc: "두 사람의 사주로 궁합 점수와 해설을 A4 한 장에 담아 메일로 보냅니다.",
+    links: [
+      { label: "서비스 열기", url: "https://hanjang.kangdaejong.com/" },
+      { label: "예시 보기", url: "https://hanjang.kangdaejong.com/sample" },
+    ],
   },
   {
-    name: "폰으로 내 컴퓨터 AI 부리기",
-    status: "전자책 · ₩10,000",
-    desc: "Grok Telegram Bridge와 Claude Code·Codex 브릿지를 텔레그램에 연결해 폰에서 내 컴퓨터의 AI 를 부리는 방법을 정리했습니다. 비개발자를 위한 따라하기 안내서입니다.",
-    links: [{ label: "크몽에서 구매", url: "https://kmong.com/gig/798202" }],
+    name: "한장택일", title: "결혼·이사·개업 날짜", status: "웹 서비스 · ₩19,900",
+    desc: "이름과 생일로 좋은 날을 고르고, 그 이유까지 읽기 쉬운 한 장에 담습니다.",
+    links: [{ label: "서비스 열기", url: "https://taekil.kangdaejong.com/" }],
   },
 ];
 
-const featured = {
-  name: "첫이름",
-  status: "웹 · ₩19,900",
-  kicker: "대표 웹 서비스",
-  desc: "사주·획수·인명용 한자를 따져 아이 이름 후보를 뽑아 주는 AI 작명 서비스. 지금 바로 웹에서 쓸 수 있습니다.",
-  links: [{ label: "첫이름 열기", url: "https://cheotireum.kangdaejong.com/" }],
+const bridgeRepos = {
+  grok: "https://github.com/ssamssae/grok-telegram-bridge",
+  codex: "https://github.com/ssamssae/codex-telegram-bridge",
+  claude: "https://github.com/ssamssae/claude-telegram-bridge",
+  cursor: "https://github.com/ssamssae/cursor-telegram-bridge",
 };
 
-const tools = [
-  {
-    name: "Grok Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
-    desc: "텔레그램으로 자기 컴퓨터의 Grok 세션을 부리는 브릿지. Claude·Codex 브릿지의 형제 도구입니다.",
-    repo: "https://github.com/ssamssae/grok-telegram-bridge",
-    releases: "https://github.com/ssamssae/grok-telegram-bridge/releases",
-  },
-  {
-    name: "Codex Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
-    desc: "Codex CLI REPL을 텔레그램으로 제어하는 브릿지. 텍스트, 이미지, 영상, 음성, 파일 입력과 진행 보고를 지원합니다.",
-    repo: "https://github.com/ssamssae/codex-telegram-bridge",
-    releases: "https://github.com/ssamssae/codex-telegram-bridge/releases",
-  },
-  {
-    name: "Claude Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
-    desc: "Claude Code live tmux 세션을 텔레그램에 연결하는 브릿지. 세션 주입, transcript 추출, 미디어 전달 흐름을 다룹니다.",
-    repo: "https://github.com/ssamssae/claude-telegram-bridge",
-    releases: "https://github.com/ssamssae/claude-telegram-bridge/releases",
-  },
+const bridges = [
+  { name: "Grok", version: "0.5.1", repo: bridgeRepos.grok, desc: "텔레그램 메시지를 내 컴퓨터의 Grok 턴으로 연결합니다." },
+  { name: "Codex", version: "0.9.7", repo: bridgeRepos.codex, desc: "실행 중인 Codex CLI 세션을 폰에서 이어서 제어합니다." },
+  { name: "Claude", version: "0.14.1", repo: bridgeRepos.claude, desc: "기존 Claude Code 세션에 텔레그램을 안전하게 연결합니다." },
+  { name: "Cursor", version: "0.3.0", repo: bridgeRepos.cursor, desc: "개인 텔레그램 봇으로 내 Cursor 세션과 대화합니다." },
+].map((bridge) => ({ ...bridge, release: `${bridge.repo}/releases/tag/v${bridge.version}` }));
+
+const ebooks = [
+  { name: "1인회사 AI자동화", price: "₩10,000", desc: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했습니다.", url: "https://kmong.com/gig/786557" },
+  { name: "혼자서 AI팀", price: "₩15,000", desc: "여러 AI 역할을 팀처럼 구성하고 혼자서도 검토 가능한 방식으로 운영하는 방법입니다.", url: "https://kmong.com/gig/786749" },
+  { name: "폰으로 내 컴퓨터 AI 부리기", price: "₩10,000", desc: "Claude·Codex·Grok 브릿지를 텔레그램에 연결하는 비개발자용 따라하기 안내서입니다.", url: "https://kmong.com/gig/798202" },
 ];
 
-const productNames = apps.map((app) => app.name);
+const principles = [
+  { number: "01", title: "생활 가까이", desc: "매일 반복하지만 번거로운 일을 찾습니다. 설명 없이도 바로 쓸 수 있을 만큼 작게 만듭니다." },
+  { number: "02", title: "빠르게 공개", desc: "완벽해질 때까지 감추지 않습니다. 실제 사용과 운영 기록으로 제품의 다음 모양을 정합니다." },
+  { number: "03", title: "오래 운영", desc: "출시를 끝으로 보지 않습니다. 직접 쓰고 고치며, 반복 작업은 자동화해 유지할 힘을 남깁니다." },
+];
 
-// ★개수는 손으로 박지 않는다 — 목록에서 파생한다.
+const productCount = apps.length + services.length + bridges.length + ebooks.length;
 const proofPoints = [
-  { label: "출시 앱", value: String(apps.length), desc: "스토어에 올려 직접 운영" },
-  { label: "공개 도구", value: String(tools.length), desc: "실제로 쓰는 브릿지를 공개" },
-  { label: "운영", value: "1인", desc: "기획부터 고객응대까지" },
-  { label: "기록", value: "공개", desc: "작업일지와 뉴스레터로 남김" },
+  { label: "공개 제품", value: String(productCount), desc: "지금 확인할 수 있는 결과물" },
+  { label: "출시 앱", value: String(apps.length), desc: "스토어에서 직접 운영" },
+  { label: "웹 서비스", value: String(services.length), desc: "결제 가능한 한 장 서비스" },
+  { label: "공개 브릿지", value: String(bridges.length), desc: "실제 쓰는 AI 연결 도구" },
 ];
 
 const siteUrl = "https://kangdaejong.com/";
-const description = `${company.name} — 오래 남을 앱, 웹 서비스, 공개 자동화 도구를 만드는 1인 스튜디오. 대표 ${company.representative}.`;
+const description = `${company.name} — 생활 가까운 앱과 웹 서비스, AI 자동화 도구를 작게 만들고 오래 운영하는 강대종의 1인 소프트웨어 스튜디오.`;
 const ogImage = `${siteUrl}og-image.png`;
-
-const links = [
-  { label: "작업장", desc: "제품, 작업일지, 뉴스레터, 인사이트를 모아둔 공개 허브.", href: company.work, meta: "work.kangdaejong.com" },
-  { label: "제품", desc: "공개 앱, 웹 서비스, 자동화 도구 전체 목록.", href: company.products, meta: "products" },
-  { label: "뉴스레터", desc: "1인 스튜디오의 빌드, 운영, 실패 복구 기록.", href: company.newsletter, meta: "Substack" },
-];
 ---
 
 <!doctype html>
@@ -186,24 +140,21 @@ const links = [
     <meta name="description" content={description} />
     <meta name="google-adsense-account" content="ca-pub-7025432711849670" />
     <link rel="canonical" href={siteUrl} />
-
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={company.name} />
     <meta property="og:locale" content="ko_KR" />
     <meta property="og:url" content={siteUrl} />
-    <meta property="og:title" content={company.name} />
+    <meta property="og:title" content={`${company.name} — 작게 만들고, 오래 운영합니다.`} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="마이너스베타스튜디오 — Tools Worth Keeping." />
-
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={company.name} />
+    <meta name="twitter:title" content={`${company.name} — 작게 만들고, 오래 운영합니다.`} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
-
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
@@ -211,720 +162,333 @@ const links = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-    <meta name="theme-color" content="#08090A" />
-    <title>{company.name}</title>
+    <meta name="theme-color" content="#F6F4EE" />
+    <title>{company.name} — 작게 만들고, 오래 운영합니다.</title>
     <script is:inline src="/mb-components.js" defer></script>
   </head>
   <body>
-    <mb-header active="home" tone="studio"></mb-header>
+    <mb-header active="home" tone="editorial"></mb-header>
     <main>
-      <div class="page-shell">
       <section class="hero" id="top" aria-labelledby="page-title">
-        <div class="hero-inner">
-          <img class="hero-mark" src="/minusbeta-badge.svg" alt="" width="640" height="640" aria-hidden="true" />
+        <div class="page-shell hero-grid">
           <div class="hero-copy">
-            <p class="eyebrow">1인 스튜디오 · 강대종</p>
-            <h1 id="page-title"><span>마이너스</span><span>베타스튜디오</span></h1>
-            <p class="tagline">{slogan}</p>
-            <p class="lead">{sloganKo} 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 검증하며 운영합니다.</p>
-            <ul class="hero-pills" aria-label="지금 운영 중인 것">
-              <li>출시 앱 {apps.length}</li>
-              <li>웹 서비스 1</li>
-              <li>공개 도구 {tools.length}</li>
-            </ul>
-            <p class="hero-products" aria-label="지금 운영 중인 웹 서비스">웹 · {featured.name}</p>
-            <p class="hero-products" aria-label="지금 운영 중인 앱">앱 · {productNames.join(" · ")}</p>
-            <div class="hero-actions" aria-label="주요 링크">
-              <a class="button primary" href={company.products}>제품 보기</a>
-              <a class="button" href={company.work}>작업장 보기</a>
-              <a class="button" href={`mailto:${company.email}`}>문의하기</a>
+            <p class="eyebrow"><span>01</span> INDEPENDENT SOFTWARE STUDIO</p>
+            <h1 id="page-title"><span>작게 만들고,</span><span>오래 운영합니다.</span></h1>
+            <div class="hero-bottom">
+              <p class="hero-intro">강대종의 1인 소프트웨어 스튜디오. 생활 가까운 앱과 웹 서비스, 실제 운영에서 쓰는 AI 자동화 도구를 직접 만들고 공개합니다.</p>
+              <div class="hero-actions" aria-label="주요 링크">
+                <a class="button primary" href="#selected-work">대표 제품 보기 <span aria-hidden="true">↘</span></a>
+                <a class="button" href={company.work}>작업장 열기 <span aria-hidden="true">↗</span></a>
+              </div>
             </div>
           </div>
-          <figure class="hero-figure">
-            <img src="/studio/hero-desk.jpg" alt="창가에서 리포트를 읽는 장면" width="1600" height="900" />
-            <figcaption>첫이름 · 사주운세 리포트</figcaption>
-          </figure>
+          <dl class="hero-proof" aria-label="스튜디오 요약">
+            {proofPoints.map((item) => <div><dt>{item.label}</dt><dd>{item.value}</dd><p>{item.desc}</p></div>)}
+          </dl>
+        </div>
+        <div class="page-shell studio-index" aria-label="현재 운영 항목">
+          <span>Tools Worth Keeping.</span>
+          <p>WEB {services.length} · APP {apps.length} · OPEN SOURCE {bridges.length} · BOOK {ebooks.length}</p>
+          <span>SEOUL · 2026</span>
         </div>
       </section>
 
-      <section class="proof-strip" aria-label="스튜디오 요약">
-        <div class="proof-inner">
-          {proofPoints.map((item) => (
-            <div>
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-              <p>{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="focus-section" aria-labelledby="focus-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">하는 일</p>
-            <h2 id="focus-title">혼자 만들지만, 혼자만 보지 않습니다.</h2>
-          </div>
-          <p>{intro} 작게 만들고, 바로 내보내고, 기록으로 다시 줄입니다.</p>
-        </div>
-        <ol class="focus-list">
-          {focusAreas.map((item) => (
-            <li>
-              <span>{item.number}</span>
-              <strong>{item.title}</strong>
-              <p>{item.desc}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <section class="products-section" aria-labelledby="products-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">제품</p>
-            <h2 id="products-title">지금 쓸 수 있는 것들</h2>
-          </div>
-          <a class="text-link" href={company.products}>전체 제품 보기</a>
-        </div>
-        <article class="product-card featured">
-          <img class="featured-photo" src="/studio/cheotireum.jpg" alt="첫이름 작명 서비스" width="1050" height="1400" />
-          <div class="featured-copy">
-            <span>{featured.status}</span>
-            <p class="featured-kicker">{featured.kicker}</p>
-            <h3>{featured.name}</h3>
-            <p>{featured.desc}</p>
-            <div class="link-row">
-              {featured.links.map((link) => (
-                <a href={link.url} target="_blank" rel="noopener">{link.label} →</a>
-              ))}
+      <section class="selected-section" id="selected-work" aria-labelledby="selected-title">
+        <div class="page-shell">
+          <header class="section-head split-head"><div><p class="eyebrow"><span>02</span> SELECTED WORK</p><h2 id="selected-title">지금 가장 먼저 보여드릴 것</h2></div><p>사주 정보를 읽고, 선택에 필요한 내용을 한 장의 결과로 정리하는 웹 서비스입니다.</p></header>
+          <div class="service-layout">
+            <article class="service-feature">
+              <div class="service-copy">
+                <p class="card-meta">01 · {services[0].status}</p><p class="service-name">{services[0].name}</p><h3>{services[0].title}</h3><p>{services[0].desc}</p>
+                <div class="link-row">{services[0].links.map((link) => <a href={link.url} target="_blank" rel="noopener">{link.label} <span aria-hidden="true">↗</span></a>)}</div>
+              </div>
+              <div class="name-report" aria-label="첫이름 결과 화면을 형상화한 그래픽">
+                <div class="report-toolbar"><span>첫이름</span><span>REPORT · 01</span></div><div class="name-glyph">이름</div><div class="report-lines"><i></i><i></i><i></i></div><div class="report-score"><span>사주 조화</span><strong>92</strong><span>/ 100</span></div>
+              </div>
+            </article>
+            <div class="service-side">
+              {services.slice(1).map((service, index) => <article class="service-card"><p class="card-meta">0{index + 2} · {service.status}</p><div><p class="service-name">{service.name}</p><h3>{service.title}</h3><p>{service.desc}</p></div><div class="link-row">{service.links.map((link) => <a href={link.url} target="_blank" rel="noopener">{link.label} <span aria-hidden="true">↗</span></a>)}</div></article>)}
             </div>
           </div>
-        </article>
-        <div class="product-grid">
-          {apps.map((app) => (
-            <article class="product-card">
-              <span>{app.status}</span>
-              <h3>{app.name}</h3>
-              <p>{app.desc}</p>
-              <div class="link-row">
-                {app.links.map((link) => (
-                  <a href={link.url} target="_blank" rel="noopener">{link.label} →</a>
-                ))}
-              </div>
-            </article>
-          ))}
         </div>
       </section>
 
-      <section class="ebooks-section" aria-labelledby="ebooks-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">전자책</p>
-            <h2 id="ebooks-title">운영하면서 묶은 글</h2>
+      <section class="apps-section" aria-labelledby="apps-title">
+        <div class="page-shell">
+          <header class="section-head split-head"><div><p class="eyebrow"><span>03</span> EVERYDAY APPS</p><h2 id="apps-title">매일 쓰는 일에 가까운 앱</h2></div><p>가입과 설명은 줄이고, 필요한 순간에 바로 끝낼 수 있게 만든 작은 모바일 도구들입니다.</p></header>
+          <div class="app-grid">
+            {apps.map((app, index) => <article class={`app-card ${app.kind}`}><div class="app-top"><span class="app-number">{String(index + 1).padStart(2, "0")}</span><span class="app-status">{app.status}</span></div><div class="app-visual" aria-hidden="true"><span class="visual-mark"></span><i></i><i></i><i></i></div><h3>{app.name}</h3><p>{app.desc}</p><div class="link-row">{app.links.map((link) => <a href={link.url} target="_blank" rel="noopener">{link.label} <span aria-hidden="true">↗</span></a>)}</div></article>)}
           </div>
-          <p>직접 굴리며 정리한 작업 흐름입니다. 이론서가 아닙니다.</p>
-        </div>
-        <div class="product-grid">
-          {ebooks.map((book) => (
-            <article class="product-card">
-              <span>{book.status}</span>
-              <h3>{book.name}</h3>
-              <p>{book.desc}</p>
-              <div class="link-row">
-                {book.links.map((link) => (
-                  <a href={link.url} target="_blank" rel="noopener">{link.label} →</a>
-                ))}
-              </div>
-            </article>
-          ))}
         </div>
       </section>
 
-      <section class="tools-section" aria-labelledby="tools-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">공개 도구</p>
-            <h2 id="tools-title">내부에서 쓰는 브릿지를 공개합니다</h2>
-          </div>
-          <p>폰에서 자기 컴퓨터의 AI를 부리려고 만든 도구입니다.</p>
+      <section class="automation-section" aria-labelledby="automation-title">
+        <div class="page-shell">
+          <header class="section-head automation-head"><p class="eyebrow"><span>04</span> AI AUTOMATION</p><h2 id="automation-title">혼자 만들고,<br />네 개의 AI 작업면을 연결합니다.</h2><p>폰에서 보낸 한 문장을 내 컴퓨터의 실제 세션으로 전달하는 브릿지입니다. 강대종이 매일 쓰는 운영 도구를 모두 공개 저장소로 배포합니다.</p></header>
+          <ol class="bridge-flow">
+            {bridges.map((bridge, index) => <li><div class="bridge-node"><span>{String(index + 1).padStart(2, "0")}</span><strong>{bridge.name}</strong><em>v{bridge.version}</em></div><p>{bridge.desc}</p><div class="link-row"><a href={bridge.repo} target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a><a href={bridge.release} target="_blank" rel="noopener">Release <span aria-hidden="true">↗</span></a></div></li>)}
+          </ol>
+          <div class="automation-note"><span>PHONE</span><i></i><span>TELEGRAM</span><i></i><span>LOCAL SESSION</span><i></i><span>REVIEW</span></div>
         </div>
-        <div class="tool-grid">
-          {tools.map((tool) => (
-            <article class="tool-card">
-              <div class="tool-top">
-                <h3>{tool.name}</h3>
-                <span>{tool.status}</span>
-              </div>
-              <p>{tool.desc}</p>
-              <div class="link-row">
-                <a href={tool.repo} target="_blank" rel="noopener">GitHub →</a>
-                <a href={tool.releases} target="_blank" rel="noopener">Release →</a>
-              </div>
-            </article>
-          ))}
+      </section>
+
+      <section class="books-section" aria-labelledby="books-title">
+        <div class="page-shell">
+          <header class="section-head split-head"><div><p class="eyebrow"><span>05</span> FIELD NOTES</p><h2 id="books-title">직접 운영하며 묶은 글</h2></div><p>이론보다 실제로 혼자 만들고 운영한 과정, 시행착오, 자동화 흐름을 담았습니다.</p></header>
+          <div class="book-grid">{ebooks.map((book, index) => <article class="book-card"><div class="book-cover" aria-hidden="true"><span>mβ</span><i>{String(index + 1).padStart(2, "0")}</i><strong>{book.name}</strong></div><div class="book-copy"><p class="card-meta">E-BOOK · {book.price}</p><h3>{book.name}</h3><p>{book.desc}</p><div class="link-row"><a href={book.url} target="_blank" rel="noopener">크몽에서 보기 <span aria-hidden="true">↗</span></a></div></div></article>)}</div>
+        </div>
+      </section>
+
+      <section class="about-section" aria-labelledby="about-title">
+        <div class="page-shell">
+          <header class="section-head about-head"><p class="eyebrow"><span>06</span> HOW I WORK</p><h2 id="about-title">만드는 방식도 제품의 일부입니다.</h2><p>마이너스베타스튜디오는 강대종이 운영하는 1인 스튜디오입니다. 기획, 개발, 출시, 고객응대와 운영 기록까지 한 흐름으로 보고 직접 다룹니다.</p></header>
+          <ol class="principle-list">{principles.map((item) => <li><span>{item.number}</span><h3>{item.title}</h3><p>{item.desc}</p></li>)}</ol>
         </div>
       </section>
 
       <section class="connect-section" aria-labelledby="connect-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">연결</p>
-            <h2 id="connect-title">기록은 공개 페이지에, 연락은 메일로</h2>
-          </div>
-          <p>제품과 작업 과정은 작업장에서 볼 수 있습니다.</p>
-        </div>
-        <div class="connect-list">
-          {links.map((link) => (
-            <a href={link.href}>
-              <span>{link.label}</span>
-              <strong>{link.desc}</strong>
-              <em>{link.meta} →</em>
-            </a>
-          ))}
+        <div class="page-shell connect-grid">
+          <div><p class="eyebrow"><span>07</span> KEEP IN TOUCH</p><h2 id="connect-title">만드는 과정까지<br />공개합니다.</h2></div>
+          <nav class="connect-links" aria-label="외부 채널">
+            <a href={company.work}><span>작업장</span><strong>제품, 실험, 인사이트를 모아둔 공개 허브</strong><em>work.kangdaejong.com ↗</em></a>
+            <a href={company.worklog}><span>작업일지</span><strong>무엇을 만들고 고쳤는지 남기는 하루 기록</strong><em>WORKLOG ↗</em></a>
+            <a href={company.newsletter}><span>뉴스레터</span><strong>1인 스튜디오의 빌드와 운영 이야기를 메일로</strong><em>NEWSLETTER ↗</em></a>
+          </nav>
         </div>
       </section>
 
       <section class="company-section" aria-labelledby="company-title">
-        <div class="section-head">
-          <p class="eyebrow">회사</p>
-          <h2 id="company-title">회사 정보</h2>
+        <div class="page-shell">
+          <header class="section-head company-head"><p class="eyebrow"><span>08</span> COMPANY</p><h2 id="company-title">마이너스베타스튜디오</h2></header>
+          <dl class="company-info">
+            <div><dt>대표</dt><dd>{company.representative}</dd></div><div><dt>사업자등록번호</dt><dd>{company.bizNumber}</dd></div><div><dt>통신판매업신고</dt><dd>{company.mailOrderNumber}</dd></div><div><dt>업종</dt><dd>{company.category}</dd></div><div><dt>조직</dt><dd><a href="/organization/">AI 운영 대표 1 · 워커 2 · 사람 감독 1 — 조직 구성 보기 ↗</a></dd></div><div><dt>소재지</dt><dd>{company.address}</dd></div><div><dt>Email</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div><div><dt>GitHub</dt><dd><a href={company.github} target="_blank" rel="noopener">github.com/ssamssae ↗</a></dd></div>
+          </dl>
         </div>
-        <dl class="company-info">
-          <div>
-            <dt>상호</dt>
-            <dd>{company.name}</dd>
-          </div>
-          <div>
-            <dt>대표</dt>
-            <dd>{company.representative}</dd>
-          </div>
-          <div>
-            <dt>사업자등록번호</dt>
-            <dd>{company.bizNumber}</dd>
-          </div>
-          <div>
-            <dt>통신판매업신고</dt>
-            <dd>{company.mailOrderNumber}</dd>
-          </div>
-          <div>
-            <dt>업종</dt>
-            <dd>{company.category}</dd>
-          </div>
-          <div>
-            <dt>조직</dt>
-            <dd><a href="/organization/">운영은 AI 에이전트 3(대표 1·워커 2), 감독은 인턴 — 조직 구성 보기</a></dd>
-          </div>
-          <div>
-            <dt>소재지</dt>
-            <dd>{company.address}</dd>
-          </div>
-          <div>
-            <dt>Email</dt>
-            <dd><a href={`mailto:${company.email}`}>{company.email}</a></dd>
-          </div>
-          <div>
-            <dt>GitHub</dt>
-            <dd><a href={`https://${company.github}`} target="_blank" rel="noopener">{company.github}</a></dd>
-          </div>
-        </dl>
       </section>
-      </div>
     </main>
-    <mb-footer tone="studio"></mb-footer>
+    <mb-footer tone="editorial"></mb-footer>
 
     <style is:global>
-      /* Linear 크롬 (T-260831-005 기준점). 값은 src/styles/tokens.css 와 같아야 한다. */
       :root {
-        color-scheme: dark;
-        --bg: #08090A;
-        --bg-elev: #0F1011;
-        --bg-elev2: #1C1C1F;
-        --fg: #F7F8F8;
-        --fg-dim: #D0D6E0;
-        --fg-mute: #8A8F98;
-        --border: rgba(255, 255, 255, 0.08);
-        --border-soft: rgba(255, 255, 255, 0.05);
-        --accent: #7170FF;
-        --accent-dim: #828FFF;
-        --cta-fg: #08090A;
+        color-scheme: light;
+        --bg: #F6F4EE; --bg-elev: #FCFBF7; --bg-elev2: #ECE9E1; --bg-tint: #EFEEE8;
+        --border: #C9C6BD; --border-soft: #DEDBD2;
+        --fg: #181818; --fg-dim: #454545; --fg-mute: #74716A; --fg-faint: #99958D;
+        --accent: #6D63FF; --accent-dim: #574DF0; --accent-hover: #574DF0; --accent-tint: #E9E7FF;
+        --mint: #39B990; --mint-tint: #DDF4EB; --cta-bg: #181818; --cta-fg: #F6F4EE;
+        --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+        --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
       }
-
       * { box-sizing: border-box; margin: 0; padding: 0; }
-
-      html { color-scheme: dark; background: var(--bg); scroll-behavior: smooth; scrollbar-gutter: stable; }
-
-      body {
-        background: var(--bg);
-        color: var(--fg);
-        font-family: var(--sans);
-        line-height: var(--leading-body);
-        text-rendering: geometricPrecision;
-      }
-
-      ::selection { background: var(--fg); color: var(--bg); }
-
+      html { background: var(--bg); color-scheme: light; scroll-behavior: smooth; scrollbar-gutter: stable; }
+      body { background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: 1.55; text-rendering: geometricPrecision; }
+      ::selection { background: var(--accent); color: #fff; }
       [id] { scroll-margin-top: 96px; }
+      a { color: inherit; text-decoration: none; }
+      main { width: 100%; overflow: hidden; }
+      main section { border-bottom: 1px solid var(--border); }
+      .page-shell { width: min(calc(100% - 80px), 1320px); margin: 0 auto; }
+      .eyebrow { display: flex; gap: 16px; align-items: center; color: var(--fg-mute); font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: .18em; line-height: 1.4; }
+      .eyebrow span { color: var(--accent); letter-spacing: 0; }
+      h1, h2, h3 { color: var(--fg); font-family: var(--sans); letter-spacing: -.05em; word-break: keep-all; }
+      h2 { font-size: clamp(38px, 5vw, 66px); font-weight: 760; line-height: 1.04; }
+      h3 { font-weight: 720; }
+      p { color: var(--fg-dim); word-break: keep-all; }
 
-      main { width: 100%; margin: 0; padding: 0 0 72px; }
+      .hero { padding: 96px 0 0; }
+      .hero-grid { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(300px, .55fr); gap: clamp(60px, 8vw, 130px); align-items: end; }
+      .hero h1 { margin: 38px 0 48px; font-size: clamp(64px, 8.4vw, 118px); font-weight: 850; line-height: .92; letter-spacing: -.075em; }
+      .hero h1 span { display: block; }
+      .hero h1 span:last-child { margin-left: clamp(0px, 4vw, 58px); }
+      .hero-bottom { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; align-items: end; padding-left: clamp(0px, 4vw, 58px); }
+      .hero-intro { max-width: 550px; font-size: 17px; line-height: 1.8; }
+      .hero-actions { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+      .button { display: inline-flex; align-items: center; justify-content: space-between; gap: 30px; min-height: 46px; border: 1px solid var(--fg); padding: 0 17px; font-size: 13px; font-weight: 650; transition: background .18s, color .18s, transform .18s; }
+      .button:hover { background: var(--accent-tint); border-color: var(--accent); color: var(--accent-dim); transform: translateY(-2px); }
+      .button.primary { background: var(--fg); color: var(--cta-fg); }
+      .button.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+      .hero-proof { border-top: 1px solid var(--fg); }
+      .hero-proof > div { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 20px; align-items: baseline; padding: 19px 0; border-bottom: 1px solid var(--border); }
+      .hero-proof dt { font-size: 13px; font-weight: 720; }
+      .hero-proof dd { grid-row: 1 / span 2; grid-column: 2; font-size: clamp(36px, 4vw, 56px); font-weight: 380; line-height: .9; letter-spacing: -.06em; }
+      .hero-proof p { font-size: 11px; color: var(--fg-mute); }
+      .studio-index { display: flex; justify-content: space-between; gap: 24px; margin-top: 82px; padding: 18px 0; border-top: 1px solid var(--fg); font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .13em; color: var(--fg-mute); }
+      .studio-index span:first-child { color: var(--fg); }
 
-      .page-shell { width: min(calc(100% - 92px), 1250px); margin: 0 auto; }
+      .selected-section, .apps-section, .automation-section, .books-section, .about-section, .connect-section, .company-section { padding: clamp(92px, 11vw, 152px) 0; }
+      .section-head { margin-bottom: 62px; }
+      .section-head .eyebrow { margin-bottom: 28px; }
+      .split-head { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr); gap: 80px; align-items: end; }
+      .split-head > p { max-width: 470px; font-size: 16px; line-height: 1.8; }
 
-      a { color: var(--fg); text-decoration: none; }
-      a:hover { color: var(--accent); }
+      .service-layout { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(340px, .75fr); gap: 18px; }
+      .service-feature { min-height: 610px; display: grid; grid-template-columns: minmax(280px, .8fr) minmax(340px, 1.2fr); border: 1px solid var(--fg); background: var(--bg-elev); overflow: hidden; }
+      .service-copy { display: flex; flex-direction: column; padding: 34px; border-right: 1px solid var(--border); }
+      .card-meta, .app-status { font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .09em; color: var(--fg-mute); }
+      .service-name { margin-top: auto; color: var(--accent); font-size: 15px; font-weight: 750; }
+      .service-feature h3, .service-card h3 { margin: 10px 0 18px; font-size: clamp(30px, 4vw, 48px); line-height: 1.04; }
+      .service-copy > p:not(.card-meta):not(.service-name), .service-card > div > p:last-child { font-size: 14px; line-height: 1.75; }
+      .name-report { position: relative; display: grid; grid-template-rows: auto 1fr auto; min-height: 100%; padding: 28px; color: #fff; background: var(--accent); }
+      .name-report::after { content: ""; position: absolute; inset: 74px 28px 94px; border: 1px solid rgba(255,255,255,.26); pointer-events: none; }
+      .report-toolbar { display: flex; justify-content: space-between; font-family: var(--mono); font-size: 10px; letter-spacing: .12em; }
+      .name-glyph { display: grid; place-items: center; position: relative; z-index: 1; font-size: clamp(72px, 9vw, 128px); font-weight: 850; letter-spacing: -.12em; }
+      .report-lines { position: absolute; left: 48px; right: 48px; bottom: 132px; display: grid; gap: 8px; }
+      .report-lines i { height: 1px; background: rgba(255,255,255,.34); }
+      .report-lines i:nth-child(2) { width: 74%; }
+      .report-lines i:nth-child(3) { width: 46%; }
+      .report-score { display: flex; align-items: baseline; justify-content: flex-end; gap: 8px; font-family: var(--mono); }
+      .report-score span { font-size: 10px; }
+      .report-score strong { font-size: 46px; font-weight: 400; line-height: 1; }
+      .service-side { display: grid; grid-template-rows: repeat(2, 1fr); gap: 18px; }
+      .service-card { display: flex; flex-direction: column; min-height: 0; padding: 30px; border: 1px solid var(--border); background: var(--bg); transition: border .18s, transform .18s, background .18s; }
+      .service-card:hover { border-color: var(--accent); background: var(--bg-elev); transform: translateY(-3px); }
+      .service-card > div:not(.link-row) { margin: auto 0; padding: 28px 0; }
+      .service-card .service-name { margin: 0; }
+      .service-card h3 { font-size: 30px; }
+      .link-row { display: flex; flex-wrap: wrap; gap: 10px 18px; margin-top: auto; padding-top: 24px; }
+      .link-row a { color: var(--fg); font-family: var(--mono); font-size: 11px; font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+      .link-row a:hover { color: var(--accent-dim); }
 
-      h1, h2, h3 { color: var(--fg); font-family: var(--sans); font-weight: 510; letter-spacing: -0.022em; }
-      p { color: var(--fg-dim); }
+      .apps-section { background: var(--bg-elev); }
+      .app-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-top: 1px solid var(--fg); border-left: 1px solid var(--border); }
+      .app-card { display: flex; flex-direction: column; min-height: 440px; padding: 24px; border-right: 1px solid var(--border); border-bottom: 1px solid var(--border); background: var(--bg-elev); transition: background .18s; }
+      .app-card:hover { background: var(--bg); }
+      .app-card:nth-child(1), .app-card:nth-child(6) { grid-column: span 2; }
+      .app-top { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; }
+      .app-number { color: var(--accent); font-family: var(--mono); font-size: 11px; }
+      .app-visual { position: relative; display: flex; align-items: flex-end; gap: 5px; height: 132px; margin: 34px 0 30px; padding: 18px; overflow: hidden; background: var(--accent-tint); }
+      .app-visual .visual-mark { position: absolute; width: 48px; height: 48px; top: 18px; right: 18px; border: 2px solid var(--accent); border-radius: 50%; }
+      .app-visual i { display: block; width: 28%; height: 4px; background: var(--accent); }
+      .app-visual i:nth-of-type(2) { width: 18%; opacity: .7; }
+      .app-visual i:nth-of-type(3) { width: 10%; opacity: .45; }
+      .app-card.memo .app-visual, .app-card.water .app-visual { background: var(--mint-tint); }
+      .app-card.memo .app-visual .visual-mark, .app-card.water .app-visual .visual-mark { border-color: var(--mint); border-radius: 4px; }
+      .app-card.memo .app-visual i, .app-card.water .app-visual i { background: var(--mint); }
+      .app-card.split .visual-mark { border-radius: 0; transform: rotate(45deg); }
+      .app-card.pill .visual-mark { width: 58px; height: 28px; border-radius: 999px; transform: rotate(-35deg); }
+      .app-card.word .visual-mark { border-radius: 3px; box-shadow: -9px 9px 0 -2px var(--accent-tint), -9px 9px 0 0 var(--accent); }
+      .app-card.timer .visual-mark { border-width: 7px; border-top-color: transparent; }
+      .app-card h3 { margin-bottom: 12px; font-size: 25px; line-height: 1.15; }
+      .app-card > p { font-size: 13px; line-height: 1.72; }
 
-      .eyebrow {
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        color: var(--fg-mute);
-      }
+      .automation-section { color: #F8F7F2; background: #191919; }
+      .automation-section .eyebrow, .automation-section p { color: #AAA79E; }
+      .automation-section .eyebrow span { color: #8179FF; }
+      .automation-section h2, .automation-section h3 { color: #F8F7F2; }
+      .automation-head { display: grid; grid-template-columns: .45fr 1.35fr .7fr; gap: 64px; align-items: start; }
+      .automation-head .eyebrow { margin: 8px 0 0; }
+      .automation-head > p:last-child { max-width: 420px; font-size: 14px; line-height: 1.8; }
+      .bridge-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); list-style: none; border-top: 1px solid #F8F7F2; border-left: 1px solid #3D3D3D; }
+      .bridge-flow li { display: flex; flex-direction: column; min-height: 310px; padding: 24px; border-right: 1px solid #3D3D3D; border-bottom: 1px solid #3D3D3D; }
+      .bridge-node { display: grid; grid-template-columns: auto 1fr auto; gap: 12px; align-items: baseline; padding-bottom: 24px; border-bottom: 1px solid #3D3D3D; }
+      .bridge-node span, .bridge-node em { color: #8179FF; font-family: var(--mono); font-size: 10px; font-style: normal; }
+      .bridge-node strong { font-size: 21px; letter-spacing: -.03em; }
+      .bridge-flow li > p { margin-top: 56px; font-size: 13px; line-height: 1.7; }
+      .automation-section .link-row a { color: #F8F7F2; }
+      .automation-section .link-row a:hover { color: #8179FF; }
+      .automation-note { display: flex; align-items: center; gap: 16px; margin-top: 32px; color: #AAA79E; font-family: var(--mono); font-size: 9px; letter-spacing: .13em; }
+      .automation-note i { flex: 1; height: 1px; background: #3D3D3D; }
 
-      main section {
-        padding: var(--pad-section) 0;
-        border-bottom: 1px solid var(--border-soft);
-      }
+      .book-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+      .book-card { display: grid; grid-template-rows: 330px 1fr; border: 1px solid var(--border); background: var(--bg-elev); }
+      .book-cover { position: relative; display: flex; flex-direction: column; justify-content: space-between; margin: 24px 24px 0; padding: 24px; color: #fff; background: var(--accent); overflow: hidden; }
+      .book-card:nth-child(2) .book-cover { color: var(--fg); background: var(--mint-tint); }
+      .book-card:nth-child(3) .book-cover { background: #242424; }
+      .book-cover::after { content: ""; position: absolute; right: -70px; bottom: -90px; width: 220px; height: 220px; border: 1px solid currentColor; border-radius: 50%; opacity: .4; }
+      .book-cover span, .book-cover i { position: relative; z-index: 1; font-family: var(--mono); font-size: 11px; font-style: normal; }
+      .book-cover i { position: absolute; top: 24px; right: 24px; }
+      .book-cover strong { position: relative; z-index: 1; max-width: 260px; font-size: 34px; line-height: 1.05; letter-spacing: -.06em; word-break: keep-all; }
+      .book-copy { display: flex; flex-direction: column; padding: 28px 24px 24px; }
+      .book-copy h3 { margin: 20px 0 12px; font-size: 22px; line-height: 1.2; }
+      .book-copy > p:not(.card-meta) { font-size: 13px; line-height: 1.72; }
+
+      .about-section { background: var(--mint-tint); }
+      .about-head { display: grid; grid-template-columns: .5fr 1.3fr .7fr; gap: 64px; align-items: start; }
+      .about-head .eyebrow { margin: 8px 0 0; }
+      .about-head > p:last-child { font-size: 15px; line-height: 1.8; }
+      .principle-list { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 76px; list-style: none; border-top: 1px solid var(--fg); }
+      .principle-list li { min-height: 280px; padding: 24px 32px 28px 0; border-bottom: 1px solid var(--border); }
+      .principle-list li + li { padding-left: 32px; border-left: 1px solid var(--border); }
+      .principle-list span { color: var(--accent); font-family: var(--mono); font-size: 11px; }
+      .principle-list h3 { margin: 76px 0 14px; font-size: 28px; }
+      .principle-list p { font-size: 14px; line-height: 1.8; }
+
+      .connect-grid { display: grid; grid-template-columns: minmax(0, .8fr) minmax(430px, 1.2fr); gap: 100px; }
+      .connect-grid h2 { margin-top: 28px; }
+      .connect-links { border-top: 1px solid var(--fg); }
+      .connect-links a { display: grid; grid-template-columns: 110px minmax(0, 1fr) auto; gap: 24px; align-items: baseline; padding: 24px 0; border-bottom: 1px solid var(--border); transition: color .16s, padding .16s; }
+      .connect-links a:hover { color: var(--accent); padding-left: 10px; }
+      .connect-links span { font-size: 15px; font-weight: 750; }
+      .connect-links strong { color: var(--fg-dim); font-size: 13px; font-weight: 450; }
+      .connect-links em { color: var(--fg-mute); font-family: var(--mono); font-size: 9px; font-style: normal; letter-spacing: .08em; }
 
       .company-section { border-bottom: 0; }
+      .company-head { display: grid; grid-template-columns: .5fr 1.5fr; gap: 64px; align-items: end; }
+      .company-head .eyebrow { margin: 0 0 8px; }
+      .company-info { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--fg); }
+      .company-info > div { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--border); }
+      .company-info > div:nth-child(odd) { padding-right: 30px; }
+      .company-info > div:nth-child(even) { padding-left: 30px; border-left: 1px solid var(--border); }
+      .company-info dt { color: var(--fg-mute); font-family: var(--mono); font-size: 10px; font-weight: 600; letter-spacing: .06em; }
+      .company-info dd { min-width: 0; color: var(--fg); font-size: 13px; font-weight: 550; overflow-wrap: anywhere; }
+      .company-info a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+      .company-info a:hover { color: var(--accent); }
 
-      .section-head { margin-bottom: var(--pad-head-bottom); }
-      .section-head h2 {
-        margin-top: 10px;
-        font-size: var(--text-h2);
-        line-height: 1.18;
-        word-break: keep-all;
+      @media (max-width: 1050px) {
+        .hero-grid { grid-template-columns: 1fr; align-items: start; }
+        .hero-proof { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .hero-proof > div { display: flex; flex-direction: column; padding: 18px; border-right: 1px solid var(--border); }
+        .hero-proof dd { order: -1; font-size: 42px; }
+        .hero-proof p { margin-top: auto; }
+        .service-layout { grid-template-columns: 1fr; }
+        .service-side { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: none; }
+        .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .app-card:nth-child(1), .app-card:nth-child(6) { grid-column: span 1; }
+        .automation-head, .about-head { grid-template-columns: 1fr 1.5fr; }
+        .automation-head > p:last-child, .about-head > p:last-child { grid-column: 2; }
+        .bridge-flow { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .book-grid { grid-template-columns: 1fr; }
+        .book-card { grid-template-columns: minmax(260px, .7fr) minmax(0, 1.3fr); grid-template-rows: none; }
+        .connect-grid { grid-template-columns: 1fr; gap: 60px; }
       }
-
-      .section-head.split > p {
-        max-width: var(--measure);
-        margin-top: 14px;
-        font-size: var(--text-body);
-        color: var(--fg-mute);
-        word-break: keep-all;
+      @media (max-width: 760px) {
+        .page-shell { width: calc(100% - 40px); }
+        .hero { padding-top: 62px; }
+        .hero h1 { margin: 28px 0 34px; font-size: clamp(52px, 15vw, 76px); line-height: .96; }
+        .hero h1 span:last-child { margin: 0; }
+        .hero-bottom { grid-template-columns: 1fr; padding: 0; }
+        .hero-actions { justify-content: flex-start; }
+        .hero-proof { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        .studio-index { align-items: flex-start; flex-direction: column; margin-top: 58px; }
+        .split-head, .company-head { grid-template-columns: 1fr; gap: 28px; }
+        .section-head { margin-bottom: 42px; }
+        .service-feature { grid-template-columns: 1fr; min-height: 0; }
+        .service-copy { min-height: 430px; border-right: 0; border-bottom: 1px solid var(--border); }
+        .name-report { min-height: 430px; }
+        .service-side { grid-template-columns: 1fr; }
+        .service-card { min-height: 330px; }
+        .app-grid { grid-template-columns: 1fr; }
+        .app-card { min-height: 400px; }
+        .automation-head, .about-head { grid-template-columns: 1fr; gap: 28px; }
+        .automation-head > p:last-child, .about-head > p:last-child { grid-column: auto; }
+        .bridge-flow { grid-template-columns: 1fr; }
+        .bridge-flow li { min-height: 260px; }
+        .automation-note { gap: 7px; overflow-x: auto; }
+        .automation-note i { min-width: 24px; }
+        .book-card { grid-template-columns: 1fr; }
+        .book-cover { min-height: 320px; }
+        .principle-list { grid-template-columns: 1fr; }
+        .principle-list li { min-height: 0; padding: 24px 0 36px; }
+        .principle-list li + li { padding-left: 0; border-left: 0; }
+        .principle-list h3 { margin-top: 48px; }
+        .connect-links a { grid-template-columns: 92px 1fr; }
+        .connect-links em { grid-column: 2; }
+        .company-info { grid-template-columns: 1fr; }
+        .company-info > div { grid-template-columns: 1fr; gap: 4px; padding: 15px 0; }
+        .company-info > div:nth-child(odd) { padding-right: 0; }
+        .company-info > div:nth-child(even) { padding-left: 0; border-left: 0; }
       }
-
-      .section-head .text-link { display: inline-block; margin-top: 12px; }
-
-      @media (min-width: 860px) {
-        .section-head.split {
-          display: grid;
-          grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
-          gap: 48px;
-          align-items: end;
-        }
-        .section-head.split > p,
-        .section-head.split .text-link { margin-top: 0; }
-      }
-
-      .focus-list li,
-      .connect-list a,
-      .product-card,
-      .tool-card {
-        min-width: 0;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-card);
-        background: var(--bg);
-        padding: 22px 22px;
-      }
-
-      .focus-list li > span,
-      .product-card > span,
-      .featured-copy > span,
-      .tool-top span {
-        font-family: var(--mono);
-        font-size: var(--text-badge);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-        text-transform: uppercase;
-      }
-
-      .hero { position: relative; overflow: hidden; padding: 104px 0 40px; }
-
-      .hero-inner {
-        position: relative;
-        display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-        gap: clamp(24px, 4vw, 48px);
-        align-items: end;
-        min-height: 0;
-      }
-
-      .hero-copy { position: relative; z-index: 1; min-width: 0; max-width: 40rem; }
-
-      .hero-pills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 22px 0 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .hero-pills li {
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        padding: 6px 12px;
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--fg-dim);
-        background: var(--bg-elev);
-      }
-
-      .hero-figure {
-        position: relative;
-        z-index: 1;
-        margin: 0;
-        overflow: hidden;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-card);
-        background: var(--bg-elev);
-      }
-
-      .hero-figure img {
-        display: block;
-        width: 100%;
-        height: 340px;
-        object-fit: cover;
-      }
-
-      .hero-figure figcaption {
-        padding: 12px 16px;
-        border-top: 1px solid var(--border-soft);
-        font-size: 13px;
-        color: var(--fg-mute);
-      }
-
-      .hero-mark {
-        position: absolute;
-        right: -120px;
-        top: -80px;
-        width: min(58vw, 640px);
-        height: auto;
-        opacity: 0.07;
-        pointer-events: none;
-        user-select: none;
-      }
-
-      .hero h1 {
-        margin: 16px 0 14px;
-        font-size: var(--text-h1);
-        line-height: var(--leading-h1);
-        font-weight: 510;
-        letter-spacing: -0.022em;
-        overflow-wrap: anywhere;
-        word-break: keep-all;
-      }
-
-      .hero h1 span { display: block; }
-
-      .tagline {
-        margin-bottom: 18px;
-        font-family: var(--mono);
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-dim);
-        text-transform: uppercase;
-      }
-
-      .lead { max-width: var(--measure); font-size: var(--text-lead); word-break: keep-all; }
-
-      .hero-products {
-        margin-top: 22px;
-        max-width: 46rem;
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        line-height: 1.7;
-        letter-spacing: 0.02em;
-        color: var(--fg-mute);
-        word-break: keep-all;
-        overflow-wrap: break-word;
-      }
-      .hero-products + .hero-products { margin-top: 4px; }
-
-      .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-pill);
-        background: var(--bg);
-        color: var(--fg);
-        font-size: 13px;
-        font-weight: 510;
-        min-height: 32px;
-        padding: 0 12px;
-      }
-
-      .button:hover { border-color: var(--accent); color: var(--accent); }
-
-      .button.primary {
-        border-color: var(--accent);
-        background: var(--accent);
-        color: var(--fg);
-        font-weight: 510;
-      }
-
-      .button.primary:hover {
-        border-color: var(--accent-dim);
-        background: var(--accent-dim);
-        color: var(--cta-fg);
-      }
-
-      .proof-strip { padding-top: 8px; padding-bottom: var(--pad-section); }
-
-      .proof-inner {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0;
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .proof-inner > div {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        min-width: 0;
-        padding: 28px 20px 28px 0;
-      }
-
-      .proof-inner > div + div { padding-left: 20px; border-left: 1px solid var(--border-soft); }
-
-      .proof-inner span {
-        font-family: var(--mono);
-        font-size: var(--text-badge);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-        text-transform: uppercase;
-      }
-
-      .proof-inner strong { color: var(--fg); font-size: 28px; line-height: 1.15; letter-spacing: -0.04em; overflow-wrap: anywhere; }
-
-      .proof-inner p { font-size: var(--text-desc); line-height: var(--leading-desc); }
-
-      .focus-list {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--gap-card);
-        list-style: none;
-      }
-
-      .focus-list li { display: flex; flex-direction: column; gap: 8px; }
-
-      .focus-list strong { color: var(--fg); font-size: var(--text-h3); line-height: 1.3; }
-
-      .focus-list p { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
-
-      .product-grid,
-      .tool-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--gap-card);
-      }
-
-      .ebooks-section .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-      .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-      .product-card,
-      .tool-card { display: flex; flex-direction: column; gap: 8px; }
-
-      .product-card:hover,
-      .tool-card:hover { border-color: var(--accent); }
-
-      .product-card.featured {
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-        gap: 0;
-        margin-bottom: var(--gap-card);
-        padding: 0;
-        overflow: hidden;
-        background: var(--bg-elev);
-      }
-
-      .featured-photo {
-        display: block;
-        width: 100%;
-        height: 100%;
-        min-height: 260px;
-        object-fit: cover;
-      }
-
-      .featured-copy {
-        max-width: none;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        padding: 32px;
-      }
-
-      .featured-kicker {
-        color: var(--fg);
-        font-size: var(--text-body);
-        font-weight: 600;
-      }
-
-      .product-card.featured h3 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.04em; }
-
-      .product-card h3,
-      .tool-card h3 {
-        font-size: var(--text-h3);
-        line-height: 1.32;
-        overflow-wrap: anywhere;
-        word-break: keep-all;
-      }
-
-      .product-card p,
-      .tool-card p { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
-
-      .link-row { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: auto; padding-top: 14px; }
-
-      .link-row a,
-      .text-link {
-        color: var(--fg);
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 0.2em;
-      }
-
-      .link-row a:hover,
-      .text-link:hover { color: var(--accent); }
-
-      .tool-top { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
-
-      .connect-list {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--gap-card);
-      }
-
-      .connect-list a { display: flex; flex-direction: column; gap: 6px; }
-
-      .connect-list a:hover { border-color: var(--accent); color: var(--fg); }
-
-      .connect-list a > span { color: var(--fg); font-size: var(--text-lead); font-weight: 700; line-height: 1.3; }
-
-      .connect-list strong {
-        color: var(--fg-dim);
-        font-size: var(--text-desc);
-        font-weight: 400;
-        line-height: var(--leading-desc);
-        overflow-wrap: anywhere;
-      }
-
-      .connect-list em {
-        margin-top: auto;
-        padding-top: 10px;
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-style: normal;
-        font-weight: 600;
-        color: var(--fg-mute);
-        overflow-wrap: anywhere;
-      }
-
-      .connect-list a:hover em { color: var(--accent); }
-
-      .company-info {
-        display: grid;
-        grid-template-columns: 1fr;
-        border-top: 1px solid var(--border);
-      }
-
-      .company-info div {
-        display: grid;
-        grid-template-columns: 112px minmax(0, 1fr);
-        gap: 14px;
-        align-items: baseline;
-        border-bottom: 1px solid var(--border-soft);
-        padding: 14px 0;
-      }
-
-      .company-info dt {
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-      }
-
-      .company-info dd {
-        color: var(--fg);
-        font-size: var(--text-body);
-        font-weight: 500;
-        min-width: 0;
-        overflow-wrap: anywhere;
-      }
-
-      .company-info a {
-        color: var(--fg);
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 0.2em;
-      }
-
-      @media (max-width: 900px) {
-        .hero { padding-top: 56px; min-height: 0; }
-
-        .hero-inner { min-height: 0; grid-template-columns: 1fr; }
-
-        .hero-figure img { height: 260px; }
-
-        .product-card.featured { grid-template-columns: 1fr; }
-
-        .proof-inner,
-        .product-grid,
-        .ebooks-section .product-grid,
-        .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-        .focus-list,
-        .connect-list { grid-template-columns: 1fr; }
-
-        .proof-inner > div + div { padding-left: 16px; }
-      }
-
-      @media (max-width: 640px) {
-        .page-shell { width: calc(100% - 48px); }
-
-        main { padding-bottom: 56px; }
-
-        main section { padding: var(--pad-section-sm) 0; }
-
-        .hero { padding: 40px 0 12px; }
-
-        .hero-mark { right: -160px; top: -40px; width: 420px; opacity: 0.05; }
-
-        .proof-inner,
-        .product-grid,
-        .ebooks-section .product-grid,
-        .tool-grid { grid-template-columns: 1fr; }
-
-        .proof-inner { border-bottom: 0; }
-
-        .proof-inner > div {
-          padding: 18px 0;
-          border-left: 0;
-          border-bottom: 1px solid var(--border-soft);
-        }
-
-        .proof-inner > div + div { padding-left: 0; }
-
-        .product-card.featured { padding: 0; }
-
-        .featured-copy { padding: 22px; }
-
-        .company-info div { grid-template-columns: 1fr; gap: 3px; }
-      }
+      @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { transition-duration: .01ms !important; } }
     </style>
   </body>
 </html>

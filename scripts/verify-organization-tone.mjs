@@ -8,8 +8,8 @@ const orgAccent = source.match(/--accent:\s*(#[0-9a-fA-F]+);/)?.[1] ?? "";
 
 const checks = [
   {
-    label: "organization uses the homepage Linear indigo accent",
-    ok: homeAccent === "#7170FF" && orgAccent === homeAccent,
+    label: "organization keeps Linear indigo while the homepage moves to editorial violet",
+    ok: homeAccent === "#6D63FF" && orgAccent === "#7170FF",
   },
   {
     label: "hero uses the same watermarked brand layout as the homepage",
@@ -46,7 +46,7 @@ const checks = [
     ok: !/(#00e5ff|#00b8d4|#ff00aa|--cyan|--magenta)/.test(source),
   },
   {
-    label: "headings use the homepage Linear tracking",
+    label: "organization headings keep the established Linear tracking",
     ok: /h1, h2, h3 \{[\s\S]*letter-spacing: -0\.022em;/.test(source),
   },
 ];

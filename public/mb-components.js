@@ -52,10 +52,23 @@
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
   `;
+  // tone="editorial" = 회사홈 Editorial Lab 리뉴얼(T-260904-006).
+  // 다른 사이트의 Linear 다크 톤은 그대로 두고, 회사홈만 웜 페이퍼 크롬을 쓴다.
+  const PALETTE_EDITORIAL = `
+    --mb-bg:#F6F4EE; --mb-elev:#FCFBF7; --mb-fg:#181818; --mb-dim:#454545; --mb-mute:#74716A;
+    --mb-border:#C9C6BD; --mb-soft:#ECE9E1; --mb-accent:#6D63FF; --mb-accent-dim:#574DF0;
+    --mb-cta-bg:#181818; --mb-cta-fg:#F6F4EE; --mb-shadow:transparent;
+    --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
+    --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+  `;
   const PALETTE_DARK = PALETTE;
   const DARK_RULE = `@media (prefers-color-scheme: dark) { :host { ${PALETTE_DARK} } }`;
-  const hostPalette = (el) => (el.getAttribute('tone') === 'studio' ? PALETTE_STUDIO : PALETTE);
-  const hostDarkRule = (el) => (el.getAttribute('tone') === 'studio' ? '' : DARK_RULE);
+  const hostPalette = (el) => {
+    if (el.getAttribute('tone') === 'editorial') return PALETTE_EDITORIAL;
+    if (el.getAttribute('tone') === 'studio') return PALETTE_STUDIO;
+    return PALETTE;
+  };
+  const hostDarkRule = (el) => ['studio', 'editorial'].includes(el.getAttribute('tone')) ? '' : DARK_RULE;
 
   class MbHeader extends HTMLElement {
     connectedCallback() {
