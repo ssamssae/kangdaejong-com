@@ -63,6 +63,7 @@ test("template pages expose working copy and download actions near the title", a
   expect((await downloadEvent).suggestedFilename()).toBe("t03-ai-assistant-role-card.md");
   await copy.click();
   await expect(page.getByRole("status")).toHaveText("복사했습니다.");
+  await expect(copy).toBeFocused();
   expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("AI 비서 역할 카드");
 });
 
@@ -92,9 +93,11 @@ test("copy fallback reports failure when execCommand returns false", async ({ pa
     document.execCommand = () => false;
   });
 
-  await page.getByRole("button", { name: "Markdown 전체 복사" }).click();
+  const copy = page.getByRole("button", { name: "Markdown 전체 복사" });
+  await copy.click();
   await expect(page.getByRole("status")).toHaveText("복사하지 못했습니다. 원본 파일을 열어 복사해 주세요.");
   await expect(page.locator("#template-source")).toHaveAttribute("aria-hidden", "true");
+  await expect(copy).toBeFocused();
 });
 
 test("copy fallback restores its hidden buffer when execCommand throws", async ({ page }) => {
@@ -104,9 +107,25 @@ test("copy fallback restores its hidden buffer when execCommand throws", async (
     document.execCommand = () => { throw new Error("copy unavailable"); };
   });
 
-  await page.getByRole("button", { name: "Markdown 전체 복사" }).click();
+  const copy = page.getByRole("button", { name: "Markdown 전체 복사" });
+  await copy.click();
   await expect(page.getByRole("status")).toHaveText("복사하지 못했습니다. 원본 파일을 열어 복사해 주세요.");
   await expect(page.locator("#template-source")).toHaveAttribute("aria-hidden", "true");
+  await expect(copy).toBeFocused();
+});
+
+test("copy fallback restores visible focus when execCommand returns true", async ({ page }) => {
+  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });
+    document.execCommand = () => true;
+  });
+
+  const copy = page.getByRole("button", { name: "Markdown 전체 복사" });
+  await copy.click();
+  await expect(page.getByRole("status")).toHaveText("복사했습니다.");
+  await expect(page.locator("#template-source")).toHaveAttribute("aria-hidden", "true");
+  await expect(copy).toBeFocused();
 });
 
 test("shared components scope the warm palette to explicit studio tone", async ({ page }) => {

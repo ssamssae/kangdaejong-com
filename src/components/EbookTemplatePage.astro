@@ -119,6 +119,7 @@ const canonical = `https://kangdaejong.com/${rawBase}/${slug}/`;
           copied = document.execCommand("copy");
         } finally {
           sourceBuffer.setAttribute("aria-hidden", "true");
+          copyButton.focus({ preventScroll: true });
         }
       }
       if (!copied) throw new Error("copy command failed");
