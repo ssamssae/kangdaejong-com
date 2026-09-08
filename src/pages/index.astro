@@ -1,6 +1,5 @@
 ---
-// 타이포·간격·형태 토큰 정본 — /organization/ 디자인 시스템에서 추출 (T-260806-062)
-import "../styles/tokens.css";
+import SiteLayout from "../layouts/SiteLayout.astro";
 
 const company = {
   name: "마이너스베타스튜디오",
@@ -10,921 +9,320 @@ const company = {
   address: "서울특별시 마포구 만리재로10길 4 (공덕동)",
   category: "정보통신업 / 응용 소프트웨어 개발 및 공급업",
   email: "minusbetastudio@gmail.com",
-  github: "github.com/ssamssae",
+  github: "https://github.com/ssamssae",
   work: "https://work.kangdaejong.com/",
   products: "https://work.kangdaejong.com/products/",
   newsletter: "https://minusbetastudio.substack.com",
 };
 
-const slogan = "Tools Worth Keeping.";
-const sloganKo = "작게 만들고, 오래 운영합니다.";
-const intro = "마이너스베타스튜디오는 강대종이 운영하는 1인 스튜디오입니다. 생활에 가까운 모바일 앱, 짧게 쓰는 웹 서비스, 실제 운영에서 쓰는 공개 자동화 도구를 직접 만들고 유지합니다.";
+const featured = {
+  name: "첫이름",
+  price: "웹 서비스 · ₩19,900",
+  description: "사주·획수·인명용 한자를 함께 살펴 아이 이름 후보를 만드는 작명 서비스입니다. 웹에서 바로 시작할 수 있습니다.",
+  url: "https://cheotireum.kangdaejong.com/",
+};
 
-const focusAreas = [
+const productGroups = [
   {
     number: "01",
-    title: "생활 앱",
-    desc: "메모, 일기, 복약, 정산처럼 매일 반복되는 일을 빠르게 처리하는 작은 앱을 만듭니다.",
+    label: "기록하기",
+    products: [
+      {
+        name: "한줄일기",
+        status: "iOS · Android LIVE",
+        description: "하루 한 줄로 남기는 일기. 감정 히트맵, 로컬 저장, 가입 없음.",
+        links: [
+          { label: "App Store", url: "https://apps.apple.com/kr/app/id6764308678" },
+          { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.hanjul" },
+        ],
+      },
+      {
+        name: "메모요",
+        status: "iOS · Android LIVE",
+        description: "다크 테마의 심플 메모. 여러 개를 골라 한 번에 지울 수 있습니다.",
+        links: [
+          { label: "App Store", url: "https://apps.apple.com/kr/app/id6762068073" },
+          { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.simple_memo_app" },
+        ],
+      },
+    ],
   },
   {
     number: "02",
-    title: "작업장 웹",
-    desc: "제품, 뉴스레터, 작업일지, 실험 페이지를 공개해 만드는 과정과 결과를 같이 남깁니다.",
+    label: "생활 챙기기",
+    products: [
+      {
+        name: "약먹자",
+        status: "iOS · Android LIVE",
+        description: "약 등록과 알림 시각만 정하면 복약 시간을 챙겨 주는 앱.",
+        links: [
+          { label: "App Store", url: "https://apps.apple.com/kr/app/id6762100639" },
+          { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.yakmukja" },
+        ],
+      },
+      {
+        name: "한컵",
+        status: "iOS LIVE",
+        description: "하루 물 섭취량을 한 컵 단위로 세는 수분 트래커.",
+        links: [{ label: "App Store", url: "https://apps.apple.com/kr/app/id6765536616" }],
+      },
+      {
+        name: "포모도로",
+        status: "iOS · Android LIVE",
+        description: "25분 집중과 5분 휴식 사이클을 재는 집중 타이머.",
+        links: [
+          { label: "App Store", url: "https://apps.apple.com/kr/app/id6765536777" },
+          { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.ssamssae.pomodoro" },
+        ],
+      },
+    ],
   },
   {
     number: "03",
-    title: "운영 자동화",
-    desc: "반복 작업은 에이전트와 브릿지로 줄이고, 사람 판단이 필요한 지점은 검증 절차로 묶습니다.",
-  },
-];
-
-// 모바일 앱 — 스토어 실측 기준. 개수는 proofPoints 가 여기서 파생한다.
-// 설명 정본은 daejong-page/src/data/products.ts 와 맞춘다.
-const apps = [
-  {
-    name: "한줄일기",
-    status: "iOS · Android LIVE",
-    desc: "하루 한 줄로 남기는 일기. 감정 히트맵, 로컬 저장, 가입 없음.",
-    links: [
-      { label: "App Store", url: "https://apps.apple.com/kr/app/id6764308678" },
-      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.hanjul" },
-    ],
-  },
-  {
-    name: "메모요",
-    status: "iOS · Android LIVE",
-    desc: "다크 테마의 심플 메모. 여러 개를 골라 한 번에 지울 수 있습니다.",
-    links: [
-      { label: "App Store", url: "https://apps.apple.com/kr/app/id6762068073" },
-      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.simple_memo_app" },
-    ],
-  },
-  {
-    name: "더치페이 계산기",
-    status: "iOS · Android LIVE",
-    desc: "모임 자리의 금액과 인원만 넣으면 바로 나누는 정산 도구.",
-    links: [
-      { label: "App Store", url: "https://apps.apple.com/kr/app/id6762072499" },
-      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.dutchpay" },
-    ],
-  },
-  {
-    name: "약먹자",
-    status: "iOS · Android LIVE",
-    desc: "약 등록과 알림 시각만 정하면 복약 시간을 챙겨 주는 앱.",
-    links: [
-      { label: "App Store", url: "https://apps.apple.com/kr/app/id6762100639" },
-      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.yakmukja" },
-    ],
-  },
-  {
-    name: "단어요",
-    status: "iOS · Android LIVE",
-    desc: "영어 단어를 카드처럼 넘기며 외우는 미니 단어장.",
-    links: [
-      { label: "App Store", url: "https://apps.apple.com/kr/app/id6766556759" },
-      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.wordyo" },
-    ],
-  },
-  {
-    name: "한컵",
-    status: "iOS LIVE",
-    desc: "하루 물 섭취량을 한 컵 단위로 세는 수분 트래커.",
-    links: [{ label: "App Store", url: "https://apps.apple.com/kr/app/id6765536616" }],
-  },
-  {
-    name: "포모도로",
-    status: "iOS · Android LIVE",
-    desc: "25분 집중 + 5분 휴식 사이클을 재는 집중 타이머.",
-    links: [
-      { label: "App Store", url: "https://apps.apple.com/kr/app/id6765536777" },
-      { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.ssamssae.pomodoro" },
+    label: "나누고 익히기",
+    products: [
+      {
+        name: "더치페이 계산기",
+        status: "iOS · Android LIVE",
+        description: "모임 자리의 금액과 인원만 넣으면 바로 나누는 정산 도구.",
+        links: [
+          { label: "App Store", url: "https://apps.apple.com/kr/app/id6762072499" },
+          { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.dutchpay" },
+        ],
+      },
+      {
+        name: "단어요",
+        status: "iOS · Android LIVE",
+        description: "영어 단어를 카드처럼 넘기며 외우는 미니 단어장.",
+        links: [
+          { label: "App Store", url: "https://apps.apple.com/kr/app/id6766556759" },
+          { label: "Google Play", url: "https://play.google.com/store/apps/details?id=com.daejongkang.wordyo" },
+        ],
+      },
     ],
   },
 ];
 
-// 전자책 — 크몽 판매분. 문구는 정본 daejong-page/src/data/products.ts 와 맞춘다.
-const ebooks = [
+const books = [
   {
+    number: "01",
     name: "1인회사 AI자동화",
-    status: "전자책 · ₩10,000",
-    desc: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했습니다.",
-    links: [{ label: "크몽에서 구매", url: "https://kmong.com/gig/786557" }],
+    price: "전자책 · ₩10,000",
+    description: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했습니다.",
+    purchase: "https://kmong.com/gig/786557",
+    template: "/ebook-automation-workshop/vol1/templates/t01-repeat-work-inventory/",
   },
   {
+    number: "02",
     name: "혼자서 AI팀",
-    status: "전자책 · ₩15,000",
-    desc: "혼자 일하면서 여러 AI 역할을 팀처럼 구성하고 운영하는 방법을 정리했습니다.",
-    links: [{ label: "크몽에서 구매", url: "https://kmong.com/gig/786749" }],
+    price: "전자책 · ₩15,000",
+    description: "혼자 일하면서 여러 AI 역할을 팀처럼 구성하고 운영하는 방법을 정리했습니다.",
+    purchase: "https://kmong.com/gig/786749",
+    template: "/ai-team-ebook/vol2/templates/t01-task-queue/",
   },
   {
+    number: "03",
     name: "폰으로 내 컴퓨터 AI 부리기",
-    status: "전자책 · ₩10,000",
-    desc: "Grok Telegram Bridge와 Claude Code·Codex 브릿지를 텔레그램에 연결해 폰에서 내 컴퓨터의 AI 를 부리는 방법을 정리했습니다. 비개발자를 위한 따라하기 안내서입니다.",
-    links: [{ label: "크몽에서 구매", url: "https://kmong.com/gig/798202" }],
+    price: "전자책 · ₩10,000",
+    description: "텔레그램에 내 컴퓨터의 AI 도구를 연결하는 과정을 비개발자 눈높이로 정리한 안내서입니다.",
+    purchase: "https://kmong.com/gig/798202",
   },
 ];
-
-const featured = {
-  name: "첫이름",
-  status: "웹 · ₩19,900",
-  kicker: "대표 웹 서비스",
-  desc: "사주·획수·인명용 한자를 따져 아이 이름 후보를 뽑아 주는 AI 작명 서비스. 지금 바로 웹에서 쓸 수 있습니다.",
-  links: [{ label: "첫이름 열기", url: "https://cheotireum.kangdaejong.com/" }],
-};
 
 const tools = [
   {
     name: "Grok Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
-    desc: "텔레그램으로 자기 컴퓨터의 Grok 세션을 부리는 브릿지. Claude·Codex 브릿지의 형제 도구입니다.",
+    description: "텔레그램으로 자기 컴퓨터의 Grok 세션을 사용하는 공개 브릿지.",
     repo: "https://github.com/ssamssae/grok-telegram-bridge",
-    releases: "https://github.com/ssamssae/grok-telegram-bridge/releases",
+    release: "https://github.com/ssamssae/grok-telegram-bridge/releases",
   },
   {
     name: "Codex Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
-    desc: "Codex CLI REPL을 텔레그램으로 제어하는 브릿지. 텍스트, 이미지, 영상, 음성, 파일 입력과 진행 보고를 지원합니다.",
+    description: "Codex CLI 세션에 텍스트와 미디어를 전달하고 진행 상황을 받는 공개 브릿지.",
     repo: "https://github.com/ssamssae/codex-telegram-bridge",
-    releases: "https://github.com/ssamssae/codex-telegram-bridge/releases",
+    release: "https://github.com/ssamssae/codex-telegram-bridge/releases",
   },
   {
     name: "Claude Telegram Bridge",
-    status: "오픈소스 · 공개 repo",
-    desc: "Claude Code live tmux 세션을 텔레그램에 연결하는 브릿지. 세션 주입, transcript 추출, 미디어 전달 흐름을 다룹니다.",
+    description: "Claude Code 세션을 텔레그램에 연결하는 공개 브릿지.",
     repo: "https://github.com/ssamssae/claude-telegram-bridge",
-    releases: "https://github.com/ssamssae/claude-telegram-bridge/releases",
+    release: "https://github.com/ssamssae/claude-telegram-bridge/releases",
   },
 ];
 
-const productNames = apps.map((app) => app.name);
-
-// ★개수는 손으로 박지 않는다 — 목록에서 파생한다.
-const proofPoints = [
-  { label: "출시 앱", value: String(apps.length), desc: "스토어에 올려 직접 운영" },
-  { label: "공개 도구", value: String(tools.length), desc: "실제로 쓰는 브릿지를 공개" },
-  { label: "운영", value: "1인", desc: "기획부터 고객응대까지" },
-  { label: "기록", value: "공개", desc: "작업일지와 뉴스레터로 남김" },
-];
-
-const siteUrl = "https://kangdaejong.com/";
-const description = `${company.name} — 오래 남을 앱, 웹 서비스, 공개 자동화 도구를 만드는 1인 스튜디오. 대표 ${company.representative}.`;
-const ogImage = `${siteUrl}og-image.png`;
-
-const links = [
-  { label: "작업장", desc: "제품, 작업일지, 뉴스레터, 인사이트를 모아둔 공개 허브.", href: company.work, meta: "work.kangdaejong.com" },
-  { label: "제품", desc: "공개 앱, 웹 서비스, 자동화 도구 전체 목록.", href: company.products, meta: "products" },
-  { label: "뉴스레터", desc: "1인 스튜디오의 빌드, 운영, 실패 복구 기록.", href: company.newsletter, meta: "Substack" },
-];
+const description = `${company.name} — 생활에 가까운 앱, 웹 서비스, 전자책과 공개 도구를 직접 만들고 운영하는 강대종의 1인 스튜디오.`;
 ---
 
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <meta name="google-adsense-account" content="ca-pub-7025432711849670" />
-    <link rel="canonical" href={siteUrl} />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={company.name} />
-    <meta property="og:locale" content="ko_KR" />
-    <meta property="og:url" content={siteUrl} />
-    <meta property="og:title" content={company.name} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="마이너스베타스튜디오 — Tools Worth Keeping." />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={company.name} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-    <meta name="theme-color" content="#08090A" />
-    <title>{company.name}</title>
-    <script is:inline src="/mb-components.js" defer></script>
-  </head>
-  <body>
-    <mb-header active="home" tone="studio"></mb-header>
-    <main>
-      <div class="page-shell">
-      <section class="hero" id="top" aria-labelledby="page-title">
-        <div class="hero-inner">
-          <img class="hero-mark" src="/minusbeta-badge.svg" alt="" width="640" height="640" aria-hidden="true" />
-          <div class="hero-copy">
-            <p class="eyebrow">1인 스튜디오 · 강대종</p>
-            <h1 id="page-title"><span>마이너스</span><span>베타스튜디오</span></h1>
-            <p class="tagline">{slogan}</p>
-            <p class="lead">{sloganKo} 모바일 앱, 작은 웹 서비스, 공개 자동화 도구를 직접 만들고 검증하며 운영합니다.</p>
-            <ul class="hero-pills" aria-label="지금 운영 중인 것">
-              <li>출시 앱 {apps.length}</li>
-              <li>웹 서비스 1</li>
-              <li>공개 도구 {tools.length}</li>
-            </ul>
-            <p class="hero-products" aria-label="지금 운영 중인 웹 서비스">웹 · {featured.name}</p>
-            <p class="hero-products" aria-label="지금 운영 중인 앱">앱 · {productNames.join(" · ")}</p>
-            <div class="hero-actions" aria-label="주요 링크">
-              <a class="button primary" href={company.products}>제품 보기</a>
-              <a class="button" href={company.work}>작업장 보기</a>
-              <a class="button" href={`mailto:${company.email}`}>문의하기</a>
-            </div>
+<SiteLayout description={description} canonical="https://kangdaejong.com/" active="home" bodyClass="home-page">
+  <main id="main-content">
+    <section class="home-hero" aria-labelledby="page-title">
+      <div class="site-shell home-hero-grid">
+        <div>
+          <p class="eyebrow">Minus Beta Studio · Seoul</p>
+          <h1 class="display" id="page-title"><span>작고 분명한</span><span>도구를 만듭니다.</span></h1>
+          <p class="lede">메모하고, 챙기고, 집중하고, 이름을 고르는 일. 생활에 가까운 앱과 웹 서비스를 직접 만들고 오래 운영합니다.</p>
+          <div class="button-row" aria-label="주요 행동">
+            <a class="button primary" href={featured.url}>첫이름 시작하기</a>
+            <a class="button" href="#products">생활 앱 둘러보기</a>
           </div>
-          <figure class="hero-figure">
-            <img src="/studio/hero-desk.jpg" alt="창가에서 리포트를 읽는 장면" width="1600" height="900" />
-            <figcaption>첫이름 · 사주운세 리포트</figcaption>
-          </figure>
+          <p class="hero-note"><strong>{company.name}</strong><span>강대종의 1인 소프트웨어 스튜디오</span></p>
         </div>
-      </section>
+        <figure class="hero-visual">
+          <img src="/studio/hero-desk.jpg" alt="창가에서 첫이름 리포트를 읽는 모습" width="1600" height="900" />
+          <figcaption><span>Tools worth keeping.</span><span>Made in Mapo, Seoul</span></figcaption>
+        </figure>
+      </div>
+    </section>
 
-      <section class="proof-strip" aria-label="스튜디오 요약">
-        <div class="proof-inner">
-          {proofPoints.map((item) => (
-            <div>
-              <span>{item.label}</span>
-              <strong>{item.value}</strong>
-              <p>{item.desc}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section class="focus-section" aria-labelledby="focus-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">하는 일</p>
-            <h2 id="focus-title">혼자 만들지만, 혼자만 보지 않습니다.</h2>
+    <section class="featured-product" aria-labelledby="featured-title">
+      <div class="featured-grid">
+        <figure class="featured-media">
+          <img src="/studio/cheotireum.jpg" alt="첫이름 작명 서비스 화면" width="1050" height="1400" loading="lazy" />
+        </figure>
+        <div class="featured-copy">
+          <p class="eyebrow">Featured · Web</p>
+          <h2 id="featured-title">이름을 고르는 시간을, 차분한 리포트로.</h2>
+          <p class="price">{featured.price}</p>
+          <p class="description">{featured.description}</p>
+          <div class="button-row">
+            <a class="button primary" href={featured.url}>첫이름 시작하기</a>
           </div>
-          <p>{intro} 작게 만들고, 바로 내보내고, 기록으로 다시 줄입니다.</p>
         </div>
-        <ol class="focus-list">
-          {focusAreas.map((item) => (
-            <li>
-              <span>{item.number}</span>
-              <strong>{item.title}</strong>
-              <p>{item.desc}</p>
-            </li>
-          ))}
-        </ol>
-      </section>
+      </div>
+    </section>
 
-      <section class="products-section" aria-labelledby="products-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">제품</p>
-            <h2 id="products-title">지금 쓸 수 있는 것들</h2>
-          </div>
-          <a class="text-link" href={company.products}>전체 제품 보기</a>
+    <section class="section site-shell" id="products" aria-labelledby="products-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Everyday apps</p>
+          <h2 class="section-title" id="products-title">오늘 필요한 일부터 찾아보세요.</h2>
         </div>
-        <article class="product-card featured">
-          <img class="featured-photo" src="/studio/cheotireum.jpg" alt="첫이름 작명 서비스" width="1050" height="1400" />
-          <div class="featured-copy">
-            <span>{featured.status}</span>
-            <p class="featured-kicker">{featured.kicker}</p>
-            <h3>{featured.name}</h3>
-            <p>{featured.desc}</p>
-            <div class="link-row">
-              {featured.links.map((link) => (
-                <a href={link.url} target="_blank" rel="noopener">{link.label} →</a>
+        <p class="section-intro">기능 수가 아니라 쓰는 순간으로 묶었습니다. 앱 이름을 고르면 각 스토어에서 바로 확인할 수 있습니다.</p>
+      </div>
+      <div class="product-groups">
+        {productGroups.map((group) => (
+          <section class="product-group" aria-labelledby={`group-${group.number}`}>
+            <header class="group-label">
+              <span>{group.number}</span>
+              <h3 id={`group-${group.number}`}>{group.label}</h3>
+            </header>
+            <ol class="product-list">
+              {group.products.map((product) => (
+                <li class="product-row">
+                  <div>
+                    <h4>{product.name}</h4>
+                    <span class="status">{product.status}</span>
+                  </div>
+                  <p>{product.description}</p>
+                  <div class="store-links" aria-label={`${product.name} 다운로드`}>
+                    {product.links.map((link) => <a href={link.url}>{link.label} ↗</a>)}
+                  </div>
+                </li>
               ))}
-            </div>
+            </ol>
+          </section>
+        ))}
+      </div>
+      <div class="button-row"><a class="button" href={company.products}>전체 제품 목록 보기</a></div>
+    </section>
+
+    <section class="section site-shell" id="books" aria-labelledby="books-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Books & worksheets</p>
+          <h2 class="section-title" id="books-title">운영하면서 배운 것을, 바로 쓰는 문서로.</h2>
+        </div>
+        <p class="section-intro">전자책은 크몽에서 구매할 수 있고, 책과 함께 쓰는 일부 Markdown 템플릿은 이 사이트에서 공개합니다.</p>
+      </div>
+      <div class="books-layout">
+        <article class="book-lead">
+          <span class="book-number">{books[0].number} / FEATURED</span>
+          <h3>{books[0].name}</h3>
+          <p>{books[0].description}</p>
+          <p class="book-meta">{books[0].price}</p>
+          <div class="button-row">
+            <a class="button primary" href={books[0].purchase}>크몽에서 구매</a>
+            <a class="button" href={books[0].template}>공개 템플릿 보기</a>
           </div>
         </article>
-        <div class="product-grid">
-          {apps.map((app) => (
-            <article class="product-card">
-              <span>{app.status}</span>
-              <h3>{app.name}</h3>
-              <p>{app.desc}</p>
-              <div class="link-row">
-                {app.links.map((link) => (
-                  <a href={link.url} target="_blank" rel="noopener">{link.label} →</a>
-                ))}
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section class="ebooks-section" aria-labelledby="ebooks-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">전자책</p>
-            <h2 id="ebooks-title">운영하면서 묶은 글</h2>
-          </div>
-          <p>직접 굴리며 정리한 작업 흐름입니다. 이론서가 아닙니다.</p>
-        </div>
-        <div class="product-grid">
-          {ebooks.map((book) => (
-            <article class="product-card">
-              <span>{book.status}</span>
+        <div class="book-stack">
+          {books.slice(1).map((book) => (
+            <article class="book-item">
               <h3>{book.name}</h3>
-              <p>{book.desc}</p>
-              <div class="link-row">
-                {book.links.map((link) => (
-                  <a href={link.url} target="_blank" rel="noopener">{link.label} →</a>
-                ))}
+              <p class="book-meta">{book.number} · {book.price}</p>
+              <p>{book.description}</p>
+              <div class="book-links">
+                <a href={book.purchase}>크몽에서 구매 ↗</a>
+                {book.template && <a href={book.template}>공개 템플릿 보기 →</a>}
               </div>
             </article>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
 
-      <section class="tools-section" aria-labelledby="tools-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">공개 도구</p>
-            <h2 id="tools-title">내부에서 쓰는 브릿지를 공개합니다</h2>
-          </div>
-          <p>폰에서 자기 컴퓨터의 AI를 부리려고 만든 도구입니다.</p>
+    <section class="section site-shell" id="open-tools" aria-labelledby="tools-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Open source</p>
+          <h2 class="section-title" id="tools-title">직접 쓰는 연결 도구도 공개합니다.</h2>
         </div>
-        <div class="tool-grid">
-          {tools.map((tool) => (
-            <article class="tool-card">
-              <div class="tool-top">
-                <h3>{tool.name}</h3>
-                <span>{tool.status}</span>
-              </div>
-              <p>{tool.desc}</p>
-              <div class="link-row">
-                <a href={tool.repo} target="_blank" rel="noopener">GitHub →</a>
-                <a href={tool.releases} target="_blank" rel="noopener">Release →</a>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
+        <p class="section-intro">내 컴퓨터의 AI 세션을 텔레그램에서 쓰기 위해 만든 브릿지입니다. 설치와 변경 내역은 각 저장소에서 확인할 수 있습니다.</p>
+      </div>
+      <ol class="tool-directory">
+        {tools.map((tool, index) => (
+          <li class="tool-row">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{tool.name}</h3>
+            <p>{tool.description}</p>
+            <div class="store-links">
+              <a href={tool.repo}>GitHub ↗</a>
+              <a href={tool.release}>Release ↗</a>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
 
-      <section class="connect-section" aria-labelledby="connect-title">
-        <div class="section-head split">
-          <div>
-            <p class="eyebrow">연결</p>
-            <h2 id="connect-title">기록은 공개 페이지에, 연락은 메일로</h2>
-          </div>
-          <p>제품과 작업 과정은 작업장에서 볼 수 있습니다.</p>
-        </div>
-        <div class="connect-list">
-          {links.map((link) => (
-            <a href={link.href}>
-              <span>{link.label}</span>
-              <strong>{link.desc}</strong>
-              <em>{link.meta} →</em>
-            </a>
-          ))}
-        </div>
-      </section>
-
-      <section class="company-section" aria-labelledby="company-title">
+    <section class="record-band" aria-labelledby="record-title">
+      <div class="section site-shell">
         <div class="section-head">
-          <p class="eyebrow">회사</p>
-          <h2 id="company-title">회사 정보</h2>
+          <div>
+            <p class="eyebrow">Build in public</p>
+            <h2 class="section-title" id="record-title">완성품뿐 아니라 만드는 기록도 남깁니다.</h2>
+          </div>
+          <p class="section-intro">제품 목록과 작업 과정, 정리한 글을 각 공개 채널에서 이어서 볼 수 있습니다.</p>
+        </div>
+        <nav class="record-links" aria-label="외부 공개 채널">
+          <a class="record-link" href={company.work}><span>01 / WORK</span><strong>작업장</strong><small>제품과 작업일지</small></a>
+          <a class="record-link" href={company.newsletter}><span>02 / LETTER</span><strong>뉴스레터</strong><small>빌드와 운영 기록</small></a>
+          <a class="record-link" href={company.github}><span>03 / CODE</span><strong>GitHub</strong><small>공개 저장소</small></a>
+        </nav>
+      </div>
+    </section>
+
+    <section class="section site-shell" id="company" aria-labelledby="company-title">
+      <div class="company-layout">
+        <div class="company-note">
+          <p class="eyebrow">Company</p>
+          <h2 class="section-title" id="company-title">작게 만들고,<br />오래 책임집니다.</h2>
+          <p>{company.name}는 {company.representative}이 운영하는 1인 스튜디오입니다. 제품의 방향과 공개 여부, 비용이 드는 결정은 사람이 직접 확인합니다.</p>
+          <div class="button-row">
+            <a class="button" href="/organization/">회사와 책임 보기</a>
+            <a class="button" href={`mailto:${company.email}`}>이메일 문의</a>
+          </div>
         </div>
         <dl class="company-info">
-          <div>
-            <dt>상호</dt>
-            <dd>{company.name}</dd>
-          </div>
-          <div>
-            <dt>대표</dt>
-            <dd>{company.representative}</dd>
-          </div>
-          <div>
-            <dt>사업자등록번호</dt>
-            <dd>{company.bizNumber}</dd>
-          </div>
-          <div>
-            <dt>통신판매업신고</dt>
-            <dd>{company.mailOrderNumber}</dd>
-          </div>
-          <div>
-            <dt>업종</dt>
-            <dd>{company.category}</dd>
-          </div>
-          <div>
-            <dt>조직</dt>
-            <dd><a href="/organization/">운영은 AI 에이전트 3(대표 1·워커 2), 감독은 인턴 — 조직 구성 보기</a></dd>
-          </div>
-          <div>
-            <dt>소재지</dt>
-            <dd>{company.address}</dd>
-          </div>
-          <div>
-            <dt>Email</dt>
-            <dd><a href={`mailto:${company.email}`}>{company.email}</a></dd>
-          </div>
-          <div>
-            <dt>GitHub</dt>
-            <dd><a href={`https://${company.github}`} target="_blank" rel="noopener">{company.github}</a></dd>
-          </div>
+          <div><dt>상호</dt><dd>{company.name}</dd></div>
+          <div><dt>대표</dt><dd>{company.representative}</dd></div>
+          <div><dt>사업자등록번호</dt><dd>{company.bizNumber}</dd></div>
+          <div><dt>통신판매업신고</dt><dd>{company.mailOrderNumber}</dd></div>
+          <div><dt>업종</dt><dd>{company.category}</dd></div>
+          <div><dt>소재지</dt><dd>{company.address}</dd></div>
+          <div><dt>Email</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
+          <div><dt>GitHub</dt><dd><a href={company.github}>github.com/ssamssae ↗</a></dd></div>
         </dl>
-      </section>
       </div>
-    </main>
-    <mb-footer tone="studio"></mb-footer>
-
-    <style is:global>
-      /* Linear 크롬 (T-260831-005 기준점). 값은 src/styles/tokens.css 와 같아야 한다. */
-      :root {
-        color-scheme: dark;
-        --bg: #08090A;
-        --bg-elev: #0F1011;
-        --bg-elev2: #1C1C1F;
-        --fg: #F7F8F8;
-        --fg-dim: #D0D6E0;
-        --fg-mute: #8A8F98;
-        --border: rgba(255, 255, 255, 0.08);
-        --border-soft: rgba(255, 255, 255, 0.05);
-        --accent: #7170FF;
-        --accent-dim: #828FFF;
-        --cta-fg: #08090A;
-      }
-
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-
-      html { color-scheme: dark; background: var(--bg); scroll-behavior: smooth; scrollbar-gutter: stable; }
-
-      body {
-        background: var(--bg);
-        color: var(--fg);
-        font-family: var(--sans);
-        line-height: var(--leading-body);
-        text-rendering: geometricPrecision;
-      }
-
-      ::selection { background: var(--fg); color: var(--bg); }
-
-      [id] { scroll-margin-top: 96px; }
-
-      main { width: 100%; margin: 0; padding: 0 0 72px; }
-
-      .page-shell { width: min(calc(100% - 92px), 1250px); margin: 0 auto; }
-
-      a { color: var(--fg); text-decoration: none; }
-      a:hover { color: var(--accent); }
-
-      h1, h2, h3 { color: var(--fg); font-family: var(--sans); font-weight: 510; letter-spacing: -0.022em; }
-      p { color: var(--fg-dim); }
-
-      .eyebrow {
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        color: var(--fg-mute);
-      }
-
-      main section {
-        padding: var(--pad-section) 0;
-        border-bottom: 1px solid var(--border-soft);
-      }
-
-      .company-section { border-bottom: 0; }
-
-      .section-head { margin-bottom: var(--pad-head-bottom); }
-      .section-head h2 {
-        margin-top: 10px;
-        font-size: var(--text-h2);
-        line-height: 1.18;
-        word-break: keep-all;
-      }
-
-      .section-head.split > p {
-        max-width: var(--measure);
-        margin-top: 14px;
-        font-size: var(--text-body);
-        color: var(--fg-mute);
-        word-break: keep-all;
-      }
-
-      .section-head .text-link { display: inline-block; margin-top: 12px; }
-
-      @media (min-width: 860px) {
-        .section-head.split {
-          display: grid;
-          grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
-          gap: 48px;
-          align-items: end;
-        }
-        .section-head.split > p,
-        .section-head.split .text-link { margin-top: 0; }
-      }
-
-      .focus-list li,
-      .connect-list a,
-      .product-card,
-      .tool-card {
-        min-width: 0;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-card);
-        background: var(--bg);
-        padding: 22px 22px;
-      }
-
-      .focus-list li > span,
-      .product-card > span,
-      .featured-copy > span,
-      .tool-top span {
-        font-family: var(--mono);
-        font-size: var(--text-badge);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-        text-transform: uppercase;
-      }
-
-      .hero { position: relative; overflow: hidden; padding: 104px 0 40px; }
-
-      .hero-inner {
-        position: relative;
-        display: grid;
-        grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
-        gap: clamp(24px, 4vw, 48px);
-        align-items: end;
-        min-height: 0;
-      }
-
-      .hero-copy { position: relative; z-index: 1; min-width: 0; max-width: 40rem; }
-
-      .hero-pills {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin: 22px 0 0;
-        padding: 0;
-        list-style: none;
-      }
-
-      .hero-pills li {
-        border: 1px solid var(--border);
-        border-radius: 999px;
-        padding: 6px 12px;
-        font-size: 12px;
-        font-weight: 600;
-        color: var(--fg-dim);
-        background: var(--bg-elev);
-      }
-
-      .hero-figure {
-        position: relative;
-        z-index: 1;
-        margin: 0;
-        overflow: hidden;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-card);
-        background: var(--bg-elev);
-      }
-
-      .hero-figure img {
-        display: block;
-        width: 100%;
-        height: 340px;
-        object-fit: cover;
-      }
-
-      .hero-figure figcaption {
-        padding: 12px 16px;
-        border-top: 1px solid var(--border-soft);
-        font-size: 13px;
-        color: var(--fg-mute);
-      }
-
-      .hero-mark {
-        position: absolute;
-        right: -120px;
-        top: -80px;
-        width: min(58vw, 640px);
-        height: auto;
-        opacity: 0.07;
-        pointer-events: none;
-        user-select: none;
-      }
-
-      .hero h1 {
-        margin: 16px 0 14px;
-        font-size: var(--text-h1);
-        line-height: var(--leading-h1);
-        font-weight: 510;
-        letter-spacing: -0.022em;
-        overflow-wrap: anywhere;
-        word-break: keep-all;
-      }
-
-      .hero h1 span { display: block; }
-
-      .tagline {
-        margin-bottom: 18px;
-        font-family: var(--mono);
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-dim);
-        text-transform: uppercase;
-      }
-
-      .lead { max-width: var(--measure); font-size: var(--text-lead); word-break: keep-all; }
-
-      .hero-products {
-        margin-top: 22px;
-        max-width: 46rem;
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        line-height: 1.7;
-        letter-spacing: 0.02em;
-        color: var(--fg-mute);
-        word-break: keep-all;
-        overflow-wrap: break-word;
-      }
-      .hero-products + .hero-products { margin-top: 4px; }
-
-      .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-pill);
-        background: var(--bg);
-        color: var(--fg);
-        font-size: 13px;
-        font-weight: 510;
-        min-height: 32px;
-        padding: 0 12px;
-      }
-
-      .button:hover { border-color: var(--accent); color: var(--accent); }
-
-      .button.primary {
-        border-color: var(--accent);
-        background: var(--accent);
-        color: var(--fg);
-        font-weight: 510;
-      }
-
-      .button.primary:hover {
-        border-color: var(--accent-dim);
-        background: var(--accent-dim);
-        color: var(--cta-fg);
-      }
-
-      .proof-strip { padding-top: 8px; padding-bottom: var(--pad-section); }
-
-      .proof-inner {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0;
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .proof-inner > div {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        min-width: 0;
-        padding: 28px 20px 28px 0;
-      }
-
-      .proof-inner > div + div { padding-left: 20px; border-left: 1px solid var(--border-soft); }
-
-      .proof-inner span {
-        font-family: var(--mono);
-        font-size: var(--text-badge);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-        text-transform: uppercase;
-      }
-
-      .proof-inner strong { color: var(--fg); font-size: 28px; line-height: 1.15; letter-spacing: -0.04em; overflow-wrap: anywhere; }
-
-      .proof-inner p { font-size: var(--text-desc); line-height: var(--leading-desc); }
-
-      .focus-list {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--gap-card);
-        list-style: none;
-      }
-
-      .focus-list li { display: flex; flex-direction: column; gap: 8px; }
-
-      .focus-list strong { color: var(--fg); font-size: var(--text-h3); line-height: 1.3; }
-
-      .focus-list p { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
-
-      .product-grid,
-      .tool-grid {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--gap-card);
-      }
-
-      .ebooks-section .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-      .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-      .product-card,
-      .tool-card { display: flex; flex-direction: column; gap: 8px; }
-
-      .product-card:hover,
-      .tool-card:hover { border-color: var(--accent); }
-
-      .product-card.featured {
-        display: grid;
-        grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-        gap: 0;
-        margin-bottom: var(--gap-card);
-        padding: 0;
-        overflow: hidden;
-        background: var(--bg-elev);
-      }
-
-      .featured-photo {
-        display: block;
-        width: 100%;
-        height: 100%;
-        min-height: 260px;
-        object-fit: cover;
-      }
-
-      .featured-copy {
-        max-width: none;
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        padding: 32px;
-      }
-
-      .featured-kicker {
-        color: var(--fg);
-        font-size: var(--text-body);
-        font-weight: 600;
-      }
-
-      .product-card.featured h3 { font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.04em; }
-
-      .product-card h3,
-      .tool-card h3 {
-        font-size: var(--text-h3);
-        line-height: 1.32;
-        overflow-wrap: anywhere;
-        word-break: keep-all;
-      }
-
-      .product-card p,
-      .tool-card p { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
-
-      .link-row { display: flex; flex-wrap: wrap; gap: 10px 14px; margin-top: auto; padding-top: 14px; }
-
-      .link-row a,
-      .text-link {
-        color: var(--fg);
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 0.2em;
-      }
-
-      .link-row a:hover,
-      .text-link:hover { color: var(--accent); }
-
-      .tool-top { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; }
-
-      .connect-list {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--gap-card);
-      }
-
-      .connect-list a { display: flex; flex-direction: column; gap: 6px; }
-
-      .connect-list a:hover { border-color: var(--accent); color: var(--fg); }
-
-      .connect-list a > span { color: var(--fg); font-size: var(--text-lead); font-weight: 700; line-height: 1.3; }
-
-      .connect-list strong {
-        color: var(--fg-dim);
-        font-size: var(--text-desc);
-        font-weight: 400;
-        line-height: var(--leading-desc);
-        overflow-wrap: anywhere;
-      }
-
-      .connect-list em {
-        margin-top: auto;
-        padding-top: 10px;
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-style: normal;
-        font-weight: 600;
-        color: var(--fg-mute);
-        overflow-wrap: anywhere;
-      }
-
-      .connect-list a:hover em { color: var(--accent); }
-
-      .company-info {
-        display: grid;
-        grid-template-columns: 1fr;
-        border-top: 1px solid var(--border);
-      }
-
-      .company-info div {
-        display: grid;
-        grid-template-columns: 112px minmax(0, 1fr);
-        gap: 14px;
-        align-items: baseline;
-        border-bottom: 1px solid var(--border-soft);
-        padding: 14px 0;
-      }
-
-      .company-info dt {
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-      }
-
-      .company-info dd {
-        color: var(--fg);
-        font-size: var(--text-body);
-        font-weight: 500;
-        min-width: 0;
-        overflow-wrap: anywhere;
-      }
-
-      .company-info a {
-        color: var(--fg);
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-underline-offset: 0.2em;
-      }
-
-      @media (max-width: 900px) {
-        .hero { padding-top: 56px; min-height: 0; }
-
-        .hero-inner { min-height: 0; grid-template-columns: 1fr; }
-
-        .hero-figure img { height: 260px; }
-
-        .product-card.featured { grid-template-columns: 1fr; }
-
-        .proof-inner,
-        .product-grid,
-        .ebooks-section .product-grid,
-        .tool-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-
-        .focus-list,
-        .connect-list { grid-template-columns: 1fr; }
-
-        .proof-inner > div + div { padding-left: 16px; }
-      }
-
-      @media (max-width: 640px) {
-        .page-shell { width: calc(100% - 48px); }
-
-        main { padding-bottom: 56px; }
-
-        main section { padding: var(--pad-section-sm) 0; }
-
-        .hero { padding: 40px 0 12px; }
-
-        .hero-mark { right: -160px; top: -40px; width: 420px; opacity: 0.05; }
-
-        .proof-inner,
-        .product-grid,
-        .ebooks-section .product-grid,
-        .tool-grid { grid-template-columns: 1fr; }
-
-        .proof-inner { border-bottom: 0; }
-
-        .proof-inner > div {
-          padding: 18px 0;
-          border-left: 0;
-          border-bottom: 1px solid var(--border-soft);
-        }
-
-        .proof-inner > div + div { padding-left: 0; }
-
-        .product-card.featured { padding: 0; }
-
-        .featured-copy { padding: 22px; }
-
-        .company-info div { grid-template-columns: 1fr; gap: 3px; }
-      }
-    </style>
-  </body>
-</html>
+    </section>
+  </main>
+</SiteLayout>

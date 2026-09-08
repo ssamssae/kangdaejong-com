@@ -1,0 +1,59 @@
+---
+import "../styles/tokens.css";
+import "../styles/site.css";
+
+const {
+  title,
+  description,
+  canonical,
+  active = "",
+  robots,
+  bodyClass = "",
+  ogImage = "https://kangdaejong.com/og-image.png",
+} = Astro.props;
+
+const company = "마이너스베타스튜디오";
+const documentTitle = title ? `${title} — ${company}` : company;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={company} />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:title" content={documentTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content={`${company} — Tools Worth Keeping.`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={documentTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <meta name="theme-color" content="#11100e" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Serif+KR:wght@500;600&display=swap" rel="stylesheet" />
+    <title>{documentTitle}</title>
+    <script is:inline src="/mb-components.js" defer></script>
+  </head>
+  <body class={bodyClass}>
+    <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
+    <mb-header active={active} tone="studio"></mb-header>
+    <slot />
+    <mb-footer tone="studio"></mb-footer>
+  </body>
+</html>

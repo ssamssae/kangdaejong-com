@@ -1,59 +1,20 @@
 import { readFileSync } from "node:fs";
 
-const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
-
-const components = read("public/mb-components.js");
-const companyPage = read("src/pages/index.astro");
-const footerComponent = components.split("class MbFooter")[1] || "";
-
+const components = readFileSync(new URL("../public/mb-components.js", import.meta.url), "utf8");
+const layout = readFileSync(new URL("../src/layouts/SiteLayout.astro", import.meta.url), "utf8");
+const footer = components.split("class MbFooter")[1] || "";
 const checks = [
-  {
-    label: "company page renders the shared footer component",
-    ok: /<mb-footer(?:\s[^>]*)?><\/mb-footer>/.test(companyPage),
-  },
-  {
-    label: "shared component registers mb-footer for company and founder pages",
-    ok:
-      /class MbFooter extends HTMLElement/.test(components) &&
-      /customElements\.define\('mb-footer', MbFooter\);/.test(components),
-  },
-  {
-    label: "shared footer uses the work footer head layout",
-    ok:
-      /<div class="foot-head">\s*<strong>마이너스베타스튜디오<\/strong>\s*<a href="mailto:minusbetastudio@gmail\.com">minusbetastudio@gmail\.com<\/a>\s*<\/div>/.test(footerComponent) &&
-      /\.foot-head \{ display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; \}/.test(footerComponent),
-  },
-  {
-    label: "shared footer keeps the work footer width, padding, and border rhythm",
-    ok: /footer \{ width:min\(calc\(100% - 92px\), 1250px\); margin:0 auto; padding:34px 0 56px; border-top:1px solid var\(--mb-border\);/.test(footerComponent),
-  },
-  {
-    label: "shared footer keeps business info as a wrapping inline row on desktop",
-    ok: /\.biz \{ display:flex; flex-wrap:wrap; gap:6px 14px; color:var\(--mb-mute\); \}/.test(footerComponent),
-  },
-  {
-    label: "shared footer stacks business info only on narrow screens",
-    ok:
-      /@media \(max-width:640px\)/.test(footerComponent) &&
-      /\.biz \{ flex-direction:column; gap:4px; \}/.test(footerComponent),
-  },
-  {
-    label: "legacy link-row footer stays removed",
-    ok:
-      !/<div class="links">/.test(footerComponent) &&
-      !/GitHub<\/a>/.test(footerComponent) &&
-      !/<a href="https:\/\/work\.kangdaejong\.com\/">작업장<\/a>/.test(footerComponent),
-  },
+  ["all SiteLayout pages render the shared footer", /<mb-footer tone="studio"><\/mb-footer>/.test(layout)],
+  ["shared footer custom element remains registered", /class MbFooter extends HTMLElement/.test(components) && /customElements\.define\('mb-footer', MbFooter\)/.test(components)],
+  ["legal company facts remain in the shared footer", ["대표 강대종", "878-21-02478", "제 2026-서울마포-1177 호", "만리재로10길 4", "정보통신업 / 응용 소프트웨어 개발 및 공급업"].every((value) => footer.includes(value))],
+  ["verified contact email remains in the footer", /mailto:minusbetastudio@gmail\.com/.test(footer)],
+  ["footer uses the shared page width and mobile stack", /width:min\(calc\(100% - 112px\),1320px\)/.test(footer) && /@media \(max-width:640px\)/.test(footer) && /\.biz \{ display:grid;/.test(footer)],
 ];
 
-const failures = checks.filter((check) => !check.ok);
-
-if (failures.length > 0) {
+const failures = checks.filter(([, ok]) => !ok);
+if (failures.length) {
   console.error("Shared footer source verification failed:");
-  for (const failure of failures) {
-    console.error(`- ${failure.label}`);
-  }
+  failures.forEach(([label]) => console.error(`- ${label}`));
   process.exit(1);
 }
-
 console.log("Shared footer source verification passed");

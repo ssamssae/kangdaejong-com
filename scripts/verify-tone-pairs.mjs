@@ -1,90 +1,25 @@
 import { readFileSync } from "node:fs";
 
-const source = readFileSync(new URL("../src/pages/index.astro", import.meta.url), "utf8");
-const organization = readFileSync(new URL("../src/pages/organization.astro", import.meta.url), "utf8");
-const header = readFileSync(new URL("../public/mb-components.js", import.meta.url), "utf8");
+const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
+const tokens = read("src/styles/tokens.css");
+const site = read("src/styles/site.css");
+const header = read("public/mb-components.js");
+const home = read("src/pages/index.astro");
+const studioPalette = header.match(/const PALETTE_STUDIO = `([\s\S]*?)`;/)?.[1] ?? "";
 
 const checks = [
-  {
-    label: "Product list includes Memoyo live app",
-    pattern: /name:\s*"메모요",[\s\S]*?status:\s*"iOS · Android LIVE"/,
-    source,
-  },
-  {
-    label: "Product list includes Hanjul live app",
-    pattern: /name:\s*"한줄일기",[\s\S]*?status:\s*"iOS · Android LIVE"/,
-    source,
-  },
-  {
-    label: "Company page keeps bordered repeated cards",
-    pattern: /\.product-card,[\s\S]*?\.tool-card \{[\s\S]*?border: 1px solid var\(--border\);[\s\S]*?background: var\(--bg\);/,
-    source,
-  },
-  {
-    label: "Connect list replaces old tone link cards",
-    pattern: /class="connect-list"[\s\S]*links\.map/,
-    source,
-  },
-  {
-    label: "Legacy neon variables are removed",
-    pattern: /^(?![\s\S]*(--cyan|--magenta|tone-cyan|tone-magenta))/,
-    source,
-  },
-  {
-    label: "Company page uses Linear dark chrome",
-    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#7170FF;[\s\S]*--cta-fg:\s*#08090A;/,
-    source,
-  },
-  {
-    label: "Homepage hero uses a studio photograph",
-    pattern: /src="\/studio\/hero-desk\.jpg"/,
-    source,
-  },
-  {
-    label: "Featured 첫이름 card uses a photograph",
-    pattern: /src="\/studio\/cheotireum\.jpg"/,
-    source,
-  },
-  {
-    label: "Company page does not use old neon",
-    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#4FE0C0))/,
-    source,
-  },
-  {
-    label: "Organization page uses the same Linear canvas as the homepage",
-    pattern: /--bg:\s*#08090A;[\s\S]*--accent:\s*#7170FF;[\s\S]*--cta-fg:\s*#08090A;/,
-    source: organization,
-  },
-  {
-    label: "Organization page does not use old neon",
-    pattern: /^(?![\s\S]*(#00e5ff|#00b8d4|#ff00aa|#4FE0C0))/,
-    source: organization,
-  },
-  {
-    label: "Shared header default palette is Linear chrome",
-    pattern: /--mb-bg:#08090A;[\s\S]*--mb-fg:#F7F8F8;[\s\S]*--mb-accent:#7170FF;/,
-    source: header,
-  },
-  {
-    label: "Shared header studio palette matches Linear chrome",
-    pattern: /PALETTE_STUDIO[\s\S]*--mb-bg:#08090A;[\s\S]*--mb-accent:#7170FF;/,
-    source: header,
-  },
-  {
-    label: "Company header opts into studio tone",
-    pattern: /<mb-header active="home" tone="studio">/,
-    source,
-  },
+  ["warm ledger tokens define shared canvas, paper, and copper", /--bg: #11100e;/.test(tokens) && /--fg: #f5efe2;/.test(tokens) && /--accent: #d5a06f;/.test(tokens)],
+  ["display and body typography have separate roles", /--serif: "Noto Serif KR"/.test(tokens) && /--sans: "Pretendard Variable"/.test(tokens)],
+  ["studio chrome matches the warm palette", /--mb-bg:#11100e/.test(studioPalette) && /--mb-fg:#f5efe2/.test(studioPalette) && /--mb-accent:#d5a06f/.test(studioPalette)],
+  ["site stylesheet includes desktop and narrow mobile systems", /@media \(max-width: 980px\)/.test(site) && /@media \(max-width: 390px\)/.test(site)],
+  ["old neon and Linear-indigo values stay out of the renewed studio theme", !/(#00e5ff|#00b8d4|#ff00aa|#7170FF|--cyan|--magenta)/i.test(`${tokens}\n${site}\n${studioPalette}\n${home}`)],
+  ["homepage photographs remain real repository assets", /\/studio\/hero-desk\.jpg/.test(home) && /\/studio\/cheotireum\.jpg/.test(home)],
 ];
 
-const failures = checks.filter((check) => !check.pattern.test(check.source));
-
-if (failures.length > 0) {
+const failures = checks.filter(([, ok]) => !ok);
+if (failures.length) {
   console.error("Tone pair verification failed:");
-  for (const failure of failures) {
-    console.error(`- ${failure.label}`);
-  }
+  failures.forEach(([label]) => console.error(`- ${label}`));
   process.exit(1);
 }
-
 console.log("Tone pair verification passed");
