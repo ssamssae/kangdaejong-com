@@ -1,61 +1,55 @@
-/* ─────────────────────────────────────────────────────────────
-   kangdaejong.com 디자인 토큰 — 타이포·간격·형태 정본 (T-260806-062)
-
-   T-260831-005 2단계: Linear.app 라이브 크롬 + Stripe.com 섹션 리듬.
-   정본 = 채팅 기준점 문서 (2026-08-31). 남색+코퍼·#8FA4FF 근사값은 폐기.
-   페이지 :root 리터럴도 이 값과 같아야 한다(verify-tone-pairs.mjs).
-   ───────────────────────────────────────────────────────────── */
+/* T-260908-056 — warm editorial system shared by every public route. */
 :root {
   color-scheme: dark;
 
-  --bg: #08090A;
-  --bg-elev: #0F1011;
-  --bg-elev2: #1C1C1F;
-  --bg-tint: #141516;
-  --border: rgba(255, 255, 255, 0.08);
-  --border-soft: rgba(255, 255, 255, 0.05);
-  --fg: #F7F8F8;
-  --fg-dim: #D0D6E0;
-  --fg-mute: #8A8F98;
-  --fg-faint: #62666D;
-  --accent: #7170FF;
-  --accent-dim: #828FFF;
-  --accent-hover: #828FFF;
-  --accent-tint: #18182F;
-  --cta-bg: #E5E5E6;
-  --cta-fg: #08090A;
-  --danger: #FF6B6B;
-  --accent-bg: #141516;
-  --code-bg: #141516;
+  --bg: #11100e;
+  --bg-elev: #181613;
+  --bg-elev2: #211e1a;
+  --bg-tint: #151310;
+  --border: rgba(245, 239, 226, 0.16);
+  --border-soft: rgba(245, 239, 226, 0.09);
+  --fg: #f5efe2;
+  --fg-dim: #d2cabd;
+  --fg-mute: #9f978b;
+  --fg-faint: #706a61;
+  --accent: #d5a06f;
+  --accent-dim: #e2b58d;
+  --accent-hover: #edc29c;
+  --accent-tint: #2b2119;
+  --cta-bg: #f2eadc;
+  --cta-fg: #17130f;
+  --danger: #e7897f;
+  --accent-bg: #1d1813;
+  --code-bg: #171512;
 
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-  --serif: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+  --serif: "Noto Serif KR", "Iropke Batang", Georgia, serif;
 
-  --text-h1: clamp(38px, 6vw, 64px);
-  --text-h2: clamp(28px, 4vw, 48px);
-  --text-h3: 20px;
-  --text-lead: 16px;
+  --text-h1: clamp(46px, 7vw, 88px);
+  --text-h2: clamp(32px, 4.5vw, 58px);
+  --text-h3: clamp(21px, 2vw, 28px);
+  --text-lead: 18px;
   --text-body: 16px;
   --text-desc: 14px;
-  --text-meta: 13px;
-  --text-badge: 12px;
+  --text-meta: 12px;
+  --text-badge: 11px;
 
-  --track-eyebrow: 0.12em;
-  --track-badge: 0.08em;
-  --leading-body: 1.50;
-  --leading-h1: 1.00;
-  --leading-desc: 1.6;
+  --track-eyebrow: 0.14em;
+  --track-badge: 0.1em;
+  --leading-body: 1.72;
+  --leading-h1: 1.07;
+  --leading-desc: 1.68;
 
-  --measure: 62ch;
-  --radius-card: 12px;
-  --radius-btn: 8px;
+  --measure: 64ch;
+  --radius-card: 2px;
+  --radius-btn: 2px;
   --radius-pill: 9999px;
-  --gap-card: 16px;
-  --pad-section: 128px;
-  --pad-section-sm: 64px;
-  --pad-head-bottom: 96px;
-  --header-h: 72px;
-  --page-gutter: 46px;
-  --page-max: 1250px;
+  --gap-card: 24px;
+  --pad-section: 144px;
+  --pad-section-sm: 76px;
+  --pad-head-bottom: 104px;
+  --header-h: 76px;
+  --page-gutter: 56px;
+  --page-max: 1320px;
 }

@@ -13,6 +13,9 @@
     "verify:shared-header": "node scripts/verify-shared-header-source.mjs",
     "verify:organization-roster": "node scripts/verify-organization-roster.mjs",
     "verify:organization-tone": "node scripts/verify-organization-tone.mjs",
+    "verify:homepage-renewal": "node scripts/verify-homepage-renewal.mjs",
+    "verify:tone-pairs": "node scripts/verify-tone-pairs.mjs",
+    "test": "playwright test",
     "preview": "astro preview",
     "astro": "astro"
   },

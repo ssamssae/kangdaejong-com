@@ -1,68 +1,73 @@
 ---
-import "../styles/tokens.css";
+import SiteLayout from "../layouts/SiteLayout.astro";
 
-const dest = "https://work.kangdaejong.com/system/";
-const company = "마이너스베타스튜디오";
+const destination = "https://work.kangdaejong.com/system/";
+const steps = [
+  {
+    title: "작은 문제부터 만듭니다.",
+    description: "한 번에 많은 기능을 약속하기보다, 지금 해결할 한 가지 일을 정하고 제품의 범위를 작게 잡습니다.",
+  },
+  {
+    title: "실제로 눌러 보고 확인합니다.",
+    description: "빌드와 자동 검사를 통과하는 데서 끝내지 않고, 화면·링크·다운로드·모바일 동작을 직접 확인합니다.",
+  },
+  {
+    title: "출시 뒤에도 고쳐 갑니다.",
+    description: "생활 도구는 한 번의 출시보다 꾸준한 유지가 중요합니다. 기록을 남기고 문제를 작게 되돌릴 수 있게 운영합니다.",
+  },
+];
+
+const description = "마이너스베타스튜디오가 제품을 작게 만들고, 확인하고, 오래 유지하는 공개 원칙.";
 ---
 
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="refresh" content={`0;url=${dest}`} />
-    <link rel="canonical" href={dest} />
-    <meta name="robots" content="noindex" />
-    <meta name="theme-color" content="#08090A" />
-    <title>시스템 — {company}</title>
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <script is:inline src="/mb-components.js" defer></script>
-  </head>
-  <body>
-    <mb-header active="home" tone="studio"></mb-header>
-    <main>
-      <div class="page-shell">
-        <p class="eyebrow">SYSTEM</p>
-        <h1>시스템 문서는 작업장에 있습니다</h1>
-        <p>
-          회사홈에는 시스템 페이지가 없고, 운영 구조는 작업장에서 공개합니다.
-          자동으로 이동하지 않으면 아래 링크로 가세요.
-        </p>
-        <p><a href={dest}>work.kangdaejong.com/system/ →</a></p>
+<SiteLayout title="만드는 방식" description={description} canonical="https://kangdaejong.com/system/" active="system" bodyClass="system-page">
+  <main id="main-content">
+    <section class="subpage-hero" aria-labelledby="page-title">
+      <div class="site-shell subpage-hero-grid">
+        <div>
+          <p class="eyebrow">How we build</p>
+          <h1 class="page-title" id="page-title">작게 만들고,<br />확인하고,<br />오래 돌봅니다.</h1>
+          <p class="lede">마이너스베타스튜디오의 시스템은 복잡한 자동화 자랑이 아니라, 생활 가까운 제품을 무리 없이 계속 운영하기 위한 약속입니다.</p>
+        </div>
+        <div class="subpage-mark" aria-hidden="true">循</div>
       </div>
-    </main>
-    <mb-footer tone="studio"></mb-footer>
-    <style is:global>
-      :root {
-        color-scheme: dark;
-        --bg: #08090A;
-        --fg: #F7F8F8;
-        --fg-dim: #D0D6E0;
-        --fg-mute: #8A8F98;
-        --accent: #7170FF;
-      }
-      * { box-sizing: border-box; margin: 0; padding: 0; }
-      html, body { background: var(--bg); color: var(--fg); font-family: var(--sans); }
-      main { width: 100%; padding: 104px 0 72px; }
-      .page-shell { width: min(calc(100% - 92px), 720px); margin: 0 auto; }
-      .eyebrow {
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        color: var(--fg-mute);
-        letter-spacing: 0.06em;
-      }
-      h1 {
-        margin: 16px 0 14px;
-        font-size: var(--text-h2);
-        font-weight: 510;
-        letter-spacing: -0.022em;
-        word-break: keep-all;
-      }
-      p { color: var(--fg-dim); font-size: var(--text-body); line-height: 1.6; word-break: keep-all; }
-      p + p { margin-top: 14px; }
-      a { color: var(--accent); }
-    </style>
-  </body>
-</html>
+    </section>
+
+    <section class="section site-shell" aria-labelledby="sequence-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">A small loop</p>
+          <h2 class="section-title" id="sequence-title">제품이 오래 남게 하는 세 단계.</h2>
+        </div>
+        <p class="section-intro">내부 배차나 기기 이름 대신, 제품을 쓰는 사람이 결과에서 확인할 수 있는 원칙만 적었습니다.</p>
+      </div>
+      <ol class="system-sequence">
+        {steps.map((step, index) => (
+          <li class="system-step">
+            <span>{String(index + 1).padStart(2, "0")}</span>
+            <h3>{step.title}</h3>
+            <p>{step.description}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <section class="section site-shell" aria-labelledby="boundary-title">
+      <div class="system-boundary">
+        <h2 class="section-title" id="boundary-title">자동화가 넘지 않는 선.</h2>
+        <div>
+          <h3>공개와 비용, 되돌리기 어려운 결정은 사람이 닫습니다.</h3>
+          <p>AI와 자동화 도구는 조사와 반복 작업을 빠르게 돕습니다. 하지만 제품 공개, 외부 발신, 결제, 배포처럼 영향이 큰 일은 사람이 근거를 확인하고 결정합니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="site-shell closing-callout" aria-label="시스템 관련 링크">
+      <p>더 자세한 운영 문서와 작업 기록은 별도의 공개 작업장에 정리합니다.</p>
+      <div class="button-row">
+        <a class="button" href="/">회사 홈으로</a>
+        <a class="button primary" href={destination}>운영 시스템 자세히 보기</a>
+      </div>
+    </section>
+  </main>
+</SiteLayout>

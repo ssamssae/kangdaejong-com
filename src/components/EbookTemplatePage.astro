@@ -1,7 +1,7 @@
 ---
 import fs from "node:fs";
 import path from "node:path";
-import "../styles/tokens.css";
+import SiteLayout from "../layouts/SiteLayout.astro";
 
 const { meta, sourceSegments, rawBase, eyebrow, sourceNote, description } = Astro.props;
 
@@ -35,22 +35,32 @@ function markdownToHtml(source) {
     if (/^#{1,3}\s/.test(line)) {
       const match = line.match(/^(#{1,3})\s+(.*)$/);
       const level = match[1].length;
-      html.push(`<h${level}>${inline(match[2])}</h${level}>`); index += 1; continue;
+      html.push(`<h${level}>${inline(match[2])}</h${level}>`);
+      index += 1;
+      continue;
     }
     if (line.trimStart().startsWith("|") && index + 1 < lines.length && isTableDivider(lines[index + 1])) {
-      const head = cells(line); index += 2; const rows = [];
+      const head = cells(line);
+      index += 2;
+      const rows = [];
       while (index < lines.length && lines[index].trimStart().startsWith("|")) rows.push(cells(lines[index++]));
-      html.push(`<div class="table-wrap"><table><thead><tr>${head.map((cell) => `<th>${inline(cell)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${head.map((_, i) => `<td>${inline(row[i] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
+      html.push(`<div class="table-wrap"><table><thead><tr>${head.map((cell) => `<th>${inline(cell)}</th>`).join("")}</tr></thead><tbody>${rows.map((row) => `<tr>${head.map((_, cellIndex) => `<td>${inline(row[cellIndex] ?? "")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`);
       continue;
     }
     if (/^\s*[-*]\s+/.test(line) || /^\s*\d+\.\s+/.test(line)) {
-      const ordered = /^\s*\d+\.\s+/.test(line); const items = [];
-      while (index < lines.length && (ordered ? /^\s*\d+\.\s+/.test(lines[index]) : /^\s*[-*]\s+/.test(lines[index]))) items.push(lines[index++].replace(/^\s*(?:[-*]|\d+\.)\s+/, ""));
+      const ordered = /^\s*\d+\.\s+/.test(line);
+      const items = [];
+      while (index < lines.length && (ordered ? /^\s*\d+\.\s+/.test(lines[index]) : /^\s*[-*]\s+/.test(lines[index]))) {
+        items.push(lines[index++].replace(/^\s*(?:[-*]|\d+\.)\s+/, ""));
+      }
       html.push(`<${ordered ? "ol" : "ul"}>${items.map((item) => `<li>${inline(item)}</li>`).join("")}</${ordered ? "ol" : "ul"}>`);
       continue;
     }
-    const paragraph = [line]; index += 1;
-    while (index < lines.length && lines[index].trim() && !/^#{1,3}\s/.test(lines[index]) && !lines[index].startsWith("```") && !lines[index].trimStart().startsWith("|") && !/^\s*[-*]\s+/.test(lines[index]) && !/^\s*\d+\.\s+/.test(lines[index])) paragraph.push(lines[index++]);
+    const paragraph = [line];
+    index += 1;
+    while (index < lines.length && lines[index].trim() && !/^#{1,3}\s/.test(lines[index]) && !lines[index].startsWith("```") && !lines[index].trimStart().startsWith("|") && !/^\s*[-*]\s+/.test(lines[index]) && !/^\s*\d+\.\s+/.test(lines[index])) {
+      paragraph.push(lines[index++]);
+    }
     html.push(`<p>${inline(paragraph.join("\n")).replaceAll("\n", "<br />")}</p>`);
   }
   return html.join("\n");
@@ -58,8 +68,6 @@ function markdownToHtml(source) {
 
 const sourcePath = path.join(process.cwd(), "public", ...sourceSegments, meta.file);
 const source = fs.readFileSync(sourcePath, "utf8");
-// 페이지 헤더가 meta.title 로 <h1> 을 이미 그리므로, 본문 md 선두의 동일 제목 H1 은
-// 렌더에서만 건너뛴다 (원본 .md 다운로드/복사용 콘텐츠는 무변경).
 const sourceLines = source.replaceAll("\r\n", "\n").split("\n");
 const firstContentIndex = sourceLines.findIndex((line) => line.trim() !== "");
 const firstContentLine = firstContentIndex >= 0 ? sourceLines[firstContentIndex].trim() : "";
@@ -69,89 +77,93 @@ const body =
     : source;
 const rendered = markdownToHtml(body);
 const rawUrl = `/${rawBase}/${meta.file}`;
+const slug = meta.file.replace(/\.md$/, "");
+const canonical = `https://kangdaejong.com/${rawBase}/${slug}/`;
 ---
 
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={`${meta.title} — ${description}`} />
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-    <title>{meta.title} · 마이너스베타스튜디오</title>
-    <script is:inline src="/mb-components.js" defer></script>
-  </head>
-  <body>
-    <mb-header tone="studio"></mb-header>
-    <main class="page-shell">
-      <header class="template-head">
-        <p class="eyebrow">{eyebrow}</p>
-        <h1>{meta.title}</h1>
-        <p class="source-note">{sourceNote}</p>
-      </header>
-      <article class="markdown-body" set:html={rendered}></article>
-      <footer class="template-foot">
-        <p>원본 Markdown 파일</p>
-        <a href={rawUrl}>{meta.file} 열기 →</a>
-      </footer>
-    </main>
-  </body>
-</html>
+<SiteLayout title={meta.title} description={`${meta.title} — ${description}`} canonical={canonical} active="books" bodyClass="template-page">
+  <main class="template-shell" id="main-content">
+    <aside class="template-rail">
+      <a class="template-back" href="/#books">← 책과 템플릿</a>
+      <p class="eyebrow">{eyebrow}</p>
+      <h1>{meta.title}</h1>
+      <p class="source-note">{sourceNote}</p>
+      <div class="template-actions" aria-label="템플릿 사용">
+        <button class="button primary" type="button" data-copy-template>Markdown 전체 복사</button>
+        <a class="button" href={rawUrl} download={meta.file}>Markdown 다운로드</a>
+        <a class="text-action" href={rawUrl}>원본 파일 열기 →</a>
+      </div>
+      <p class="copy-status" role="status" aria-live="polite"></p>
+    </aside>
+
+    <article class="markdown-body" set:html={rendered}></article>
+    <textarea class="source-buffer" id="template-source" readonly aria-hidden="true">{source}</textarea>
+  </main>
+</SiteLayout>
+
+<script is:inline>
+  const copyButton = document.querySelector("[data-copy-template]");
+  const sourceBuffer = document.querySelector("#template-source");
+  const copyStatus = document.querySelector(".copy-status");
+
+  copyButton?.addEventListener("click", async () => {
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(sourceBuffer.value);
+      } else {
+        sourceBuffer.removeAttribute("aria-hidden");
+        sourceBuffer.select();
+        document.execCommand("copy");
+        sourceBuffer.setAttribute("aria-hidden", "true");
+      }
+      copyStatus.textContent = "복사했습니다.";
+    } catch {
+      copyStatus.textContent = "복사하지 못했습니다. 원본 파일을 열어 복사해 주세요.";
+    }
+  });
+</script>
 
 <style>
-  /* ── 디자인 시스템 = src/styles/tokens.css (T-260807-014 확산, parent=T-260806-062) ──
-     타이포 스케일·자간·행간·여백·형태는 위 frontmatter 의 tokens.css import 가 정본이다.
-     종전에는 같은 값을 이 블록에 리터럴로 갖고 있었다 — 랜딩(T-260806-062)이 토큰으로
-     옮겨간 뒤로는 두 벌이 따로 흘러 톤이 갈리는 자리였다.
-     색은 tokens.css 그록 톤(T-260824-046). --code-bg 만 이 페이지가 한 번 더 박는다.
-     ⚠️ 폭(900px)은 토큰으로 접지 않는다 — 랜딩 1120px 은 카드 그리드용이고 이 페이지는
-        긴 마크다운 독서면이다. 배차문 「획일화가 아니라 톤 통일」에 따라 고유 구조는 남긴다. */
-  :global(:root) { color-scheme: dark; --code-bg: #141414; }
-  :global(*) { box-sizing: border-box; }
-  :global(html) { color-scheme: dark; background: var(--bg); }
-  :global(body) { margin: 0; background: var(--bg); color: var(--fg); font-family: var(--sans); line-height: var(--leading-body); }
-  :global(a) { color: var(--fg); text-decoration: underline; text-underline-offset: .2em; }
-  :global(a:hover) { color: var(--accent); }
-  .page-shell { width: min(calc(100% - 48px), 900px); margin: 0 auto; padding: var(--pad-section) 0 96px; }
-  /* 괘선은 랜딩 꼴 — 전대비(--fg) 굵은 줄 대신 소프트 경계 */
-  .template-head { border-bottom: 1px solid var(--border-soft); padding-bottom: 32px; }
-  /* eyebrow — 조직도·랜딩과 동일: mono · 넓은 자간 · 대문자 */
-  .eyebrow {
-    margin: 0 0 14px;
-    color: var(--fg-mute);
-    font-family: var(--mono);
-    font-size: var(--text-meta);
-    font-weight: 600;
-    line-height: 1.4;
-    letter-spacing: var(--track-eyebrow);
-    text-transform: uppercase;
+  :global(.template-page) { --page-max: 1240px; }
+  .template-shell { width:min(calc(100% - 112px),1240px); margin:0 auto; padding:104px 0 128px; display:grid; grid-template-columns:minmax(280px,.62fr) minmax(0,1fr); gap:clamp(70px,9vw,140px); align-items:start; }
+  .template-rail { position:sticky; top:42px; }
+  .template-back { display:inline-block; margin-bottom:70px; color:var(--fg-mute); font-size:13px; text-decoration:none; }
+  .template-rail h1 { margin:0; font-family:var(--serif); font-size:clamp(36px,4.3vw,58px); font-weight:500; letter-spacing:-.045em; line-height:1.2; word-break:keep-all; }
+  .source-note { margin:24px 0 0; color:var(--fg-mute); word-break:keep-all; }
+  .template-actions { display:grid; gap:10px; margin-top:38px; }
+  .text-action { justify-self:start; margin-top:8px; color:var(--fg-dim); font-size:13px; }
+  .copy-status { min-height:1.7em; margin:12px 0 0; color:var(--accent); font-size:13px; }
+  .markdown-body { min-width:0; padding-top:7px; }
+  .markdown-body :global(h1) { margin:0 0 26px; font-family:var(--serif); font-size:var(--text-h2); font-weight:500; letter-spacing:-.035em; }
+  .markdown-body :global(h2) { margin:64px 0 20px; padding-top:24px; border-top:1px solid var(--border); font-family:var(--serif); font-size:clamp(28px,3vw,40px); font-weight:500; letter-spacing:-.035em; line-height:1.3; }
+  .markdown-body :global(h2:first-child) { margin-top:0; }
+  .markdown-body :global(h3) { margin:40px 0 14px; font-family:var(--serif); font-size:var(--text-h3); font-weight:500; }
+  .markdown-body :global(p) { margin:0 0 20px; color:var(--fg-dim); font-size:17px; line-height:1.78; }
+  .markdown-body :global(ul), .markdown-body :global(ol) { margin:0 0 26px; padding-left:1.35rem; color:var(--fg-dim); font-size:17px; line-height:1.75; }
+  .markdown-body :global(li) { margin:6px 0; padding-left:5px; }
+  .markdown-body :global(a) { color:var(--accent-hover); }
+  .markdown-body :global(code) { padding:.15em .35em; background:var(--bg-elev2); color:var(--fg); font-family:var(--mono); font-size:.88em; overflow-wrap:anywhere; }
+  .markdown-body :global(pre) { max-width:100%; margin:28px 0; padding:22px; overflow-x:auto; border:1px solid var(--border); background:var(--code-bg); -webkit-overflow-scrolling:touch; }
+  .markdown-body :global(pre code) { display:block; padding:0; background:transparent; white-space:pre; font-size:13px; line-height:1.72; }
+  .markdown-body :global(.table-wrap) { max-width:100%; margin:28px 0 34px; overflow-x:auto; border-top:1px solid var(--border); -webkit-overflow-scrolling:touch; }
+  .markdown-body :global(table) { width:100%; min-width:620px; border-collapse:collapse; font-size:14px; }
+  .markdown-body :global(th), .markdown-body :global(td) { padding:13px 14px; border-bottom:1px solid var(--border); text-align:left; vertical-align:top; }
+  .markdown-body :global(th) { background:var(--bg-elev); color:var(--fg); }
+  .markdown-body :global(td) { color:var(--fg-dim); }
+  .source-buffer { position:fixed; width:1px; height:1px; left:-10000px; opacity:0; pointer-events:none; }
+
+  @media (max-width:820px) {
+    .template-shell { width:calc(100% - 64px); grid-template-columns:1fr; gap:58px; padding:72px 0 92px; }
+    .template-rail { position:static; }
+    .template-back { margin-bottom:44px; }
+    .template-actions { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .text-action { grid-column:1 / -1; }
   }
-  h1 { margin: 0; max-width: 760px; font-size: var(--text-h1); line-height: var(--leading-h1); letter-spacing: 0; }
-  .source-note { margin: 18px 0 0; font-size: var(--text-lead); color: var(--fg-dim); }
-  .markdown-body { padding: 42px 0 54px; }
-  /* 독서면 산문 = 토큰의 리드 크기(17px). --text-body(15px)는 조직도 dd 처럼 짧은 항목용이라
-     긴 글에 쓰면 읽기 부담이 커진다. */
-  .markdown-body :global(h1) { font-size: var(--text-h1); line-height: var(--leading-h1); letter-spacing: 0; margin: 0 0 24px; }
-  .markdown-body :global(h2) { margin: 52px 0 16px; padding-top: 18px; border-top: 1px solid var(--border-soft); font-size: var(--text-h2); line-height: 1.3; letter-spacing: 0; }
-  .markdown-body :global(h3) { margin: 34px 0 12px; font-size: var(--text-h3); letter-spacing: 0; }
-  .markdown-body :global(p) { margin: 0 0 18px; font-size: var(--text-lead); line-height: var(--leading-body); color: var(--fg-dim); }
-  .markdown-body :global(ul), .markdown-body :global(ol) { margin: 0 0 24px; padding-left: 1.35rem; font-size: var(--text-lead); line-height: var(--leading-body); color: var(--fg-dim); }
-  .markdown-body :global(li) { padding-left: 5px; margin: 5px 0; }
-  .markdown-body :global(code) { padding: .15em .35em; border-radius: var(--radius-btn); background: var(--bg-elev); font-family: var(--mono); font-size: .9em; overflow-wrap: anywhere; }
-  .markdown-body :global(pre) { max-width: 100%; overflow-x: auto; margin: 24px 0; padding: 18px; border: 1px solid var(--border); border-radius: var(--radius-card); background: var(--code-bg); -webkit-overflow-scrolling: touch; }
-  .markdown-body :global(pre code) { display: block; padding: 0; border-radius: 0; white-space: pre; background: transparent; font-size: 13px; line-height: var(--leading-body); }
-  .markdown-body :global(.table-wrap) { max-width: 100%; overflow-x: auto; margin: 24px 0 30px; border-top: 1px solid var(--border); -webkit-overflow-scrolling: touch; }
-  .markdown-body :global(table) { width: 100%; min-width: 620px; border-collapse: collapse; font-size: var(--text-desc); }
-  .markdown-body :global(th), .markdown-body :global(td) { padding: 11px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
-  .markdown-body :global(th) { color: var(--fg); font-weight: 700; background: var(--bg-elev); }
-  .markdown-body :global(td) { color: var(--fg-dim); }
-  .template-foot { display: flex; justify-content: space-between; gap: 18px; padding-top: 22px; border-top: 1px solid var(--border-soft); color: var(--fg-mute); font-size: var(--text-desc); }
-  .template-foot p { margin: 0; }
-  @media (max-width: 640px) { .page-shell { width: min(calc(100% - 32px), 900px); padding: var(--pad-section-sm) 0 64px; } .template-head { padding-bottom: 24px; } .markdown-body { padding-top: 30px; } .template-foot { display: block; } .template-foot a { display: inline-block; margin-top: 6px; overflow-wrap: anywhere; } }
+
+  @media (max-width:640px) {
+    .template-shell { width:calc(100% - 40px); padding:58px 0 76px; }
+    .template-actions { grid-template-columns:1fr; }
+    .text-action { grid-column:auto; }
+    .markdown-body :global(p), .markdown-body :global(ul), .markdown-body :global(ol) { font-size:16px; }
+  }
 </style>

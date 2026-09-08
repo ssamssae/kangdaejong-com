@@ -1,7 +1,5 @@
 ---
-// 타이포·간격·형태 토큰 정본 — 이 페이지에서 추출한 값이라 여기가 원본이지만,
-// 리터럴을 들고 있으면 토큰을 고칠 때 기준 페이지만 안 따라온다 (T-260807-018)
-import "../styles/tokens.css";
+import SiteLayout from "../layouts/SiteLayout.astro";
 
 const company = {
   name: "마이너스베타스튜디오",
@@ -9,617 +7,94 @@ const company = {
   email: "minusbetastudio@gmail.com",
 };
 
-const siteUrl = "https://kangdaejong.com/organization/";
-const description = `${company.name} 조직 구성 — 일상 운영은 AI 에이전트 조직이 맡고, 설립자 ${company.representative}이 지휘 라인 밖에서 방향·검토·비용을 승인합니다.`;
-const ogImage = "https://kangdaejong.com/og-image.png";
-const tagline = "Human in the loop.";
-
-// 운영 대표(AI) 1 + 워커 2. 공개면이므로 코드네임·역할·기기 급까지만 적는다.
-// 라이덴·테미스는 퇴사(복직 아님). 남은 AI = 아테나 + 헤르메스 + 볼칸.
-const orchestrator = {
-  codename: "아테나",
-  mark: "ATH",
-  role: "대표 · 운영 총괄",
-  device: "맥",
-  desc: "작업을 나누고 순서를 정합니다. 사람 지시가 오면 그 자리에서 바로 착수하고, 결과 반영도 합니다.",
-};
-
-// 인턴 = 지휘 라인 밖 감독 자리. 직함은 자칭이고, 권한의 내용은 아래 사람이 쥐고 있는 것 절이다.
-const supervisor = {
-  name: company.representative,
-  title: "인턴",
-  note: "설립자 · 법적 대표",
-  role: "지휘 라인 밖 감독",
-  desc: "일상 운영에는 관여하지 않습니다. 방향을 정하고, 밖으로 나가는 결과와 비용을 승인합니다.",
-};
-
-const workers = [
+const principles = [
   {
-    codename: "볼칸",
-    mark: "VUL",
-    role: "빌드 · 배포",
-    device: "맥 미니",
-    desc: "앱을 빌드하고 스토어에 올릴 파일을 만듭니다. 배포와 변경 반영도 이 자리에서 합니다.",
+    title: "방향은 사람이 정합니다.",
+    description: "무엇을 만들고 무엇을 멈출지, 누구에게 어떤 약속을 할지는 법적 대표가 결정합니다.",
   },
   {
-    codename: "헤르메스",
-    mark: "HER",
-    role: "개발 · 반영",
-    device: "맥북 프로",
-    desc: "기능을 구현하고 버그를 고칩니다. 변경을 검토해 반영할 자격도 있습니다.",
+    title: "AI는 반복 작업을 돕습니다.",
+    description: "조사·초안·구현·검증처럼 되풀이되는 작업에는 AI 도구를 쓰되, 결과를 책임 주체로 소개하지 않습니다.",
+  },
+  {
+    title: "공개 전에는 다시 확인합니다.",
+    description: "제품 변경, 외부 발신, 결제와 비용, 되돌리기 어려운 동작은 사람이 확인한 뒤 반영합니다.",
   },
 ];
 
-// 사람이 쥐고 있는 지점 — 「AI 가 알아서 다 한다」로 읽히지 않게 명시한다.
-const humanGates = [
-  { number: "01", label: "방향", desc: "무엇을 만들지, 무엇을 접을지는 인턴이 정합니다." },
-  { number: "02", label: "검토", desc: "공개되는 변경은 사람이 눈으로 확인한 뒤 반영합니다." },
-  { number: "03", label: "비용", desc: "돈이 나가는 동작은 사람이 켜야만 실행됩니다." },
+const checks = [
+  { label: "FACT", title: "사실", description: "제품 상태와 가격, 회사 정보가 공개 근거와 맞는지 확인합니다." },
+  { label: "USE", title: "사용", description: "구매·다운로드·연락 링크가 실제 목적지까지 이어지는지 확인합니다." },
+  { label: "CARE", title: "책임", description: "자동화가 빠른 것보다 사람이 되돌리고 설명할 수 있는지를 먼저 봅니다." },
 ];
 
-const proofPoints = [
-  { label: "운영 대표", value: "1", desc: "작업을 나눠 배정" },
-  { label: "워커", value: String(workers.length), desc: "구현 · 빌드 · 검증" },
-  { label: "사람 감독", value: "1", desc: "지휘 라인 밖" },
-  { label: "승인 지점", value: String(humanGates.length), desc: "사람이 켜야 실행" },
-];
+const description = `${company.name}의 책임 구조 — 법적 대표 ${company.representative}이 방향, 공개, 비용을 결정하고 AI는 반복 작업을 보조합니다.`;
 ---
 
-<!doctype html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content={description} />
-    <link rel="canonical" href={siteUrl} />
-
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={company.name} />
-    <meta property="og:locale" content="ko_KR" />
-    <meta property="og:url" content={siteUrl} />
-    <meta property="og:title" content={`조직 구성 — ${company.name}`} />
-    <meta property="og:description" content={description} />
-    <meta property="og:image" content={ogImage} />
-    <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`조직 구성 — ${company.name}`} />
-    <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={ogImage} />
-
-    <link rel="icon" href="/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet" />
-    <meta name="theme-color" content="#08090A" />
-    <title>조직 구성 — {company.name}</title>
-    <script is:inline src="/mb-components.js" defer></script>
-  </head>
-  <body>
-    <mb-header active="organization" tone="studio"></mb-header>
-    <main>
-      <div class="page-shell">
-        <section class="hero" aria-labelledby="page-title">
-          <div class="hero-inner">
-            <img class="hero-mark" src="/minusbeta-badge.svg" alt="" width="640" height="640" aria-hidden="true" />
-            <div class="hero-copy">
-              <p class="eyebrow">1인 스튜디오 · 조직</p>
-              <h1 id="page-title"><span>운영은 AI 조직이,</span><span>감독은 사람이</span></h1>
-              <p class="tagline">{tagline}</p>
-              <p class="lead">
-                {company.name}의 일상 운영은 AI 에이전트 조직이 맡습니다. 사람을 더 뽑는 대신, 반복되는
-                개발·빌드·검증 작업을 에이전트에게 나눠 맡기고 사람은 지휘 라인 밖에서 감독합니다.
-              </p>
-              <p class="lead sub">
-                에이전트가 맡는 것은 <strong>반복 작업</strong>이고, 무엇을 만들지와 무엇을 내보낼지는
-                사람이 승인합니다. 아래 구조는 그 일을 어떻게 나눴는지를 보여줍니다.
-              </p>
-              <p class="legal-note">
-                법적으로는 {company.representative} 1인 사업자입니다. 아래 직함은 사업자등록상 지위가 아니라
-                <strong>실제 업무 분담</strong>을 나타냅니다.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section class="proof-strip" aria-label="조직 요약">
-          <div class="proof-inner">
-            {proofPoints.map((item) => (
-              <div>
-                <span>{item.label}</span>
-                <strong>{item.value}</strong>
-                <p>{item.desc}</p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section class="chart-section" aria-labelledby="chart-title">
-          <div class="section-head split">
-            <div>
-              <p class="eyebrow">역할</p>
-              <h2 id="chart-title">누가 무엇을 맡는지</h2>
-            </div>
-            <p>
-              에이전트는 맡은 작업을 끝내면 결과를 되돌려 보냅니다. 서로 직접 지시하지 않습니다.
-              평소 배정은 운영 대표가 나누고, 사람 지시가 있으면 그 자리에서 바로 착수합니다.
-              점선은 지휘가 아니라 감독 관계입니다.
-            </p>
-          </div>
-
-          <!-- 조직도 = CSS 로 직접 그린다(외부 이미지·CDN 없음).
-               데스크톱은 가로 2열(워커), 모바일은 세로 스택으로 접히고 연결선도 같이 바뀐다.
-               스크린리더에는 중첩 목록으로 읽힌다. -->
-          <div class="chart" role="group" aria-labelledby="chart-title">
-            <div class="tier tier-top">
-              <div class="tier-spacer" aria-hidden="true"></div>
-
-              <article class="node node-agent is-orchestrator">
-                <span class="node-badge">AI · {orchestrator.mark}</span>
-                <h3>{orchestrator.codename}</h3>
-                <p class="node-role">{orchestrator.role} · {orchestrator.device}</p>
-                <p class="node-desc">{orchestrator.desc}</p>
-              </article>
-
-              <div class="oversight">
-                <span class="link-dashed" aria-hidden="true"></span>
-                <article class="node node-human">
-                  <span class="node-badge">사람 · {supervisor.title}</span>
-                  <h3>{supervisor.name}</h3>
-                  <p class="node-role">{supervisor.role} · {supervisor.note}</p>
-                  <p class="node-desc">{supervisor.desc}</p>
-                </article>
-              </div>
-            </div>
-
-            <div class="link link-branch" aria-hidden="true">
-              <span class="stem"></span>
-              <span class="bus"></span>
-            </div>
-
-            <ul class="tier tier-workers">
-              {workers.map((w) => (
-                <li>
-                  <article class="node node-agent">
-                    <span class="node-badge">AI · {w.mark}</span>
-                    <h3>{w.codename}</h3>
-                    <p class="node-role">{w.role} · {w.device}</p>
-                    <p class="node-desc">{w.desc}</p>
-                  </article>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </section>
-
-        <section class="human-section" aria-labelledby="human-title">
-          <div class="section-head split">
-            <div>
-              <p class="eyebrow">사람이 쥐고 있는 것</p>
-              <h2 id="human-title">인턴이 승인하는 세 지점</h2>
-            </div>
-            <p>반복 작업은 에이전트가 합니다. 방향과 공개, 돈이 나가는 동작은 사람이 킵니다.</p>
-          </div>
-          <ol class="focus-list">
-            {humanGates.map((g) => (
-              <li>
-                <span>{g.number}</span>
-                <strong>{g.label}</strong>
-                <p>{g.desc}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section class="back-section" aria-label="관련 링크">
-          <a class="button primary" href="/">회사소개로 돌아가기</a>
-          <a class="button" href={`mailto:${company.email}`}>문의하기</a>
-        </section>
+<SiteLayout title="회사와 책임" description={description} canonical="https://kangdaejong.com/organization/" active="organization" bodyClass="organization-page">
+  <main id="main-content">
+    <section class="subpage-hero" aria-labelledby="page-title">
+      <div class="site-shell subpage-hero-grid">
+        <div>
+          <p class="eyebrow">Company & responsibility</p>
+          <h1 class="page-title" id="page-title">작게 운영해도,<br />책임은 선명하게.</h1>
+          <p class="lede">{company.name}는 {company.representative}이 운영하는 1인 사업자입니다. AI 도구를 함께 쓰지만, 제품과 고객에게 하는 약속의 책임은 사람에게 있습니다.</p>
+        </div>
+        <div class="subpage-mark" aria-hidden="true">責</div>
       </div>
-    </main>
-    <mb-footer tone="studio"></mb-footer>
+    </section>
 
-    <style is:global>
-      /* Linear 크롬 (T-260831-005 기준점) — tokens.css 와 같은 값. */
-      :root {
-        color-scheme: dark;
-        --bg: #08090A;
-        --bg-elev: #0F1011;
-        --bg-elev2: #1C1C1F;
-        --fg: #F7F8F8;
-        --fg-dim: #D0D6E0;
-        --fg-mute: #8A8F98;
-        --border: rgba(255, 255, 255, 0.08);
-        --border-soft: rgba(255, 255, 255, 0.05);
-        --accent: #7170FF;
-        --accent-dim: #828FFF;
-        --cta-fg: #08090A;
-      }
+    <section class="responsibility-band" aria-label="법적 책임자">
+      <div class="site-shell responsibility-row">
+        <span>LEGAL OWNER</span>
+        <strong>법적 대표 {company.representative}</strong>
+        <p>1인 스튜디오 · 서울 마포</p>
+      </div>
+    </section>
 
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+    <section class="section site-shell" aria-labelledby="principles-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Working principle</p>
+          <h2 class="section-title" id="principles-title">AI는 도구이고,<br />결정은 사람의 일입니다.</h2>
+        </div>
+        <p class="section-intro">내부의 역할 이름이나 기기 목록보다, 방문자가 알아야 할 책임의 경계를 공개합니다.</p>
+      </div>
+      <ol class="principles">
+        {principles.map((principle) => (
+          <li class="principle">
+            <h3>{principle.title}</h3>
+            <p>{principle.description}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
 
-      html { color-scheme: dark; background: var(--bg); scroll-behavior: smooth; scrollbar-gutter: stable; }
+    <section class="section site-shell" aria-labelledby="checks-title">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Before publishing</p>
+          <h2 class="section-title" id="checks-title">내보내기 전에 보는 세 가지.</h2>
+        </div>
+        <p class="section-intro">자동화의 속도는 유용하지만, 공개된 결과의 정확성과 사용 가능성을 대신하지는 않습니다.</p>
+      </div>
+      <div class="boundary-grid">
+        {checks.map((item) => (
+          <article class="boundary-item">
+            <span>{item.label}</span>
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
 
-      body {
-        background: var(--bg);
-        color: var(--fg);
-        font-family: var(--sans);
-        line-height: var(--leading-body);
-        text-rendering: geometricPrecision;
-      }
-
-      main { width: 100%; margin: 0; padding: 0 0 72px; }
-
-      .page-shell { width: min(calc(100% - 92px), 1250px); margin: 0 auto; }
-
-      a { color: var(--fg); text-decoration: none; }
-      a:hover { color: var(--accent); }
-
-      h1, h2, h3 { color: var(--fg); font-family: var(--sans); font-weight: 510; letter-spacing: -0.022em; }
-      p { color: var(--fg-dim); }
-
-      .eyebrow {
-        font-family: var(--mono);
-        font-size: var(--text-meta);
-        font-weight: 600;
-        letter-spacing: 0.06em;
-        color: var(--fg-mute);
-      }
-
-      main section {
-        padding: var(--pad-section) 0;
-        border-bottom: 1px solid var(--border-soft);
-      }
-
-      .back-section { border-bottom: 0; }
-
-      .section-head { margin-bottom: var(--pad-head-bottom); }
-      .section-head h2 {
-        margin-top: 10px;
-        font-size: var(--text-h2);
-        line-height: 1.18;
-        word-break: keep-all;
-      }
-
-      .section-head.split > p {
-        max-width: var(--measure);
-        margin-top: 14px;
-        font-size: var(--text-body);
-        color: var(--fg-mute);
-        word-break: keep-all;
-      }
-
-      @media (min-width: 860px) {
-        .section-head.split {
-          display: grid;
-          grid-template-columns: minmax(0, 1.15fr) minmax(220px, 0.85fr);
-          gap: 48px;
-          align-items: end;
-        }
-        .section-head.split > p { margin-top: 0; }
-      }
-
-      .hero { position: relative; overflow: hidden; padding: 104px 0 40px; }
-
-      .hero-inner {
-        position: relative;
-        display: grid;
-        grid-template-columns: minmax(0, 1fr);
-        gap: 0;
-        align-items: end;
-        min-height: 36vh;
-      }
-
-      .hero-copy { position: relative; z-index: 1; min-width: 0; max-width: 40rem; }
-
-      .hero-mark {
-        position: absolute;
-        right: -120px;
-        top: -80px;
-        width: min(58vw, 640px);
-        height: auto;
-        opacity: 0.07;
-        pointer-events: none;
-        user-select: none;
-      }
-
-      .hero h1 {
-        margin: 16px 0 14px;
-        font-size: var(--text-h1);
-        line-height: var(--leading-h1);
-        font-weight: 510;
-        letter-spacing: -0.022em;
-        overflow-wrap: anywhere;
-        word-break: keep-all;
-      }
-
-      .hero h1 span { display: block; }
-
-      .tagline {
-        margin-bottom: 18px;
-        font-family: var(--mono);
-        font-size: 13px;
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-dim);
-        text-transform: uppercase;
-      }
-
-      .lead { max-width: var(--measure); font-size: var(--text-lead); word-break: keep-all; }
-      .lead.sub { margin-top: 14px; }
-      .lead strong { color: var(--fg); font-weight: 700; }
-
-      .legal-note {
-        max-width: var(--measure);
-        margin-top: 18px;
-        padding-top: 14px;
-        border-top: 1px solid var(--border-soft);
-        font-size: var(--text-desc);
-        color: var(--fg-mute);
-        word-break: keep-all;
-      }
-      .legal-note strong { color: var(--fg-dim); font-weight: 700; }
-
-      .proof-strip { padding-top: 8px; padding-bottom: var(--pad-section); }
-
-      .proof-inner {
-        display: grid;
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-        gap: 0;
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-      }
-
-      .proof-inner > div {
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        min-width: 0;
-        padding: 28px 20px 28px 0;
-      }
-
-      .proof-inner > div + div { padding-left: 20px; border-left: 1px solid var(--border-soft); }
-
-      .proof-inner span {
-        font-family: var(--mono);
-        font-size: var(--text-badge);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-        text-transform: uppercase;
-      }
-
-      .proof-inner strong { color: var(--fg); font-size: 28px; line-height: 1.15; letter-spacing: -0.04em; overflow-wrap: anywhere; }
-
-      .proof-inner p { font-size: var(--text-desc); line-height: var(--leading-desc); }
-
-      .chart { display: flex; flex-direction: column; align-items: center; }
-
-      .tier { display: flex; justify-content: center; width: 100%; }
-
-      .tier-top {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-        gap: 0;
-      }
-
-      .oversight { display: flex; align-items: center; min-width: 0; }
-
-      .link-dashed {
-        flex: 0 0 40px;
-        height: 0;
-        border-top: 1px dashed var(--border);
-      }
-
-      .tier-workers { list-style: none; gap: var(--gap-card); align-items: stretch; }
-      .tier-workers > li { display: flex; flex: 1 1 0; min-width: 0; }
-
-      .node {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        width: 100%;
-        max-width: 340px;
-        padding: 22px;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-card);
-        background: var(--bg);
-      }
-
-      .node:hover { border-color: var(--accent); }
-
-      .is-orchestrator { background: var(--bg-elev); padding: 28px 24px; }
-
-      .node-badge {
-        font-family: var(--mono);
-        font-size: var(--text-badge);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-        text-transform: uppercase;
-      }
-
-      .node h3 {
-        font-size: var(--text-h3);
-        line-height: 1.32;
-        overflow-wrap: anywhere;
-        word-break: keep-all;
-      }
-
-      .node-role { font-family: var(--mono); font-size: var(--text-meta); color: var(--fg-mute); }
-      .node-desc { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
-
-      .link-branch { position: relative; width: 100%; height: 46px; }
-      .link-branch .stem {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        width: 1px;
-        height: 22px;
-        background: var(--border);
-      }
-      .link-branch .bus {
-        position: absolute;
-        top: 22px;
-        left: calc(25% - 0.5px);
-        right: calc(25% - 0.5px);
-        height: 24px;
-        border: 1px solid var(--border);
-        border-bottom: 0;
-        border-radius: 0;
-      }
-      .link-branch::before,
-      .link-branch::after { display: none; }
-
-      .focus-list {
-        display: grid;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: var(--gap-card);
-        list-style: none;
-      }
-
-      .focus-list li {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
-        min-width: 0;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-card);
-        background: var(--bg);
-        padding: 22px;
-      }
-
-      .focus-list li > span {
-        font-family: var(--mono);
-        font-size: var(--text-badge);
-        font-weight: 600;
-        letter-spacing: var(--track-badge);
-        color: var(--fg-mute);
-        text-transform: uppercase;
-      }
-
-      .focus-list strong { color: var(--fg); font-size: var(--text-h3); line-height: 1.3; }
-
-      .focus-list p { font-size: var(--text-desc); line-height: var(--leading-desc); word-break: keep-all; }
-
-      .back-section { display: flex; flex-wrap: wrap; gap: 10px; padding-top: 48px; }
-
-      .button {
-        display: inline-flex;
-        align-items: center;
-        border: 1px solid var(--border);
-        border-radius: var(--radius-pill);
-        background: var(--bg);
-        color: var(--fg);
-        font-size: 13px;
-        font-weight: 510;
-        min-height: 32px;
-        padding: 0 12px;
-      }
-
-      .button:hover { border-color: var(--accent); color: var(--accent); }
-
-      .button.primary {
-        border-color: var(--accent);
-        background: var(--accent);
-        color: var(--fg);
-        font-weight: 510;
-      }
-
-      .button.primary:hover {
-        border-color: var(--accent-dim);
-        background: var(--accent-dim);
-        color: var(--cta-fg);
-      }
-
-      @media (max-width: 900px) {
-        .hero { padding-top: 56px; min-height: 0; }
-        .hero-inner { min-height: 0; }
-
-        .proof-inner { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .proof-inner > div + div { padding-left: 16px; }
-        .focus-list { grid-template-columns: 1fr; }
-
-        .tier-top { grid-template-columns: 1fr; }
-        .tier-spacer { display: none; }
-
-        .oversight {
-          position: relative;
-          margin: 16px 0 0 22px;
-          padding-top: 12px;
-          flex-direction: column;
-          align-items: stretch;
-        }
-        .oversight::before {
-          content: "";
-          position: absolute;
-          left: -22px;
-          top: 0;
-          bottom: -16px;
-          width: 1px;
-          background: var(--border);
-        }
-        .link-dashed {
-          position: absolute;
-          left: -22px;
-          top: 40px;
-          width: 22px;
-          height: 0;
-          flex: none;
-          border-top: 1px dashed var(--border);
-        }
-
-        .tier-workers { flex-direction: column; align-items: stretch; gap: 12px; position: relative; padding-left: 22px; }
-        .tier-workers::before {
-          content: "";
-          position: absolute;
-          left: 0;
-          top: 0;
-          bottom: 50%;
-          width: 1px;
-          background: var(--border);
-        }
-        .tier-workers > li { position: relative; }
-        .tier-workers > li::before {
-          content: "";
-          position: absolute;
-          left: -22px;
-          top: 28px;
-          width: 22px;
-          height: 1px;
-          background: var(--border);
-        }
-        .node { max-width: none; }
-
-        .link-branch { height: 16px; }
-        .link-branch .bus,
-        .link-branch::before,
-        .link-branch::after { display: none; }
-        .link-branch .stem { height: 16px; left: 0; }
-      }
-
-      @media (max-width: 640px) {
-        .page-shell { width: calc(100% - 48px); }
-        main { padding-bottom: 56px; }
-        main section { padding: var(--pad-section-sm) 0; }
-        .hero { padding: 40px 0 12px; }
-        .hero-mark { right: -160px; top: -40px; width: 420px; opacity: 0.05; }
-
-        .proof-inner { grid-template-columns: 1fr; border-bottom: 0; }
-        .proof-inner > div {
-          padding: 18px 0;
-          border-left: 0;
-          border-bottom: 1px solid var(--border-soft);
-        }
-        .proof-inner > div + div { padding-left: 0; }
-        .is-orchestrator { padding: 22px; }
-      }
-    </style>
-  </body>
-</html>
+    <section class="site-shell closing-callout" aria-label="회사 문의">
+      <p>제품, 구매, 공개 도구에 관한 문의는 대표 이메일로 받습니다.</p>
+      <div class="button-row">
+        <a class="button" href="/">회사 홈으로</a>
+        <a class="button primary" href={`mailto:${company.email}`}>이메일 문의</a>
+      </div>
+    </section>
+  </main>
+</SiteLayout>

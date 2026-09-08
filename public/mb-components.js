@@ -1,133 +1,111 @@
-/*
- * 마이너스베타스튜디오 공통 헤더/푸터 (single source of truth)
- * 세 사이트(kangdaejong.com / founder / work)가 이 파일 하나를 불러 씁니다.
- * 메뉴·색·회사정보를 여기서만 고치면 세 사이트에 동시 반영됩니다.
- *
- * 사용법:
- *   <script src="https://kangdaejong.com/mb-components.js" defer></script>
- *   <mb-header active="home"></mb-header>   // active = home|founder|workshop|worklog|newsletter|insights|products|system|lab
- *   <mb-footer></mb-footer>
- */
+/* 마이너스베타스튜디오 공통 헤더/푸터 — T-260908-056 visitor-first renewal. */
 (function () {
   const BADGE = 'https://kangdaejong.com/minusbeta-badge.svg';
-
-  // A안(콘텐츠 축, 2026-07-20 아니키 픽 · T-260720-029): 상단은 '작업장 3개'(제품/작업일지/
-  // 뉴스레터)만 노출하고, 나머지는 '더보기' 드롭다운으로 강등해 헤더를 슬림하게 유지한다.
-  //   브랜드 = 강대종/파운더 홈(kangdaejong.com)
-  //   1행 = 브랜드 + 주 메뉴(제품/작업일지/뉴스레터) + 더보기 드롭다운 + 문의 CTA
-  //   더보기 = 작업장/인사이트/시스템/비용공개/lab/회사소개/대표소개
-  // 2026-08-06 T-260806-060: 조직도를 더보기가 아니라 1행에 올린다(아니키 「헤더에서 바로」).
-  // A안의 '작업장 3개' 축과는 다른 성격(회사 소개면)이지만, 직접 노출이 명시 요구다.
   const BRAND_HREF = 'https://kangdaejong.com/';
+
+  // active = home|products|books|tools|organization|system|workshop|worklog|newsletter|founder
   const NAV_PRIMARY = [
-    { key: 'products',   label: '제품',     href: 'https://work.kangdaejong.com/products/' },
-    { key: 'worklog',    label: '작업일지', href: 'https://work.kangdaejong.com/worklog' },
-    { key: 'newsletter', label: '뉴스레터', href: 'https://work.kangdaejong.com/newsletter' },
-    { key: 'organization', label: '조직도', href: 'https://kangdaejong.com/organization/' },
+    { key: 'products', label: '제품', href: 'https://kangdaejong.com/#products' },
+    { key: 'books', label: '책·템플릿', href: 'https://kangdaejong.com/#books' },
+    { key: 'tools', label: '공개 도구', href: 'https://kangdaejong.com/#open-tools' },
   ];
   const NAV_MORE = [
-    { key: 'workshop', label: '작업장',   href: 'https://work.kangdaejong.com/' },
-    { key: 'insights', label: '인사이트', href: 'https://work.kangdaejong.com/insights' },
-    { key: 'system',   label: '시스템',   href: 'https://work.kangdaejong.com/system' },
-    { key: 'lab',      label: 'lab',      href: 'https://work.kangdaejong.com/lab' },
-    { key: 'home',     label: '회사소개', href: 'https://kangdaejong.com/' },
-    { key: 'founder',  label: '대표소개', href: 'https://founder.kangdaejong.com/' },
+    { key: 'organization', label: '회사와 책임', href: 'https://kangdaejong.com/organization/' },
+    { key: 'system', label: '만드는 방식', href: 'https://kangdaejong.com/system/' },
+    { key: 'workshop', label: '작업장', href: 'https://work.kangdaejong.com/' },
+    { key: 'worklog', label: '작업일지', href: 'https://work.kangdaejong.com/worklog' },
+    { key: 'newsletter', label: '뉴스레터', href: 'https://minusbetastudio.substack.com' },
+    { key: 'founder', label: '대표 소개', href: 'https://founder.kangdaejong.com/' },
   ];
 
-  // 공통 팔레트 (shadow DOM 안에서 자족 — 각 사이트 CSS 변수와 무관하게 동일하게 렌더)
-  // T-260831-005: Linear.app 크롬. 회사/작업장/파운더가 같은 다크 고급 톤.
-  // OS 라이트/다크를 가르지 않는다. 이름(PALETTE_DARK)은 호스트 미디어쿼리 배선용으로 남긴다.
   const PALETTE = `
-    --mb-bg:#08090A; --mb-elev:#0F1011; --mb-fg:#F7F8F8; --mb-dim:#D0D6E0; --mb-mute:#8A8F98;
-    --mb-border:rgba(255,255,255,0.08); --mb-soft:#1C1C1F; --mb-accent:#7170FF; --mb-accent-dim:#828FFF;
-    --mb-cta-bg:#E5E5E6; --mb-cta-fg:#08090A; --mb-shadow:transparent;
+    --mb-bg:#11100e; --mb-elev:#181613; --mb-fg:#f5efe2; --mb-dim:#d2cabd; --mb-mute:#9f978b;
+    --mb-border:rgba(245,239,226,.16); --mb-soft:#211e1a; --mb-accent:#d5a06f;
+    --mb-cta-bg:#f2eadc; --mb-cta-fg:#17130f;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
+    --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
   `;
-  // tone="studio" 도 같은 Linear 크롬. 옛 남색+코퍼 분기는 폐기.
-  const PALETTE_STUDIO = `
-    --mb-bg:#08090A; --mb-elev:#0F1011; --mb-fg:#F7F8F8; --mb-dim:#D0D6E0; --mb-mute:#8A8F98;
-    --mb-border:rgba(255,255,255,0.08); --mb-soft:#1C1C1F; --mb-accent:#7170FF; --mb-accent-dim:#828FFF;
-    --mb-cta-bg:#E5E5E6; --mb-cta-fg:#08090A; --mb-shadow:transparent;
-    --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
-    --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
-  `;
-  const PALETTE_DARK = PALETTE;
-  const DARK_RULE = `@media (prefers-color-scheme: dark) { :host { ${PALETTE_DARK} } }`;
-  const hostPalette = (el) => (el.getAttribute('tone') === 'studio' ? PALETTE_STUDIO : PALETTE);
-  const hostDarkRule = (el) => (el.getAttribute('tone') === 'studio' ? '' : DARK_RULE);
+  const PALETTE_STUDIO = PALETTE;
+  const hostPalette = () => PALETTE_STUDIO;
 
   class MbHeader extends HTMLElement {
     connectedCallback() {
       const active = this.getAttribute('active') || '';
-      const mk = (n) =>
-        `<a href="${n.href}"${n.key === active ? ' class="active" aria-current="page"' : ''}>${n.label}</a>`;
-      const primary = NAV_PRIMARY.map(mk).join('');
-      const more = NAV_MORE.map(mk).join('');
-      const moreActive = NAV_MORE.some((n) => n.key === active);
+      const makeLink = (item) =>
+        `<a href="${item.href}"${item.key === active ? ' class="active" aria-current="page"' : ''}>${item.label}</a>`;
+      const moreActive = NAV_MORE.some((item) => item.key === active);
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
         <style>
-          /* 타이포 자족화: 호스트 페이지(회사소개/대표소개)의 line-height·letter-spacing
-             상속 차이로 헤더가 사이트마다 다르게 보이던 것 차단 — 두 사이트 동일 렌더. */
-          :host { ${hostPalette(this)} display:block; line-height:1.65; letter-spacing:normal; font-style:normal; }
-          ${hostDarkRule(this)}
-          .hdr { position:sticky; top:0; z-index:50; border-bottom:1px solid var(--mb-border); background:color-mix(in srgb, var(--mb-bg) 94%, transparent); backdrop-filter:blur(12px); font-family:var(--mb-sans); }
-          .inner { width:min(calc(100% - 92px), 1250px); margin:0 auto; min-height:72px; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:24px; }
-          .brand { display:inline-flex; align-items:center; gap:10px; color:var(--mb-fg); font-size:15px; font-weight:510; text-decoration:none; white-space:nowrap; }
+          :host { ${hostPalette()} display:block; line-height:1.5; letter-spacing:normal; }
+          .header { position:relative; z-index:70; border-bottom:1px solid var(--mb-border); background:var(--mb-bg); font-family:var(--mb-sans); }
+          .inner { width:min(calc(100% - 112px),1320px); min-height:76px; margin:0 auto; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:32px; }
+          .brand { display:inline-flex; align-items:center; gap:11px; color:var(--mb-fg); font-family:var(--mb-serif); font-size:15px; font-weight:600; text-decoration:none; white-space:nowrap; }
           .brand img { width:30px; height:30px; display:block; }
-          .links { display:flex; align-items:center; justify-content:center; gap:22px; min-width:0; font-size:13px; white-space:nowrap; }
-          .links a { color:var(--mb-mute); text-decoration:none; transition:color .15s; }
-          .links a:hover, .links a.active { color:var(--mb-fg); }
-          .links a.active { font-weight:510; }
-          .actions { display:inline-flex; align-items:center; gap:12px; white-space:nowrap; }
-          .more { position:relative; display:inline-flex; }
-          .more-btn { display:inline-flex; align-items:center; gap:4px; min-height:34px; padding:0 6px; border:0; background:none; cursor:pointer; color:var(--mb-dim); font-family:inherit; font-size:13px; transition:color .15s; }
-          .more-btn:hover, .more-btn.active, .more.open .more-btn { color:var(--mb-fg); }
-          .more-btn.active { font-weight:510; }
-          .more-btn .chev { font-size:10px; transition:transform .15s; }
-          .more.open .more-btn .chev { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:0; top:calc(100% + 8px); z-index:60; display:none; flex-direction:column; min-width:168px; padding:8px; background:var(--mb-bg); border:1px solid var(--mb-border); border-radius:0; box-shadow:none; }
-          .more.open .more-panel { display:flex; }
-          .more-panel a { padding:9px 10px; border-radius:0; color:var(--mb-dim); text-decoration:none; font-size:13px; white-space:nowrap; transition:background .12s, color .12s; }
-          .more-panel a:hover { background:var(--mb-soft); color:var(--mb-fg); }
-          .more-panel a.active { color:var(--mb-fg); font-weight:510; background:var(--mb-soft); }
-          .cta { display:inline-flex; align-items:center; justify-content:center; min-height:32px; padding:0 12px; border-radius:9999px; background:var(--mb-cta-bg); color:var(--mb-cta-fg); font-size:13px; font-weight:510; text-decoration:none; white-space:nowrap; }
-          .cta:hover { background:var(--mb-cta-bg); color:var(--mb-cta-fg); filter:brightness(1.06); }
+          .links { display:flex; justify-content:center; align-items:center; gap:26px; min-width:0; font-size:13px; white-space:nowrap; }
+          .links a { color:var(--mb-mute); text-decoration:none; }
+          .links a:hover,.links a.active { color:var(--mb-fg); }
+          .links a.active { font-weight:600; }
+          .actions { display:flex; align-items:center; gap:10px; }
+          .more { position:relative; }
+          .more-button { min-height:38px; padding:0 8px; border:0; background:transparent; color:var(--mb-dim); cursor:pointer; font-family:inherit; font-size:13px; }
+          .more-button:hover,.more-button.active,.more.open .more-button { color:var(--mb-accent); }
+          .chevron { display:inline-block; margin-left:5px; font-size:9px; transition:transform .16s ease; }
+          .more.open .chevron { transform:rotate(180deg); }
+          .more-panel { position:absolute; right:0; top:calc(100% + 9px); display:none; width:202px; padding:9px; border:1px solid var(--mb-border); background:var(--mb-bg); box-shadow:0 22px 60px rgba(0,0,0,.28); }
+          .more.open .more-panel { display:grid; }
+          .more-panel a { padding:10px 11px; color:var(--mb-dim); font-size:13px; text-decoration:none; }
+          .more-panel a:hover,.more-panel a.active { background:var(--mb-soft); color:var(--mb-fg); }
+          .more-panel a.active { font-weight:600; }
+          .contact { display:inline-flex; min-height:38px; align-items:center; justify-content:center; padding:0 14px; border:1px solid var(--mb-border); color:var(--mb-fg); font-size:13px; font-weight:600; text-decoration:none; }
+          .contact:hover { border-color:var(--mb-accent); color:var(--mb-accent); }
+          :where(a,button):focus-visible { outline:2px solid var(--mb-accent); outline-offset:3px; }
           @media (max-width:760px) {
-            .inner { width:min(calc(100% - 48px), 1250px); grid-template-columns:1fr auto; min-height:auto; padding:14px 0 10px; gap:12px; }
+            .inner { width:min(calc(100% - 48px),1320px); min-height:auto; padding:13px 0 10px; grid-template-columns:1fr auto; gap:10px 14px; }
             .brand span { display:none; }
-            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:16px; overflow-x:auto; scrollbar-width:none; }
+            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:19px; overflow-x:auto; scrollbar-width:none; }
             .links::-webkit-scrollbar { display:none; }
             .actions { grid-column:2; grid-row:1; }
-            .cta { min-height:32px; padding:0 12px; }
+          }
+          @media (max-width:390px) {
+            .inner { width:calc(100% - 40px); }
+            .contact { padding:0 11px; }
           }
         </style>
-        <header class="hdr">
+        <header class="header">
           <div class="inner">
             <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="30" height="30"/><span>마이너스베타스튜디오</span></a>
-            <div class="links">${primary}</div>
+            <nav class="links" aria-label="주요 메뉴">${NAV_PRIMARY.map(makeLink).join('')}</nav>
             <div class="actions">
               <div class="more">
-                <button class="more-btn${moreActive ? ' active' : ''}" type="button" aria-haspopup="true" aria-expanded="false">더보기<span class="chev">▾</span></button>
-                <div class="more-panel" role="menu">${more}</div>
+                <button class="more-button${moreActive ? ' active' : ''}" type="button" aria-haspopup="true" aria-expanded="false">더보기<span class="chevron" aria-hidden="true">▾</span></button>
+                <nav class="more-panel" aria-label="더보기 메뉴">${NAV_MORE.map(makeLink).join('')}</nav>
               </div>
-              <a class="cta" href="mailto:minusbetastudio@gmail.com">문의</a>
+              <a class="contact" href="mailto:minusbetastudio@gmail.com">문의</a>
             </div>
           </div>
         </header>`;
-      const moreEl = root.querySelector('.more');
-      const btn = root.querySelector('.more-btn');
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const open = moreEl.classList.toggle('open');
-        btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+      const more = root.querySelector('.more');
+      const button = root.querySelector('.more-button');
+      const closeMenu = (restoreFocus = false) => {
+        more.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+        if (restoreFocus) button.focus();
+      };
+      button.addEventListener('click', (event) => {
+        event.stopPropagation();
+        const open = more.classList.toggle('open');
+        button.setAttribute('aria-expanded', String(open));
       });
-      root.querySelector('.more-panel').addEventListener('click', (e) => e.stopPropagation());
-      document.addEventListener('click', () => {
-        if (!moreEl.classList.contains('open')) return;
-        moreEl.classList.remove('open');
-        btn.setAttribute('aria-expanded', 'false');
+      root.querySelector('.more-panel').addEventListener('click', (event) => event.stopPropagation());
+      root.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && more.classList.contains('open')) closeMenu(true);
+      });
+      document.addEventListener('click', () => closeMenu(false));
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && more.classList.contains('open')) closeMenu(true);
       });
     }
   }
@@ -137,21 +115,22 @@
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
         <style>
-          :host { ${hostPalette(this)} display:block; }
-          ${hostDarkRule(this)}
-          footer { width:min(calc(100% - 92px), 1250px); margin:0 auto; padding:34px 0 56px; border-top:1px solid var(--mb-border); font-family:var(--mb-sans); color:var(--mb-mute); font-size:12px; }
-          .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:16px; margin-bottom:16px; }
-          .foot-head strong { color:var(--mb-fg); font-size:14px; }
+          :host { ${hostPalette()} display:block; }
+          footer { width:min(calc(100% - 112px),1320px); margin:0 auto; padding:42px 0 58px; border-top:1px solid var(--mb-border); color:var(--mb-mute); font-family:var(--mb-sans); font-size:12px; line-height:1.7; }
+          .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:18px; }
+          .foot-head strong { color:var(--mb-fg); font-family:var(--mb-serif); font-size:15px; font-weight:600; }
           .foot-head a { color:var(--mb-fg); text-decoration:none; }
-          .foot-head a:hover { text-decoration:underline; }
-          .biz { display:flex; flex-wrap:wrap; gap:6px 14px; color:var(--mb-mute); }
-          .copy { margin-top:16px; color:var(--mb-mute); }
+          .foot-head a:hover { color:var(--mb-accent); }
+          .biz { display:flex; flex-wrap:wrap; gap:6px 15px; }
+          .copy { margin-top:18px; color:var(--mb-mute); }
+          :where(a):focus-visible { outline:2px solid var(--mb-accent); outline-offset:3px; }
           @media (max-width:640px) {
-            footer { width:min(calc(100% - 48px), 1250px); padding-bottom:42px; }
+            footer { width:calc(100% - 48px); padding:34px 0 44px; }
             .foot-head { display:block; }
-            .foot-head a { display:inline-block; margin-top:6px; }
-            .biz { flex-direction:column; gap:4px; }
+            .foot-head a { display:inline-block; margin-top:7px; }
+            .biz { display:grid; gap:4px; }
           }
+          @media (max-width:390px) { footer { width:calc(100% - 40px); } }
         </style>
         <footer>
           <div class="foot-head">
@@ -170,6 +149,6 @@
     }
   }
 
-  customElements.define('mb-header', MbHeader);
-  customElements.define('mb-footer', MbFooter);
+  if (!customElements.get('mb-header')) customElements.define('mb-header', MbHeader);
+  if (!customElements.get('mb-footer')) customElements.define('mb-footer', MbFooter);
 })();
