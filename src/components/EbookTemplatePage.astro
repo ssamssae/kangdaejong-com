@@ -97,7 +97,7 @@ const canonical = `https://kangdaejong.com/${rawBase}/${slug}/`;
     </aside>
 
     <article class="markdown-body" set:html={rendered}></article>
-    <textarea class="source-buffer" id="template-source" readonly aria-hidden="true">{source}</textarea>
+    <textarea class="source-buffer" id="template-source" readonly aria-hidden="true" tabindex="-1">{source}</textarea>
   </main>
 </SiteLayout>
 
@@ -108,14 +108,20 @@ const canonical = `https://kangdaejong.com/${rawBase}/${slug}/`;
 
   copyButton?.addEventListener("click", async () => {
     try {
+      let copied = false;
       if (navigator.clipboard?.writeText) {
         await navigator.clipboard.writeText(sourceBuffer.value);
+        copied = true;
       } else {
         sourceBuffer.removeAttribute("aria-hidden");
-        sourceBuffer.select();
-        document.execCommand("copy");
-        sourceBuffer.setAttribute("aria-hidden", "true");
+        try {
+          sourceBuffer.select();
+          copied = document.execCommand("copy");
+        } finally {
+          sourceBuffer.setAttribute("aria-hidden", "true");
+        }
       }
+      if (!copied) throw new Error("copy command failed");
       copyStatus.textContent = "복사했습니다.";
     } catch {
       copyStatus.textContent = "복사하지 못했습니다. 원본 파일을 열어 복사해 주세요.";

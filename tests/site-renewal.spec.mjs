@@ -66,6 +66,71 @@ test("template pages expose working copy and download actions near the title", a
   expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("AI 비서 역할 카드");
 });
 
+test("offscreen template source stays out of the keyboard tab order", async ({ page }) => {
+  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
+  const source = page.locator("#template-source");
+
+  await expect(source).toHaveAttribute("aria-hidden", "true");
+  await expect(source).toHaveAttribute("tabindex", "-1");
+
+  const focusedIds = [];
+  for (let step = 0; step < 20; step += 1) {
+    await page.keyboard.press("Tab");
+    focusedIds.push(await page.evaluate(() => {
+      let active = document.activeElement;
+      while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
+      return active?.id || active?.getAttribute?.("data-copy-template") || active?.tagName || "";
+    }));
+  }
+  expect(focusedIds).not.toContain("template-source");
+});
+
+test("copy fallback reports failure when execCommand returns false", async ({ page }) => {
+  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });
+    document.execCommand = () => false;
+  });
+
+  await page.getByRole("button", { name: "Markdown 전체 복사" }).click();
+  await expect(page.getByRole("status")).toHaveText("복사하지 못했습니다. 원본 파일을 열어 복사해 주세요.");
+  await expect(page.locator("#template-source")).toHaveAttribute("aria-hidden", "true");
+});
+
+test("copy fallback restores its hidden buffer when execCommand throws", async ({ page }) => {
+  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
+  await page.evaluate(() => {
+    Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });
+    document.execCommand = () => { throw new Error("copy unavailable"); };
+  });
+
+  await page.getByRole("button", { name: "Markdown 전체 복사" }).click();
+  await expect(page.getByRole("status")).toHaveText("복사하지 못했습니다. 원본 파일을 열어 복사해 주세요.");
+  await expect(page.locator("#template-source")).toHaveAttribute("aria-hidden", "true");
+});
+
+test("shared components scope the warm palette to explicit studio tone", async ({ page }) => {
+  await page.goto("/");
+  const palettes = await page.evaluate(() => {
+    const readBackground = (element) => getComputedStyle(element).getPropertyValue("--mb-bg").trim().toLowerCase();
+    const defaultHeader = document.createElement("mb-header");
+    const dataToneFooter = document.createElement("mb-footer");
+    dataToneFooter.setAttribute("data-tone", "studio");
+    document.body.append(defaultHeader, dataToneFooter);
+    return {
+      pageStudio: readBackground(document.querySelector("mb-header")),
+      defaultConsumer: readBackground(defaultHeader),
+      dataToneStudio: readBackground(dataToneFooter),
+    };
+  });
+
+  expect(palettes).toEqual({
+    pageStudio: "#11100e",
+    defaultConsumer: "#08090a",
+    dataToneStudio: "#11100e",
+  });
+});
+
 test("local links, anchors, and images resolve on every public route", async ({ page, request }) => {
   const imageFailures = [];
   page.on("response", (response) => {

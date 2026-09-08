@@ -10,6 +10,7 @@ const checks = [
   ["open shadow navigation has visible keyboard focus", /:where\(a,button\):focus-visible/.test(source)],
   ["mobile navigation remains on a dedicated scroll-safe row", /grid-column:1 \/ -1; grid-row:2/.test(source) && /overflow-x:auto/.test(source)],
   ["contact action keeps the verified email", /mailto:minusbetastudio@gmail\.com/.test(source)],
+  ["shared consumers keep the default palette unless studio tone is explicit", /const PALETTE_DEFAULT = `/.test(source) && /const PALETTE_STUDIO = `/.test(source) && /getAttribute\('tone'\)/.test(source) && /dataset\.tone/.test(source) && /hostPalette\(this\)/.test(source)],
 ];
 
 const failures = checks.filter(([, ok]) => !ok);
