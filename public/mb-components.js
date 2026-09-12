@@ -1,6 +1,6 @@
 /* 마이너스베타스튜디오 공통 헤더/푸터 — 회사 홈과 founder가 함께 쓰는 정본. */
 (function () {
-  const BADGE = 'https://kangdaejong.com/minusbeta-badge.svg';
+  const BADGE = 'https://kangdaejong.com/minusbeta-badge.svg?v=square';
   const BRAND_HREF = 'https://kangdaejong.com/';
 
   // active = home|products|books|tools|organization|system|workshop|worklog|newsletter|founder
@@ -19,17 +19,17 @@
   ];
 
   const PALETTE_DEFAULT = `
-    --mb-bg:#08090A; --mb-elev:#0F1011; --mb-fg:#F7F8F8; --mb-dim:#D0D6E0; --mb-mute:#8A8F98;
-    --mb-border:rgba(255,255,255,0.08); --mb-soft:#1C1C1F; --mb-accent:#7170FF;
-    --mb-cta-bg:#E5E5E6; --mb-cta-fg:#08090A;
+    --mb-bg:#f7f6f2; --mb-elev:#eeede7; --mb-fg:#242720; --mb-dim:#62655d; --mb-mute:#707369;
+    --mb-border:#d8d8ce; --mb-soft:#eeede7; --mb-accent:#b8452b;
+    --mb-cta-bg:#c64b2e; --mb-cta-fg:#fffaf3;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
     --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
   `;
   const PALETTE_STUDIO = `
-    --mb-bg:#11100e; --mb-elev:#181613; --mb-fg:#f5efe2; --mb-dim:#d2cabd; --mb-mute:#9f978b;
-    --mb-border:rgba(245,239,226,.16); --mb-soft:#211e1a; --mb-accent:#d5a06f;
-    --mb-cta-bg:#f2eadc; --mb-cta-fg:#17130f;
+    --mb-bg:#f7f6f2; --mb-elev:#eeede7; --mb-fg:#242720; --mb-dim:#62655d; --mb-mute:#707369;
+    --mb-border:#d8d8ce; --mb-soft:#eeede7; --mb-accent:#b8452b;
+    --mb-cta-bg:#c64b2e; --mb-cta-fg:#fffaf3;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
     --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
@@ -48,9 +48,10 @@
         <style>
           :host { ${hostPalette(this)} display:block; line-height:1.5; letter-spacing:normal; }
           .header { position:relative; z-index:70; border-bottom:1px solid var(--mb-border); background:var(--mb-bg); font-family:var(--mb-sans); }
-          .inner { width:min(calc(100% - 112px),1320px); min-height:76px; margin:0 auto; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:32px; }
-          .brand { display:inline-flex; align-items:center; gap:11px; color:var(--mb-fg); font-family:var(--mb-serif); font-size:15px; font-weight:600; text-decoration:none; white-space:nowrap; }
-          .brand img { width:30px; height:30px; display:block; }
+          .inner { width:min(calc(100% - 96px),1280px); min-height:88px; margin:0 auto; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:32px; }
+          .brand { display:inline-flex; align-items:center; gap:11px; color:var(--mb-fg); font-family:var(--mb-sans); font-size:21px; font-weight:750; text-decoration:none; white-space:nowrap; }
+          .brand img { width:43px; height:43px; display:block; }
+          .brand small { display:block; font-size:10px; font-weight:450; color:var(--mb-mute); margin-top:4px; }
           .links { display:flex; justify-content:center; align-items:center; gap:26px; min-width:0; font-size:13px; white-space:nowrap; }
           .links a { color:var(--mb-mute); text-decoration:none; }
           .links a:hover,.links a.active { color:var(--mb-fg); }
@@ -61,7 +62,7 @@
           .more-button:hover,.more-button.active,.more.open .more-button { color:var(--mb-accent); }
           .chevron { display:inline-block; margin-left:5px; font-size:9px; transition:transform .16s ease; }
           .more.open .chevron { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:0; top:calc(100% + 9px); display:none; width:202px; padding:9px; border:1px solid var(--mb-border); background:var(--mb-bg); box-shadow:0 22px 60px rgba(0,0,0,.28); }
+          .more-panel { position:absolute; right:0; top:calc(100% + 9px); display:none; width:202px; padding:9px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:12px; box-shadow:0 16px 40px #24272012; }
           .more.open .more-panel { display:grid; }
           .more-panel a { padding:10px 11px; color:var(--mb-dim); font-size:13px; text-decoration:none; }
           .more-panel a:hover,.more-panel a.active { background:var(--mb-soft); color:var(--mb-fg); }
@@ -83,7 +84,7 @@
         </style>
         <header class="header">
           <div class="inner">
-            <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="30" height="30"/><span>마이너스베타스튜디오</span></a>
+            <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="30" height="30"/><span>minus beta<small>독립적인 생각, 쓸모 있는 제품.</small></span></a>
             <nav class="links" aria-label="주요 메뉴">${NAV_PRIMARY.map(makeLink).join('')}</nav>
             <div class="actions">
               <div class="more">
@@ -124,9 +125,9 @@
       root.innerHTML = `
         <style>
           :host { ${hostPalette(this)} display:block; }
-          footer { width:min(calc(100% - 112px),1320px); margin:0 auto; padding:42px 0 58px; border-top:1px solid var(--mb-border); color:var(--mb-mute); font-family:var(--mb-sans); font-size:12px; line-height:1.7; }
+          footer { width:min(calc(100% - 96px),1280px); margin:0 auto; padding:42px 0 58px; border-top:1px solid var(--mb-border); color:var(--mb-mute); font-family:var(--mb-sans); font-size:12px; line-height:1.7; }
           .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:18px; }
-          .foot-head strong { color:var(--mb-fg); font-family:var(--mb-serif); font-size:15px; font-weight:600; }
+          .foot-head strong { color:var(--mb-fg); font-family:var(--mb-sans); font-size:21px; font-weight:750; }
           .foot-head a { color:var(--mb-fg); text-decoration:none; }
           .foot-head a:hover { color:var(--mb-accent); }
           .biz { display:flex; flex-wrap:wrap; gap:6px 15px; }
