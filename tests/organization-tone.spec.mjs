@@ -9,10 +9,10 @@ async function visitOrganization(page) {
 
   const response = await page.goto("/organization/");
   expect(response?.status()).toBe(200);
-  await expect(page.getByRole("heading", { level: 1, name: "작게 운영해도, 책임은 선명하게." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "작은 조직. 분명한 책임." })).toBeVisible();
   await expect(page.getByText("법적 대표 강대종")).toBeVisible();
   await expect(page.getByRole("heading", { name: "AI는 도구이고, 결정은 사람의 일입니다." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "내보내기 전에 보는 세 가지." })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "만들었다고, 끝난 것은 아니니까." })).toBeVisible();
   await expect(page.locator("main").getByText(/아테나|헤르메스|볼칸/)).toHaveCount(0);
   return errors;
 }

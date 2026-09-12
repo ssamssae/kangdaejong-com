@@ -1,4 +1,5 @@
 ---
+import "../styles/renewal.css";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 const company = {
@@ -158,177 +159,19 @@ const tools = [
 
 const description = `${company.name} — 생활에 가까운 앱, 웹 서비스, 전자책과 공개 도구를 직접 만들고 운영하는 강대종의 1인 스튜디오.`;
 ---
-
-<SiteLayout description={description} canonical="https://kangdaejong.com/" active="home" bodyClass="home-page">
-  <main id="main-content">
-    <section class="home-hero" aria-labelledby="page-title">
-      <div class="site-shell home-hero-grid">
-        <div>
-          <p class="eyebrow">Minus Beta Studio · Seoul</p>
-          <h1 class="display" id="page-title"><span>작고 분명한</span><span>도구를 만듭니다.</span></h1>
-          <p class="lede">메모하고, 챙기고, 집중하고, 이름을 고르는 일. 생활에 가까운 앱과 웹 서비스를 직접 만들고 오래 운영합니다.</p>
-          <div class="button-row" aria-label="주요 행동">
-            <a class="button primary" href={featured.url}>첫이름 시작하기</a>
-            <a class="button" href="#products">생활 앱 둘러보기</a>
-          </div>
-          <p class="hero-note"><strong>{company.name}</strong><span>강대종의 1인 소프트웨어 스튜디오</span></p>
-        </div>
-        <figure class="hero-visual">
-          <img src="/studio/hero-desk.jpg" alt="창가에서 첫이름 리포트를 읽는 모습" width="1600" height="900" />
-          <figcaption><span>Tools worth keeping.</span><span>Made in Mapo, Seoul</span></figcaption>
-        </figure>
-      </div>
-    </section>
-
-    <section class="featured-product" aria-labelledby="featured-title">
-      <div class="featured-grid">
-        <figure class="featured-media">
-          <img src="/studio/cheotireum.jpg" alt="첫이름 작명 서비스 화면" width="1050" height="1400" loading="lazy" />
-        </figure>
-        <div class="featured-copy">
-          <p class="eyebrow">Featured · Web</p>
-          <h2 id="featured-title">이름을 고르는 시간을, 차분한 리포트로.</h2>
-          <p class="price">{featured.price}</p>
-          <p class="description">{featured.description}</p>
-          <div class="button-row">
-            <a class="button primary" href={featured.url}>첫이름 시작하기</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section site-shell" id="products" aria-labelledby="products-title">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Everyday apps</p>
-          <h2 class="section-title" id="products-title">오늘 필요한 일부터 찾아보세요.</h2>
-        </div>
-        <p class="section-intro">기능 수가 아니라 쓰는 순간으로 묶었습니다. 앱 이름을 고르면 각 스토어에서 바로 확인할 수 있습니다.</p>
-      </div>
-      <div class="product-groups">
-        {productGroups.map((group) => (
-          <section class="product-group" aria-labelledby={`group-${group.number}`}>
-            <header class="group-label">
-              <span>{group.number}</span>
-              <h3 id={`group-${group.number}`}>{group.label}</h3>
-            </header>
-            <ol class="product-list">
-              {group.products.map((product) => (
-                <li class="product-row">
-                  <div>
-                    <h4>{product.name}</h4>
-                    <span class="status">{product.status}</span>
-                  </div>
-                  <p>{product.description}</p>
-                  <div class="store-links" aria-label={`${product.name} 다운로드`}>
-                    {product.links.map((link) => <a href={link.url}>{link.label} ↗</a>)}
-                  </div>
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))}
-      </div>
-      <div class="button-row"><a class="button" href={company.products}>전체 제품 목록 보기</a></div>
-    </section>
-
-    <section class="section site-shell" id="books" aria-labelledby="books-title">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Books & worksheets</p>
-          <h2 class="section-title" id="books-title">운영하면서 배운 것을, 바로 쓰는 문서로.</h2>
-        </div>
-        <p class="section-intro">전자책은 크몽에서 구매할 수 있고, 책과 함께 쓰는 일부 Markdown 템플릿은 이 사이트에서 공개합니다.</p>
-      </div>
-      <div class="books-layout">
-        <article class="book-lead">
-          <span class="book-number">{books[0].number} / FEATURED</span>
-          <h3>{books[0].name}</h3>
-          <p>{books[0].description}</p>
-          <p class="book-meta">{books[0].price}</p>
-          <div class="button-row">
-            <a class="button primary" href={books[0].purchase}>크몽에서 구매</a>
-            <a class="button" href={books[0].template}>공개 템플릿 보기</a>
-          </div>
-        </article>
-        <div class="book-stack">
-          {books.slice(1).map((book) => (
-            <article class="book-item">
-              <h3>{book.name}</h3>
-              <p class="book-meta">{book.number} · {book.price}</p>
-              <p>{book.description}</p>
-              <div class="book-links">
-                <a href={book.purchase}>크몽에서 구매 ↗</a>
-                {book.template && <a href={book.template}>공개 템플릿 보기 →</a>}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="section site-shell" id="open-tools" aria-labelledby="tools-title">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Open source</p>
-          <h2 class="section-title" id="tools-title">직접 쓰는 연결 도구도 공개합니다.</h2>
-        </div>
-        <p class="section-intro">내 컴퓨터의 AI 세션을 텔레그램에서 쓰기 위해 만든 브릿지입니다. 설치와 변경 내역은 각 저장소에서 확인할 수 있습니다.</p>
-      </div>
-      <ol class="tool-directory">
-        {tools.map((tool, index) => (
-          <li class="tool-row">
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <h3>{tool.name}</h3>
-            <p>{tool.description}</p>
-            <div class="store-links">
-              <a href={tool.repo}>GitHub ↗</a>
-              <a href={tool.release}>Release ↗</a>
-            </div>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section class="record-band" aria-labelledby="record-title">
-      <div class="section site-shell">
-        <div class="section-head">
-          <div>
-            <p class="eyebrow">Build in public</p>
-            <h2 class="section-title" id="record-title">완성품뿐 아니라 만드는 기록도 남깁니다.</h2>
-          </div>
-          <p class="section-intro">제품 목록과 작업 과정, 정리한 글을 각 공개 채널에서 이어서 볼 수 있습니다.</p>
-        </div>
-        <nav class="record-links" aria-label="외부 공개 채널">
-          <a class="record-link" href={company.work}><span>01 / WORK</span><strong>작업장</strong><small>제품과 작업일지</small></a>
-          <a class="record-link" href={company.newsletter}><span>02 / LETTER</span><strong>뉴스레터</strong><small>빌드와 운영 기록</small></a>
-          <a class="record-link" href={company.github}><span>03 / CODE</span><strong>GitHub</strong><small>공개 저장소</small></a>
-        </nav>
-      </div>
-    </section>
-
-    <section class="section site-shell" id="company" aria-labelledby="company-title">
-      <div class="company-layout">
-        <div class="company-note">
-          <p class="eyebrow">Company</p>
-          <h2 class="section-title" id="company-title">작게 만들고,<br />오래 책임집니다.</h2>
-          <p>{company.name}는 {company.representative}이 운영하는 1인 스튜디오입니다. 제품의 방향과 공개 여부, 비용이 드는 결정은 사람이 직접 확인합니다.</p>
-          <div class="button-row">
-            <a class="button" href="/organization/">회사와 책임 보기</a>
-            <a class="button" href={`mailto:${company.email}`}>이메일 문의</a>
-          </div>
-        </div>
-        <dl class="company-info">
-          <div><dt>상호</dt><dd>{company.name}</dd></div>
-          <div><dt>대표</dt><dd>{company.representative}</dd></div>
-          <div><dt>사업자등록번호</dt><dd>{company.bizNumber}</dd></div>
-          <div><dt>통신판매업신고</dt><dd>{company.mailOrderNumber}</dd></div>
-          <div><dt>업종</dt><dd>{company.category}</dd></div>
-          <div><dt>소재지</dt><dd>{company.address}</dd></div>
-          <div><dt>Email</dt><dd><a href={`mailto:${company.email}`}>{company.email}</a></dd></div>
-          <div><dt>GitHub</dt><dd><a href={company.github}>github.com/ssamssae ↗</a></dd></div>
-        </dl>
-      </div>
-    </section>
-  </main>
-</SiteLayout>
+<SiteLayout description={description} canonical="https://kangdaejong.com/" active="home" bodyClass="renewal">
+<main id="main-content" class="r-shell">
+<section class="r-hero">
+<div><p class="r-kicker">MINUS BETA STUDIO / SEOUL</p><h1>일상의 작은 불편에,<br/><em>쓸모 있는 답.</em></h1><p class="r-lead">기록을 가볍게. 생활을 단정하게.<br/>매일의 일을 조금 더 쉽게 만드는 1인 소프트웨어 스튜디오입니다.</p><a class="r-button" href="#products">만든 것 둘러보기 <span>↗</span></a></div>
+<div class="r-composition" aria-label="기록, 집중, 생활을 위한 도구를 표현한 일러스트">
+<span class="r-stamp">SMALL TOOLS.<br/>EVERYDAY USE.</span><div class="r-note"><span>한줄일기 / TODAY</span><strong>오늘의 작은 일을<br/>오래 기억하기.</strong><i></i><i></i><i></i><b>나의 하루, 한 줄이면 충분해요.</b></div><div class="r-timer"><span>FOCUS TIME</span><strong>25:00</strong><span>한 번에, 한 가지.</span></div><div class="r-dot">−β</div></div>
+</section>
+<div class="r-index"><span>작게 만들어, 꾸준히 다듬습니다.</span><a href="#products">01 생활 앱</a><a href="#books">02 만드는 법</a><a href="#open-tools">03 연결 도구</a></div>
+<section class="r-section" id="products"><div class="r-heading"><div><p class="r-kicker">01 / EVERYDAY TOOLS</p><h2>자주 쓰는 것부터,<br/>좋아지도록.</h2></div><p>거창한 기능보다 분명한 쓰임.<br/>필요한 순간에 꺼내 쓰는 작은 도구들입니다.</p></div>
+<div class="r-feature"><div><p class="r-kicker">FEATURED / 첫이름</p><h3>처음 부를 이름을<br/>함께 고르는 시간.</h3><p>{featured.description}</p><a class="r-button" href={featured.url}>첫이름 살펴보기 ↗</a><small>{featured.price}</small></div><img src="/studio/cheotireum.jpg" width="1050" height="1400" alt="첫이름 작명 서비스 소개" loading="lazy"/></div>
+{productGroups.map((group)=><div class="r-app-group"><div class="r-group-label"><span>{group.number}</span><h3>{group.label}</h3></div><div class="r-app-grid">{group.products.map((product)=><article class="r-app"><span class="r-app-symbol" aria-hidden="true">{product.name.slice(0,1)}</span><h4>{product.name}</h4><p>{product.description}</p><div class="r-links">{product.links.map(link=><a href={link.url}>{link.label} ↗</a>)}</div></article>)}</div></div>)}
+</section>
+<section class="r-section" id="books"><div class="r-heading"><div><p class="r-kicker">02 / FIELD NOTES</p><h2>만들며 배운 것은<br/>다시 나눕니다.</h2></div><p>혼자 일하는 방법, AI와 함께 만드는 과정.<br/>실제 작업에서 출발한 전자책과 템플릿입니다.</p></div><div class="r-book-grid">{books.map(book=><article class="r-book"><div class="r-cover"><span>MINUS BETA / WORKING NOTES</span><h3>{book.name}</h3><b>VOL. {book.number} ↗</b></div><p>{book.description}</p><small>{book.price}</small><div class="r-links"><a href={book.purchase}>전자책 보기 ↗</a>{book.template&&<a href={book.template}>템플릿 열기 ↗</a>}</div></article>)}</div></section>
+<section class="r-section" id="open-tools"><div class="r-heading"><div><p class="r-kicker">03 / OPEN TOOLS</p><h2>내 컴퓨터의 AI를,<br/>내 손 안으로.</h2></div><p>텔레그램과 컴퓨터의 AI 세션을 잇습니다.<br/>코드를 공개하고, 함께 쓸 수 있게 만듭니다.</p></div><div class="r-tool-grid">{tools.map((tool,i)=><article class="r-tool"><span class="r-kicker">BRIDGE / 0{i+1}</span><h3>{tool.name.replace(' Telegram Bridge','')}<span>Telegram Bridge</span></h3><p>{tool.description}</p><div class="r-links"><a href={tool.repo}>GitHub ↗</a><a href={tool.release}>릴리스 ↗</a></div></article>)}</div></section>
+<section class="r-about" id="company"><p class="r-kicker">A SMALL, INDEPENDENT STUDIO</p><h2>만드는 사람과<br/>책임지는 사람이 같습니다.</h2><p>강대종이 기획하고, 만들고, 운영합니다.<br/>작은 규모로 시작해도 오래 쓸 수 있는 제품을 지향합니다.</p><div class="r-links"><a href="/organization/">회사와 조직도 ↗</a><a href="https://founder.kangdaejong.com/">만드는 사람 ↗</a><a href={company.work}>작업장 둘러보기 ↗</a></div></section>
+</main></SiteLayout>
