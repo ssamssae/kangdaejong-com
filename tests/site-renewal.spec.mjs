@@ -20,22 +20,24 @@ const routes = [
   "/ebook-automation-workshop/vol1/templates/t10-privacy-quality-check/",
 ];
 
-test("home leads with products and uses an editorial index instead of repeated cards", async ({ page }) => {
+test("home presents apps, books and all four bridges", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: "작고 분명한 도구를 만듭니다." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "일상의 작은 불편에, 쓸모 있는 답." })).toBeVisible();
   await expect(page.locator("#products")).toBeVisible();
   await expect(page.locator("#books")).toBeVisible();
   await expect(page.locator("#open-tools")).toBeVisible();
   await expect(page.locator("#company")).toBeVisible();
-  await expect(page.locator(".product-card, .tool-card, .proof-strip")).toHaveCount(0);
-  const cheotireumLinks = page.getByRole("link", { name: "첫이름 시작하기" });
-  await expect(cheotireumLinks).toHaveCount(2);
+  await expect(page.locator(".r-app")).toHaveCount(7);
+  await expect(page.locator(".r-tool")).toHaveCount(4);
+  await expect(page.locator('#open-tools a[href="https://github.com/ssamssae/cursor-telegram-bridge"]')).toHaveCount(1);
+  const cheotireumLinks = page.getByRole("link", { name: "첫이름 살펴보기 ↗" });
+  await expect(cheotireumLinks).toHaveCount(1);
   await expect(cheotireumLinks.first()).toHaveAttribute("href", "https://cheotireum.kangdaejong.com/");
 });
 
 test("organization explains public responsibility without publishing the internal roster", async ({ page }) => {
   await page.goto("/organization/");
-  await expect(page.getByRole("heading", { level: 1, name: "작게 운영해도, 책임은 선명하게." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "작은 조직. 분명한 책임." })).toBeVisible();
   await expect(page.getByText("법적 대표 강대종")).toBeVisible();
   await expect(page.locator("main").getByText(/아테나|헤르메스|볼칸/)).toHaveCount(0);
   await expect(page.getByRole("heading", { name: "AI는 도구이고, 결정은 사람의 일입니다." })).toBeVisible();
@@ -144,9 +146,9 @@ test("shared components scope the warm palette to explicit studio tone", async (
   });
 
   expect(palettes).toEqual({
-    pageStudio: "#11100e",
-    defaultConsumer: "#08090a",
-    dataToneStudio: "#11100e",
+    pageStudio: "#f7f6f2",
+    defaultConsumer: "#f7f6f2",
+    dataToneStudio: "#f7f6f2",
   });
 });
 

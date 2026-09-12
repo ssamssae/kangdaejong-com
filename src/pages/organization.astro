@@ -1,4 +1,5 @@
 ---
+import "../styles/renewal.css";
 import SiteLayout from "../layouts/SiteLayout.astro";
 
 const company = {
@@ -30,71 +31,9 @@ const checks = [
 
 const description = `${company.name}의 책임 구조 — 법적 대표 ${company.representative}이 방향, 공개, 비용을 결정하고 AI는 반복 작업을 보조합니다.`;
 ---
-
-<SiteLayout title="회사와 책임" description={description} canonical="https://kangdaejong.com/organization/" active="organization" bodyClass="organization-page">
-  <main id="main-content">
-    <section class="subpage-hero" aria-labelledby="page-title">
-      <div class="site-shell subpage-hero-grid">
-        <div>
-          <p class="eyebrow">Company & responsibility</p>
-          <h1 class="page-title" id="page-title">작게 운영해도,<br />책임은 선명하게.</h1>
-          <p class="lede">{company.name}는 {company.representative}이 운영하는 1인 사업자입니다. AI 도구를 함께 쓰지만, 제품과 고객에게 하는 약속의 책임은 사람에게 있습니다.</p>
-        </div>
-        <div class="subpage-mark" aria-hidden="true">責</div>
-      </div>
-    </section>
-
-    <section class="responsibility-band" aria-label="법적 책임자">
-      <div class="site-shell responsibility-row">
-        <span>LEGAL OWNER</span>
-        <strong>법적 대표 {company.representative}</strong>
-        <p>1인 스튜디오 · 서울 마포</p>
-      </div>
-    </section>
-
-    <section class="section site-shell" aria-labelledby="principles-title">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Working principle</p>
-          <h2 class="section-title" id="principles-title">AI는 도구이고,<br />결정은 사람의 일입니다.</h2>
-        </div>
-        <p class="section-intro">내부의 역할 이름이나 기기 목록보다, 방문자가 알아야 할 책임의 경계를 공개합니다.</p>
-      </div>
-      <ol class="principles">
-        {principles.map((principle) => (
-          <li class="principle">
-            <h3>{principle.title}</h3>
-            <p>{principle.description}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <section class="section site-shell" aria-labelledby="checks-title">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">Before publishing</p>
-          <h2 class="section-title" id="checks-title">내보내기 전에 보는 세 가지.</h2>
-        </div>
-        <p class="section-intro">자동화의 속도는 유용하지만, 공개된 결과의 정확성과 사용 가능성을 대신하지는 않습니다.</p>
-      </div>
-      <div class="boundary-grid">
-        {checks.map((item) => (
-          <article class="boundary-item">
-            <span>{item.label}</span>
-            <h3>{item.title}</h3>
-            <p>{item.description}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section class="site-shell closing-callout" aria-label="회사 문의">
-      <p>제품, 구매, 공개 도구에 관한 문의는 대표 이메일로 받습니다.</p>
-      <div class="button-row">
-        <a class="button" href="/">회사 홈으로</a>
-        <a class="button primary" href={`mailto:${company.email}`}>이메일 문의</a>
-      </div>
-    </section>
-  </main>
-</SiteLayout>
+<SiteLayout title="회사와 조직도" description={description} canonical="https://kangdaejong.com/organization/" active="organization" bodyClass="renewal">
+<main id="main-content" class="r-shell"><section class="r-hero"><div><p class="r-kicker">THE STUDIO / HOW WE WORK</p><h1>작은 조직.<br/><em>분명한 책임.</em></h1><p class="r-lead">기획부터 출시 이후의 관리까지.<br/>마이너스베타스튜디오는 한 사람이 끝까지 연결하는 1인 스튜디오입니다.</p><a class="r-button" href="https://founder.kangdaejong.com/">대표 강대종 알아보기 ↗</a></div><div class="r-owner-map" aria-label="조직과 책임 구조"><p class="r-kicker">LEGAL OWNER / ORGANIZATION</p><div class="r-owner"><small>법적 대표 {company.representative} · 최종 결정과 책임</small><strong>강대종</strong><small>마이너스베타스튜디오</small></div><div class="r-map-line"></div><div class="r-roles"><span>기획·결정</span><span>개발·출시</span><span>운영·고객 대응</span></div><div class="r-assist">AI 도구 · 조사, 초안, 구현, 검증 보조</div></div></section>
+<div class="r-index"><span>서울 마포에서 만드는 독립 스튜디오</span><a href="#responsibility">책임 구조</a><a href="#checks">공개 전 확인</a><a href="#contact">문의하기</a></div>
+<section id="responsibility" class="r-section"><div class="r-heading"><div><p class="r-kicker">01 / RESPONSIBILITY</p><h2>AI는 도구이고,<br/>결정은 사람의 일입니다.</h2></div><p>도움을 받는 일과 책임지는 일을 구분합니다.<br/>제품에 대한 약속은 대표 강대종이 책임집니다.</p></div><div class="r-process">{principles.map((item,i)=><article><span class="r-kicker">0{i+1}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div></section>
+<section id="checks" class="r-section"><div class="r-heading"><div><p class="r-kicker">02 / BEFORE IT GOES LIVE</p><h2>만들었다고,<br/>끝난 것은 아니니까.</h2></div><p>방문자가 실제로 쓰는 순간까지 살펴봅니다.<br/>공개하기 전에는 세 가지를 다시 확인합니다.</p></div><div class="r-checks">{checks.map(item=><article><span class="r-kicker">{item.label}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div></section>
+<section id="contact" class="r-about"><p class="r-kicker">LET’S TALK</p><h2>제품 뒤에는,<br/>연락할 수 있는 사람이 있습니다.</h2><p>제품 사용, 구매, 공개 도구에 관한 문의를 받습니다.</p><div class="r-links"><a href={`mailto:${company.email}`}>{company.email} ↗</a><a href="/">스튜디오의 제품 보기 ↗</a></div></section></main></SiteLayout>
