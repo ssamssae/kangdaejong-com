@@ -1,55 +1,65 @@
-/* T-260908-056 — warm editorial system shared by every public route. */
+/* T-260912-066 · Minus Beta: warm paper, ink, vermilion. */
 :root {
-  color-scheme: dark;
-
-  --bg: #11100e;
-  --bg-elev: #181613;
-  --bg-elev2: #211e1a;
-  --bg-tint: #151310;
-  --border: rgba(245, 239, 226, 0.16);
-  --border-soft: rgba(245, 239, 226, 0.09);
-  --fg: #f5efe2;
-  --fg-dim: #d2cabd;
-  --fg-mute: #9f978b;
-  --fg-faint: #706a61;
-  --accent: #d5a06f;
-  --accent-dim: #e2b58d;
-  --accent-hover: #edc29c;
-  --accent-tint: #2b2119;
-  --cta-bg: #f2eadc;
-  --cta-fg: #17130f;
-  --danger: #e7897f;
-  --accent-bg: #1d1813;
-  --code-bg: #171512;
-
+  color-scheme: light;
+  --bg: #f7f6f2;
+  --bg-elev: #eeede7;
+  --bg-tint: #f0efe9;
+  --fg-faint: #707369;
+  --accent-hover: #97341f;
+  --accent-tint: #f2e5db;
+  --cta-bg: #c64b2e;
+  --code-bg: #eeede7;
+  --page-gutter: 48px;
+  --page-max: 1280px;
+  --header-h: 88px;
+  --pad-head-bottom: 48px;
+  --radius-pill: 9999px;
+  --bg-elev2: #e5e4dd;
+  --border: #d8d8ce;
+  --border-soft: #e7e7df;
+  --fg: #242720;
+  --fg-dim: #62655d;
+  --fg-mute: #707369;
+  --cyan: #a8432b;
+  --magenta: #466448;
+  --accent: #b8452b;
+  --accent-cta: #c64b2e;
+  --accent-2: #466448;
+  --accent-dim: #97341f;
+  --cta-fg: #fffaf3;
+  --danger: #b02f29;
+  --success: #3c664b;
+  --warn: #84601e;
+  --danger-bg: #faeae6;
+  --accent-bg: #f2e5db;
+  --invert-bg: #282e25;
+  --invert-fg: #f8f7ef;
+  --invert-dim: #c5cbbb;
+  --invert-border: #495041;
+  --shadow: 0 6px 24px #24272008;
+  --shadow-pop: 0 16px 40px #24272012;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --sans: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
-  --serif: "Noto Serif KR", "Iropke Batang", Georgia, serif;
-
-  --text-h1: clamp(46px, 7vw, 88px);
-  --text-h2: clamp(32px, 4.5vw, 58px);
-  --text-h3: clamp(21px, 2vw, 28px);
+  --sans:
+    "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    sans-serif;
+  --serif: "Noto Serif KR", Georgia, "Times New Roman", serif;
+  --text-h1: clamp(38px, 5.5vw, 68px);
+  --text-h2: clamp(25px, 3vw, 36px);
+  --text-h3: 21px;
   --text-lead: 18px;
   --text-body: 16px;
   --text-desc: 14px;
   --text-meta: 12px;
   --text-badge: 11px;
-
-  --track-eyebrow: 0.14em;
-  --track-badge: 0.1em;
-  --leading-body: 1.72;
-  --leading-h1: 1.07;
-  --leading-desc: 1.68;
-
-  --measure: 64ch;
-  --radius-card: 2px;
-  --radius-btn: 2px;
-  --radius-pill: 9999px;
+  --track-eyebrow: 0.13em;
+  --track-badge: 0.08em;
+  --leading-body: 1.75;
+  --leading-h1: 1.15;
+  --leading-desc: 1.65;
+  --measure: 62ch;
+  --radius-card: 16px;
+  --radius-btn: 8px;
   --gap-card: 24px;
-  --pad-section: 144px;
-  --pad-section-sm: 76px;
-  --pad-head-bottom: 104px;
-  --header-h: 76px;
-  --page-gutter: 56px;
-  --page-max: 1320px;
+  --pad-section: 80px;
+  --pad-section-sm: 48px;
 }

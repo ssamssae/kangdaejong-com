@@ -5,8 +5,8 @@ const layout = read("src/layouts/SiteLayout.astro");
 const favicon = read("public/favicon.svg");
 const badge = read("public/minusbeta-badge.svg");
 const checks = [
-  ["shared layout includes ICO favicon", /<link rel="icon" href="\/favicon\.ico" sizes="any" \/>/.test(layout)],
-  ["shared layout includes SVG favicon", /<link rel="icon" type="image\/svg\+xml" href="\/favicon\.svg" \/>/.test(layout)],
+  ["shared layout includes ICO favicon", /<link rel="icon" href="\/favicon\.ico\?v=square" sizes="any" \/>/.test(layout)],
+  ["shared layout includes SVG favicon", /<link rel="icon" type="image\/svg\+xml" href="\/favicon\.svg\?v=square" \/>/.test(layout)],
   ["favicon artwork matches the brand badge", favicon === badge],
 ];
 
