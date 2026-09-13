@@ -26,8 +26,13 @@ test("desktop workshop opens a right flyout with reachable destinations and keyb
   const panel = page.getByRole("navigation", { name: "작업장 하위 메뉴" });
   await expect(panel).toBeVisible();
   await expect(panel.getByRole("link", { name: /작업장 둘러보기/ })).toBeFocused();
-  await expect(panel.getByRole("link", { name: /실험실/ })).toHaveAttribute("href", "https://work.kangdaejong.com/lab/");
-  await expect(panel.getByRole("link", { name: /타임라인/ })).toHaveAttribute("href", "https://work.kangdaejong.com/timeline.html/");
+  const destinations = panel.getByRole("link");
+  await expect(destinations).toHaveCount(4);
+  await expect(destinations.nth(0)).toHaveAttribute("href", "https://work.kangdaejong.com/");
+  await expect(destinations.nth(1)).toHaveText(/시스템/);
+  await expect(destinations.nth(1)).toHaveAttribute("href", "https://work.kangdaejong.com/system/");
+  await expect(destinations.nth(2)).toHaveAttribute("href", "https://work.kangdaejong.com/lab/");
+  await expect(destinations.nth(3)).toHaveAttribute("href", "https://work.kangdaejong.com/timeline.html/");
   const parentBox = await workshop.boundingBox();
   const panelBox = await panel.boundingBox();
   expect(panelBox.x).toBeGreaterThanOrEqual(parentBox.x + parentBox.width);

@@ -14,6 +14,7 @@
     { key: 'system', label: '만드는 방식', href: 'https://kangdaejong.com/system/' },
     { key: 'workshop', label: '작업장', href: 'https://work.kangdaejong.com/', children: [
       { label: '작업장 둘러보기', description: '만들고 기록하는 공간', href: 'https://work.kangdaejong.com/' },
+      { label: '시스템', description: '작업을 지탱하는 구조', href: 'https://work.kangdaejong.com/system/' },
       { label: '실험실', description: '궁금해서 해본 것들', href: 'https://work.kangdaejong.com/lab/' },
       { label: '타임라인', description: '처음부터 지금까지', href: 'https://work.kangdaejong.com/timeline.html/' },
     ] },
