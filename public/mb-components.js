@@ -12,9 +12,13 @@
   const NAV_MORE = [
     { key: 'organization', label: '회사와 책임', href: 'https://kangdaejong.com/organization/' },
     { key: 'system', label: '만드는 방식', href: 'https://kangdaejong.com/system/' },
-    { key: 'workshop', label: '작업장', href: 'https://work.kangdaejong.com/' },
+    { key: 'workshop', label: '작업장', href: 'https://work.kangdaejong.com/', children: [
+      { label: '작업장 둘러보기', description: '만들고 기록하는 공간', href: 'https://work.kangdaejong.com/' },
+      { label: '실험실', description: '궁금해서 해본 것들', href: 'https://work.kangdaejong.com/lab/' },
+      { label: '타임라인', description: '처음부터 지금까지', href: 'https://work.kangdaejong.com/timeline.html/' },
+    ] },
     { key: 'worklog', label: '작업일지', href: 'https://work.kangdaejong.com/worklog' },
-    { key: 'newsletter', label: '뉴스레터', href: 'https://minusbetastudio.substack.com' },
+    { key: 'newsletter', label: '뉴스레터', href: 'https://minusbetastudio.substack.com', newWindow: true },
     { key: 'founder', label: '대표 소개', href: 'https://founder.kangdaejong.com/' },
   ];
 
@@ -40,8 +44,15 @@
   class MbHeader extends HTMLElement {
     connectedCallback() {
       const active = this.getAttribute('active') || '';
-      const makeLink = (item) =>
-        `<a href="${item.href}"${item.key === active ? ' class="active" aria-current="page"' : ''}>${item.label}</a>`;
+      const makeLink = (item) => item.children
+        ? `<div class="submenu">
+            <button class="submenu-button${item.key === active ? ' active' : ''}" type="button" aria-expanded="false" aria-controls="workshop-panel">${item.label}<span aria-hidden="true">›</span></button>
+            <nav class="submenu-panel" id="workshop-panel" aria-label="작업장 하위 메뉴" hidden>
+              <p class="submenu-caption">만들고, 실험하고, 기록합니다.</p>
+              ${item.children.map((child) => `<a href="${child.href}"><span>${child.label}<span class="submenu-arrow" aria-hidden="true">↗</span></span><small>${child.description}</small></a>`).join('')}
+            </nav>
+          </div>`
+        : `<a href="${item.href}"${item.newWindow ? ' target="_blank" rel="noopener noreferrer"' : ''}${item.key === active ? ' class="active" aria-current="page"' : ''}>${item.label}${item.newWindow ? '<span class="external-arrow" aria-hidden="true">↗</span>' : ''}</a>`;
       const moreActive = NAV_MORE.some((item) => item.key === active);
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
@@ -62,15 +73,35 @@
           .more-button:hover,.more-button.active,.more.open .more-button { color:var(--mb-accent); }
           .chevron { display:inline-block; margin-left:5px; font-size:9px; transition:transform .16s ease; }
           .more.open .chevron { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:0; top:calc(100% + 9px); display:none; width:202px; padding:9px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:12px; box-shadow:0 16px 40px #24272012; }
+          .more-panel { position:absolute; right:var(--menu-shift,0px); top:calc(100% + 9px); display:none; width:202px; padding:9px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:16px; box-shadow:0 16px 40px #24272012; }
           .more.open .more-panel { display:grid; }
-          .more-panel a { padding:10px 11px; color:var(--mb-dim); font-size:13px; text-decoration:none; }
+          .more-panel a { padding:10px 11px; border-radius:8px; color:var(--mb-dim); font-size:13px; text-decoration:none; }
           .more-panel a:hover,.more-panel a.active { background:var(--mb-soft); color:var(--mb-fg); }
           .more-panel a.active { font-weight:600; }
+          .external-arrow { float:right; color:var(--mb-mute); }
+          .submenu { position:relative; }
+          .submenu-button { display:flex; align-items:center; justify-content:space-between; width:100%; padding:10px 11px; border:0; border-radius:8px; background:transparent; color:var(--mb-dim); font:inherit; font-size:13px; line-height:1.5; text-align:left; cursor:pointer; }
+          .submenu-button > span { font-size:20px; line-height:1; }
+          .submenu-button:hover,.submenu-button.active,.submenu-button[aria-expanded="true"] { background:var(--mb-soft); color:var(--mb-fg); }
+          .submenu-button[aria-expanded="true"] { color:var(--mb-accent); }
+          .submenu-panel { box-sizing:border-box; position:absolute; left:calc(100% + 19px); top:-10px; width:244px; padding:10px; border:1px solid var(--mb-border); border-radius:16px; background:var(--mb-bg); box-shadow:0 16px 40px #24272012; }
+          .submenu-panel:not([hidden]) { display:grid; animation:submenu-in .14s ease-out; }
+          .submenu-panel::before { content:''; position:absolute; right:100%; top:0; width:20px; height:100%; }
+          .submenu-caption { margin:6px 11px 9px; color:var(--mb-mute); font-size:11px; }
+          .submenu-panel a > span { display:flex; align-items:center; justify-content:space-between; gap:16px; font-weight:600; }
+          .submenu-panel small { display:block; margin-top:3px; color:var(--mb-mute); font-size:11px; font-weight:400; }
+          .submenu-arrow { color:var(--mb-mute); font-weight:400; }
+          @keyframes submenu-in { from { opacity:0; } to { opacity:1; } }
+          @media (prefers-reduced-motion:reduce) { .submenu-panel:not([hidden]) { animation:none; } }
           .contact { display:inline-flex; min-height:38px; align-items:center; justify-content:center; padding:0 14px; border:1px solid var(--mb-border); color:var(--mb-fg); font-size:13px; font-weight:600; text-decoration:none; }
           .contact:hover { border-color:var(--mb-accent); color:var(--mb-accent); }
           :where(a,button):focus-visible { outline:2px solid var(--mb-accent); outline-offset:3px; }
           @media (max-width:760px) {
+            .more-panel { right:0; max-height:calc(100dvh - 130px); overflow-y:auto; }
+            .submenu-panel { position:static; width:100%; margin:4px 0 6px; padding:4px; border:0; border-left:2px solid var(--mb-border); border-radius:0; box-shadow:none; }
+            .submenu-panel::before { display:none; }
+            .submenu-caption { display:none; }
+            .submenu-button[aria-expanded="true"] > span { transform:rotate(90deg); }
             .inner { width:min(calc(100% - 48px),1320px); min-height:auto; padding:13px 0 10px; grid-template-columns:1fr auto; gap:10px 14px; }
             .brand span { display:none; }
             .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:19px; overflow-x:auto; scrollbar-width:none; }
@@ -98,16 +129,76 @@
 
       const more = root.querySelector('.more');
       const button = root.querySelector('.more-button');
+      const menu = root.querySelector('.more-panel');
+      const submenu = root.querySelector('.submenu');
+      const submenuButton = root.querySelector('.submenu-button');
+      const submenuPanel = root.querySelector('.submenu-panel');
+      let openedByHover = false;
+      const positionSubmenu = () => {
+        more.style.removeProperty('--menu-shift');
+        if (submenuPanel.hidden || window.matchMedia('(max-width:760px)').matches) return;
+        const overflow = submenuPanel.getBoundingClientRect().right - document.documentElement.clientWidth + 16;
+        if (overflow > 0) more.style.setProperty('--menu-shift', `${Math.min(overflow, Math.max(0, menu.getBoundingClientRect().left - 16))}px`);
+      };
+      const closeSubmenu = (restoreFocus = false) => {
+        openedByHover = false;
+        submenuPanel.hidden = true;
+        submenuButton.setAttribute('aria-expanded', 'false');
+        more.style.removeProperty('--menu-shift');
+        if (restoreFocus) submenuButton.focus();
+      };
+      const openSubmenu = (focusFirst = false) => {
+        if (focusFirst) openedByHover = false;
+        submenuPanel.hidden = false;
+        submenuButton.setAttribute('aria-expanded', 'true');
+        positionSubmenu();
+        if (focusFirst) submenuPanel.querySelector('a').focus();
+      };
       const closeMenu = (restoreFocus = false) => {
+        closeSubmenu();
         more.classList.remove('open');
         button.setAttribute('aria-expanded', 'false');
         if (restoreFocus) button.focus();
       };
       button.addEventListener('click', (event) => {
         event.stopPropagation();
-        const open = more.classList.toggle('open');
-        button.setAttribute('aria-expanded', String(open));
+        if (more.classList.contains('open')) closeMenu();
+        else {
+          more.classList.add('open');
+          button.setAttribute('aria-expanded', 'true');
+        }
       });
+      submenuButton.addEventListener('click', () => {
+        if (openedByHover) openedByHover = false;
+        else if (submenuPanel.hidden) openSubmenu();
+        else closeSubmenu();
+      });
+      submenuButton.addEventListener('pointerenter', (event) => {
+        if (event.pointerType === 'mouse' && window.matchMedia('(min-width:761px)').matches && submenuPanel.hidden) {
+          openSubmenu();
+          openedByHover = true;
+        }
+      });
+      submenu.addEventListener('pointerleave', () => {
+        if (openedByHover) closeSubmenu();
+      });
+      submenu.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowRight' && event.target === submenuButton) {
+          event.preventDefault();
+          openSubmenu(true);
+        } else if ((event.key === 'ArrowLeft' || event.key === 'Escape') && !submenuPanel.hidden) {
+          event.preventDefault();
+          event.stopPropagation();
+          closeSubmenu(true);
+        }
+      });
+      root.addEventListener('focusout', (event) => {
+        if (!event.relatedTarget) return;
+        if (!more.contains(event.relatedTarget)) closeMenu();
+        else if (!submenu.contains(event.relatedTarget)) closeSubmenu();
+      });
+      this._resizeMenu = positionSubmenu;
+      window.addEventListener('resize', this._resizeMenu);
       root.querySelector('.more-panel').addEventListener('click', (event) => event.stopPropagation());
       root.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && more.classList.contains('open')) closeMenu(true);
@@ -116,6 +207,10 @@
       document.addEventListener('keydown', (event) => {
         if (event.key === 'Escape' && more.classList.contains('open')) closeMenu(true);
       });
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('resize', this._resizeMenu);
     }
   }
 
