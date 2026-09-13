@@ -91,7 +91,7 @@
           .submenu-panel a > span { display:flex; align-items:center; justify-content:space-between; gap:16px; font-weight:600; }
           .submenu-panel small { display:block; margin-top:3px; color:var(--mb-mute); font-size:11px; font-weight:400; }
           .submenu-arrow { color:var(--mb-mute); font-weight:400; }
-          @keyframes submenu-in { from { opacity:0; transform:translateX(-4px); } to { opacity:1; transform:translateX(0); } }
+          @keyframes submenu-in { from { opacity:0; } to { opacity:1; } }
           @media (prefers-reduced-motion:reduce) { .submenu-panel:not([hidden]) { animation:none; } }
           .contact { display:inline-flex; min-height:38px; align-items:center; justify-content:center; padding:0 14px; border:1px solid var(--mb-border); color:var(--mb-fg); font-size:13px; font-weight:600; text-decoration:none; }
           .contact:hover { border-color:var(--mb-accent); color:var(--mb-accent); }
@@ -148,6 +148,7 @@
         if (restoreFocus) submenuButton.focus();
       };
       const openSubmenu = (focusFirst = false) => {
+        if (focusFirst) openedByHover = false;
         submenuPanel.hidden = false;
         submenuButton.setAttribute('aria-expanded', 'true');
         positionSubmenu();
@@ -178,6 +179,9 @@
           openedByHover = true;
         }
       });
+      submenu.addEventListener('pointerleave', () => {
+        if (openedByHover) closeSubmenu();
+      });
       submenu.addEventListener('keydown', (event) => {
         if (event.key === 'ArrowRight' && event.target === submenuButton) {
           event.preventDefault();
@@ -188,11 +192,10 @@
           closeSubmenu(true);
         }
       });
-      root.addEventListener('focusout', () => {
-        setTimeout(() => {
-          if (!more.contains(root.activeElement)) closeMenu();
-          else if (!submenu.contains(root.activeElement)) closeSubmenu();
-        }, 0);
+      root.addEventListener('focusout', (event) => {
+        if (!event.relatedTarget) return;
+        if (!more.contains(event.relatedTarget)) closeMenu();
+        else if (!submenu.contains(event.relatedTarget)) closeSubmenu();
       });
       this._resizeMenu = positionSubmenu;
       window.addEventListener('resize', this._resizeMenu);

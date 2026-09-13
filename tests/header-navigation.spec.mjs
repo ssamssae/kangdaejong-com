@@ -61,9 +61,9 @@ test("mobile workshop expands inline without overflow and resets after outside d
   await expect(panel).toBeHidden();
 });
 
-test("mouse hover and click keep the right flyout usable at the desktop breakpoint", async ({ browser }) => {
-  const page = await browser.newPage({ viewport: { width: 800, height: 720 } });
-  await page.goto("http://127.0.0.1:4321/organization/");
+test("mouse hover and click keep the right flyout usable at the desktop breakpoint", async ({ browser, baseURL }) => {
+  const page = await browser.newPage({ viewport: { width: 800, height: 720 }, baseURL });
+  await page.goto("/organization/");
   await page.getByRole("button", { name: /더보기/ }).click();
   const workshop = page.getByRole("button", { name: "작업장", exact: true });
   await workshop.hover();
@@ -79,4 +79,35 @@ test("mouse hover and click keep the right flyout usable at the desktop breakpoi
   const mobileBox = await panel.boundingBox();
   expect(mobileBox.x + mobileBox.width).toBeLessThanOrEqual(360);
   await page.close();
+});
+
+test("hover flyout closes on departure and its links remain clickable", async ({ browser, baseURL }) => {
+  const context = await browser.newContext({ viewport: { width: 1024, height: 800 }, baseURL });
+  await context.route("https://work.kangdaejong.com/lab/", (route) => route.fulfill({ body: "Lab" }));
+  const page = await context.newPage();
+  await page.goto("/organization/");
+  await page.getByRole("button", { name: /더보기/ }).click();
+  const workshop = page.getByRole("button", { name: "작업장", exact: true });
+  const panel = page.getByRole("navigation", { name: "작업장 하위 메뉴" });
+  await workshop.hover();
+  await expect(panel).toBeVisible();
+  await page.mouse.move(16, 720);
+  await expect(panel).toBeHidden();
+  await workshop.hover();
+  const box = await panel.boundingBox();
+  expect(box.x + box.width).toBeLessThanOrEqual(1024);
+  await panel.getByRole("link", { name: /실험실/ }).click();
+  await expect(page).toHaveURL("https://work.kangdaejong.com/lab/");
+  await context.close();
+});
+
+test("keyboard focus leaving the header closes the menu", async ({ page }) => {
+  await page.goto("/organization/");
+  const more = page.getByRole("button", { name: /더보기/ });
+  await more.click();
+  const workshop = page.getByRole("button", { name: "작업장", exact: true });
+  await workshop.focus();
+  await page.keyboard.press("ArrowRight");
+  await page.getByRole("link", { name: "문의", exact: true }).focus();
+  await expect(more).toHaveAttribute("aria-expanded", "false");
 });
