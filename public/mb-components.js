@@ -12,6 +12,7 @@
   const NAV_MORE = [
     { key: 'organization', label: '회사와 책임', href: 'https://kangdaejong.com/organization/' },
     { key: 'system', label: '만드는 방식', href: 'https://kangdaejong.com/system/' },
+    { key: 'choso', label: '초소', href: 'https://choso.kangdaejong.com/guest' },
     { key: 'workshop', label: '작업장', href: 'https://work.kangdaejong.com/', children: [
       { label: '작업장 둘러보기', description: '만들고 기록하는 공간', href: 'https://work.kangdaejong.com/' },
       { label: '시스템', description: '작업을 지탱하는 구조', href: 'https://work.kangdaejong.com/system/' },

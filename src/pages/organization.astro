@@ -6,6 +6,9 @@ const company = {
   name: "마이너스베타스튜디오",
   representative: "강대종",
   email: "minusbetastudio@gmail.com",
+  since: "2026년 4월 11일",
+  sinceShort: "2026. 4. 11.",
+  choso: "https://choso.kangdaejong.com/guest",
 };
 
 const principles = [
@@ -32,8 +35,8 @@ const checks = [
 const description = `${company.name}의 책임 구조 — 법적 대표 ${company.representative}이 방향, 공개, 비용을 결정하고 AI는 반복 작업을 보조합니다.`;
 ---
 <SiteLayout title="회사와 조직도" description={description} canonical="https://kangdaejong.com/organization/" active="organization" bodyClass="renewal">
-<main id="main-content" class="r-shell"><section class="r-hero"><div><p class="r-kicker">THE STUDIO / HOW WE WORK</p><h1>작은 조직.<br/><em>분명한 책임.</em></h1><p class="r-lead">기획부터 출시 이후의 관리까지.<br/>마이너스베타스튜디오는 한 사람이 끝까지 연결하는 1인 스튜디오입니다.</p><a class="r-button" href="https://founder.kangdaejong.com/">대표 강대종 알아보기 ↗</a></div><div class="r-owner-map" aria-label="조직과 책임 구조"><p class="r-kicker">LEGAL OWNER / ORGANIZATION</p><div class="r-owner"><small>법적 대표 {company.representative} · 최종 결정과 책임</small><strong>강대종</strong><small>마이너스베타스튜디오</small></div><div class="r-map-line"></div><div class="r-roles"><span>기획·결정</span><span>개발·출시</span><span>운영·고객 대응</span></div><div class="r-assist">AI 도구 · 조사, 초안, 구현, 검증 보조</div></div></section>
+<main id="main-content" class="r-shell"><section class="r-hero"><div><p class="r-kicker">THE STUDIO / HOW WE WORK</p><p class="r-since">Since {company.sinceShort}</p><h1>작은 조직.<br/><em>분명한 책임.</em></h1><p class="r-lead">기획부터 출시 이후의 관리까지.<br/>마이너스베타스튜디오는 {company.since}부터 한 사람이 끝까지 연결하는 1인 스튜디오입니다.</p><a class="r-button" href="https://founder.kangdaejong.com/">대표 강대종 알아보기 ↗</a></div><div class="r-owner-map" aria-label="조직과 책임 구조"><p class="r-kicker">LEGAL OWNER / ORGANIZATION</p><div class="r-owner"><small>법적 대표 {company.representative} · 최종 결정과 책임</small><strong>강대종</strong><small>마이너스베타스튜디오</small><small>Since {company.sinceShort}</small></div><div class="r-map-line"></div><div class="r-roles"><span>기획·결정</span><span>개발·출시</span><span>운영·고객 대응</span></div><div class="r-assist">AI 도구 · 조사, 초안, 구현, 검증 보조</div></div></section>
 <div class="r-index"><span>서울 마포에서 만드는 독립 스튜디오</span><a href="#responsibility">책임 구조</a><a href="#checks">공개 전 확인</a><a href="#contact">문의하기</a></div>
 <section id="responsibility" class="r-section"><div class="r-heading"><div><p class="r-kicker">01 / RESPONSIBILITY</p><h2>AI는 도구이고,<br/>결정은 사람의 일입니다.</h2></div><p>도움을 받는 일과 책임지는 일을 구분합니다.<br/>제품에 대한 약속은 대표 강대종이 책임집니다.</p></div><div class="r-process">{principles.map((item,i)=><article><span class="r-kicker">0{i+1}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div></section>
 <section id="checks" class="r-section"><div class="r-heading"><div><p class="r-kicker">02 / BEFORE IT GOES LIVE</p><h2>만들었다고,<br/>끝난 것은 아니니까.</h2></div><p>방문자가 실제로 쓰는 순간까지 살펴봅니다.<br/>공개하기 전에는 세 가지를 다시 확인합니다.</p></div><div class="r-checks">{checks.map(item=><article><span class="r-kicker">{item.label}</span><h3>{item.title}</h3><p>{item.description}</p></article>)}</div></section>
-<section id="contact" class="r-about"><p class="r-kicker">LET’S TALK</p><h2>제품 뒤에는,<br/>연락할 수 있는 사람이 있습니다.</h2><p>제품 사용, 구매, 공개 도구에 관한 문의를 받습니다.</p><div class="r-links"><a href={`mailto:${company.email}`}>{company.email} ↗</a><a href="/">스튜디오의 제품 보기 ↗</a></div></section></main></SiteLayout>
+<section id="contact" class="r-about"><p class="r-kicker">LET’S TALK</p><h2>제품 뒤에는,<br/>연락할 수 있는 사람이 있습니다.</h2><p>제품 사용, 구매, 공개 도구에 관한 문의를 받습니다.</p><div class="r-links"><a href={`mailto:${company.email}`}>{company.email} ↗</a><a href={company.choso}>초소 둘러보기 ↗</a><a href="/">스튜디오의 제품 보기 ↗</a></div></section></main></SiteLayout>

@@ -4,7 +4,8 @@ const source = readFileSync(new URL("../public/mb-components.js", import.meta.ur
 const checks = [
   ["brand keeps the company-home destination", /const BRAND_HREF = 'https:\/\/kangdaejong\.com\/';/.test(source)],
   ["primary navigation follows the product visitor flow", ["products", "books", "tools"].every((key) => new RegExp(`key: '${key}'`).test(source)) && /kangdaejong\.com\/#products/.test(source) && /kangdaejong\.com\/#books/.test(source) && /kangdaejong\.com\/#open-tools/.test(source)],
-  ["company, system, work, worklog, newsletter, and founder remain reachable", ["organization", "system", "workshop", "worklog", "newsletter", "founder"].every((key) => new RegExp(`key: '${key}'`).test(source))],
+  ["company, system, choso, work, worklog, newsletter, and founder remain reachable", ["organization", "system", "choso", "workshop", "worklog", "newsletter", "founder"].every((key) => new RegExp(`key: '${key}'`).test(source))],
+  ["choso guest destination stays public", /key: 'choso'/.test(source) && /https:\/\/choso\.kangdaejong\.com\/guest/.test(source)],
   ["workshop submenu keeps system above lab", /label: '작업장 둘러보기'[\s\S]*label: '시스템'[\s\S]*href: 'https:\/\/work\.kangdaejong\.com\/system\/'[\s\S]*label: '실험실'/.test(source)],
   ["dead cost page stays absent", !/key: 'cost'/.test(source) && !/work\.kangdaejong\.com\/cost/.test(source)],
   ["menu state supports click, outside click, and Escape", /aria-expanded="false"/.test(source) && /document\.addEventListener\('click'/.test(source) && /event\.key === 'Escape'/.test(source) && /closeMenu\(true\)/.test(source)],
