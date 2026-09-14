@@ -32,6 +32,7 @@ test("home presents apps, books and all four bridges", async ({ page }) => {
   await expect(page.locator('#products a[href="https://taekil.kangdaejong.com/"]')).toHaveCount(1);
   await expect(page.locator('#products a[href="https://cheotireum.kangdaejong.com/pet"]')).toHaveCount(1);
   await expect(page.locator('#products a[href="https://hanjang.kangdaejong.com/"]')).toHaveCount(1);
+  await expect(page.locator('#products a[href="https://play.google.com/store/apps/details?id=com.ssamssae.hankeup"]')).toHaveCount(1);
   await expect(page.locator(".r-tool")).toHaveCount(4);
   await expect(page.locator('#open-tools a[href="https://github.com/ssamssae/cursor-telegram-bridge"]')).toHaveCount(1);
   await expect(page.getByRole("link", { name: "초소 둘러보기 ↗" }).first()).toHaveAttribute("href", "https://choso.kangdaejong.com/guest");
