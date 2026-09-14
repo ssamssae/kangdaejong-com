@@ -11,7 +11,7 @@ const checks = [
   ["all three books keep purchase links", ["786557", "786749", "798202"].every((id) => source.includes(`https://kmong.com/gig/${id}`))],
   ["all four public bridges keep repository and release links", ["grok", "codex", "claude", "cursor"].every((name) => source.includes(`ssamssae/${name}-telegram-bridge`) && source.includes(`ssamssae/${name}-telegram-bridge/releases`))],
   ["choso guest board remains a public destination", /id="choso"/.test(source) && /https:\/\/choso\.kangdaejong\.com\/guest/.test(source) && /초소 둘러보기/.test(source)],
-  ["company intro keeps the public operating start date", /since: "2026년 4월 11일"/.test(source) && /Since \{company\.sinceShort\}/.test(source)],
+  ["company intro keeps the business opening date", /since: "2026년 5월 4일"/.test(source) && /Since \{company\.sinceShort\}/.test(source)],
   ["real existing studio images are used", /\/studio\/cheotireum\.jpg/.test(source)],
 ];
 

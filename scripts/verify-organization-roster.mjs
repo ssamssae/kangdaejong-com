@@ -7,7 +7,7 @@ const checks = [
   ["human gates for direction, publication, and cost remain", /무엇을 만들고 무엇을 멈출지/.test(source) && /공개 전에는 다시 확인합니다/.test(source) && /결제와 비용/.test(source)],
   ["internal codenames and devices stay off the visitor page", !/(아테나|헤르메스|볼칸|라이덴|테미스|맥 미니|맥북 프로)/.test(source)],
   ["founder identity and contact remain", /representative: "강대종"/.test(source) && /minusbetastudio@gmail\.com/.test(source)],
-  ["operating start date remains explicit", /since: "2026년 4월 11일"/.test(source) && /Since \{company\.sinceShort\}/.test(source)],
+  ["business opening date remains explicit", /since: "2026년 5월 4일"/.test(source) && /Since \{company\.sinceShort\}/.test(source)],
   ["choso guest board remains reachable", /https:\/\/choso\.kangdaejong\.com\/guest/.test(source)],
 ];
 
