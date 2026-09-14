@@ -29,6 +29,36 @@ const featured = {
 const productGroups = [
   {
     number: "01",
+    label: "이름과 날짜",
+    products: [
+      {
+        name: "사주운세",
+        symbol: "사",
+        description: "웹 · ₩4,900. 생년월일로 사주 네 기둥과 오행을 무료로 보고, 상세 해석은 결제 후 받는 리포트.",
+        links: [{ label: "바로가기", url: "https://cheotireum.kangdaejong.com/unse" }],
+      },
+      {
+        name: "한장택일",
+        symbol: "택",
+        description: "웹 · ₩19,900. 이름과 생일로 결혼·이사·개업에 좋은 날을 고르고, 이유를 한 장에 담아 메일로 보냅니다.",
+        links: [{ label: "바로가기", url: "https://taekil.kangdaejong.com/" }],
+      },
+      {
+        name: "펫이름",
+        symbol: "펫",
+        description: "웹 · ₩2,900. 강아지·고양이 종류와 바라는 느낌을 넣으면 이름 후보를 무료로 보는 작명 리포트.",
+        links: [{ label: "바로가기", url: "https://cheotireum.kangdaejong.com/pet" }],
+      },
+      {
+        name: "한장궁합",
+        symbol: "궁",
+        description: "웹 · ₩19,900. 두 사람의 사주로 궁합 점수와 해설을 한 장에 담아 메일로 보냅니다.",
+        links: [{ label: "바로가기", url: "https://hanjang.kangdaejong.com/" }],
+      },
+    ],
+  },
+  {
+    number: "02",
     label: "기록하기",
     products: [
       {
@@ -52,7 +82,7 @@ const productGroups = [
     ],
   },
   {
-    number: "02",
+    number: "03",
     label: "생활 챙기기",
     products: [
       {
@@ -82,7 +112,7 @@ const productGroups = [
     ],
   },
   {
-    number: "03",
+    number: "04",
     label: "나누고 익히기",
     products: [
       {
@@ -172,7 +202,7 @@ const description = `${company.name} — 생활에 가까운 앱, 웹 서비스,
 <div class="r-index"><span>작게 만들어, 꾸준히 다듬습니다.</span><a href="#products">01 생활 앱</a><a href="#books">02 만드는 법</a><a href="#open-tools">03 연결 도구</a><a href="#choso">04 초소</a></div>
 <section class="r-section" id="products"><div class="r-heading"><div><p class="r-kicker">01 / EVERYDAY TOOLS</p><h2>자주 쓰는 것부터,<br/>좋아지도록.</h2></div><p>거창한 기능보다 분명한 쓰임.<br/>필요한 순간에 꺼내 쓰는 작은 도구들입니다.</p></div>
 <div class="r-feature"><div><p class="r-kicker">FEATURED / 첫이름</p><h3>처음 부를 이름을<br/>함께 고르는 시간.</h3><p>{featured.description}</p><a class="r-button" href={featured.url}>첫이름 살펴보기 ↗</a><small>{featured.price}</small></div><img src="/studio/cheotireum.jpg" width="1050" height="1400" alt="첫이름 작명 서비스 소개" loading="lazy"/></div>
-{productGroups.map((group)=><div class="r-app-group"><div class="r-group-label"><span>{group.number}</span><h3>{group.label}</h3></div><div class="r-app-grid">{group.products.map((product)=><article class="r-app"><span class="r-app-symbol" aria-hidden="true">{product.name.slice(0,1)}</span><h4>{product.name}</h4><p>{product.description}</p><div class="r-links">{product.links.map(link=><a href={link.url}>{link.label} ↗</a>)}</div></article>)}</div></div>)}
+{productGroups.map((group)=><div class="r-app-group"><div class="r-group-label"><span>{group.number}</span><h3>{group.label}</h3></div><div class={group.products.length === 4 ? "r-app-grid r-web" : "r-app-grid"}>{group.products.map((product)=><article class="r-app"><span class="r-app-symbol" aria-hidden="true">{product.symbol ?? product.name.slice(0,1)}</span><h4>{product.name}</h4><p>{product.description}</p><div class="r-links">{product.links.map(link=><a href={link.url}>{link.label} ↗</a>)}</div></article>)}</div></div>)}
 </section>
 <section class="r-section" id="books"><div class="r-heading"><div><p class="r-kicker">02 / FIELD NOTES</p><h2>만들며 배운 것은<br/>다시 나눕니다.</h2></div><p>혼자 일하는 방법, AI와 함께 만드는 과정.<br/>실제 작업에서 출발한 전자책과 템플릿입니다.</p></div><div class="r-book-grid">{books.map(book=><article class="r-book"><div class="r-cover"><span>MINUS BETA / WORKING NOTES</span><h3>{book.name}</h3><b>VOL. {book.number} ↗</b></div><p>{book.description}</p><small>{book.price}</small><div class="r-links"><a href={book.purchase}>전자책 보기 ↗</a>{book.template&&<a href={book.template}>템플릿 열기 ↗</a>}</div></article>)}</div></section>
 <section class="r-section" id="open-tools"><div class="r-heading"><div><p class="r-kicker">03 / OPEN TOOLS</p><h2>내 컴퓨터의 AI를,<br/>내 손 안으로.</h2></div><p>텔레그램과 컴퓨터의 AI 세션을 잇습니다.<br/>코드를 공개하고, 함께 쓸 수 있게 만듭니다.</p></div>
