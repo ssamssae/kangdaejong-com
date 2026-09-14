@@ -31,8 +31,8 @@ test("home presents apps, books and all four bridges", async ({ page }) => {
   await expect(page.locator(".r-tool")).toHaveCount(4);
   await expect(page.locator('#open-tools a[href="https://github.com/ssamssae/cursor-telegram-bridge"]')).toHaveCount(1);
   await expect(page.getByRole("link", { name: "초소 둘러보기 ↗" }).first()).toHaveAttribute("href", "https://choso.kangdaejong.com/guest");
-  await expect(page.locator("#company")).toContainText("Since 2026. 4. 11.");
-  await expect(page.locator("#company")).toContainText("2026년 4월 11일부터 서울에서 운영하고 있습니다.");
+  await expect(page.locator("#company")).toContainText("Since 2026. 5. 4.");
+  await expect(page.locator("#company")).toContainText("2026년 5월 4일부터 서울에서 운영하고 있습니다.");
   const cheotireumLinks = page.getByRole("link", { name: "첫이름 살펴보기 ↗" });
   await expect(cheotireumLinks).toHaveCount(1);
   await expect(cheotireumLinks.first()).toHaveAttribute("href", "https://cheotireum.kangdaejong.com/");
@@ -41,7 +41,7 @@ test("home presents apps, books and all four bridges", async ({ page }) => {
 test("organization explains public responsibility without publishing the internal roster", async ({ page }) => {
   await page.goto("/organization/");
   await expect(page.getByRole("heading", { level: 1, name: "작은 조직. 분명한 책임." })).toBeVisible();
-  await expect(page.getByText("Since 2026. 4. 11.").first()).toBeVisible();
+  await expect(page.getByText("Since 2026. 5. 4.").first()).toBeVisible();
   await expect(page.getByRole("link", { name: "초소 둘러보기 ↗" })).toHaveAttribute("href", "https://choso.kangdaejong.com/guest");
   await expect(page.getByText("법적 대표 강대종")).toBeVisible();
   await expect(page.locator("main").getByText(/아테나|헤르메스|볼칸/)).toHaveCount(0);
