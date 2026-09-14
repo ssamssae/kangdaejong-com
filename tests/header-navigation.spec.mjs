@@ -1,5 +1,13 @@
 import { test, expect } from "@playwright/test";
 
+test("more menu keeps the public choso guest destination", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /더보기/ }).click();
+  const choso = page.getByRole("link", { name: "초소", exact: true });
+  await expect(choso).toBeVisible();
+  await expect(choso).toHaveAttribute("href", "https://choso.kangdaejong.com/guest");
+});
+
 test("newsletter opens a separate page and preserves the current route", async ({ page, context }) => {
   await context.route("https://minusbetastudio.substack.com/**", (route) => route.fulfill({ body: "Newsletter" }));
   await page.goto("/organization/");
