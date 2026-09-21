@@ -12,7 +12,7 @@ const description = '단백질을 구성하는 표준 아미노산 20종을 3D �
       <div class="hero-copy">
         <p class="kicker">MOLECULAR ATLAS / 01</p>
         <h1 id="protein-title">단백질의 시작,<br/><em>20가지</em> 작은 구조.</h1>
-        <p class="intro">서로 다른 곁사슬, 무한한 조합.<br/>단백질을 만드는 아미노산을 입체로 살펴봅니다.</p>
+        <p class="intro">서로 다른 곁사슬, 무한한 조합.<br/>단백질을 만드는 아미노산을 직접 돌려보며 살펴봅니다.</p>
         <a class="explore" href="#atlas">20종 둘러보기 <span aria-hidden="true">↓</span></a>
       </div>
       <figure class="hero-molecule">
@@ -38,7 +38,7 @@ const description = '단백질을 구성하는 표준 아미노산 20종을 3D �
         {aminoAcids.map((amino,index) => <article class="amino-card" data-category={amino.group} data-search={`${amino.name} ${amino.en} ${amino.code} ${amino.letter}`.toLowerCase()}>
           <div class="card-top"><span>{String(index+1).padStart(2,'0')}</span><span class="group-label">{amino.group}</span></div>
           <a class="structure-link" href={`/protein/${amino.slug}.png`} aria-label={`${amino.name} 구조 그림 크게 보기`}><img src={`/protein/${amino.slug}.png`} alt={`${amino.name}(${amino.code})의 3D 분자 구조`} width="800" height="800" loading="lazy" decoding="async" /></a>
-          <div class="card-copy"><div class="name-line"><h3>{amino.name}</h3><span class="amino-code">{amino.letter}</span></div><p class="english">{amino.en} <span>· {amino.code}</span></p><p class="amino-note">{amino.note}</p><a class="structure-source" href={sources.get(amino.slug)} aria-label={`${amino.name} PubChem 구조 원본`}>구조 원본 ↗</a></div>
+          <div class="card-copy"><div class="name-line"><h3>{amino.name}</h3><span class="amino-code">{amino.letter}</span></div><p class="english">{amino.en} <span>· {amino.code}</span></p><p class="amino-note">{amino.note}</p><button class="view-3d" type="button" data-molecule={amino.slug} data-name={amino.name} data-code={amino.code} aria-label={`${amino.name} 3D로 보기`} aria-haspopup="dialog">3D로 보기 <span aria-hidden="true">↻</span></button><a class="structure-source" href={sources.get(amino.slug)} aria-label={`${amino.name} PubChem 구조 원본`}>구조 원본 ↗</a></div>
         </article>)}
       </div>
       <div id="empty-state" hidden><p>일치하는 아미노산이 없습니다.</p></div>
@@ -48,9 +48,21 @@ const description = '단백질을 구성하는 표준 아미노산 20종을 3D �
       <h2 id="model-note-title">이 그림에 대하여</h2>
       <div><p>표준 아미노산 20종의 개별 분자를 보여줍니다. 글리신을 제외하면 L형이며, 그림은 중성 형태의 한 가지 3D 배열입니다. 실제 수용액에서는 pH에 따라 전하와 구조가 달라지고, 단백질 안에서는 펩타이드 결합으로 연결됩니다.</p><p>분류는 곁사슬의 특징을 살펴보기 위한 구분입니다. 티로신은 방향족이면서 극성을 띠고, 히스티딘은 고리 구조를 가지면서 염기성으로 분류합니다. 구와 막대의 크기는 보기 쉽게 조정했습니다.</p><p class="source-links">자료: <a href="https://pubchem.ncbi.nlm.nih.gov/">PubChem 분자 구조</a> · <a href="https://www.ncbi.nlm.nih.gov/books/NBK26830/">NCBI · 단백질의 구조</a> · <a href="/protein/manifest.json">그림별 출처</a></p></div>
     </aside>
+    <dialog id="molecule-dialog" aria-labelledby="molecule-title" aria-describedby="molecule-help">
+      <div class="viewer-heading"><div><p class="kicker">INTERACTIVE MOLECULE</p><h2 id="molecule-title">3D 분자 구조</h2></div><button class="viewer-close" type="button" aria-label="3D 보기 닫기" autofocus>닫기 ×</button></div>
+      <p id="molecule-help">드래그·한 손가락으로 회전, 휠·두 손가락으로 확대·축소하세요.<br/>아래 버튼 또는 뷰어에 초점을 둔 뒤 방향키와 + / − 키로도 조작할 수 있습니다.</p>
+      <div id="molecule-stage" tabindex="0" role="region" aria-label="회전 가능한 분자 모형" aria-describedby="molecule-help" aria-busy="false"></div>
+      <p id="molecule-status" role="status" aria-live="polite"></p>
+      <div class="viewer-controls" role="group" aria-label="분자 회전과 확대">
+        <button type="button" data-view-action="left" aria-label="왼쪽으로 회전" disabled>←</button><button type="button" data-view-action="right" aria-label="오른쪽으로 회전" disabled>→</button><button type="button" data-view-action="up" aria-label="위로 회전" disabled>↑</button><button type="button" data-view-action="down" aria-label="아래로 회전" disabled>↓</button>
+        <button type="button" data-view-action="out" aria-label="축소" disabled>−</button><button type="button" data-view-action="in" aria-label="확대" disabled>+</button><button type="button" data-view-action="reset" disabled>원래대로</button>
+      </div>
+      <div class="viewer-fallback"><button id="molecule-retry" type="button" hidden>다시 시도</button><a id="molecule-image" href="/protein/tryptophan.png">정적인 그림 보기 ↗</a></div>
+    </dialog>
   </main>
 </SiteLayout>
 <script>
+  import "../scripts/protein-viewer.js";
   const search = document.querySelector<HTMLInputElement>('.search input')!;
   const filters = document.querySelectorAll<HTMLButtonElement>('[data-group]');
   const cards = document.querySelectorAll<HTMLElement>('.amino-card');
@@ -72,6 +84,12 @@ const description = '단백질을 구성하는 표준 아미노산 20종을 3D �
   document.querySelector('.reset')!.addEventListener('click', () => { selected = '전체'; search.value = ''; update(); });
 </script>
 <style>
+  .view-3d{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:16px;padding:10px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--fg);font:600 13px var(--sans);cursor:pointer;min-height:44px}.view-3d:hover{border-color:var(--accent);color:var(--accent)}
+  #molecule-dialog{width:min(720px,calc(100% - 24px));max-height:calc(100dvh - 24px);box-sizing:border-box;padding:24px;border:1px solid var(--border);border-radius:20px;background:var(--bg);color:var(--fg);overflow:auto;overscroll-behavior:contain}#molecule-dialog::backdrop{background:#182019a8}
+  .viewer-heading{display:flex;align-items:center;justify-content:space-between;gap:12px}.viewer-heading .kicker{margin:0 0 8px;font-size:10px}.viewer-heading h2{margin:0;font-size:25px}.viewer-close,#molecule-retry,.viewer-controls button{font:inherit;color:var(--fg);border:1px solid var(--border);border-radius:8px;background:#fffefb;cursor:pointer;min-width:44px;min-height:44px;padding:8px 12px}.viewer-controls button:disabled{opacity:.4;cursor:default}#molecule-help{font-size:12px;line-height:1.8;color:var(--fg-dim);margin:16px 0}
+  #molecule-stage{position:relative;width:100%;height:min(48dvh,420px);min-height:180px;border-radius:12px;background:#eeede7;overflow:hidden;touch-action:none;cursor:grab}#molecule-stage:active{cursor:grabbing}#molecule-status{min-height:22px;margin:12px 0;font-size:13px;color:var(--fg-dim)}.viewer-controls{display:flex;flex-wrap:wrap;justify-content:center;gap:7px}.viewer-fallback{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:16px;font-size:12px}.viewer-fallback [hidden]{display:none}
+  @media(max-width:480px){#molecule-dialog{padding:16px}.viewer-heading h2{font-size:22px}.viewer-controls{gap:5px}.viewer-controls button{padding:8px;min-width:40px}.viewer-controls button:last-child{min-width:70px}#molecule-stage{height:min(40dvh,340px)}}
+
   .protein-shell{max-width:1280px;margin:auto;padding:0 48px;color:var(--fg)}
   .protein-hero{display:grid;grid-template-columns:1.05fr 1fr;gap:52px;align-items:center;padding:72px 0 56px}
   .kicker{font:11px var(--mono);letter-spacing:.15em;color:var(--accent);margin:0 0 28px}
