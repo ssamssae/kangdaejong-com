@@ -3,8 +3,9 @@
   const BADGE = 'https://kangdaejong.com/minusbeta-badge.svg?v=square';
   const BRAND_HREF = 'https://kangdaejong.com/';
 
-  // active = home|products|books|tools|organization|system|workshop|worklog|newsletter|founder
+  // active = home|products|books|tools|protein|organization|system|workshop|worklog|newsletter|founder
   const NAV_PRIMARY = [
+    { key: 'protein', label: '단백질', href: 'https://kangdaejong.com/protein/' },
     { key: 'products', label: '제품', href: 'https://kangdaejong.com/#products' },
     { key: 'books', label: '책·템플릿', href: 'https://kangdaejong.com/#books' },
     { key: 'tools', label: '공개 도구', href: 'https://kangdaejong.com/#open-tools' },

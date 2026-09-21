@@ -1,0 +1,22 @@
+{
+  "name": "3dmol",
+  "version": "2.5.5",
+  "license": "BSD-3-Clause",
+  "files": {
+    "3Dmol-min.js": {
+      "url": "https://unpkg.com/3dmol@2.5.5/build/3Dmol-min.js",
+      "sha256": "f7cc78921ae72e7623e89cdd111434f58c2efddd2ffda1cd212644b406fb8016",
+      "bytes": 537792
+    },
+    "3Dmol-min.js.LICENSE.txt": {
+      "url": "https://unpkg.com/3dmol@2.5.5/build/3Dmol-min.js.LICENSE.txt",
+      "sha256": "ae3bfc688d0c9687b76e0ecc7fece0b393bcb4acf2aee09e19dda697eaa10b16",
+      "bytes": 120
+    },
+    "LICENSE": {
+      "url": "https://unpkg.com/3dmol@2.5.5/LICENSE",
+      "sha256": "4c6eaaed856f3f28a3b1a98e74f4a8a71618de7d51ea4155c29f6f793bcef861",
+      "bytes": 4283
+    }
+  }
+}
