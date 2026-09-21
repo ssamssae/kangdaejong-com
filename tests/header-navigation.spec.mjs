@@ -124,3 +124,13 @@ test("keyboard focus leaving the header closes the menu", async ({ page }) => {
   await page.getByRole("link", { name: "문의", exact: true }).focus();
   await expect(more).toHaveAttribute("aria-expanded", "false");
 });
+
+
+test("protein tab follows public tools and opens the dedicated subdomain", async ({ page, context }) => {
+  await context.route('https://protein.kangdaejong.com/', route => route.fulfill({ body: 'Protein atlas' }));
+  await page.goto('/');
+  const links = page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link');
+  await expect(links).toHaveText(['제품', '책·템플릿', '공개 도구', '단백질']);
+  await page.getByRole('link', { name: '단백질', exact: true }).click();
+  await expect(page).toHaveURL('https://protein.kangdaejong.com/');
+});
