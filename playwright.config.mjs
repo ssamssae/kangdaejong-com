@@ -2,6 +2,7 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
+  testIgnore: "protein.spec.mjs",
   outputDir: "/tmp/kangdaejong-com-playwright",
   reporter: "line",
   use: {

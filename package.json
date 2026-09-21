@@ -17,7 +17,9 @@
     "verify:tone-pairs": "node scripts/verify-tone-pairs.mjs",
     "test": "playwright test",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:protein": "astro build --config astro.protein.config.mjs",
+    "test:protein": "playwright test --config playwright.protein.config.mjs"
   },
   "dependencies": {
     "astro": "^6.3.3"
