@@ -4,6 +4,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 import MoodCorner from "../components/MoodCorner.astro";
 import productIcons from "../data/product-icon-sources.json";
 const iconFor = (name: string) => productIcons.icons.find(item => item.name === name)?.icon;
+import ProductFacts from "../components/ProductFacts.astro";
 import ProductExamples from "../components/ProductExamples.astro";
 
 const company = {
@@ -213,6 +214,8 @@ const tools = [
   },
 ];
 
+const homeProducts = productGroups.flatMap(group => group.products).filter(product => ["입타 (Ipta)", "한줄일기", "메모요"].includes(product.name));
+const otherProducts = productGroups.flatMap(group => group.products).filter(product => !homeProducts.includes(product));
 const description = `${company.name} — 생활에 가까운 앱, 웹 서비스, 전자책과 공개 도구를 직접 만들고 운영하는 강대종의 1인 스튜디오.`;
 ---
 <SiteLayout description={description} canonical="https://kangdaejong.com/" active="home" bodyClass="renewal">
@@ -229,8 +232,10 @@ const description = `${company.name} — 생활에 가까운 앱, 웹 서비스,
 <a href="#open-tools"><span>03 / AI와 자동화</span><strong>내 컴퓨터의 AI를 연결하고 싶어요</strong><p>텔레그램 브릿지 · 공개 소스 · 사용 안내</p><b>AI 연결 도구 보기 ↗</b></a>
 </nav>
 <section class="r-section" id="products"><div class="r-heading"><div><p class="r-kicker">01 / EVERYDAY TOOLS</p><h2>자주 쓰는 것부터,<br/>좋아지도록.</h2></div><p>거창한 기능보다 분명한 쓰임.<br/>필요한 순간에 꺼내 쓰는 작은 도구들입니다.</p></div>
-<div class="r-feature" id="names"><div><p class="r-kicker">FEATURED / 첫이름</p><h3>처음 부를 이름을<br/>함께 고르는 시간.</h3><p>{featured.description}</p><a class="r-button" href={featured.url}>첫이름 살펴보기 ↗</a><small>{featured.price}</small></div><img src="/studio/cheotireum.jpg" width="1050" height="1400" alt="첫이름 작명 서비스 소개" loading="lazy"/></div>
-{productGroups.map((group)=><div class="r-app-group" id={group.label === "기록하기" ? "everyday" : undefined}><div class="r-group-label"><span>{group.number}</span><h3>{group.label}</h3></div><div class={group.number === "01" ? "r-app-grid r-web" : "r-app-grid"}>{group.products.map((product)=><article class="r-app"><span class="r-app-symbol" aria-hidden="true">{iconFor(product.name) ? <img src={iconFor(product.name)} width="48" height="48" loading="lazy" alt="" /> : product.symbol ?? product.name.slice(0,1)}</span><h4>{product.name}</h4><p>{product.description}</p><div class="r-links">{product.links.map(link=><a href={link.url}>{link.label} ↗</a>)}</div></article>)}</div></div>)}
+<div class="r-feature" id="names"><div><p class="r-kicker">FEATURED / 첫이름</p><img class="featured-app-icon" src={iconFor("첫이름 — AI 사주 작명")} width="56" height="56" alt="첫이름 앱 아이콘" /><h3>처음 부를 이름을<br/>함께 고르는 시간.</h3><p>{featured.description}</p><a class="r-button" href={featured.url}>첫이름 살펴보기 ↗</a><ProductFacts name="첫이름" /></div><img src="/studio/cheotireum.jpg" width="1050" height="1400" alt="첫이름 작명 서비스 소개" loading="lazy"/></div>
+<div class="r-app-group" id="everyday"><div class="r-group-label"><span>02</span><h3>기록을 가볍게 만드는 세 가지</h3></div><div class="r-app-grid">{homeProducts.map(product => <article class="r-app" data-home-product><span class="r-app-symbol" aria-hidden="true"><img src={iconFor(product.name)} width="48" height="48" loading="lazy" alt="" /></span><h4>{product.name}</h4><p>{product.description}</p><ProductFacts name={product.name} /><div class="r-links">{product.name === "입타 (Ipta)" ? <a href="/ipta/">설치·사용 방법 보기 ↗</a> : product.links.map(link => <a href={link.url}>{link.label} ↗</a>)}</div></article>)}</div></div>
+<p class="catalog-destination"><a class="r-button" href={company.products}>전체 제품 비교하기 ↗</a></p>
+<details class="other-product-links"><summary>다른 생활·이름 서비스 바로가기</summary><div>{otherProducts.map(product => <a href={product.links[0].url}>{iconFor(product.name) && <img src={iconFor(product.name)} width="28" height="28" loading="lazy" alt="" />}{product.name} ↗</a>)}</div></details>
 </section>
 <ProductExamples />
 <p class="catalog-destination"><a class="r-button" href="https://work.kangdaejong.com/products/">모든 제품을 한곳에서 보기 ↗</a></p>
