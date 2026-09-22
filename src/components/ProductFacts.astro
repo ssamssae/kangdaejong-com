@@ -1,0 +1,14 @@
+---
+import allFacts from "../data/product-facts.json";
+const { name } = Astro.props;
+const facts = allFacts[name as keyof typeof allFacts];
+if (!facts) throw new Error(`Missing product comparison facts: ${name}`);
+---
+<dl class="product-facts" aria-label={`${name} 이용 정보`}>
+  <div><dt>비용</dt><dd>{facts.price}</dd></div>
+  <div><dt>지원</dt><dd>{facts.platform}</dd></div>
+  <div><dt>가입</dt><dd>{facts.account}</dd></div>
+</dl>
+<style>
+.product-facts{margin:20px 0;font-size:12px;line-height:1.7;color:#62655d}.product-facts div{display:grid;grid-template-columns:32px minmax(0,1fr);gap:10px;margin-top:6px}.product-facts dt{font-weight:600;color:#242720}.product-facts dd{margin:0;word-break:keep-all}
+</style>
