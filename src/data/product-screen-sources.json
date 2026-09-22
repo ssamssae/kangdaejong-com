@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "hanjul",
+    "name": "한줄일기 - 하루 한 줄",
+    "path": "/product-screens/hanjul-3beb70efd1.jpg",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/78/c1/85/78c18587-ed12-bff0-4d83-7f410fb471b1/01-home.png/320x480bb.jpg",
+    "version": "1.4.3",
+    "sha256": "3beb70efd1ff091ac6fc67306f444de98879813ffc8940398109f7607251d0dc"
+  },
+  {
+    "slug": "memo",
+    "name": "메모요",
+    "path": "/product-screens/memo-2cd95e4475.jpg",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/84/a8/d5/84a8d535-4a7e-cf2b-9bfb-305d62a11424/01_dark_main.png/320x480bb.jpg",
+    "version": "1.0.19",
+    "sha256": "2cd95e4475959a5131923720bd20b1b074bdabfd97b32b6b8ae104923563d8b8"
+  },
+  {
+    "slug": "cheotireum",
+    "name": "첫이름 - AI 사주 작명 리포트",
+    "path": "/product-screens/cheotireum-c9c840b23f.jpg",
+    "source": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/42/72/b7/4272b77b-d010-992f-c3da-3e975beb39e4/01-home.png/320x480bb.jpg",
+    "version": "1.0.3",
+    "sha256": "c9c840b23f82b45347bf3e2319199f939e0d4bb2b3f1f8dd0d01cdc96a88056e"
+  }
+]
