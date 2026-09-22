@@ -1,0 +1,163 @@
+{
+  "한줄일기": {
+    "price": "무료 다운로드 · 광고 제거 유료",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6764308678",
+    "checkedAt": "2026-09-22"
+  },
+  "메모요": {
+    "price": "무료 다운로드 · 광고 제거 유료",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6762068073",
+    "checkedAt": "2026-09-22"
+  },
+  "더치페이 계산기": {
+    "price": "무료 다운로드",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6762072499",
+    "checkedAt": "2026-09-22"
+  },
+  "약먹자": {
+    "price": "무료 다운로드",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6762100639",
+    "checkedAt": "2026-09-22"
+  },
+  "단어요": {
+    "price": "무료 다운로드",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6766556759",
+    "checkedAt": "2026-09-22"
+  },
+  "한컵": {
+    "price": "무료 다운로드",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6765536616",
+    "checkedAt": "2026-09-22"
+  },
+  "포모도로": {
+    "price": "무료 다운로드",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6765536777",
+    "checkedAt": "2026-09-22"
+  },
+  "심플 가계부": {
+    "price": "무료 다운로드",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6769037337",
+    "checkedAt": "2026-09-22"
+  },
+  "행운번호 생성기": {
+    "price": "무료 다운로드",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6766077265",
+    "checkedAt": "2026-09-22"
+  },
+  "첫이름 — AI 사주 작명": {
+    "price": "미리보기 무료 · 리포트 19,900원",
+    "platform": "웹 · iOS · Android",
+    "account": "주문 시 이메일 입력",
+    "source": "https://cheotireum.kangdaejong.com/",
+    "checkedAt": "2026-09-22"
+  },
+  "첫이름": {
+    "price": "미리보기 무료 · 리포트 19,900원",
+    "platform": "웹 · iOS · Android",
+    "account": "주문 시 이메일 입력",
+    "source": "https://cheotireum.kangdaejong.com/",
+    "checkedAt": "2026-09-22"
+  },
+  "한장궁합 가족 리포트": {
+    "price": "리포트 19,900원 · 1회 결제",
+    "platform": "웹",
+    "account": "이메일 인증",
+    "source": "https://hanjang.kangdaejong.com/",
+    "checkedAt": "2026-09-22"
+  },
+  "한장택일 — 결혼·이사·개업 날짜": {
+    "price": "날짜 미리보기 무료 · 리포트 19,900원",
+    "platform": "웹",
+    "account": "이메일 인증",
+    "source": "https://taekil.kangdaejong.com/",
+    "checkedAt": "2026-09-22"
+  },
+  "밥먹자 — 함께 먹는 한 끼": {
+    "price": "서비스 무료 · 식사비 각자 부담",
+    "platform": "웹 · Android",
+    "account": "모집·참여 시 로그인",
+    "source": "https://babmeokja.kangdaejong.com/",
+    "checkedAt": "2026-09-22"
+  },
+  "입타 (Ipta)": {
+    "price": "무료 · 외부 AI 비용 별도",
+    "platform": "macOS 14+ · Windows 10/11 x64",
+    "account": "받아쓰기 가입 불필요 · 외부 AI는 별도",
+    "source": "https://github.com/ssamssae/ipta#readme",
+    "checkedAt": "2026-09-22"
+  },
+  "Grok Telegram Bridge": {
+    "price": "브릿지 무료 · 연결 서비스 비용 별도",
+    "platform": "macOS · Linux · Windows(WSL)",
+    "account": "Telegram · Grok 계정",
+    "source": "https://github.com/ssamssae/grok-telegram-bridge#readme",
+    "checkedAt": "2026-09-22"
+  },
+  "Codex Telegram Bridge": {
+    "price": "브릿지 무료 · 연결 서비스 비용 별도",
+    "platform": "macOS · Linux · Windows(기능 차이)",
+    "account": "Telegram · Codex 이용 계정",
+    "source": "https://github.com/ssamssae/codex-telegram-bridge#readme",
+    "checkedAt": "2026-09-22"
+  },
+  "Claude Telegram Bridge": {
+    "price": "브릿지 무료 · 연결 서비스 비용 별도",
+    "platform": "macOS · Linux · Windows(WSL)",
+    "account": "Telegram · Claude 계정",
+    "source": "https://github.com/ssamssae/claude-telegram-bridge#readme",
+    "checkedAt": "2026-09-22"
+  },
+  "Cursor Telegram Bridge": {
+    "price": "브릿지 무료 · 연결 서비스 비용 별도",
+    "platform": "macOS 중심",
+    "account": "Telegram · Cursor 계정",
+    "source": "https://github.com/ssamssae/cursor-telegram-bridge#readme",
+    "checkedAt": "2026-09-22"
+  },
+  "Local Telegram Bridge": {
+    "price": "브릿지 무료 · 로컬 모델 별도",
+    "platform": "macOS · Linux",
+    "account": "Telegram 계정 · 로컬 모델 필요",
+    "source": "https://github.com/ssamssae/local-telegram-bridge#readme",
+    "checkedAt": "2026-09-22"
+  },
+  "1인회사 AI자동화": {
+    "price": "10,000원 · 크몽 수수료 별도",
+    "platform": "전자책 · PC / 모바일",
+    "account": "구매 시 크몽 계정",
+    "source": "https://kmong.com/gig/786557",
+    "checkedAt": "2026-09-22"
+  },
+  "혼자서 AI팀": {
+    "price": "15,000원 · 크몽 수수료 별도",
+    "platform": "전자책 · PC / 모바일",
+    "account": "구매 시 크몽 계정",
+    "source": "https://kmong.com/gig/786749",
+    "checkedAt": "2026-09-22"
+  },
+  "폰으로 내 컴퓨터 AI 부리기": {
+    "price": "10,000원 · 크몽 수수료 별도",
+    "platform": "전자책 · PC / 모바일",
+    "account": "구매 시 크몽 계정",
+    "source": "https://kmong.com/gig/798202",
+    "checkedAt": "2026-09-22"
+  }
+}
