@@ -1,6 +1,7 @@
 ---
 import "../styles/renewal.css";
 import SiteLayout from "../layouts/SiteLayout.astro";
+import MoodCorner from "../components/MoodCorner.astro";
 
 const company = {
   name: "마이너스베타스튜디오",
@@ -209,6 +210,7 @@ const description = `${company.name} — 생활에 가까운 앱, 웹 서비스,
 <span class="r-stamp">SMALL TOOLS.<br/>EVERYDAY USE.</span><div class="r-note"><span>한줄일기 / TODAY</span><strong>오늘의 작은 일을<br/>오래 기억하기.</strong><i></i><i></i><i></i><b>나의 하루, 한 줄이면 충분해요.</b></div><div class="r-timer"><span>FOCUS TIME</span><strong>25:00</strong><span>한 번에, 한 가지.</span></div><div class="r-dot">−β</div></div>
 </section>
 <div class="r-index"><span>작게 만들어, 꾸준히 다듬습니다.</span><a href="#products">01 생활 앱</a><a href="#books">02 만드는 법</a><a href="#open-tools">03 연결 도구</a><a href="#choso">04 초소</a></div>
+<MoodCorner />
 <section class="r-section" id="products"><div class="r-heading"><div><p class="r-kicker">01 / EVERYDAY TOOLS</p><h2>자주 쓰는 것부터,<br/>좋아지도록.</h2></div><p>거창한 기능보다 분명한 쓰임.<br/>필요한 순간에 꺼내 쓰는 작은 도구들입니다.</p></div>
 <div class="r-feature"><div><p class="r-kicker">FEATURED / 첫이름</p><h3>처음 부를 이름을<br/>함께 고르는 시간.</h3><p>{featured.description}</p><a class="r-button" href={featured.url}>첫이름 살펴보기 ↗</a><small>{featured.price}</small></div><img src="/studio/cheotireum.jpg" width="1050" height="1400" alt="첫이름 작명 서비스 소개" loading="lazy"/></div>
 {productGroups.map((group)=><div class="r-app-group"><div class="r-group-label"><span>{group.number}</span><h3>{group.label}</h3></div><div class={group.number === "01" ? "r-app-grid r-web" : "r-app-grid"}>{group.products.map((product)=><article class="r-app"><span class="r-app-symbol" aria-hidden="true">{product.symbol ?? product.name.slice(0,1)}</span><h4>{product.name}</h4><p>{product.description}</p><div class="r-links">{product.links.map(link=><a href={link.url}>{link.label} ↗</a>)}</div></article>)}</div></div>)}
