@@ -2,6 +2,8 @@
 import "../styles/renewal.css";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import MoodCorner from "../components/MoodCorner.astro";
+import productIcons from "../data/product-icon-sources.json";
+const iconFor = (name: string) => productIcons.icons.find(item => item.name === name)?.icon;
 import ProductExamples from "../components/ProductExamples.astro";
 
 const company = {
@@ -228,7 +230,7 @@ const description = `${company.name} — 생활에 가까운 앱, 웹 서비스,
 </nav>
 <section class="r-section" id="products"><div class="r-heading"><div><p class="r-kicker">01 / EVERYDAY TOOLS</p><h2>자주 쓰는 것부터,<br/>좋아지도록.</h2></div><p>거창한 기능보다 분명한 쓰임.<br/>필요한 순간에 꺼내 쓰는 작은 도구들입니다.</p></div>
 <div class="r-feature" id="names"><div><p class="r-kicker">FEATURED / 첫이름</p><h3>처음 부를 이름을<br/>함께 고르는 시간.</h3><p>{featured.description}</p><a class="r-button" href={featured.url}>첫이름 살펴보기 ↗</a><small>{featured.price}</small></div><img src="/studio/cheotireum.jpg" width="1050" height="1400" alt="첫이름 작명 서비스 소개" loading="lazy"/></div>
-{productGroups.map((group)=><div class="r-app-group" id={group.label === "기록하기" ? "everyday" : undefined}><div class="r-group-label"><span>{group.number}</span><h3>{group.label}</h3></div><div class={group.number === "01" ? "r-app-grid r-web" : "r-app-grid"}>{group.products.map((product)=><article class="r-app"><span class="r-app-symbol" aria-hidden="true">{product.symbol ?? product.name.slice(0,1)}</span><h4>{product.name}</h4><p>{product.description}</p><div class="r-links">{product.links.map(link=><a href={link.url}>{link.label} ↗</a>)}</div></article>)}</div></div>)}
+{productGroups.map((group)=><div class="r-app-group" id={group.label === "기록하기" ? "everyday" : undefined}><div class="r-group-label"><span>{group.number}</span><h3>{group.label}</h3></div><div class={group.number === "01" ? "r-app-grid r-web" : "r-app-grid"}>{group.products.map((product)=><article class="r-app"><span class="r-app-symbol" aria-hidden="true">{iconFor(product.name) ? <img src={iconFor(product.name)} width="48" height="48" loading="lazy" alt="" /> : product.symbol ?? product.name.slice(0,1)}</span><h4>{product.name}</h4><p>{product.description}</p><div class="r-links">{product.links.map(link=><a href={link.url}>{link.label} ↗</a>)}</div></article>)}</div></div>)}
 </section>
 <ProductExamples />
 <p class="catalog-destination"><a class="r-button" href="https://work.kangdaejong.com/products/">모든 제품을 한곳에서 보기 ↗</a></p>

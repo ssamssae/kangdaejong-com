@@ -1,0 +1,102 @@
+{
+  "checkedAt": "2026-09-22",
+  "icons": [
+    {
+      "name": "한줄일기",
+      "storeName": "한줄일기 - 하루 한 줄",
+      "appId": "6764308678",
+      "icon": "/product-icons/6764308678-f4fa94ec51.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e1/ad/b7/e1adb7a4-9704-0369-d058-e4e48dcb9ffa/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "version": "1.4.3",
+      "sha256": "f4fa94ec511dca63fb02f8a62a4fc6731ada0585e26612c048b08b5e6ce382dd"
+    },
+    {
+      "name": "메모요",
+      "storeName": "메모요",
+      "appId": "6762068073",
+      "icon": "/product-icons/6762068073-9fffec3bbd.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/cc/6c/0bcc6cf8-b022-c9f3-37d3-70fdb421f8e0/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "version": "1.0.19",
+      "sha256": "9fffec3bbd2eaa6d8e21c97d2748480bb54364e0875d53736fddb35d7cb7ae0c"
+    },
+    {
+      "name": "더치페이 계산기",
+      "storeName": "더치페이 계산기",
+      "appId": "6762072499",
+      "icon": "/product-icons/6762072499-17c5730a71.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/29/0b/64/290b64cd-6252-caf2-3089-e2568a7746e7/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "version": "1.0.7",
+      "sha256": "17c5730a7102b0efbfaf1f1a3103700261d48f44c127acf777880ffce76ce03b"
+    },
+    {
+      "name": "약먹자",
+      "storeName": "약먹자 - 복용 알림",
+      "appId": "6762100639",
+      "icon": "/product-icons/6762100639-41b67f90b6.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/08/8e/fd/088efd88-7360-698f-6778-8df4316b1983/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "version": "1.0.5",
+      "sha256": "41b67f90b6d3dd9c86511cc7e6bae286abeed0b7e6c3bf6dc14adebb28a0cd89"
+    },
+    {
+      "name": "단어요",
+      "storeName": "단어요",
+      "appId": "6766556759",
+      "icon": "/product-icons/6766556759-00e1948545.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/2d/04/67/2d0467ca-5233-12af-9742-6576941412fe/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "version": "1.0.2",
+      "sha256": "00e194854548d13d1fb49481180c29b1005ce0e5fd118fc0b20be5c3a1b4e9a4"
+    },
+    {
+      "name": "한컵",
+      "storeName": "한컵",
+      "appId": "6765536616",
+      "icon": "/product-icons/6765536616-bc7a2b80b4.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/87/c1/03/87c10349-d840-e706-b1d2-cf8e1c92b8a8/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "version": "1.0",
+      "sha256": "bc7a2b80b45514ff60cd171e0d31122b0f404bbba5cb8782d8854f349d0e71a1"
+    },
+    {
+      "name": "포모도로",
+      "storeName": "포모도로",
+      "appId": "6765536777",
+      "icon": "/product-icons/6765536777-c39328a9da.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/cc/92/a2/cc92a265-9ee0-198c-20f1-e35e423143db/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "version": "1.0",
+      "sha256": "c39328a9da7ca5f3f51c277515d768abe4617cd0116b81da1b927378fc05c3cd"
+    },
+    {
+      "name": "심플 가계부",
+      "storeName": "심플 가계부",
+      "appId": "6769037337",
+      "icon": "/product-icons/6769037337-2ad919041d.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/bd/fd/23/bdfd23bd-6982-5241-1a5b-b1165fe61e8d/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "version": "1.0.1",
+      "sha256": "2ad919041df6311b93bf030ffcbdd7746948d3646e3e96e273c08e2d1e2d2a73"
+    },
+    {
+      "name": "행운번호 생성기",
+      "storeName": "행운번호 생성기",
+      "appId": "6766077265",
+      "icon": "/product-icons/6766077265-28d1fe2980.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/0c/05/65/0c05652c-ab58-c6c9-6a9a-15b31059a7f5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "version": "1.1.1",
+      "sha256": "28d1fe2980507b62ae937263361387a2580ff5f72fd027e510e1b74f14db87e9"
+    },
+    {
+      "name": "첫이름 — AI 사주 작명",
+      "storeName": "첫이름 - AI 사주 작명 리포트",
+      "appId": "6791480413",
+      "icon": "/product-icons/6791480413-01e65be838.jpg",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/48/95/ca/4895ca96-4fa2-3b10-7df7-dddd39118ac2/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "version": "1.0.3",
+      "sha256": "01e65be838d20282b33c2b8ae6a7b62485078ceea4ff00b9b9e062a2343fdb47"
+    },
+    {
+      "name": "입타 (Ipta)",
+      "icon": "/product-icons/ipta-779f2694b7.png",
+      "source": "https://raw.githubusercontent.com/ssamssae/ipta/v0.1.24/App/Resources/icon_1024.png",
+      "version": "0.1.24",
+      "sha256": "779f2694b78a3b57ba3706ca3f067a398b7fb138a5434d2506930c0dd8399834"
+    }
+  ]
+}

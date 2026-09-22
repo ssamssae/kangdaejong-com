@@ -7,3 +7,5 @@
 
 /* T-260922-021: purpose-first paths preserve the studio palette. */
 .purpose-paths{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin:32px 0 48px}.purpose-paths>a{display:flex;flex-direction:column;gap:14px;padding:26px;border:1px solid #d8d8ce;border-radius:14px;background:#fdfcf8;color:inherit;text-decoration:none;min-width:0}.purpose-paths span{font:11px var(--mono,monospace);color:#62655d}.purpose-paths strong{font-size:23px;line-height:1.45;word-break:keep-all}.purpose-paths p{font-size:13px;line-height:1.7;color:#62655d}.purpose-paths b{font-size:13px;color:#a94830;margin-top:auto}.purpose-paths a:focus-visible{outline:2px solid #a94830;outline-offset:4px}.catalog-destination{margin:24px 0 56px}#names,#everyday,#open-tools{scroll-margin-top:24px}@media(max-width:700px){.purpose-paths{grid-template-columns:1fr}.purpose-paths>a{padding:22px}}
+
+.r-app-symbol img{width:100%;height:100%;object-fit:contain;border-radius:12px}
