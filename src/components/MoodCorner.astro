@@ -1,0 +1,182 @@
+---
+const moods = [
+  { id: "clear", label: "맑음", scene: "햇살이 머무는 언덕", quote: "오늘은 작은 일에도 빛이 드는 날." },
+  { id: "calm", label: "차분함", scene: "느리게 흐르는 물결", quote: "서두르지 않아도, 물결은 앞으로 가요." },
+  { id: "spark", label: "설렘", scene: "분홍빛으로 물드는 하늘", quote: "아직 만나지 않은 좋은 일이 있을 거예요." },
+  { id: "rest", label: "잠깐 쉬기", scene: "달이 내려앉은 밤", quote: "아무것도 하지 않는 틈도 하루의 일부니까." },
+];
+---
+
+<section id="mood" class="mood-corner" data-mood="clear" data-paused="true" aria-labelledby="mood-title">
+  <div class="mood-copy">
+    <p class="mood-kicker"><span aria-hidden="true">✳</span> A LITTLE PAUSE</p>
+    <h2 id="mood-title">잠깐, 오늘의 기분.</h2>
+    <p class="mood-intro">마음이 가는 쪽을 눌러 보세요.<br />이 작은 풍경은 당신의 속도로 바뀝니다.</p>
+    <div class="mood-controls" hidden>
+      <div class="mood-options" role="group" aria-label="오늘의 기분 고르기">
+        {moods.map((mood, index) => (
+          <button type="button" data-choice={mood.id} data-quote={mood.quote} data-scene={mood.scene} aria-pressed={index === 0 ? "true" : "false"}>
+            <span class={`mood-dot mood-dot-${mood.id}`} aria-hidden="true"></span>{mood.label}
+          </button>
+        ))}
+      </div>
+      <button class="mood-motion" type="button">움직임 멈추기</button>
+    </div>
+    <noscript><p class="mood-fallback">오늘은 맑은 풍경을 두고 갈게요.</p></noscript>
+  </div>
+  <div class="mood-window">
+    <div class="mood-scene" aria-hidden="true">
+      <svg viewBox="0 0 540 320" preserveAspectRatio="xMidYMid slice" focusable="false">
+        <g class="mood-stars" fill="currentColor">
+          <circle cx="80" cy="54" r="2" /><circle cx="192" cy="91" r="1.5" />
+          <circle cx="423" cy="61" r="2" /><circle cx="469" cy="133" r="1.5" />
+          <path d="M145 36v12m-6-6h12M448 96v10m-5-5h10" stroke="currentColor" stroke-width="1.5" />
+        </g>
+        <g class="mood-orb">
+          <circle class="mood-halo" cx="332" cy="116" r="82" />
+          <circle class="mood-sun" cx="332" cy="116" r="48" />
+          <circle class="mood-moon-cut" cx="352" cy="97" r="42" />
+        </g>
+        <path class="mood-ridge" d="M-70 241Q80 119 230 207T610 176V360H-70Z" />
+        <path class="mood-wave" d="M-70 269Q90 191 267 258T610 231V360H-70Z" />
+        <path class="mood-front" d="M-70 308Q180 255 340 296T610 273V360H-70Z" />
+      </svg>
+      <span class="mood-scene-label">햇살이 머무는 언덕</span>
+      <span class="mood-signature">a moment, just for you.</span>
+    </div>
+    <p class="mood-quote" role="status" aria-live="polite" aria-atomic="true">{moods[0].quote}</p>
+  </div>
+</section>
+
+<script>
+  const corner = document.querySelector<HTMLElement>("#mood");
+  if (corner) {
+    const controls = corner.querySelector<HTMLElement>(".mood-controls")!;
+    const options = corner.querySelectorAll<HTMLButtonElement>("[data-choice]");
+    const quote = corner.querySelector<HTMLElement>(".mood-quote")!;
+    const sceneLabel = corner.querySelector<HTMLElement>(".mood-scene-label")!;
+    const motion = corner.querySelector<HTMLButtonElement>(".mood-motion")!;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let paused = false;
+    const updateMotion = () => {
+      corner.dataset.paused = String(paused || reducedMotion.matches || document.hidden);
+      motion.disabled = reducedMotion.matches;
+      motion.textContent = reducedMotion.matches ? "움직임 줄이기 설정 중" : paused ? "움직임 켜기" : "움직임 멈추기";
+    };
+    options.forEach(button => button.addEventListener("click", () => {
+      corner.dataset.mood = button.dataset.choice;
+      quote.textContent = button.dataset.quote!;
+      sceneLabel.textContent = button.dataset.scene!;
+      options.forEach(option => option.setAttribute("aria-pressed", String(option === button)));
+    }));
+    motion.addEventListener("click", () => {
+      paused = !paused;
+      updateMotion();
+    });
+    reducedMotion.addEventListener("change", updateMotion);
+    document.addEventListener("visibilitychange", updateMotion);
+    updateMotion();
+    controls.hidden = false;
+  }
+</script>
+
+<style>
+  .mood-corner {
+    --mood-sky: #edeccf;
+    --mood-orb: #df9a45;
+    --mood-ridge: #b2bb8f;
+    --mood-wave: #7e9874;
+    --mood-front: #526f58;
+    --mood-ink: #414b35;
+    --mood-speed: 12s;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 32px;
+    margin-top: 40px;
+    border: 1px solid #d7d8cd;
+    border-radius: 20px;
+    background: #fffdf9;
+    scroll-margin-top: 110px;
+  }
+  .mood-corner[data-mood="calm"] {
+    --mood-sky: #dce8e7;
+    --mood-orb: #f4f0d7;
+    --mood-ridge: #a0c1bd;
+    --mood-wave: #729f9e;
+    --mood-front: #487d83;
+    --mood-ink: #334f56;
+    --mood-speed: 18s;
+  }
+  .mood-corner[data-mood="spark"] {
+    --mood-sky: #f2dfdb;
+    --mood-orb: #d68469;
+    --mood-ridge: #d7b1b8;
+    --mood-wave: #b68a9b;
+    --mood-front: #956b85;
+    --mood-ink: #67434e;
+    --mood-speed: 8s;
+  }
+  .mood-corner[data-mood="rest"] {
+    --mood-sky: #2e3d55;
+    --mood-orb: #f1dfb5;
+    --mood-ridge: #53637b;
+    --mood-wave: #435469;
+    --mood-front: #344659;
+    --mood-ink: #ede4d2;
+    --mood-speed: 22s;
+  }
+  .mood-kicker { display: flex; align-items: center; gap: 9px; margin: 0; color: #62655d; font-size: 10px; font-weight: 650; letter-spacing: .15em; }
+  .mood-kicker span { color: #b8452b; font-size: 24px; line-height: 1; }
+  .mood-corner h2 { font-size: clamp(26px, 3vw, 34px); margin: 18px 0 12px; }
+  .mood-intro { color: #62655d; font-size: 14px; line-height: 1.9; margin: 0 0 24px; }
+  .mood-controls[hidden] { display: none; }
+  .mood-options { display: flex; flex-wrap: wrap; gap: 8px; }
+  .mood-options button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 10px 13px; border: 1px solid #d7d8cd; border-radius: 24px; background: transparent; color: #4b5145; font: inherit; font-size: 12px; cursor: pointer; }
+  .mood-options button:hover { background: #f0f0e8; border-color: #88927b; }
+  .mood-options button[aria-pressed="true"] { background: #e8eadf; border-color: #626f54; color: #293526; box-shadow: inset 0 0 0 1px #626f54; }
+  .mood-dot { width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; }
+  .mood-dot-clear { background: #bc7c30; }
+  .mood-dot-calm { background: #487d83; }
+  .mood-dot-spark { background: #ab6274; }
+  .mood-dot-rest { background: #455572; }
+  .mood-motion { display: block; margin-top: 8px; min-height: 44px; padding: 8px 0; border: 0; background: transparent; color: #62655d; font: inherit; font-size: 11px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+  .mood-motion:disabled { cursor: default; text-decoration: none; }
+  .mood-corner button:focus-visible { outline: 3px solid #466448; outline-offset: 4px; }
+  .mood-window { min-width: 0; }
+  .mood-scene { position: relative; height: 250px; overflow: hidden; border-radius: 12px; background: var(--mood-sky); color: var(--mood-ink); transition: background-color 700ms, color 700ms; }
+  .mood-scene svg { display: block; width: 100%; height: 100%; }
+  .mood-scene-label { position: absolute; top: 20px; left: 22px; font-size: 11px; letter-spacing: .04em; }
+  .mood-signature { position: absolute; right: 20px; bottom: 17px; font-family: Georgia, serif; font-style: italic; font-size: 12px; color: #fffdf6; }
+  .mood-orb { animation: mood-drift var(--mood-speed) ease-in-out infinite alternate; }
+  .mood-halo { fill: var(--mood-orb); opacity: .12; }
+  .mood-sun { fill: var(--mood-orb); }
+  .mood-moon-cut { fill: var(--mood-sky); opacity: 0; }
+  .mood-stars { opacity: 0; }
+  [data-mood="rest"] .mood-moon-cut, [data-mood="rest"] .mood-stars { opacity: 1; }
+  .mood-ridge { fill: var(--mood-ridge); }
+  .mood-wave { fill: var(--mood-wave); animation: mood-water var(--mood-speed) ease-in-out infinite alternate; }
+  .mood-front { fill: var(--mood-front); }
+  .mood-scene circle, .mood-scene path, .mood-stars { transition: fill 700ms, opacity 700ms; }
+  .mood-quote { min-height: 2.8em; margin: 14px 4px 0; color: #55584e; font-size: 13px; line-height: 1.6; text-align: center; }
+  .mood-fallback { color: #62655d; font-size: 12px; }
+  [data-paused="true"] .mood-orb, [data-paused="true"] .mood-wave { animation-play-state: paused; }
+  @keyframes mood-drift { from { transform: translateY(0); } to { transform: translateY(-12px); } }
+  @keyframes mood-water { from { transform: translateX(-12px); } to { transform: translateX(12px); } }
+  @media (max-width: 900px) {
+    .mood-corner { gap: 24px; padding: 26px; }
+    .mood-options { max-width: 260px; }
+  }
+  @media (max-width: 620px) {
+    .mood-corner { grid-template-columns: 1fr; padding: 24px 20px 18px; gap: 16px; margin-top: 28px; }
+    .mood-intro { margin-bottom: 18px; }
+    .mood-options { max-width: none; }
+    .mood-options button { padding: 10px 12px; }
+    .mood-scene { height: 220px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mood-orb, .mood-wave { animation: none; }
+    .mood-scene, .mood-scene circle, .mood-scene path, .mood-stars { transition: none; }
+  }
+</style>
