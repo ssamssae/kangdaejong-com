@@ -1,0 +1,56 @@
+<dialog id="protein-image-dialog" aria-labelledby="protein-image-title">
+  <header><strong id="protein-image-title">분자 구조 그림</strong><button type="button" autofocus aria-label="그림 확대 닫기">닫기 ×</button></header>
+  <p role="status">그림을 불러오는 중…</p>
+  <img alt="" hidden />
+  <a target="_blank" rel="noopener noreferrer">원본 그림 새 탭으로 보기 ↗</a>
+</dialog>
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('#protein-image-dialog')!;
+  const image = dialog.querySelector('img')!;
+  const title = dialog.querySelector('strong')!;
+  const status = dialog.querySelector('p')!;
+  const original = dialog.querySelector('a')!;
+  let opener: HTMLAnchorElement | null = null;
+  let overflow = '';
+  let active = false;
+  function cleanup() {
+    if (!active) return;
+    active = false;
+    document.documentElement.style.overflow = overflow;
+    opener?.focus({ preventScroll: true });
+  }
+  function close() { dialog.close(); cleanup(); }
+  image.addEventListener('load', () => { image.hidden = false; status.hidden = true; });
+  image.addEventListener('error', () => { status.textContent = '그림을 불러오지 못했습니다. 아래 원본 링크를 이용해주세요.'; });
+  document.querySelectorAll<HTMLAnchorElement>('[data-protein-zoom]').forEach(link => {
+    link.addEventListener('click', event => {
+      if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || typeof dialog.showModal !== 'function') return;
+      event.preventDefault();
+      opener = link;
+      image.hidden = true;
+      status.hidden = false;
+      status.textContent = '그림을 불러오는 중…';
+      image.removeAttribute('src');
+      image.alt = link.querySelector('img')?.alt || `${document.querySelector('#molecule-title')?.textContent} 분자 구조`;
+      title.textContent = image.alt;
+      original.href = link.href;
+      image.src = link.href;
+      overflow = document.documentElement.style.overflow;
+      active = true;
+      dialog.showModal();
+      document.documentElement.style.overflow = 'hidden';
+    });
+  });
+  dialog.querySelector('button')!.addEventListener('click', close);
+  dialog.addEventListener('cancel', event => { event.preventDefault(); close(); });
+  dialog.addEventListener('close', () => { if (!dialog.open) cleanup(); });
+  dialog.addEventListener('click', event => {
+    const r = dialog.getBoundingClientRect();
+    if (event.target === dialog && (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom)) close();
+  });
+</script>
+<style>
+  dialog{box-sizing:border-box;width:min(850px,calc(100vw - 24px));max-height:calc(100dvh - 24px);margin:auto;padding:16px;border:1px solid var(--border);border-radius:16px;background:var(--bg);color:var(--fg);overflow:auto;overscroll-behavior:contain}
+  dialog::backdrop{background:#101810d9}header{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}strong{font-size:14px}button{flex-shrink:0;min-width:70px;min-height:44px;font:inherit;background:#fffefb;color:var(--fg);border:1px solid var(--border);border-radius:8px;cursor:pointer}
+  img{display:block;width:100%;max-height:calc(100dvh - 170px);object-fit:contain;background:white;border-radius:8px}img[hidden],p[hidden]{display:none}p{padding:32px 0;text-align:center;font-size:14px}a{display:block;width:fit-content;min-height:44px;align-content:center;margin:8px auto 0;color:var(--accent);font-size:13px}:where(a,button):focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+</style>
