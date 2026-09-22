@@ -221,7 +221,7 @@ test("core text colors meet WCAG AA contrast on the warm canvas", async ({ page 
 
 test("shared menu closes with Escape and keeps button state in sync", async ({ page }) => {
   await page.goto("/");
-  const button = page.getByRole("button", { name: /더보기/ });
+  const button = page.getByRole("button", { name: "둘러보기", exact: true });
   await button.click();
   await expect(button).toHaveAttribute("aria-expanded", "true");
   await page.keyboard.press("Escape");

@@ -10,19 +10,23 @@
     { key: 'tools', label: '공개 도구', href: 'https://work.kangdaejong.com/products/?category=tool#catalog' },
     { key: 'protein', label: '단백질', href: 'https://protein.kangdaejong.com/' },
   ];
-  const NAV_MORE = [
-    { key: 'organization', label: '회사와 책임', href: 'https://kangdaejong.com/organization/' },
-    { key: 'system', label: '만드는 방식', href: 'https://kangdaejong.com/system/' },
-    { key: 'choso', label: '초소', href: 'https://choso.kangdaejong.com/guest' },
-    { key: 'workshop', label: '작업장', href: 'https://work.kangdaejong.com/', children: [
-      { label: '작업장 둘러보기', description: '만들고 기록하는 공간', href: 'https://work.kangdaejong.com/' },
-      { label: '시스템', description: '작업을 지탱하는 구조', href: 'https://work.kangdaejong.com/system/' },
-      { label: '실험실', description: '궁금해서 해본 것들', href: 'https://work.kangdaejong.com/lab/' },
-      { label: '타임라인', description: '처음부터 지금까지', href: 'https://work.kangdaejong.com/timeline.html/' },
+  const NAV_GROUPS = [
+    { label: '회사 소개', items: [
+      { key: 'organization', label: '회사·조직도', description: '누가 만들고 책임지는지', href: 'https://kangdaejong.com/organization/' },
+      { key: 'founder', label: '대표 소개', description: '만드는 사람, 강대종', href: 'https://founder.kangdaejong.com/' },
+      { key: 'system', label: '만드는 방식', description: '기획부터 출시까지의 원칙', href: 'https://kangdaejong.com/system/' },
     ] },
-    { key: 'worklog', label: '작업일지', href: 'https://work.kangdaejong.com/worklog' },
-    { key: 'newsletter', label: '뉴스레터', href: 'https://minusbetastudio.substack.com', newWindow: true },
-    { key: 'founder', label: '대표 소개', href: 'https://founder.kangdaejong.com/' },
+    { label: '작업과 기록', items: [
+      { key: 'workshop', label: '작업장', description: '최근 작업과 이야기 한눈에', href: 'https://work.kangdaejong.com/' },
+      { key: 'worklog', label: '작업일지', description: '날마다 만든 것과 고친 것', href: 'https://work.kangdaejong.com/worklog' },
+      { key: 'newsletter', label: '뉴스레터', description: '과정에서 건진 이야기 · 새 탭', href: 'https://minusbetastudio.substack.com', newWindow: true },
+      { key: 'timeline', label: '타임라인', description: '처음부터 지금까지의 변화', href: 'https://work.kangdaejong.com/timeline.html/' },
+    ] },
+    { label: '시스템과 실험', items: [
+      { key: 'work-system', label: '개발·운영 시스템', description: '작업을 지탱하는 도구와 구조', href: 'https://work.kangdaejong.com/system/' },
+      { key: 'lab', label: '실험실', description: '시험해 본 것과 배운 점', href: 'https://work.kangdaejong.com/lab/' },
+      { key: 'choso', label: '초소', description: '공개된 운영 현황 둘러보기', href: 'https://choso.kangdaejong.com/guest' },
+    ] },
   ];
 
   const PALETTE_DEFAULT = `
@@ -46,174 +50,117 @@
 
   class MbHeader extends HTMLElement {
     connectedCallback() {
-      const active = this.getAttribute('active') || '';
-      const makeLink = (item) => item.children
-        ? `<div class="submenu">
-            <button class="submenu-button${item.key === active ? ' active' : ''}" type="button" aria-expanded="false" aria-controls="workshop-panel">${item.label}<span aria-hidden="true">›</span></button>
-            <nav class="submenu-panel" id="workshop-panel" aria-label="작업장 하위 메뉴" hidden>
-              <p class="submenu-caption">만들고, 실험하고, 기록합니다.</p>
-              ${item.children.map((child) => `<a href="${child.href}"><span>${child.label}<span class="submenu-arrow" aria-hidden="true">↗</span></span><small>${child.description}</small></a>`).join('')}
-            </nav>
-          </div>`
-        : `<a href="${item.href}"${item.newWindow ? ' target="_blank" rel="noopener noreferrer"' : ''}${item.key === active ? ' class="active" aria-current="page"' : ''}>${item.label}${item.newWindow ? '<span class="external-arrow" aria-hidden="true">↗</span>' : ''}</a>`;
-      const moreActive = NAV_MORE.some((item) => item.key === active);
+      if (this.shadowRoot) return;
+      let active = this.getAttribute('active') || '';
+      const path = location.pathname;
+      if (location.hostname === 'work.kangdaejong.com') {
+        if (path.startsWith('/products')) active = new URLSearchParams(location.search).get('category') === 'tool' ? 'tools' : 'products';
+        else if (path.startsWith('/lab')) active = 'lab';
+        else if (path.startsWith('/timeline')) active = 'timeline';
+        else if (active === 'system') active = 'work-system';
+      }
+      const makeLink = (item) => `<a href="${item.href}"${item.newWindow ? ' target="_blank" rel="noopener noreferrer"' : ''}${item.key === active ? ' class="active" aria-current="page"' : ''}><span class="link-title">${item.label}${item.newWindow ? '<span class="external-arrow" aria-hidden="true">↗</span>' : ''}${item.key === active ? '<span class="current">현재 위치</span>' : ''}</span>${item.description ? `<small>${item.description}</small>` : ''}</a>`;
+      const moreActive = NAV_GROUPS.some(group => group.items.some(item => item.key === active));
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
         <style>
           :host { ${hostPalette(this)} display:block; line-height:1.5; letter-spacing:normal; }
+          * { box-sizing:border-box; }
           .header { position:relative; z-index:70; border-bottom:1px solid var(--mb-border); background:var(--mb-bg); font-family:var(--mb-sans); }
-          .inner { width:min(calc(100% - 96px),1280px); min-height:88px; margin:0 auto; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:32px; }
-          .brand { display:inline-flex; align-items:center; gap:11px; color:var(--mb-fg); font-family:var(--mb-sans); font-size:21px; font-weight:750; text-decoration:none; white-space:nowrap; }
+          .inner { width:min(calc(100% - 96px),1280px); min-height:88px; margin:0 auto; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:28px; }
+          .brand { display:inline-flex; align-items:center; gap:11px; color:var(--mb-fg); font-size:21px; font-weight:750; text-decoration:none; white-space:nowrap; }
           .brand img { width:43px; height:43px; display:block; }
           .brand small { display:block; font-size:10px; font-weight:450; color:var(--mb-mute); margin-top:4px; }
-          .links { display:flex; justify-content:center; align-items:center; gap:26px; min-width:0; font-size:13px; white-space:nowrap; }
-          .links a { color:var(--mb-mute); text-decoration:none; }
-          .links a:hover,.links a.active { color:var(--mb-fg); }
-          .links a.active { font-weight:600; }
+          .links { display:flex; justify-content:center; align-items:center; gap:22px; min-width:0; font-size:13px; white-space:nowrap; }
+          .links a { display:flex; align-items:center; min-height:44px; color:var(--mb-dim); text-decoration:none; }
+          .links a:hover,.links a.active { color:var(--mb-accent); }
+          .links a.active { box-shadow:inset 0 -2px var(--mb-accent); font-weight:600; }
+          .links .current { display:none; }
           .actions { display:flex; align-items:center; gap:10px; }
-          .more { position:relative; }
-          .more-button { min-height:38px; padding:0 8px; border:0; background:transparent; color:var(--mb-dim); cursor:pointer; font-family:inherit; font-size:13px; }
-          .more-button:hover,.more-button.active,.more.open .more-button { color:var(--mb-accent); }
-          .chevron { display:inline-block; margin-left:5px; font-size:9px; transition:transform .16s ease; }
+          .more-button,.panel-close { min-height:44px; border:1px solid var(--mb-border); border-radius:9px; background:transparent; color:var(--mb-fg); cursor:pointer; font:600 13px var(--mb-sans); }
+          .more-button { padding:0 13px; }
+          .more-button:hover,.more-button.active,.more.open .more-button { background:var(--mb-soft); border-color:var(--mb-accent); color:var(--mb-accent); }
+          .chevron { display:inline-block; margin-left:7px; font-size:10px; transition:transform .16s ease; }
           .more.open .chevron { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:var(--menu-shift,0px); top:calc(100% + 9px); display:none; width:202px; padding:9px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:16px; box-shadow:0 16px 40px #24272012; }
-          .more.open .more-panel { display:grid; }
-          .more-panel a { padding:10px 11px; border-radius:8px; color:var(--mb-dim); font-size:13px; text-decoration:none; }
-          .more-panel a:hover,.more-panel a.active { background:var(--mb-soft); color:var(--mb-fg); }
-          .more-panel a.active { font-weight:600; }
-          .external-arrow { float:right; color:var(--mb-mute); }
-          .submenu { position:relative; }
-          .submenu-button { display:flex; align-items:center; justify-content:space-between; width:100%; padding:10px 11px; border:0; border-radius:8px; background:transparent; color:var(--mb-dim); font:inherit; font-size:13px; line-height:1.5; text-align:left; cursor:pointer; }
-          .submenu-button > span { font-size:20px; line-height:1; }
-          .submenu-button:hover,.submenu-button.active,.submenu-button[aria-expanded="true"] { background:var(--mb-soft); color:var(--mb-fg); }
-          .submenu-button[aria-expanded="true"] { color:var(--mb-accent); }
-          .submenu-panel { box-sizing:border-box; position:absolute; left:calc(100% + 19px); top:-10px; width:244px; padding:10px; border:1px solid var(--mb-border); border-radius:16px; background:var(--mb-bg); box-shadow:0 16px 40px #24272012; }
-          .submenu-panel:not([hidden]) { display:grid; animation:submenu-in .14s ease-out; }
-          .submenu-panel::before { content:''; position:absolute; right:100%; top:0; width:20px; height:100%; }
-          .submenu-caption { margin:6px 11px 9px; color:var(--mb-mute); font-size:11px; }
-          .submenu-panel a > span { display:flex; align-items:center; justify-content:space-between; gap:16px; font-weight:600; }
-          .submenu-panel small { display:block; margin-top:3px; color:var(--mb-mute); font-size:11px; font-weight:400; }
-          .submenu-arrow { color:var(--mb-mute); font-weight:400; }
-          @keyframes submenu-in { from { opacity:0; } to { opacity:1; } }
-          @media (prefers-reduced-motion:reduce) { .submenu-panel:not([hidden]) { animation:none; } }
-          .contact { display:inline-flex; min-height:38px; align-items:center; justify-content:center; padding:0 14px; border:1px solid var(--mb-border); color:var(--mb-fg); font-size:13px; font-weight:600; text-decoration:none; }
+          .more-panel { position:absolute; right:max(24px,calc((100% - 1280px)/2)); top:calc(100% + 8px); width:min(780px,calc(100% - 48px)); padding:22px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:18px; box-shadow:0 18px 55px #24272026; max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; }
+          .more-panel[hidden] { display:none; }
+          .panel-heading { display:flex; justify-content:space-between; align-items:center; gap:16px; padding-bottom:16px; border-bottom:1px solid var(--mb-border); }
+          .panel-heading strong { font-size:17px; letter-spacing:-.03em; }
+          .panel-heading p { margin:4px 0 0; font-size:12px; color:var(--mb-dim); }
+          .panel-close { min-width:58px; padding:0 10px; }
+          .menu-groups { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; padding-top:18px; }
+          .menu-group h2 { font-size:11px; letter-spacing:.04em; margin:0 10px 10px; color:var(--mb-accent); }
+          .menu-group a { display:block; min-height:62px; padding:10px; border-radius:9px; color:var(--mb-fg); text-decoration:none; }
+          .menu-group a:hover,.menu-group a.active { background:var(--mb-soft); }
+          .menu-group a.active { box-shadow:inset 3px 0 var(--mb-accent); }
+          .link-title { display:flex; align-items:center; gap:7px; font-size:13px; font-weight:600; }
+          .menu-group small { display:block; margin-top:4px; color:var(--mb-dim); font-size:11px; line-height:1.6; word-break:keep-all; }
+          .external-arrow { color:var(--mb-mute); }
+          .current { margin-left:auto; font-size:9px; font-weight:500; white-space:nowrap; color:var(--mb-accent); }
+          .contact { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:0 14px; border:1px solid var(--mb-border); border-radius:9px; color:var(--mb-fg); font-size:13px; font-weight:600; text-decoration:none; }
           .contact:hover { border-color:var(--mb-accent); color:var(--mb-accent); }
           :where(a,button):focus-visible { outline:2px solid var(--mb-accent); outline-offset:3px; }
-          @media (max-width:760px) {
-            .more-panel { right:0; max-height:calc(100dvh - 130px); overflow-y:auto; }
-            .submenu-panel { position:static; width:100%; margin:4px 0 6px; padding:4px; border:0; border-left:2px solid var(--mb-border); border-radius:0; box-shadow:none; }
-            .submenu-panel::before { display:none; }
-            .submenu-caption { display:none; }
-            .submenu-button[aria-expanded="true"] > span { transform:rotate(90deg); }
-            .inner { width:min(calc(100% - 48px),1320px); min-height:auto; padding:13px 0 10px; grid-template-columns:1fr auto; gap:10px 14px; }
-            .brand span { display:none; }
-            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:19px; overflow-x:auto; scrollbar-width:none; }
-            .links::-webkit-scrollbar { display:none; }
-            .actions { grid-column:2; grid-row:1; }
+          @media(max-width:1000px) { .inner { gap:16px; width:calc(100% - 48px); }.brand small { display:none; }.links { gap:15px; }.brand { font-size:18px; } }
+          @media(max-width:760px) {
+            .inner { min-height:auto; padding:12px 0 4px; grid-template-columns:1fr auto; gap:8px 14px; }
+            .brand span { display:none; }.brand img { width:38px; height:38px; }
+            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:22px; overflow-x:auto; scrollbar-width:none; }
+            .links::-webkit-scrollbar { display:none; }.actions { grid-column:2; grid-row:1; }
+            .more-panel { width:calc(100% - 24px); right:12px; padding:16px; top:calc(100% + 6px); max-height:calc(100dvh - 140px); }
+            .menu-groups { grid-template-columns:1fr; gap:16px; }.menu-group { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px; }
+            .menu-group h2 { grid-column:1 / -1; margin-bottom:4px; }.menu-group a { padding:9px; }.link-title { flex-wrap:wrap; }.current { margin-left:0; }
           }
-          @media (max-width:390px) {
-            .inner { width:calc(100% - 40px); }
-            .contact { padding:0 11px; }
-          }
+          @media(max-width:390px) { .inner { width:calc(100% - 32px); }.contact { padding:0 11px; }.menu-groups { gap:12px; }.menu-group small { font-size:11px; } }
+          @media(prefers-reduced-motion:reduce) { .chevron { transition:none; } }
         </style>
         <header class="header">
           <div class="inner">
-            <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="30" height="30"/><span>minus beta<small>독립적인 생각, 쓸모 있는 제품.</small></span></a>
+            <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="43" height="43"/><span>minus beta<small>독립적인 생각, 쓸모 있는 제품.</small></span></a>
             <nav class="links" aria-label="주요 메뉴">${NAV_PRIMARY.map(makeLink).join('')}</nav>
             <div class="actions">
               <div class="more">
-                <button class="more-button${moreActive ? ' active' : ''}" type="button" aria-haspopup="true" aria-expanded="false">더보기<span class="chevron" aria-hidden="true">▾</span></button>
-                <nav class="more-panel" aria-label="더보기 메뉴">${NAV_MORE.map(makeLink).join('')}</nav>
+                <button class="more-button${moreActive ? ' active' : ''}" type="button" aria-expanded="false" aria-controls="studio-navigation">둘러보기<span class="chevron" aria-hidden="true">⌄</span></button>
+                <nav class="more-panel" id="studio-navigation" aria-label="스튜디오 둘러보기" hidden>
+                  <div class="panel-heading"><div><strong>스튜디오 둘러보기</strong><p>만드는 사람부터 작업 과정까지.</p></div><button class="panel-close" type="button" aria-label="둘러보기 닫기">닫기 ×</button></div>
+                  <div class="menu-groups">${NAV_GROUPS.map(group => `<section class="menu-group"><h2>${group.label}</h2>${group.items.map(makeLink).join('')}</section>`).join('')}</div>
+                </nav>
               </div>
               <a class="contact" href="mailto:minusbetastudio@gmail.com">문의</a>
             </div>
           </div>
         </header>`;
-
       const more = root.querySelector('.more');
       const button = root.querySelector('.more-button');
       const menu = root.querySelector('.more-panel');
-      const submenu = root.querySelector('.submenu');
-      const submenuButton = root.querySelector('.submenu-button');
-      const submenuPanel = root.querySelector('.submenu-panel');
-      let openedByHover = false;
-      const positionSubmenu = () => {
-        more.style.removeProperty('--menu-shift');
-        if (submenuPanel.hidden || window.matchMedia('(max-width:760px)').matches) return;
-        const overflow = submenuPanel.getBoundingClientRect().right - document.documentElement.clientWidth + 16;
-        if (overflow > 0) more.style.setProperty('--menu-shift', `${Math.min(overflow, Math.max(0, menu.getBoundingClientRect().left - 16))}px`);
-      };
-      const closeSubmenu = (restoreFocus = false) => {
-        openedByHover = false;
-        submenuPanel.hidden = true;
-        submenuButton.setAttribute('aria-expanded', 'false');
-        more.style.removeProperty('--menu-shift');
-        if (restoreFocus) submenuButton.focus();
-      };
-      const openSubmenu = (focusFirst = false) => {
-        if (focusFirst) openedByHover = false;
-        submenuPanel.hidden = false;
-        submenuButton.setAttribute('aria-expanded', 'true');
-        positionSubmenu();
-        if (focusFirst) submenuPanel.querySelector('a').focus();
-      };
       const closeMenu = (restoreFocus = false) => {
-        closeSubmenu();
+        menu.hidden = true;
         more.classList.remove('open');
         button.setAttribute('aria-expanded', 'false');
         if (restoreFocus) button.focus();
       };
-      button.addEventListener('click', (event) => {
-        event.stopPropagation();
-        if (more.classList.contains('open')) closeMenu();
-        else {
-          more.classList.add('open');
-          button.setAttribute('aria-expanded', 'true');
-        }
+      const openMenu = () => {
+        menu.hidden = false;
+        more.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+      };
+      button.addEventListener('click', () => menu.hidden ? openMenu() : closeMenu());
+      button.addEventListener('keydown', event => {
+        if (event.key === 'ArrowDown') { event.preventDefault(); openMenu(); menu.querySelector('a').focus(); }
       });
-      submenuButton.addEventListener('click', () => {
-        if (openedByHover) openedByHover = false;
-        else if (submenuPanel.hidden) openSubmenu();
-        else closeSubmenu();
+      root.querySelector('.panel-close').addEventListener('click', () => closeMenu(true));
+      menu.addEventListener('click', event => { if (event.target.closest('a')) closeMenu(); });
+      root.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && !menu.hidden) { event.preventDefault(); closeMenu(true); }
       });
-      submenuButton.addEventListener('pointerenter', (event) => {
-        if (event.pointerType === 'mouse' && window.matchMedia('(min-width:761px)').matches && submenuPanel.hidden) {
-          openSubmenu();
-          openedByHover = true;
-        }
-      });
-      submenu.addEventListener('pointerleave', () => {
-        if (openedByHover) closeSubmenu();
-      });
-      submenu.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowRight' && event.target === submenuButton) {
-          event.preventDefault();
-          openSubmenu(true);
-        } else if ((event.key === 'ArrowLeft' || event.key === 'Escape') && !submenuPanel.hidden) {
-          event.preventDefault();
-          event.stopPropagation();
-          closeSubmenu(true);
-        }
-      });
-      root.addEventListener('focusout', (event) => {
-        if (!event.relatedTarget) return;
-        if (!more.contains(event.relatedTarget)) closeMenu();
-        else if (!submenu.contains(event.relatedTarget)) closeSubmenu();
-      });
-      this._resizeMenu = positionSubmenu;
-      window.addEventListener('resize', this._resizeMenu);
-      root.querySelector('.more-panel').addEventListener('click', (event) => event.stopPropagation());
-      root.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && more.classList.contains('open')) closeMenu(true);
-      });
-      document.addEventListener('click', () => closeMenu(false));
-      document.addEventListener('keydown', (event) => {
-        if (event.key === 'Escape' && more.classList.contains('open')) closeMenu(true);
-      });
+      root.addEventListener('focusout', event => { if (event.relatedTarget && !more.contains(event.relatedTarget)) closeMenu(); });
+      this._outsideClick = event => { if (!event.composedPath().includes(this)) closeMenu(); };
+      this._outsideFocus = event => { if (!event.composedPath().includes(this)) closeMenu(); };
+      document.addEventListener('click', this._outsideClick);
+      document.addEventListener('focusin', this._outsideFocus);
     }
-
     disconnectedCallback() {
-      window.removeEventListener('resize', this._resizeMenu);
+      document.removeEventListener('click', this._outsideClick);
+      document.removeEventListener('focusin', this._outsideFocus);
     }
   }
 

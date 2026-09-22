@@ -6,7 +6,7 @@ const checks = [
   ["primary navigation follows the product visitor flow", ["products", "books", "tools"].every((key) => new RegExp(`key: '${key}'`).test(source)) && /work\.kangdaejong\.com\/products\//.test(source) && /kangdaejong\.com\/#books/.test(source) && /work\.kangdaejong\.com\/products\/\?category=tool#catalog/.test(source)],
   ["company, system, choso, work, worklog, newsletter, and founder remain reachable", ["organization", "system", "choso", "workshop", "worklog", "newsletter", "founder"].every((key) => new RegExp(`key: '${key}'`).test(source))],
   ["choso guest destination stays public", /key: 'choso'/.test(source) && /https:\/\/choso\.kangdaejong\.com\/guest/.test(source)],
-  ["workshop submenu keeps system above lab", /label: '작업장 둘러보기'[\s\S]*label: '시스템'[\s\S]*href: 'https:\/\/work\.kangdaejong\.com\/system\/'[\s\S]*label: '실험실'/.test(source)],
+  ["grouped menu keeps workshop, system and lab directly reachable", /const NAV_GROUPS/.test(source) && ["workshop", "work-system", "lab"].every(key => new RegExp(`key: '${key}'`).test(source)) && !/submenu-panel/.test(source)],
   ["dead cost page stays absent", !/key: 'cost'/.test(source) && !/work\.kangdaejong\.com\/cost/.test(source)],
   ["menu state supports click, outside click, and Escape", /aria-expanded="false"/.test(source) && /document\.addEventListener\('click'/.test(source) && /event\.key === 'Escape'/.test(source) && /closeMenu\(true\)/.test(source)],
   ["open shadow navigation has visible keyboard focus", /:where\(a,button\):focus-visible/.test(source)],
