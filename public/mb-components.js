@@ -5,9 +5,9 @@
 
   // active = home|products|books|tools|protein|organization|system|workshop|worklog|newsletter|founder
   const NAV_PRIMARY = [
-    { key: 'products', label: '제품', href: 'https://kangdaejong.com/#products' },
+    { key: 'products', label: '제품', href: 'https://work.kangdaejong.com/products/' },
     { key: 'books', label: '책·템플릿', href: 'https://kangdaejong.com/#books' },
-    { key: 'tools', label: '공개 도구', href: 'https://kangdaejong.com/#open-tools' },
+    { key: 'tools', label: '공개 도구', href: 'https://work.kangdaejong.com/products/?category=tool#catalog' },
     { key: 'protein', label: '단백질', href: 'https://protein.kangdaejong.com/' },
   ];
   const NAV_MORE = [
