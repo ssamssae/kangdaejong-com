@@ -139,3 +139,18 @@ stage.addEventListener('keydown', event => {
   if (action) { event.preventDefault(); act(action); }
 });
 new ResizeObserver(() => { if (dialog.open && viewer) viewer.resize(); }).observe(stage);
+
+// Use the standard wheel direction: negative deltaY (wheel up) zooms in.
+// Capture before 3Dmol's legacy mousewheel handler to avoid double/reversed zoom.
+stage.addEventListener('wheel', event => {
+  event.preventDefault();
+  event.stopImmediatePropagation();
+  if (!ready || !dialog.open || !event.deltaY) return;
+  const pixels = event.deltaY * (event.deltaMode === 1 ? 16 : event.deltaMode === 2 ? stage.clientHeight : 1);
+  viewer.zoom(Math.exp(-Math.max(-100, Math.min(100, pixels)) * 0.002));
+  viewer.render();
+}, { capture: true, passive: false });
+stage.addEventListener('mousewheel', event => {
+  event.preventDefault();
+  event.stopImmediatePropagation();
+}, { capture: true, passive: false });
