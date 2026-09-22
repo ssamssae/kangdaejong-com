@@ -6,16 +6,56 @@ const examples = [
   { slug: "cheotireum", name: "첫이름", action: "이름 후보를 살펴보고, 한자와 풀이를 확인합니다.", href: "https://cheotireum.kangdaejong.com/" },
 ];
 ---
-<section class="product-examples" aria-labelledby="product-examples-title">
+<section data-product-examples class="product-examples" aria-labelledby="product-examples-title">
   <div class="examples-heading"><p>INSIDE THE PRODUCTS</p><h2 id="product-examples-title">이렇게 사용합니다.</h2><p>공식 App Store에 공개한 실제 앱 화면입니다.</p></div>
   <div class="examples-grid">{examples.map(item => <article>
-    <div class="example-screen"><img src={sources.find(source => source.slug === item.slug)!.path} width="221" height="480" loading="lazy" alt={`${item.name} 실제 앱 화면`} /></div>
+    <a class="example-screen" data-screen-zoom href={sources.find(source => source.slug === item.slug)!.fullPath} aria-label={`${item.name} 화면 확대 보기`}><img src={sources.find(source => source.slug === item.slug)!.path} width="221" height="480" loading="lazy" alt={`${item.name} 실제 앱 화면`} /><span class="screen-zoom-hint" aria-hidden="true">크게 보기 ↗</span></a>
     <h3>{item.name}</h3><p>{item.action}</p><a href={item.href}>{item.name === "첫이름" ? "웹에서 시작하기" : "App Store에서 보기"} ↗</a>
   </article>)}</div>
+  <dialog class="screen-dialog" aria-label="제품 화면 확대 보기">
+    <div class="screen-dialog-toolbar"><strong data-screen-title>제품 화면</strong><form method="dialog"><button class="screen-close" autofocus aria-label="확대 화면 닫기">닫기 ×</button></form></div>
+    <img class="screen-full" data-screen-full alt="" />
+    <a class="screen-original" data-screen-original target="_blank" rel="noopener noreferrer">원본 크기로 보기 ↗</a>
+  </dialog>
 </section>
+<script>
+  document.querySelectorAll<HTMLElement>('[data-product-examples]').forEach(section => {
+    const dialog = section.querySelector<HTMLDialogElement>('dialog')!;
+    const image = section.querySelector<HTMLImageElement>('[data-screen-full]')!;
+    const title = section.querySelector<HTMLElement>('[data-screen-title]')!;
+    const original = section.querySelector<HTMLAnchorElement>('[data-screen-original]')!;
+    let overflow = '';
+    section.querySelectorAll<HTMLAnchorElement>('[data-screen-zoom]').forEach(trigger => {
+      trigger.addEventListener('click', event => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey || typeof dialog.showModal !== 'function') return;
+        event.preventDefault();
+        image.src = trigger.href;
+        image.alt = trigger.querySelector('img')!.alt;
+        title.textContent = image.alt;
+        original.href = trigger.href;
+        overflow = document.documentElement.style.overflow;
+        dialog.showModal();
+        document.documentElement.style.overflow = 'hidden';
+      });
+    });
+    dialog.addEventListener('click', event => {
+      const rect = dialog.getBoundingClientRect();
+      if (event.target === dialog && (event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom)) dialog.close();
+    });
+    dialog.addEventListener('close', () => { document.documentElement.style.overflow = overflow; });
+  });
+</script>
 <style>
 .product-examples{margin:56px 0;padding:32px 0;border-top:1px solid var(--border,#d8d8ce)}
 .examples-heading>p:first-child{font:11px var(--mono,monospace);letter-spacing:.1em;color:#62655d}.examples-heading h2{font-size:clamp(26px,4vw,38px);margin:12px 0}.examples-heading>p:last-child{font-size:14px;color:#62655d}
 .examples-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:28px}.examples-grid article{min-width:0;padding:24px;border:1px solid #d8d8ce;border-radius:14px;background:#fdfcf8}.example-screen{display:flex;justify-content:center;height:350px;padding:12px;background:#eeede7;border-radius:10px}.example-screen img{height:100%;width:auto;max-width:100%;object-fit:contain;border-radius:8px}.examples-grid h3{font-size:22px;margin:24px 0 10px}.examples-grid article>p{font-size:14px;line-height:1.8;word-break:keep-all;color:#62655d}.examples-grid a{display:inline-flex;align-items:center;min-height:44px;font-size:13px;font-weight:600;color:#a94830;margin-top:10px}
 @media(max-width:700px){.examples-grid{grid-template-columns:1fr}.example-screen{height:360px}.examples-grid article{padding:20px}}
+.examples-grid .example-screen{position:relative;display:flex;align-items:center;margin-top:0;min-height:0;cursor:zoom-in;text-decoration:none}
+.screen-zoom-hint{position:absolute;right:8px;bottom:8px;padding:6px 10px;border-radius:20px;background:#fdfcf8;color:#a94830;font-size:12px;box-shadow:0 1px 5px #24272020}
+.example-screen:focus-visible,.screen-close:focus-visible,.screen-original:focus-visible{outline:3px solid #a94830;outline-offset:4px}
+.screen-dialog{box-sizing:border-box;border:0;border-radius:14px;background:#f7f6f2;color:#242720;padding:16px;max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);margin:auto;overflow:auto}
+.screen-dialog::backdrop{background:rgb(15 18 14 / 82%)}
+.screen-dialog-toolbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:12px;font-size:14px}.screen-dialog-toolbar form{margin:0}.screen-close{min-width:64px;min-height:44px;border:1px solid #d8d8ce;border-radius:8px;background:#fdfcf8;color:#242720;font:inherit;cursor:pointer}
+.screen-full{display:block;width:auto;height:auto;max-width:100%;max-height:calc(100dvh - 160px);margin:auto;object-fit:contain}
+.screen-original{display:block;width:fit-content;min-height:44px;align-content:center;margin:8px auto 0;font-size:13px;color:#a94830}
 </style>
