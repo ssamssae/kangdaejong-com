@@ -2,13 +2,11 @@ import { readFileSync } from "node:fs";
 
 const source = readFileSync(new URL("../src/pages/organization.astro", import.meta.url), "utf8");
 const checks = [
-  ["legal owner remains explicit", /legal owner/i.test(source) && /법적 대표 \{company\.representative\}/.test(source)],
-  ["AI is described as a tool rather than a legal actor", /AI는 도구이고/.test(source) && /결정은 사람의 일입니다/.test(source)],
-  ["human gates for direction, publication, and cost remain", /무엇을 만들고 무엇을 멈출지/.test(source) && /공개 전에는 다시 확인합니다/.test(source) && /결제와 비용/.test(source)],
-  ["internal codenames and devices stay off the visitor page", !/(아테나|헤르메스|볼칸|라이덴|테미스|맥 미니|맥북 프로)/.test(source)],
-  ["founder identity and contact remain", /representative: "강대종"/.test(source) && /minusbetastudio@gmail\.com/.test(source)],
-  ["business opening date remains explicit", /since: "2026년 5월 4일"/.test(source) && /Since \{company\.sinceShort\}/.test(source)],
-  ["choso guest board remains reachable", /https:\/\/choso\.kangdaejong\.com\/guest/.test(source)],
+  ["owner and contact remain explicit", source.includes('representative: "강대종"') && source.includes('minusbetastudio@gmail.com')],
+  ["verified business facts remain", ['2026년 5월 4일', '878-21-02478', '2026-서울마포-1177'].every(value => source.includes(value))],
+  ["current preparation status is clear", source.includes('새로운 서비스를 준비하고 있습니다')],
+  ["past products remain reachable discreetly", source.includes('<StudioFooter />') && readFileSync(new URL('../src/components/StudioFooter.astro', import.meta.url), 'utf8').includes('href="/archive/"')],
+  ["internal codenames and AI hierarchy stay off the visitor page", !/(아테나|헤르메스|볼칸|LEGAL OWNER|r-owner-map)/.test(source)],
 ];
 
 const failures = checks.filter(([, ok]) => !ok);

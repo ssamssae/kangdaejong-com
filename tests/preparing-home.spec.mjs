@@ -2,6 +2,8 @@ import { test, expect } from '@playwright/test';
 for (const width of [390, 1440]) test(`preparing home and archive at ${width}`, async ({ page }) => {
   await page.setViewportSize({ width, height: 900 });
   await page.goto('/');
+  await expect(page.locator('footer')).toContainText('878-21-02478');
+  await expect(page.locator('footer a[href="tel:01074848537"]')).toBeVisible();
   await expect(page.locator('h1')).toContainText('준비 중입니다');
   await expect(page.locator('body')).not.toContainText('첫이름');
   await expect(page.locator('mb-header, mb-footer')).toHaveCount(0);

@@ -9,11 +9,11 @@ async function visitOrganization(page) {
 
   const response = await page.goto("/organization/");
   expect(response?.status()).toBe(200);
-  await expect(page.getByRole("heading", { level: 1, name: "작은 조직. 분명한 책임." })).toBeVisible();
-  await expect(page.getByText("법적 대표 강대종")).toBeVisible();
-  await expect(page.getByRole("heading", { name: "AI는 도구이고, 결정은 사람의 일입니다." })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "만들었다고, 끝난 것은 아니니까." })).toBeVisible();
-  await expect(page.locator("main").getByText(/아테나|헤르메스|볼칸/)).toHaveCount(0);
+  await expect(page.locator('h1')).toContainText('강대종입니다.');
+  await expect(page.locator('dl')).toContainText('878-21-02478');
+  await expect(page.getByRole('heading', {name:'새로운 서비스를 준비하고 있습니다.'})).toBeVisible();
+  await expect(page.getByRole('link', {name:'minusbetastudio@gmail.com ↗'})).toHaveAttribute('href','mailto:minusbetastudio@gmail.com');
+  await expect(page.locator('mb-header, mb-footer')).toHaveCount(0);
   return errors;
 }
 
@@ -21,7 +21,7 @@ test("organization page explains responsibility on desktop without console error
   const context = await browser.newContext({ ...devices["Desktop Chrome"], viewport: { width: 1440, height: 1000 } });
   const page = await context.newPage();
   expect(await visitOrganization(page)).toEqual([]);
-  await page.screenshot({ path: "/tmp/T-260908-056-organization-desktop.png", fullPage: true });
+  await page.screenshot({ path: "/tmp/T-260924-049-organization-desktop.png", fullPage: true });
   await context.close();
 });
 
@@ -31,6 +31,6 @@ test("organization page explains responsibility on mobile without console errors
   expect(await visitOrganization(page)).toEqual([]);
   const dimensions = await page.evaluate(() => ({ scrollWidth: document.documentElement.scrollWidth, clientWidth: document.documentElement.clientWidth }));
   expect(dimensions.scrollWidth).toBeLessThanOrEqual(dimensions.clientWidth);
-  await page.screenshot({ path: "/tmp/T-260908-056-organization-mobile.png", fullPage: true });
+  await page.screenshot({ path: "/tmp/T-260924-049-organization-mobile.png", fullPage: true });
   await context.close();
 });
