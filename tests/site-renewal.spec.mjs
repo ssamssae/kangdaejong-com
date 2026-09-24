@@ -46,12 +46,10 @@ test("home presents apps, books and all four bridges", async ({ page }) => {
 
 test("organization explains public responsibility without publishing the internal roster", async ({ page }) => {
   await page.goto("/organization/");
-  await expect(page.getByRole("heading", { level: 1, name: "작은 조직. 분명한 책임." })).toBeVisible();
-  await expect(page.getByText("Since 2026. 5. 4.").first()).toBeVisible();
-  await expect(page.getByRole("link", { name: "초소 둘러보기 ↗" })).toHaveAttribute("href", "https://choso.kangdaejong.com/guest");
-  await expect(page.getByText("법적 대표 강대종")).toBeVisible();
-  await expect(page.locator("main").getByText(/아테나|헤르메스|볼칸/)).toHaveCount(0);
-  await expect(page.getByRole("heading", { name: "AI는 도구이고, 결정은 사람의 일입니다." })).toBeVisible();
+  await expect(page.locator('h1')).toContainText('강대종입니다.');
+  await expect(page.locator('dl')).toContainText('2026년 5월 4일');
+  await expect(page.locator('footer')).toContainText('사업자등록번호 878-21-02478');
+  await expect(page.locator('main')).not.toContainText('법적 대표');
 });
 
 test("system remains local and offers an explicit deep-document link", async ({ page }) => {

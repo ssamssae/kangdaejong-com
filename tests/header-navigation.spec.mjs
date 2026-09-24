@@ -22,7 +22,7 @@ test('all secondary destinations are reachable in one panel', async ({ page }) =
 
 test('newsletter opens safely in a new tab without changing the original route', async ({ page, context }) => {
   await context.route('https://minusbetastudio.substack.com/**', route => route.fulfill({ body: 'Newsletter' }));
-  await page.goto('/organization/');
+  await page.goto('/system/');
   const originalUrl = page.url();
   await more(page).click();
   const popupPromise = context.waitForEvent('page');
@@ -34,11 +34,11 @@ test('newsletter opens safely in a new tab without changing the original route',
 });
 
 test('keyboard opens at the first destination and Escape restores the trigger', async ({ page }) => {
-  await page.goto('/organization/');
+  await page.goto('/system/');
   await more(page).focus();
   await page.keyboard.press('ArrowDown');
   await expect(menu(page).getByRole('link', { name: /^회사·조직도/ })).toBeFocused();
-  await expect(menu(page).getByRole('link', { name: /^회사·조직도/ })).toHaveAttribute('aria-current', 'page');
+  await expect(menu(page).getByRole('link', { name: /^개발·운영 시스템/ })).toHaveAttribute('aria-current', 'page');
   await page.keyboard.press('Escape');
   await expect(menu(page)).toBeHidden();
   await expect(more(page)).toBeFocused();
@@ -61,7 +61,7 @@ for (const width of [320, 390, 800, 1280]) {
 }
 
 test('outside click and focus departure close the panel', async ({ page }) => {
-  await page.goto('/organization/');
+  await page.goto('/system/');
   await more(page).click();
   await page.mouse.click(2, 600);
   await expect(menu(page)).toBeHidden();
