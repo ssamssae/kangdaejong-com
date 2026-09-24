@@ -14,6 +14,6 @@ export function createToss({secretKey,clientKey,fetcher=fetch}) {
     lookup:order=>call(`/v1/payments/orders/${encodeURIComponent(order.id)}`),
     cancel:order=>call(`/v1/payments/${encodeURIComponent(order.payment_key)}/cancel`,{method:'POST',body:{cancelReason:'미사용 크레딧 전액 환불',cancelAmount:order.amount,refundableAmount:order.amount},key:`refund-${order.id}`}),
     issue:({authKey,customerKey,id})=>call('/v1/billing/authorizations/issue',{method:'POST',body:{authKey,customerKey},key:`issue-${id}`}),
-    charge:(order,billingKey)=>call(`/v1/billing/${encodeURIComponent(billingKey)}`,{method:'POST',body:{customerKey:order.user_id,amount:order.amount,orderId:order.id,orderName:'사진결 프로 월 구독'},key:`charge-${order.id}`}),
+    charge:(order,billingKey)=>call(`/v1/billing/${encodeURIComponent(billingKey)}`,{method:'POST',body:{customerKey:order.user_id,amount:order.amount,orderId:order.id,orderName:'사진꾸러미 프로 월 구독'},key:`charge-${order.id}`}),
   };
 }

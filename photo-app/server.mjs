@@ -137,15 +137,15 @@ export async function createApp({ dataDir = resolve(root,'data'), origin = 'http
           const selected=(url.searchParams.get('ids')??'').split(',');
           if(!selected.length || selected.length>20 || new Set(selected).size!==selected.length) throw error(400,'사진을 1~20장 선택해주세요.');
           const files={}; let total=0;
-          for(const id of selected) { const job=ownedJob(id,user.id); if(job.status!=='done') throw error(409,'완료된 사진만 내려받을 수 있습니다.'); total+=job.output.length; if(total>60*1024*1024) throw error(413,'묶음 용량이 큽니다. 나누어 내려받아주세요.'); files[`sajingyeol-${id}.png`]=new Uint8Array(job.output); }
-          res.writeHead(200,{'Content-Type':'application/zip','Content-Disposition':'attachment; filename="sajingyeol.zip"'}); return res.end(zipSync(files,{level:0}));
+          for(const id of selected) { const job=ownedJob(id,user.id); if(job.status!=='done') throw error(409,'완료된 사진만 내려받을 수 있습니다.'); total+=job.output.length; if(total>60*1024*1024) throw error(413,'묶음 용량이 큽니다. 나누어 내려받아주세요.'); files[`sajin-kureomi-${id}.png`]=new Uint8Array(job.output); }
+          res.writeHead(200,{'Content-Type':'application/zip','Content-Disposition':'attachment; filename="sajin-kureomi.zip"'}); return res.end(zipSync(files,{level:0}));
         }
         const match=path.match(/^\/api\/jobs\/([a-f0-9-]+)(?:\/(original|output|refresh))?$/);
         if(match) {
           const job=ownedJob(match[1],user.id);
           if(req.method==='POST'&&match[2]==='refresh')return send({job:await generated.refresh(job),credits:summary(user.id).credits});
           if(req.method==='DELETE' && !match[2]) { if(['processing','external_pending'].includes(job.status)) throw error(409,'보정이 끝난 뒤 삭제해주세요.'); db.prepare("UPDATE jobs SET status='deleted',original=NULL,output=NULL WHERE id=?").run(job.id); store.cleanup(); return send({ok:true}); }
-          if(req.method==='GET' && ['original','output'].includes(match[2])) { if(job.status!=='done') throw error(409,'아직 내려받을 수 없습니다.'); res.setHeader('Content-Type','image/png'); if(url.searchParams.has('download')) res.setHeader('Content-Disposition',`attachment; filename="sajingyeol-${job.id}.png"`); return res.end(Buffer.from(job[match[2]])); }
+          if(req.method==='GET' && ['original','output'].includes(match[2])) { if(job.status!=='done') throw error(409,'아직 내려받을 수 없습니다.'); res.setHeader('Content-Type','image/png'); if(url.searchParams.has('download')) res.setHeader('Content-Disposition',`attachment; filename="sajin-kureomi-${job.id}.png"`); return res.end(Buffer.from(job[match[2]])); }
         }
         throw error(404,'요청한 기능을 찾을 수 없습니다.');
       }
@@ -164,6 +164,6 @@ if(process.argv[1] && import.meta.url===pathToFileURL(resolve(process.argv[1])).
   const mailer=process.env.PHOTO_MAIL_ENABLED==='true'?createResend({apiKey:process.env.PHOTO_RESEND_KEY,from:process.env.PHOTO_MAIL_FROM,origin}):null;
   const imageProvider=process.env.PHOTO_AI_ENABLED==='true'?createFal({apiKey:process.env.PHOTO_FAL_KEY}):null;
   const app=await createApp({dataDir:process.env.PHOTO_DATA_DIR??resolve(root,'data'),origin,gateway,mailer,imageProvider,encryptionKey:process.env.PHOTO_BILLING_ENCRYPTION_KEY,autoRenewals:process.env.PHOTO_AUTO_RENEWALS==='true'});
-  app.server.listen(port,'127.0.0.1',()=>console.log(`사진결 로컬 MVP: ${origin} — 외부 기능은 명시 설정 시에만 동작`));
+  app.server.listen(port,'127.0.0.1',()=>console.log(`사진꾸러미 로컬 MVP: ${origin} — 외부 기능은 명시 설정 시에만 동작`));
   for(const signal of ['SIGINT','SIGTERM']) process.once(signal,()=>app.close().then(()=>process.exit(0)));
 }
