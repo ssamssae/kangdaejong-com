@@ -7,6 +7,7 @@ test('Korean name edits export self-contained vector, transparent PNG and comple
  await page.getByLabel('상호 / 브랜드 이름').fill('달빛책방');await page.locator('#tagline').fill('나의 작은 시작');
  await expect(page.locator('#logo-preview')).toHaveAttribute('aria-busy','false');
  await page.getByLabel('열린 궤도',{exact:true}).click();
+ await page.locator('.fine-tune summary').click();
  await page.locator('#layout').selectOption('horizontal');
  await expect(page.locator('#download-zip')).toBeEnabled();
  const download=page.waitForEvent('download');await page.locator('#download-zip').click();const file=await download;const path=await file.path();const zip=unzipSync(fs.readFileSync(path));
@@ -21,6 +22,7 @@ for(const width of [390,1440])test(`editor cards fit and font switch works at ${
  await expect(page.locator('#symbols button')).toHaveCount(4);
  const boxes=await page.locator('#symbols button').evaluateAll(es=>es.map(e=>e.getBoundingClientRect().toJSON()));
  const parent=await page.locator('#symbols').boundingBox();expect(boxes[3].right).toBeLessThanOrEqual(parent.x+parent.width+1);
+ await page.locator('.fine-tune summary').click();
  await page.locator('#font').selectOption('serif');await expect(page.locator('#download-svg')).toBeEnabled({timeout:45000});
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await page.screenshot({path:`/tmp/T-260924-061-${width}.png`,fullPage:true});

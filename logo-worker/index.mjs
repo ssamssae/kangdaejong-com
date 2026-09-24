@@ -18,7 +18,15 @@ export default {
   try {
    const url=new URL(request.url);
    if(!url.pathname.startsWith('/logo/api/')) {
-    if(url.pathname==='/')return Response.redirect(url.origin+'/logo/',302);
+    if(url.hostname==='logo.kangdaejong.com') {
+     const page = {'/':'/logo/','/terms/':'/logo/terms/','/privacy/':'/logo/privacy/'};
+     const canonical = {'/logo':'/','/logo/':'/','/logo/terms':'/terms/','/logo/terms/':'/terms/','/logo/privacy':'/privacy/','/logo/privacy/':'/privacy/','/terms':'/terms/','/privacy':'/privacy/'};
+     if(canonical[url.pathname])return Response.redirect(url.origin+canonical[url.pathname]+url.search,308);
+     if(page[url.pathname]) {
+      url.pathname=page[url.pathname];
+      return env.ASSETS.fetch(new Request(url,request));
+     }
+    } else if(url.pathname==='/')return Response.redirect(url.origin+'/logo/',302);
     return env.ASSETS.fetch(request);
    }
    if(request.method==='POST' && request.headers.get('origin') && request.headers.get('origin')!==url.origin)throw fault('허용되지 않은 요청입니다.',403);

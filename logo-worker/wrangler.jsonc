@@ -6,10 +6,7 @@
   "assets": {
     "directory": "../dist",
     "binding": "ASSETS",
-    "run_worker_first": [
-      "/",
-      "/logo/api/*"
-    ]
+    "run_worker_first": true
   },
   "durable_objects": {
     "bindings": [
@@ -37,6 +34,10 @@
     {
       "pattern": "kangdaejong.com/logo/api/*",
       "zone_name": "kangdaejong.com"
+    },
+    {
+      "pattern": "logo.kangdaejong.com",
+      "custom_domain": true
     }
   ]
 }
