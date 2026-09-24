@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "version": "a3b009376ec47ab8",
+  "files": {
+    "logo.svg": {
+      "url": "https://kangdaejong.com/brand/current/logo.svg",
+      "sha256": "da3a031a9d01eec7822d8eb9da1b98411d5d9b21db4fe1968853488f160235ad"
+    },
+    "favicon.ico": {
+      "url": "https://kangdaejong.com/brand/current/favicon.ico",
+      "sha256": "3938e5c8d634b839811537836e9d3680d0eced08f6620db9fcdd43b6a5655475"
+    },
+    "icon.png": {
+      "url": "https://kangdaejong.com/brand/current/icon.png",
+      "sha256": "056d49535a94db3a6b26c374f850565db29731ee0ab10f7b24865253ef855a7b"
+    },
+    "apple-touch-icon.png": {
+      "url": "https://kangdaejong.com/brand/current/apple-touch-icon.png",
+      "sha256": "062a57a2bd2dfb75c1241ed013f42d2af48ed1e7987b125200cda4d95b91b320"
+    },
+    "social.png": {
+      "url": "https://kangdaejong.com/brand/current/social.png",
+      "sha256": "50097047769ceca62042d4b212d9bd6a5639afd1f3a4c9634487737daeb2f712"
+    }
+  }
+}

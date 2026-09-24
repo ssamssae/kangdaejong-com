@@ -1,5 +1,6 @@
 import { chromium } from '@playwright/test';
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, readFileSync, mkdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 
 // Approved centered −β artwork (T-260924-075). Keep one source for every size.
 const paths = `<path d="M36 121h46" stroke="#a94830" stroke-width="17" stroke-linecap="round"/><path d="M111 204V78c0-25 17-40 39-40 24 0 39 15 39 34 0 22-17 35-38 35h-18m0 0h18c29 0 47 17 47 41 0 25-17 42-43 42-17 0-31-7-44-19" fill="none" stroke="#a94830" stroke-width="17" stroke-linecap="round" stroke-linejoin="round"/>`;
@@ -40,3 +41,14 @@ try {
 } finally {
   await browser.close();
 }
+
+const central = 'public/brand/current';
+mkdirSync(central, {recursive:true});
+const sources = {'logo.svg':'favicon.svg','favicon.ico':'favicon.ico','icon.png':'studio-icon.png','apple-touch-icon.png':'apple-touch-icon.png','social.png':'og-studio-centered-20260924.png'};
+const files = Object.fromEntries(Object.entries(sources).map(([name,source]) => {
+  const bytes = readFileSync('public/'+source);
+  writeFileSync(central+'/'+name,bytes);
+  return [name,{url:'https://kangdaejong.com/brand/current/'+name,sha256:createHash('sha256').update(bytes).digest('hex')}];
+}));
+const version = createHash('sha256').update(JSON.stringify(files)).digest('hex').slice(0,16);
+writeFileSync('public/brand/manifest.json',JSON.stringify({schema:1,version,files},null,2)+'\n');

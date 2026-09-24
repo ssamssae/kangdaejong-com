@@ -5,8 +5,9 @@ const layout = read("src/layouts/SiteLayout.astro");
 const favicon = read("public/favicon.svg");
 const badge = read("public/minusbeta-badge.svg");
 const checks = [
-  ["shared layout includes ICO favicon", /<link rel="icon" href="\/favicon\.ico\?v=studio-centered-20260924" sizes="any" \/>/.test(layout)],
-  ["shared layout includes SVG favicon", /<link rel="icon" type="image\/svg\+xml" href="\/favicon\.svg\?v=studio-centered-20260924" \/>/.test(layout)],
+  ["shared layout uses central ICO", layout.includes('href="https://kangdaejong.com/brand/current/favicon.ico"')],
+  ["shared layout uses central SVG", layout.includes('href="https://kangdaejong.com/brand/current/logo.svg"')],
+  ["shared header script is not a per-site copy", layout.includes('src="https://kangdaejong.com/mb-components.js"')],
   ["favicon artwork matches the brand badge", favicon === badge],
 ];
 
