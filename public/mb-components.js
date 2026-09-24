@@ -1,6 +1,6 @@
 /* 마이너스베타스튜디오 공통 헤더/푸터 — 회사 홈과 founder가 함께 쓰는 정본. */
 (function () {
-  const BADGE = 'https://kangdaejong.com/minusbeta-badge.svg?v=square';
+  const BADGE = 'https://kangdaejong.com/minusbeta-badge.svg?v=studio-centered-20260924';
   const BRAND_HREF = 'https://kangdaejong.com/';
 
   // active = home|products|books|tools|protein|organization|system|workshop|worklog|newsletter|founder
