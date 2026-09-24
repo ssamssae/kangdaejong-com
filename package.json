@@ -21,7 +21,8 @@
     "build:protein": "astro build --config astro.protein.config.mjs",
     "test:protein": "playwright test --config playwright.protein.config.mjs",
     "test:logo-api": "node --test tests/logo/api.test.mjs",
-    "test:logo-ui": "playwright test tests/logo-studio.spec.mjs --workers=2"
+    "test:logo-ui": "playwright test tests/logo-studio.spec.mjs --workers=2",
+    "brand:render": "node scripts/render-studio-brand.mjs"
   },
   "dependencies": {
     "astro": "^6.3.3",

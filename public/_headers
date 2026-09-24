@@ -2,3 +2,8 @@
 # Short cache (was default 4h, which made header edits invisible for hours). (T-260627-20)
 /mb-components.js
   Cache-Control: public, max-age=0, must-revalidate
+
+# Mutable company identity aliases. Revalidate rather than pinning an old version.
+/brand/*
+  Cache-Control: public, max-age=0, must-revalidate
+  Access-Control-Allow-Origin: *

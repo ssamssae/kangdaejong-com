@@ -10,7 +10,7 @@ const {
   active = "",
   robots,
   bodyClass = "",
-  ogImage = "https://kangdaejong.com/og-studio-centered-20260924.png",
+  ogImage = "https://kangdaejong.com/brand/current/social.png",
 } = Astro.props;
 
 const company = "마이너스베타스튜디오";
@@ -41,16 +41,16 @@ const documentTitle = title ? `${title} — ${company}` : company;
     <meta name="twitter:image" content={ogImage} />
 
     <meta name="theme-color" content="#f7f6f2" />
-    <link rel="icon" href="/favicon.ico?v=studio-centered-20260924" sizes="any" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=studio-centered-20260924" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=studio-centered-20260924" />
+    <link rel="icon" href="https://kangdaejong.com/brand/current/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="https://kangdaejong.com/brand/current/logo.svg" />
+    <link rel="apple-touch-icon" href="https://kangdaejong.com/brand/current/apple-touch-icon.png" />
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Noto+Serif+KR:wght@500;600&display=swap" rel="stylesheet" />
     <title>{documentTitle}</title>
-    <script is:inline src="/mb-components.js" defer></script>
+    <script is:inline src="https://kangdaejong.com/mb-components.js" defer></script>
   </head>
   <body class={bodyClass}>
     <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
