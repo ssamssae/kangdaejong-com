@@ -17,7 +17,15 @@ export async function correctPhoto(bytes, input) {
     space: { natural: [0.05, 0.02], food: [0.06, 0.12], interior: [0.17, 0.015] },
   }[category][preset];
   // Global tonal adjustments only: no face reshaping, invented objects, or geometry edits.
-  const output = await sharp(original).modulate({ brightness: 1 + look[0] * amount, saturation: 1 + look[1] * amount }).png().toBuffer();
+  const { data, info } = await sharp(original).modulate({ saturation: 1 + look[1] * amount }).raw().toBuffer({ resolveWithObject: true });
+  // Lift midtones with fixed black/white endpoints rather than clipping highlights.
+  for (let pixel = 0; pixel < data.length; pixel += info.channels) {
+    for (let channel = 0; channel < 3; channel++) {
+      const value = data[pixel + channel];
+      data[pixel + channel] = Math.round(value + 2 * look[0] * amount * value * (1 - value / 255));
+    }
+  }
+  const output = await sharp(data, { raw: info }).png().toBuffer();
   const resultMeta = await sharp(output).metadata();
   return { original, output, width: resultMeta.width, height: resultMeta.height };
 }
