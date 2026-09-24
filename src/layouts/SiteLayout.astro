@@ -3,6 +3,7 @@ import "../styles/tokens.css";
 import "../styles/site.css";
 
 const {
+  minimal = false,
   title,
   description,
   canonical,
@@ -52,8 +53,8 @@ const documentTitle = title ? `${title} — ${company}` : company;
   </head>
   <body class={bodyClass}>
     <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
-    <mb-header active={active} tone="studio"></mb-header>
+    {!minimal && <mb-header active={active} tone="studio"></mb-header>}
     <slot />
-    <mb-footer tone="studio"></mb-footer>
+    {!minimal && <mb-footer tone="studio"></mb-footer>}
   </body>
 </html>

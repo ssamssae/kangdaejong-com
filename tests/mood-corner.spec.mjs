@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 
 test("moods change the landscape and quote with one selected button", async ({ page }) => {
-  await page.goto("/#mood");
+  await page.goto("/archive/#mood");
   const corner = page.locator("#mood");
   await expect(corner.getByRole("heading", { name: "잠깐, 오늘의 기분." })).toBeVisible();
   const initialSky = await corner.evaluate(el => getComputedStyle(el).getPropertyValue("--mood-sky"));
@@ -20,7 +20,7 @@ test("moods change the landscape and quote with one selected button", async ({ p
 });
 
 test("keyboard selection and motion pause preserve focus and state", async ({ page }) => {
-  await page.goto("/#mood");
+  await page.goto("/archive/#mood");
   const corner = page.locator("#mood");
   const calm = corner.getByRole("button", { name: "차분함", exact: true });
   await calm.focus();
@@ -38,7 +38,7 @@ test("keyboard selection and motion pause preserve focus and state", async ({ pa
 
 test("reduced motion stays still and reacts to preference changes", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/#mood");
+  await page.goto("/archive/#mood");
   const corner = page.locator("#mood");
   await expect(corner.locator(".mood-orb")).toHaveCSS("animation-name", "none");
   await expect(corner.getByRole("button", { name: "움직임 줄이기 설정 중" })).toBeDisabled();
@@ -50,7 +50,7 @@ test("reduced motion stays still and reacts to preference changes", async ({ pag
 
 test("small screens fit the corner and all controls", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 800 });
-  await page.goto("/#mood");
+  await page.goto("/archive/#mood");
   for (const name of ["맑음", "차분함", "설렘", "잠깐 쉬기"]) {
     await page.locator("#mood").getByRole("button", { name, exact: true }).click();
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
