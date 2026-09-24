@@ -2,6 +2,7 @@
 import "../styles/renewal.css";
 import SiteLayout from "../layouts/SiteLayout.astro";
 import MoodCorner from "../components/MoodCorner.astro";
+import SocialBanner from "../components/SocialBanner.astro";
 import productIcons from "../data/product-icon-sources.json";
 const iconFor = (name: string) => productIcons.icons.find(item => item.name === name)?.icon;
 import ProductFacts from "../components/ProductFacts.astro";
@@ -220,6 +221,7 @@ const description = `${company.name} — 생활에 가까운 앱, 웹 서비스,
 ---
 <SiteLayout description={description} canonical="https://kangdaejong.com/" active="home" bodyClass="renewal">
 <main id="main-content" class="r-shell">
+<SocialBanner />
 <section class="r-hero">
 <div><p class="r-kicker">MINUS BETA STUDIO / SEOUL</p><h1>일상의 작은 불편에,<br/><em>쓸모 있는 답.</em></h1><p class="r-lead">생활을 기록하는 앱, 이름과 날짜를 고르는 서비스,<br/>AI 작업을 연결하는 도구를 만드는 1인 소프트웨어 스튜디오입니다.</p><a class="r-button" href="https://work.kangdaejong.com/products/">만든 것 둘러보기 <span>↗</span></a></div>
 <div class="r-composition" aria-label="기록, 집중, 생활을 위한 도구를 표현한 일러스트">
