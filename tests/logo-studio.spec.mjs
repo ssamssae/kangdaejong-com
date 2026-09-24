@@ -45,3 +45,13 @@ test('checkout requires policy consent before any order request',async({page})=>
  let orders=0;await page.route('**/logo/api/config',route=>route.fulfill({json:{ready:true,clientKey:'test_ck_fake',testMode:true}}));await page.route('**/logo/api/orders',route=>{orders++;return route.abort();});
  await page.goto('/logo/');await expect(page.locator('#generate')).toBeEnabled();await page.locator('#generate').click();await expect(page.locator('#status')).toContainText('동의');expect(orders).toBe(0);
 });
+
+test('AI cream canvas is removed without flattening highlights or dropping source manifest',async({page})=>{
+ const id='logo_'+'c'.repeat(32),token='b'.repeat(72);
+ const svg='<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048"><metadata><manifest xmlns="http://c2pa.org/manifest">YWJjZA==</manifest></metadata><path fill="rgb(236,237,226)" d="M 0 0 L 2048 0 L 2048 2048 L 0 2048 L 0 0 z"/><path fill="rgb(49,84,67)" d="M 600 600 L 1400 600 L 1400 1400 L 600 1400 Z"/><path fill="rgb(236,237,226)" d="M 850 850 L 1150 850 L 1150 1150 L 850 1150 Z"/></svg>';
+ await page.route('**/logo/api/orders/'+id+'/reconcile',route=>route.fulfill({json:{status:'paid'}}));await page.route('**/logo/api/orders/'+id,route=>route.fulfill({json:{id,status:'paid',remaining:7,results:[{id:'1',svg}],canRefund:false}}));
+ await page.goto('/logo/');await page.locator('.recovery summary').click();await page.locator('#recovery-file').setInputFiles({name:'recovery.json',mimeType:'application/json',buffer:Buffer.from(JSON.stringify({service:'logo-kureomi',id,token}))});
+ await expect(page.locator('#sample-label')).toContainText('맞춤 시안 1개');await expect(page.locator('#download-svg')).toBeEnabled();
+ const shapes=page.locator('#symbols path');await expect(shapes).toHaveCount(2);expect(await shapes.nth(1).getAttribute('fill')).toBe('rgb(236,237,226)');
+ const downloaded=page.waitForEvent('download');await page.locator('#download-svg').click();const result=await downloaded;const source=fs.readFileSync(await result.path(),'utf8');expect(source).toContain('http://c2pa.org/manifest');expect(source).toContain('YWJjZA==');
+});
