@@ -92,3 +92,14 @@ test('restart refunds interrupted work; expired photos cleaned; sessions survive
     store.db.prepare('UPDATE jobs SET expires=0').run();store.cleanup();assert.equal(store.db.prepare('SELECT count(*) AS n FROM jobs').get().n,0);
   } finally {store.close();await rm(dir,{recursive:true,force:true});}
 });
+
+test('product brightening preserves near-white detail and black/white endpoints',async()=>{
+  const gradient=Buffer.from(Array.from({length:256},(_,n)=>[n,n,n]).flat());const input=await sharp(gradient,{raw:{width:256,height:1,channels:3}}).png().toBuffer();
+  const result=await correctPhoto(input,{category:'product',preset:'bright',strength:100});const output=await sharp(result.output).raw().toBuffer();
+  assert.equal(output[0],0);assert.equal(output[255*3],255);assert.ok(output[245*3]<255);assert.ok(output[128*3]>128);
+});
+
+test('second process cannot open a live database and refund its reserved work',async()=>{
+  const dir=await mkdtemp(join(tmpdir(),'photo-lock-')),path=join(dir,'test.sqlite'),store=createStore(path);
+  try{const id=store.register('lock-user','hash');store.reserve(id,'one','x',{category:'portrait',preset:'natural',strength:60});assert.throws(()=>createStore(path),/locked/);assert.equal(store.wallet.balance(id),2);}finally{store.close();await rm(dir,{recursive:true,force:true});}
+});
