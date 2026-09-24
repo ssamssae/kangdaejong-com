@@ -1,5 +1,8 @@
+---
+const { companyOrigin = "" } = Astro.props;
+---
 <footer>
-  <div class="top"><strong>마이너스베타스튜디오</strong><nav aria-label="하단 안내"><a href="/">홈</a><a href="/organization/">회사 정보</a><a href="/archive/">이전 프로젝트</a></nav></div>
+  <div class="top"><strong>마이너스베타스튜디오</strong><nav aria-label="하단 안내"><a href={`${companyOrigin}/`}>홈</a><a href={`${companyOrigin}/organization/`}>회사 정보</a><a href={`${companyOrigin}/archive/`}>이전 프로젝트</a></nav></div>
   <div class="business"><span>대표 강대종</span><span>사업자등록번호 878-21-02478</span><span>통신판매업 신고 제2026-서울마포-1177호</span><span>주소 서울특별시 마포구 만리재로10길 4 (공덕동)</span><span>전화 <a href="tel:01074842927">010-7484-2927</a></span><span>이메일 <a href="mailto:minusbetastudio@gmail.com">minusbetastudio@gmail.com</a></span></div>
   <p>© {new Date().getFullYear()} 마이너스베타스튜디오</p>
 </footer>
