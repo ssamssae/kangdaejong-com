@@ -9,7 +9,7 @@ export function createResend({apiKey,from,origin,fetcher=fetch}){
   if(!apiKey||!from)throw new Error('Mail credentials are missing');
   return async({email,token,purpose,id})=>{
     const link=`${origin}/#${purpose}=${encodeURIComponent(token)}`;
-    let response;try{response=await fetcher('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${apiKey}`,'Content-Type':'application/json','Idempotency-Key':id},body:JSON.stringify({from,to:[email],subject:purpose==='verify'?'사진결 이메일 확인':'사진결 비밀번호 재설정',text:`15분 안에 아래 링크를 열어주세요. 본인이 요청하지 않았다면 무시해주세요.\n${link}`}),signal:AbortSignal.timeout(15000),redirect:'error'});}catch{throw fault(503,'메일 전송을 확인할 수 없습니다. 잠시 후 다시 요청해주세요.');}
+    let response;try{response=await fetcher('https://api.resend.com/emails',{method:'POST',headers:{Authorization:`Bearer ${apiKey}`,'Content-Type':'application/json','Idempotency-Key':id},body:JSON.stringify({from,to:[email],subject:purpose==='verify'?'사진꾸러미 이메일 확인':'사진꾸러미 비밀번호 재설정',text:`15분 안에 아래 링크를 열어주세요. 본인이 요청하지 않았다면 무시해주세요.\n${link}`}),signal:AbortSignal.timeout(15000),redirect:'error'});}catch{throw fault(503,'메일 전송을 확인할 수 없습니다. 잠시 후 다시 요청해주세요.');}
     if(!response.ok)throw fault(503,'메일을 보내지 못했습니다. 잠시 후 다시 요청해주세요.');
   };
 }

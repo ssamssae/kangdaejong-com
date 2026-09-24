@@ -61,13 +61,13 @@ function renderResults() {
     const tags=element('div','compare-tags');tags.append(element('span','','보정 전'),element('span','','보정 후'));compare.append(after,before,tags);
     const label=element('label','','전후 비교'),slider=element('input');slider.type='range';slider.min='0';slider.max='100';slider.value='50';slider.id=`compare-${job.id}`;label.htmlFor=slider.id;slider.oninput=()=>{before.style.clipPath=`inset(0 ${100-Number(slider.value)}% 0 0)`;after.style.clipPath=`inset(0 0 0 ${Number(slider.value)}%)`;};
     const actions=element('div','result-actions'),download=element('a','','PNG 다운로드');download.href=`/api/jobs/${job.id}/output?download=1`;download.download='';
-    const again=element('button','text-button','다시 보정할 사진으로 선택');again.disabled=busy;again.onclick=async()=>{try{const response=await fetch(`/api/jobs/${job.id}/original`);if(!response.ok)throw new Error('사진을 불러오지 못했습니다.');addFiles([new File([await response.blob()],`사진결-${job.id.slice(0,8)}.png`,{type:'image/png'})]);$('#studio').scrollIntoView();}catch(e){setStatus(e.message);}};
+    const again=element('button','text-button','다시 보정할 사진으로 선택');again.disabled=busy;again.onclick=async()=>{try{const response=await fetch(`/api/jobs/${job.id}/original`);if(!response.ok)throw new Error('사진을 불러오지 못했습니다.');addFiles([new File([await response.blob()],`사진꾸러미-${job.id.slice(0,8)}.png`,{type:'image/png'})]);$('#studio').scrollIntoView();}catch(e){setStatus(e.message);}};
     const remove=element('button','text-button danger','삭제');remove.disabled=busy;remove.onclick=async()=>{if(!confirm('비교용 사진과 결과를 삭제할까요? 삭제하면 되돌릴 수 없습니다.'))return;try{await api(`/api/jobs/${job.id}`,{method:'DELETE'});await refresh();setStatus('사진을 삭제했습니다.');}catch(e){setStatus(e.message);}};
     actions.append(download,again,remove);card.append(top,compare,label,slider,actions);return card;
   }));
 }
 function openAccount() {
-  $('#auth-fields').hidden=!!me;$('#account-actions').hidden=!me;$('#auth-title').textContent=me?'내 계정':mode==='register'?'사진결 시작하기':'다시 만나 반가워요';
+  $('#auth-fields').hidden=!!me;$('#account-actions').hidden=!me;$('#auth-title').textContent=me?'내 계정':mode==='register'?'사진꾸러미 시작하기':'다시 만나 반가워요';
   $('#auth-description').textContent=me?`${me.username} · 잔여 ${me.credits}크레딧`:'계정당 최초 3크레딧 · 카드 등록 없이 체험하세요.';
   $('#email-field').hidden=!catalog.emailRequired||mode!=='register';$('#email').required=catalog.emailRequired&&mode==='register';$('#forgot-password').hidden=!catalog.emailRequired;
   $('#password-help').textContent=catalog.emailRequired?'이메일 인증으로 계정을 확인하고 비밀번호를 복구할 수 있습니다.':'다른 곳에서 쓰지 않는 비밀번호를 안전하게 보관해주세요. 이 로컬 모드에서는 이메일 복구를 제공하지 않습니다.';
@@ -141,7 +141,7 @@ function openRecovery(){$('#recovery-title').textContent=resetToken?'새 비밀�
 let tossSDK;
 async function checkout(plan){if(me.emailRequired&&!me.emailVerified){setStatus('이메일 인증 후 결제할 수 있습니다.');return;}if(!confirm(`${plan.name} ${plan.price.toLocaleString('ko-KR')}원${plan.id==='pro'?' 매월 자동결제':''} 테스트를 진행할까요? 실제 청구는 없습니다.`))return;
   if(!tossSDK)tossSDK=new Promise((resolve,reject)=>{const script=document.createElement('script');script.src='https://js.tosspayments.com/v2/standard';script.onload=()=>resolve();script.onerror=()=>{tossSDK=null;reject(new Error('결제창을 불러오지 못했습니다.'));};document.head.append(script);});await tossSDK;
-  if(plan.id==='pack'){const order=await api('/api/checkout',json({plan:plan.id,requestKey:crypto.randomUUID()}));await window.TossPayments(order.clientKey).payment({customerKey:order.customerKey}).requestPayment({method:'CARD',amount:{value:order.amount,currency:'KRW'},orderId:order.id,orderName:'사진결 충전팩',successUrl:location.origin+'/',failUrl:location.origin+'/?paymentFailed=1'});}
+  if(plan.id==='pack'){const order=await api('/api/checkout',json({plan:plan.id,requestKey:crypto.randomUUID()}));await window.TossPayments(order.clientKey).payment({customerKey:order.customerKey}).requestPayment({method:'CARD',amount:{value:order.amount,currency:'KRW'},orderId:order.id,orderName:'사진꾸러미 충전팩',successUrl:location.origin+'/',failUrl:location.origin+'/?paymentFailed=1'});}
   else{const subscription=await api('/api/subscription/start',{method:'POST'});await window.TossPayments(subscription.clientKey).payment({customerKey:subscription.customerKey}).requestBillingAuth({method:'CARD',successUrl:location.origin+'/',failUrl:location.origin+'/?paymentFailed=1'});}
 }
 init().catch(error=>setStatus(`앱을 불러오지 못했습니다. ${error.message}`));
