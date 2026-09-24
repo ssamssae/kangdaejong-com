@@ -19,10 +19,15 @@
     "preview": "astro preview",
     "astro": "astro",
     "build:protein": "astro build --config astro.protein.config.mjs",
-    "test:protein": "playwright test --config playwright.protein.config.mjs"
+    "test:protein": "playwright test --config playwright.protein.config.mjs",
+    "test:logo-api": "node --test tests/logo/api.test.mjs",
+    "test:logo-ui": "playwright test tests/logo-studio.spec.mjs --workers=2"
   },
   "dependencies": {
-    "astro": "^6.3.3"
+    "astro": "^6.3.3",
+    "dompurify": "^3.4.16",
+    "fflate": "^0.8.3",
+    "opentype.js": "^2.0.0"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
