@@ -4,7 +4,7 @@ const names = ['GitHub', 'Instagram', 'Threads', 'X', 'YouTube', 'LinkedIn', 'Fa
 for (const width of [360, 768, 1440]) {
   test(`public channels are visible, readable and safe at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto('/');
+    await page.goto('/archive/');
     const banner = page.getByRole('region', { name: '만드는 일, 나누는 이야기.' });
     await expect(banner).toBeVisible();
     const links = banner.getByRole('link');

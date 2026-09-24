@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
 
-const source = readFileSync(new URL("../src/pages/index.astro", import.meta.url), "utf8");
+const source = readFileSync(new URL("../src/pages/archive.astro", import.meta.url), "utf8");
 const checks = [
-  ["home uses the shared layout", /import SiteLayout/.test(source) && /<SiteLayout[\s\S]*canonical="https:\/\/kangdaejong\.com\/"/.test(source)],
+  ["home uses the shared layout", /import SiteLayout/.test(source) && /<SiteLayout[\s\S]*canonical="https:\/\/kangdaejong\.com\/archive\/"/.test(source)],
   ["hero starts with the purchasable digital product", /id="sales-title"/.test(source) && /매번 새로 쓰는 업무/.test(source) && /미리보기·구매/.test(source)],
   ["products, books, open tools, and company remain first-class destinations", ["products", "books", "open-tools", "company"].every((id) => source.includes(`id="${id}"`))],
   ["old repeated card and proof-strip structures stay removed", !/(product-card|tool-card|proof-strip|focusAreas|proofPoints)/.test(source)],

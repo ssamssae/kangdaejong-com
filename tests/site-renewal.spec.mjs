@@ -21,7 +21,7 @@ const routes = [
 ];
 
 test("home presents apps, books and all four bridges", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/archive/");
   await expect(page.getByRole("heading", { level: 1, name: "일상의 작은 불편에, 쓸모 있는 답." })).toBeVisible();
   await expect(page.locator("#products")).toBeVisible();
   await expect(page.locator("#books")).toBeVisible();
@@ -143,7 +143,7 @@ test("copy fallback restores visible focus when execCommand returns true", async
 });
 
 test("shared components scope the warm palette to explicit studio tone", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/archive/");
   const palettes = await page.evaluate(() => {
     const readBackground = (element) => getComputedStyle(element).getPropertyValue("--mb-bg").trim().toLowerCase();
     const defaultHeader = document.createElement("mb-header");
@@ -198,7 +198,7 @@ test("local links, anchors, and images resolve on every public route", async ({ 
 });
 
 test("core text colors meet WCAG AA contrast on the warm canvas", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/archive/");
   const colors = await page.evaluate(() => {
     const body = getComputedStyle(document.body);
     const muted = getComputedStyle(document.querySelector(".r-lead"));
@@ -220,7 +220,7 @@ test("core text colors meet WCAG AA contrast on the warm canvas", async ({ page 
 });
 
 test("shared menu closes with Escape and keeps button state in sync", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("/archive/");
   const button = page.getByRole("button", { name: "둘러보기", exact: true });
   await button.click();
   await expect(button).toHaveAttribute("aria-expanded", "true");

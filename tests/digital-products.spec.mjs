@@ -1,6 +1,6 @@
 import {test,expect} from '@playwright/test';
 test('home offers digital products and no installation intake',async({page})=>{
- await page.goto('/');
+ await page.goto('/archive/');
  await expect(page.locator('a[href="/ai-setup/"]')).toHaveCount(0);
  await expect(page.locator('main')).not.toContainText('99,000');
  await page.getByRole('link',{name:'책·양식 구성 자세히 보기'}).click();
@@ -37,7 +37,7 @@ for(const width of [390,1440])test(`digital and closed pages render at ${width}`
 });
 
 test('sales hero precedes records and SNS with usable mobile purchase CTA',async({page},info)=>{
- await page.setViewportSize({width:390,height:844});await page.goto('/');
+ await page.setViewportSize({width:390,height:844});await page.goto('/archive/');
  await expect(page.locator('main > section').first()).toHaveClass(/sales-hero/);
  await expect(page.locator('main h1')).toHaveText('매번 새로 쓰는 업무,다시 쓰는 양식으로.');
  const buy=page.locator('.sales-hero').getByRole('link',{name:'미리보기·구매'});
@@ -48,5 +48,5 @@ test('sales hero precedes records and SNS with usable mobile purchase CTA',async
  await expect(page.locator('a[href="https://cheotireum.kangdaejong.com/sample-report"]')).toBeVisible();
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await page.screenshot({path:info.outputPath('sales-home-390.png'),fullPage:true});
- await page.setViewportSize({width:1440,height:1000});await page.goto('/');await page.screenshot({path:info.outputPath('sales-home-1440.png'),fullPage:true});
+ await page.setViewportSize({width:1440,height:1000});await page.goto('/archive/');await page.screenshot({path:info.outputPath('sales-home-1440.png'),fullPage:true});
 });
