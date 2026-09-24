@@ -17,17 +17,36 @@ export async function getFont(style: string) {
 }
 export const wrap = (body: string, w = 256, h = 256) => `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">${body}</svg>`;
 export function cleanSymbol(source: string, color: string) {
+  const original = new DOMParser().parseFromString(source, 'image/svg+xml');
   const safe = DOMPurify.sanitize(source, { USE_PROFILES: { svg: true, svgFilters: false }, FORBID_TAGS: ['style', 'image', 'use', 'foreignObject', 'a', 'animate', 'set'], FORBID_ATTR: ['style', 'href', 'xlink:href'] });
   const doc = new DOMParser().parseFromString(safe, 'image/svg+xml');
   if (doc.querySelector('parsererror') || doc.documentElement.localName !== 'svg') throw Error('벡터 파일을 읽지 못했습니다.');
+  // Recraft often draws a cream canvas as a full-size path. It is not the symbol.
+  const vb=(doc.documentElement.getAttribute('viewBox')||'').trim().split(/[ ,]+/).map(Number);
+  const light=(value:string)=>{const rgb=value.match(/^rgb\(\s*(\d+)[, ]+\s*(\d+)[, ]+\s*(\d+)\s*\)$/i);const hex=value.match(/^#([a-f0-9]{6})$/i);const c=rgb?rgb.slice(1).map(Number):hex?[0,2,4].map(i=>parseInt(hex[1].slice(i,i+2),16)):value==='white'||value==='#fff'?[255,255,255]:null;return !!c&&Math.min(...c)>=210;};
+  for(const el of [...doc.querySelectorAll('path,rect')]){
+    if(!light(el.getAttribute('fill')||''))continue;
+    const d=el.getAttribute('d')||'';
+    // Only an axis-aligned complete viewport rectangle; keep curved highlights/counters.
+    const nums=(d.match(/-?\d+(?:\.\d+)?/g)||[]).map(Number);
+    const fullPath=vb.length===4&&/^[MLZmlz\s\d.,+-]+$/.test(d)&&nums.length===10&&[0,0,vb[2],0,vb[2],vb[3],0,vb[3],0,0].every((v,i)=>nums[i]===v);
+    const fullRect=el.localName==='rect'&&Number(el.getAttribute('width'))===vb[2]&&Number(el.getAttribute('height'))===vb[3]&&!Number(el.getAttribute('x'))&&!Number(el.getAttribute('y'));
+    if(fullPath||fullRect)el.remove();
+  }
   for (const el of [doc.documentElement, ...doc.querySelectorAll('*')]) {
     for (const attr of [...el.attributes]) {
       if (/^on/i.test(attr.name) || /(?:https?:|data:|javascript:)/i.test(attr.value)) el.removeAttribute(attr.name);
     }
     for (const name of ['fill', 'stroke']) {
       const value = el.getAttribute(name);
-      if (value && !['none', 'transparent', 'white', '#fff', '#ffffff'].includes(value.toLowerCase()) && !/^url\(#/.test(value)) el.setAttribute(name, color);
+      if (value && !['none', 'transparent', 'white', '#fff', '#ffffff'].includes(value.toLowerCase()) && !light(value) && !/^url\(#/.test(value)) el.setAttribute(name, color);
     }
+  }
+  // Preserve the supplied C2PA manifest verbatim as inert base64 metadata.
+  for(const manifest of original.getElementsByTagNameNS('http://c2pa.org/manifest','manifest')){
+    if(!/^[A-Za-z0-9+/=\s]+$/.test(manifest.textContent||''))continue;
+    const meta=doc.createElementNS('http://www.w3.org/2000/svg','metadata');
+    const copy=doc.createElementNS('http://c2pa.org/manifest','manifest');copy.textContent=manifest.textContent;meta.append(copy);doc.documentElement.prepend(meta);
   }
   doc.documentElement.setAttribute('color', color);
   doc.documentElement.setAttribute('fill', color);
