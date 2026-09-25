@@ -1,0 +1,105 @@
+---
+const meals = [
+  { id: 'bibimbap', name: '비빔밥', icon: '🥗', note: '여러 가지 나물에 고추장 한 숟갈. 쓱쓱 비벼 먹어요.' },
+  { id: 'kimchi', name: '김치찌개', icon: '🍲', note: '보글보글 익은 김치와 따뜻한 밥 한 공기.' },
+  { id: 'doenjang', name: '된장찌개', icon: '🥘', note: '구수한 국물에 두부와 채소를 넉넉히.' },
+  { id: 'pork', name: '제육볶음', icon: '🍚', note: '매콤한 제육 한 점을 상추에 싸서 한입.' },
+  { id: 'gimbap', name: '김밥', icon: '🍙', note: '속이 꽉 찬 김밥. 가볍고 든든한 한 줄.' },
+  { id: 'noodles', name: '칼국수', icon: '🍜', note: '따끈한 국물과 쫄깃한 면으로 채우는 한 끼.' },
+  { id: 'pho', name: '쌀국수', icon: '🍜', note: '맑은 육수에 숙주 듬뿍, 취향대로 고수도.' },
+  { id: 'curry', name: '카레', icon: '🍛', note: '포근한 카레를 밥 위에 넉넉히 부어요.' },
+  { id: 'cutlet', name: '돈가스', icon: '🍽️', note: '바삭한 튀김옷 속 촉촉한 한입.' },
+  { id: 'sushi', name: '초밥', icon: '🍣', note: '한 점씩 천천히 즐기는 작은 한 끼.' },
+  { id: 'jajang', name: '짜장면', icon: '🥢', note: '달큰한 짜장 소스에 면을 골고루 비벼요.' },
+  { id: 'pasta', name: '파스타', icon: '🍝', note: '토마토, 크림, 오일. 오늘 끌리는 소스로.' },
+  { id: 'pizza', name: '피자', icon: '🍕', note: '좋아하는 토핑 한 조각부터 시작해요.' },
+  { id: 'burger', name: '햄버거', icon: '🍔', note: '빵과 패티, 아삭한 채소를 한입에.' },
+  { id: 'sandwich', name: '샌드위치', icon: '🥪', note: '신선한 속재료를 빵 사이에 차곡차곡.' },
+  { id: 'salad', name: '샐러드', icon: '🥬', note: '아삭한 채소에 좋아하는 토핑을 더해요.' },
+];
+---
+<section id="menu-picker" class="menu-picker" aria-labelledby="menu-picker-title" data-meals={JSON.stringify(meals)}>
+  <div class="menu-intro">
+    <p class="eyebrow">A LITTLE BREAK / 오늘의 작은 고민</p>
+    <h2 id="menu-picker-title">오늘 뭐 먹지<span>?</span></h2>
+    <p class="intro">고르는 건 잠깐 내려놓고,<br />오늘의 한 끼를 뽑아보세요.</p>
+    <details>
+      <summary>오늘 먹은 메뉴 제외하기</summary>
+      <p class="hint">먹은 메뉴를 체크하면 추첨에서 빠져요.<br />제외 목록은 이 브라우저에 오늘 하루만 저장돼요.</p>
+      <div class="meal-options">{meals.map(meal => <label><input type="checkbox" value={meal.id} /><span>{meal.name}</span></label>)}</div>
+      <button class="reset" type="button" data-reset>제외 목록 초기화</button>
+    </details>
+  </div>
+  <div class="menu-draw">
+    <div class="menu-result" role="status" aria-live="polite" aria-atomic="true">
+      <span class="dish" data-menu-icon aria-hidden="true">🍽️</span>
+      <p class="result-label">오늘의 메뉴</p>
+      <h3 data-menu-name>오늘의 한 끼는?</h3>
+      <p class="menu-note" data-menu-note>버튼을 누르면 메뉴를 골라드려요.</p>
+    </div>
+    <div class="actions"><button type="button" class="draw" data-draw disabled>메뉴 뽑기 <span aria-hidden="true">↗</span></button><button type="button" class="ate" data-ate disabled>이 메뉴 먹었어요</button></div>
+    <p class="available" data-available>16가지 메뉴 중 골라볼까요?</p>
+    <noscript><p>메뉴 추첨은 JavaScript를 켜면 사용할 수 있어요.</p></noscript>
+  </div>
+</section>
+<script>
+  const root = document.querySelector<HTMLElement>('#menu-picker');
+  if (root) {
+    type Meal = { id: string; name: string; icon: string; note: string };
+    const meals: Meal[] = JSON.parse(root.dataset.meals || '[]');
+    const key = 'mb-menu-picker';
+    const today = () => { const d = new Date(); return `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}`; };
+    let date = today();
+    let eaten = new Set<string>();
+    let selected: Meal | undefined;
+    const draw = root.querySelector<HTMLButtonElement>('[data-draw]')!;
+    const ate = root.querySelector<HTMLButtonElement>('[data-ate]')!;
+    const name = root.querySelector<HTMLElement>('[data-menu-name]')!;
+    const icon = root.querySelector<HTMLElement>('[data-menu-icon]')!;
+    const note = root.querySelector<HTMLElement>('[data-menu-note]')!;
+    const count = root.querySelector<HTMLElement>('[data-available]')!;
+    const boxes = [...root.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
+    try {
+      const saved = JSON.parse(localStorage.getItem(key) || 'null');
+      if (saved?.date === date && Array.isArray(saved.eaten)) eaten = new Set(saved.eaten.filter((id: unknown) => meals.some(meal => meal.id === id)));
+    } catch { /* The picker also works without browser storage. */ }
+    const save = () => { try { localStorage.setItem(key, JSON.stringify({ date, eaten: [...eaten] })); } catch { /* Keep the current page usable. */ } };
+    const syncDay = () => { if (date !== today()) { date = today(); eaten.clear(); selected = undefined; save(); } };
+    const render = () => {
+      const remaining = meals.filter(meal => !eaten.has(meal.id));
+      if (selected && eaten.has(selected.id)) selected = undefined;
+      boxes.forEach(box => { box.checked = eaten.has(box.value); });
+      draw.disabled = remaining.length === 0;
+      ate.disabled = !selected;
+      name.textContent = selected?.name || (remaining.length ? '오늘의 한 끼는?' : '모두 먹었네요!');
+      icon.textContent = selected?.icon || '🍽️';
+      note.textContent = selected?.note || (remaining.length ? '버튼을 누르면 메뉴를 골라드려요.' : '제외한 메뉴를 해제하면 다시 뽑을 수 있어요.');
+      count.textContent = `${remaining.length}가지 메뉴 대기 중 · 오늘 먹은 메뉴 ${eaten.size}개 제외`;
+    };
+    boxes.forEach(box => box.addEventListener('change', () => {
+      const checked = box.checked;
+      syncDay();
+      if (checked) eaten.add(box.value); else eaten.delete(box.value);
+      save(); render();
+    }));
+    draw.addEventListener('click', () => {
+      syncDay();
+      const remaining = meals.filter(meal => !eaten.has(meal.id));
+      const choices = remaining.length > 1 ? remaining.filter(meal => meal.id !== selected?.id) : remaining;
+      selected = choices[Math.floor(Math.random() * choices.length)];
+      render();
+    });
+    ate.addEventListener('click', () => {
+      syncDay();
+      if (selected) eaten.add(selected.id);
+      selected = undefined;
+      save(); render();
+    });
+    root.querySelector('[data-reset]')!.addEventListener('click', () => { syncDay(); eaten.clear(); selected = undefined; save(); render(); });
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) { syncDay(); render(); } });
+    render();
+  }
+</script>
+<style>
+  .menu-picker{display:grid;grid-template-columns:1fr 1fr;gap:48px;border-top:1px solid #deded6;padding:44px 0 64px;color:#282b25;scroll-margin-top:24px}.eyebrow{font-size:11px;letter-spacing:.12em;color:#777b6f;margin:0 0 20px}h2{font-size:clamp(32px,4vw,48px);letter-spacing:-.055em;line-height:1.2;margin:0}h2 span{color:#a94830}.intro{font-size:16px;line-height:1.9;color:#666a60;margin:20px 0 28px}details{border-top:1px solid #deded6;padding-top:18px}summary{cursor:pointer;font-size:14px;font-weight:600;width:fit-content}.hint{font-size:12px;line-height:1.8;color:#666a60}.meal-options{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}.meal-options label{position:relative;cursor:pointer}.meal-options input{position:absolute;opacity:0;width:100%;height:100%;margin:0;cursor:pointer}.meal-options span{display:block;padding:10px 12px;border:1px solid #d6d9cd;border-radius:24px;font-size:12px;background:#fdfcf8}.meal-options input:checked+span{background:#ede6dc;border-color:#a94830;color:#803720}.meal-options input:focus-visible+span{outline:2px solid #a94830;outline-offset:3px}button{font:inherit;cursor:pointer}button:focus-visible,summary:focus-visible{outline:2px solid #a94830;outline-offset:4px}.reset{border:0;background:none;text-decoration:underline;color:#666a60;font-size:12px;padding:10px 0}.menu-draw{background:#fdfcf8;border:1px solid #deded6;border-radius:20px;padding:32px;text-align:center;align-self:start}.dish{display:block;font-size:56px;line-height:1.3;margin-bottom:18px}.result-label{font-size:11px;letter-spacing:.1em;color:#777b6f;margin:0 0 10px}h3{font-size:30px;letter-spacing:-.04em;margin:0}.menu-note{font-size:13px;line-height:1.8;color:#666a60;min-height:48px;margin:14px 0 24px;word-break:keep-all}.actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}.actions button{border-radius:10px;min-height:46px;padding:12px 18px;font-size:13px;font-weight:600}.draw{color:#fff;background:#a94830;border:1px solid #a94830}.draw span{padding-left:16px}.draw:hover:not(:disabled){background:#893b29}.ate{color:#626b53;background:transparent;border:1px solid #d6d9cd}button:disabled{opacity:.45;cursor:default}.available{font-size:11px;color:#70746b;margin:18px 0 0}@media(max-width:650px){.menu-picker{grid-template-columns:1fr;gap:28px;padding:32px 0 44px}.menu-draw{padding:28px 20px}.intro{font-size:14px}h3{font-size:27px}}
+</style>
