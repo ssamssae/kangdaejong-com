@@ -48,3 +48,7 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 `npm run build:protein`은 `dist-protein/`을 만들고, `npm run test:protein`으로 도감을 검증합니다.
 Cloudflare Pages 프로젝트는 `protein-kangdaejong`입니다. 회사 홈페이지는 기존 `npm run build` / `kangdaejong-com`을 사용합니다.
 공통 헤더를 수정하면 두 빌드를 검증하고 각각 배포합니다. 기존 회사 홈페이지 `/protein/`은 전용 주소로 이동합니다.
+
+## 기능 확인
+
+[메뉴 추첨기 확인 경로](docs/feature-map.md)에서 홈페이지 동작 검증 방법을 확인합니다.

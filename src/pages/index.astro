@@ -1,4 +1,5 @@
 ---
+import MenuPicker from '../components/MenuPicker.astro';
 import StudioFooter from '../components/StudioFooter.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import ProjectVersions from '../components/ProjectVersions.astro';
@@ -20,6 +21,7 @@ import { currentProjects, featuredProjects } from '../data/project-versions';
         <a href={project.href}>{project.action} <span aria-hidden="true">↗</span></a>
       </article>)}</div>
     </section>
+    <MenuPicker />
     <section class="projects" aria-labelledby="other-projects-title">
       <div class="section-heading"><h2 id="other-projects-title">함께 만드는 서비스</h2><p>일상에서 쓰는 작은 도구들</p></div>
       <div class="other-grid">{currentProjects.slice(1).map(project => <article class="other-card"><p class="category">{project.status}</p><h3>{project.name}</h3><p class="description">{project.description}</p><a href={project.href}>{project.action} ↗</a></article>)}</div>
