@@ -32,7 +32,7 @@ try {
   });
   writeFileSync('public/favicon.ico', Buffer.concat([directory,...icons]));
   await page.setViewportSize({width:1200,height:630});
-  await page.setContent(`<style>*{box-sizing:border-box}body{margin:0;background:#f7f6f2;color:#a94830;width:1200px;height:630px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:'Apple SD Gothic Neo',sans-serif}svg{width:290px;height:290px;display:block}h1{font-size:54px;letter-spacing:-2px;margin:12px 0 14px;line-height:1.2}p{font:20px Arial,sans-serif;letter-spacing:4px;margin:0}footer{font-size:20px;color:#74786f;margin-top:40px}</style>${mark}<h1>마이너스베타스튜디오</h1><p>MINUS BETA STUDIO</p><footer>새로운 서비스를 준비 중입니다.</footer>`);
+  await page.setContent(`<style>*{box-sizing:border-box}body{margin:0;background:#f7f6f2;color:#a94830;width:1200px;height:630px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:'Apple SD Gothic Neo',sans-serif}svg{width:290px;height:290px;display:block}h1{font-size:54px;letter-spacing:-2px;margin:12px 0 14px;line-height:1.2}p{font:20px Arial,sans-serif;letter-spacing:4px;margin:0}footer{font-size:20px;color:#74786f;margin-top:40px}</style>${mark}<h1>마이너스베타스튜디오</h1><p>MINUS BETA STUDIO</p><footer>생활에 가까운 도구를 만듭니다.</footer>`);
   await page.evaluate(()=>document.fonts.ready);
   const social = await page.screenshot();
   writeFileSync('public/og-studio-centered-20260924.png',social);
