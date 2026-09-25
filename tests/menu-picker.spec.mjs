@@ -38,7 +38,7 @@ test('one remaining meal, exhausted list and reset stay usable', async ({ page }
   await card.getByRole('button', { name: '이 메뉴 먹었어요' }).click();
   await expect(card.getByRole('button', { name: '메뉴 뽑기', exact: true })).toBeDisabled();
   await expect(card.locator('[data-menu-name]')).toHaveText('모두 먹었네요!');
-  await card.getByRole('button', { name: '제외 목록 초기화' }).click();
+  await card.getByRole('button', { name: '오늘 먹은 메뉴 초기화' }).click();
   await expect(card.getByRole('button', { name: '메뉴 뽑기', exact: true })).toBeEnabled();
   await expect(card.getByRole('checkbox', { checked: true })).toHaveCount(0);
 });
@@ -64,4 +64,17 @@ for (const width of [390, 1440]) test(`homepage card layout at ${width}`, async 
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await card.screenshot({ path: test.info().outputPath(`menu-${width}.png`) });
   expect(errors).toEqual([]);
+});
+
+test('reset is visible without opening exclusions and clears saved eaten meals', async ({ page }) => {
+  await page.goto(url, { waitUntil: 'domcontentloaded' });
+  const card = page.locator('#menu-picker');
+  await card.getByRole('button', { name: '메뉴 뽑기', exact: true }).click();
+  await card.getByRole('button', { name: '이 메뉴 먹었어요' }).click();
+  await expect(card.locator('[data-available]')).toContainText('1개 제외');
+  await expect(card.locator('details')).not.toHaveAttribute('open', '');
+  await card.getByRole('button', { name: '오늘 먹은 메뉴 초기화' }).click();
+  await expect(card.locator('[data-available]')).toContainText('0개 제외');
+  await page.reload({ waitUntil: 'domcontentloaded' });
+  await expect(card.locator('[data-available]')).toContainText('0개 제외');
 });

@@ -27,7 +27,6 @@ const meals = [
       <summary>오늘 먹은 메뉴 제외하기</summary>
       <p class="hint">먹은 메뉴를 체크하면 추첨에서 빠져요.<br />제외 목록은 이 브라우저에 오늘 하루만 저장돼요.</p>
       <div class="meal-options">{meals.map(meal => <label><input type="checkbox" value={meal.id} /><span>{meal.name}</span></label>)}</div>
-      <button class="reset" type="button" data-reset>제외 목록 초기화</button>
     </details>
   </div>
   <div class="menu-draw">
@@ -38,6 +37,7 @@ const meals = [
       <p class="menu-note" data-menu-note>버튼을 누르면 메뉴를 골라드려요.</p>
     </div>
     <div class="actions"><button type="button" class="draw" data-draw disabled>메뉴 뽑기 <span aria-hidden="true">↗</span></button><button type="button" class="ate" data-ate disabled>이 메뉴 먹었어요</button></div>
+    <button class="reset" type="button" data-reset>오늘 먹은 메뉴 초기화</button>
     <p class="available" data-available>16가지 메뉴 중 골라볼까요?</p>
     <noscript><p>메뉴 추첨은 JavaScript를 켜면 사용할 수 있어요.</p></noscript>
   </div>
