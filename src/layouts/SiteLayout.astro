@@ -1,6 +1,7 @@
 ---
 import "../styles/tokens.css";
 import "../styles/site.css";
+import brandManifest from "../../public/brand/manifest.json";
 
 const {
   minimal = false,
@@ -10,7 +11,8 @@ const {
   active = "",
   robots,
   bodyClass = "",
-  ogImage = "https://kangdaejong.com/brand/current/social.png",
+  ogImage = `https://kangdaejong.com/brand/current/social.png?v=${brandManifest.files["social.png"].sha256.slice(0, 16)}`,
+  ogImageAlt = "마이너스베타스튜디오 — 생활에 가까운 도구를 만듭니다.",
 } = Astro.props;
 
 const company = "마이너스베타스튜디오";
@@ -33,7 +35,7 @@ const documentTitle = title ? `${title} — ${company}` : company;
     <meta property="og:title" content={documentTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:alt" content={`${company} — 새로운 서비스를 준비 중입니다.`} />
+    <meta property="og:image:alt" content={ogImageAlt} />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={documentTitle} />

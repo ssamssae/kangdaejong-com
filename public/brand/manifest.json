@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "a3b009376ec47ab8",
+  "version": "1b8860a5859d335e",
   "files": {
     "logo.svg": {
       "url": "https://kangdaejong.com/brand/current/logo.svg",
@@ -20,7 +20,7 @@
     },
     "social.png": {
       "url": "https://kangdaejong.com/brand/current/social.png",
-      "sha256": "50097047769ceca62042d4b212d9bd6a5639afd1f3a4c9634487737daeb2f712"
+      "sha256": "11dc66e6dc7a0682ad627ee6a6a69553895453a44d1161d67f0ef8462aaee13a"
     }
   }
 }
