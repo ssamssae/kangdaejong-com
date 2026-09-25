@@ -1,0 +1,3 @@
+import { defineConfig,devices } from '@playwright/test';
+const live=process.env.PHOTO_PUBLIC_URL;
+export default defineConfig({testDir:'./tests',testMatch:'photo-public.spec.mjs',workers:1,outputDir:'/tmp/sajin-kureomi-public-tests',reporter:'line',use:{baseURL:live??'http://127.0.0.1:4392'},projects:[{name:'desktop',use:{viewport:{width:1440,height:1000},channel:'chrome'}},{name:'mobile',use:{...devices['Pixel 7'],channel:'chrome'}},{name:'iphone-webkit',use:{...devices['iPhone 13'],browserName:'webkit'}}],webServer:live?undefined:{command:'npm run preview -- --host 127.0.0.1 --port 4392',url:'http://127.0.0.1:4392/photo/',reuseExistingServer:false,timeout:30000}});

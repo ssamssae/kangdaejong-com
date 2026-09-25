@@ -9,6 +9,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
     <h1>새로운 서비스를<br />준비 중입니다<span class="dot">.</span></h1>
     <p class="intro">필요한 순간에, 분명한 도움이 되는 서비스.<br />준비가 되면 이곳에서 소개하겠습니다.</p>
     <span class="status"><i aria-hidden="true"></i> 준비 중</span>
+    <a class="callta-link photo-link" href="/photo/"><span class="callta-name">사진꾸러미 무료로 사용하기 <span aria-hidden="true">↗</span></span><span>사진 전송 없이, 인물·상품·음식의 밝기와 색감 보정</span></a>
     <a class="callta-link logo-link" href="https://logo.kangdaejong.com/"><span class="callta-name">로고꾸러미 둘러보기 <span aria-hidden="true">↗</span></span><span>브랜드에 어울리는 로고 시안과 활용 파일</span></a>
     <a class="callta-link" href="https://callta.kangdaejong.com/"><span class="callta-name">콜타와 이야기하기 <span aria-hidden="true">↗</span></span><span>무료 AI 음성 대화 · 한 번에 한 분, 최대 3분</span></a>
   </main>
@@ -25,7 +26,7 @@ import SiteLayout from "../layouts/SiteLayout.astro";
   </script>
 </SiteLayout>
 <style>
-.callta-link{display:flex;flex-direction:column;gap:9px;margin-top:30px;padding:20px 24px;border:1px solid #d6d9cd;border-radius:16px;color:#282b25;text-decoration:none;background:#f6f7f1}.logo-link+.callta-link{margin-top:12px}.callta-name{font-size:18px;font-weight:600}.callta-name span{margin-left:16px;color:#a94830}.callta-link>span:last-child{font-size:12px;color:#666a60}.callta-link:hover{background:#eef0e7;text-decoration:none}
+.callta-link{display:flex;flex-direction:column;gap:9px;margin-top:30px;padding:20px 24px;border:1px solid #d6d9cd;border-radius:16px;color:#282b25;text-decoration:none;background:#f6f7f1}.photo-link+.callta-link,.logo-link+.callta-link{margin-top:12px}.callta-name{font-size:18px;font-weight:600}.callta-name span{margin-left:16px;color:#a94830}.callta-link>span:last-child{font-size:12px;color:#666a60}.callta-link:hover{background:#eef0e7;text-decoration:none}
 
 .studio-header a{display:inline-flex;align-items:center;gap:12px}.brand-logo{display:block;flex:none;width:48px;height:48px}@media(max-width:650px){.brand-logo{width:38px;height:38px}}
 
