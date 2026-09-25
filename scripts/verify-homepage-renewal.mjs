@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 const source = readFileSync(new URL("../src/pages/archive.astro", import.meta.url), "utf8");
 const checks = [
   ["home uses the shared layout", /import SiteLayout/.test(source) && /<SiteLayout[\s\S]*canonical="https:\/\/kangdaejong\.com\/archive\/"/.test(source)],
-  ["hero starts with the purchasable digital product", /id="sales-title"/.test(source) && /매번 새로 쓰는 업무/.test(source) && /미리보기·구매/.test(source)],
+  ["archive prioritizes bridges and keeps books collapsed", !source.includes('class="sales-hero"') && source.indexOf('id="open-tools"') < source.indexOf('id="products"') && source.includes('<details class="archive-books" id="books">')],
   ["products, books, open tools, and company remain first-class destinations", ["products", "books", "open-tools", "company"].every((id) => source.includes(`id="${id}"`))],
   ["old repeated card and proof-strip structures stay removed", !/(product-card|tool-card|proof-strip|focusAreas|proofPoints)/.test(source)],
   ["featured first-name service keeps verified price and destination", /name: "첫이름"/.test(source) && /₩19,900/.test(source) && /https:\/\/cheotireum\.kangdaejong\.com\//.test(source)],
