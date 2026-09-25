@@ -1,34 +1,46 @@
 ---
-import StudioFooter from "../components/StudioFooter.astro";
-import SiteLayout from "../layouts/SiteLayout.astro";
+import StudioFooter from '../components/StudioFooter.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import ProjectVersions from '../components/ProjectVersions.astro';
+import { currentProjects } from '../data/project-versions';
 ---
-<SiteLayout description="마이너스베타스튜디오. 새로운 서비스를 준비 중입니다." canonical="https://kangdaejong.com/" minimal>
-  <header class="studio-header"><a href="/" aria-label="마이너스베타스튜디오 홈"><img class="brand-logo" src="https://kangdaejong.com/brand/current/logo.svg" alt="" width="48" height="48" /><div>MINUS BETA STUDIO<span>마이너스베타스튜디오</span></div></a></header>
+<SiteLayout title="강대종의 프로젝트 2.0" description="입타부터 시작하는 강대종의 프로젝트 2.0. 콜타, 로고꾸러미, 사진꾸러미와 이전 1.0 프로젝트를 만나보세요." canonical="https://kangdaejong.com/" minimal>
+  <header class="studio-header"><a href="/" aria-label="마이너스베타스튜디오 홈"><img src="https://kangdaejong.com/brand/current/logo.svg" alt="" width="48" height="48" /><div>MINUS BETA STUDIO<span>마이너스베타스튜디오</span></div></a></header>
   <main id="main-content">
-    <p class="eyebrow">NEXT CHAPTER</p>
-    <h1>새로운 서비스를<br />준비 중입니다<span class="dot">.</span></h1>
-    <p class="intro">필요한 순간에, 분명한 도움이 되는 서비스.<br />준비가 되면 이곳에서 소개하겠습니다.</p>
-    <span class="status"><i aria-hidden="true"></i> 준비 중</span>
-    <a class="callta-link photo-link" href="/photo/"><span class="callta-name">사진꾸러미 무료로 사용하기 <span aria-hidden="true">↗</span></span><span>사진 전송 없이, 인물·상품·음식의 밝기와 색감 보정</span></a>
-    <a class="callta-link logo-link" href="https://logo.kangdaejong.com/"><span class="callta-name">로고꾸러미 둘러보기 <span aria-hidden="true">↗</span></span><span>브랜드에 어울리는 로고 시안과 활용 파일</span></a>
-    <a class="callta-link" href="https://callta.kangdaejong.com/"><span class="callta-name">콜타와 이야기하기 <span aria-hidden="true">↗</span></span><span>무료 AI 음성 대화 · 한 번에 한 분, 최대 3분</span></a>
+    <section class="hero" aria-labelledby="chapter-title">
+      <ProjectVersions current="2.0" />
+      <div class="hero-copy"><div><p class="eyebrow">KANG DAEJONG / CHAPTER 02</p><h1 id="chapter-title">강대종의 프로젝트<span class="version">2.0<span class="dot">.</span></span></h1></div><p class="intro">입타에서 시작한 두 번째 이야기.<br />말하고, 만들고, 다듬는 일을<br />조금 더 편하게 만듭니다.</p></div>
+      <a class="jump" href="#projects">지금 만드는 것 보기 <span aria-hidden="true">↓</span></a>
+    </section>
+    <section class="projects" id="projects" aria-labelledby="projects-title">
+      <div class="section-heading"><h2 id="projects-title">지금 만드는 것</h2><p>입타부터 이어지는 2.0 프로젝트</p></div>
+      <div class="project-grid">{currentProjects.map((project, index) => <article class="project-card">
+        <div class="card-top"><span class="project-mark" aria-hidden="true">{project.mark}</span><span class="project-status">{project.status}</span></div>
+        <p class="category">0{index + 1} / {project.category}</p><h3>{project.name}</h3><p class="description">{project.description}</p>
+        <a href={project.href}>{project.action} <span aria-hidden="true">↗</span></a>
+      </article>)}</div>
+    </section>
+    <section class="chapters" aria-label="이전과 다음 프로젝트">
+      <a class="previous" href="/archive/"><span class="eyebrow">CHAPTER 01 / 1.0</span><h2>지금의 시작이 된 것들</h2><p>입타 이전에 만든 앱과 웹 서비스,<br />전자책과 공개 도구를 모았습니다.</p><span class="chapter-action">1.0 프로젝트 둘러보기 ↗</span></a>
+      <div class="next"><span class="eyebrow">CHAPTER 03 / 3.0</span><h2>다음 이야기는, 나중에.</h2><p>새로운 장을 시작하면<br />이곳에 이어 담겠습니다.</p><span class="chapter-note">아직 시작하지 않은 다음 버전</span></div>
+    </section>
   </main>
   <StudioFooter />
   <script is:inline>
-    // Preserve shared links to the catalog moved off the home page.
+    // Preserve existing book links when moving between project chapters.
     const openArchivedSection = () => {
-      if (window.location.hash === '#books') {
-        window.location.replace('/archive/' + window.location.search + '#books');
-      }
+      if (window.location.hash === '#books') window.location.replace('/archive/' + window.location.search + '#books');
     };
     openArchivedSection();
     window.addEventListener('hashchange', openArchivedSection);
   </script>
 </SiteLayout>
 <style>
-.callta-link{display:flex;flex-direction:column;gap:9px;margin-top:30px;padding:20px 24px;border:1px solid #d6d9cd;border-radius:16px;color:#282b25;text-decoration:none;background:#f6f7f1}.photo-link+.callta-link,.logo-link+.callta-link{margin-top:12px}.callta-name{font-size:18px;font-weight:600}.callta-name span{margin-left:16px;color:#a94830}.callta-link>span:last-child{font-size:12px;color:#666a60}.callta-link:hover{background:#eef0e7;text-decoration:none}
-
-.studio-header a{display:inline-flex;align-items:center;gap:12px}.brand-logo{display:block;flex:none;width:48px;height:48px}@media(max-width:650px){.brand-logo{width:38px;height:38px}}
-
-.studio-header,main,footer{width:min(1120px,calc(100% - 64px));margin:auto}.studio-header{padding:36px 0;border-bottom:1px solid #deded6}.studio-header a{font-size:13px;font-weight:700;letter-spacing:.12em;text-decoration:none;color:#282b25}.studio-header span{display:block;font-size:11px;font-weight:400;letter-spacing:0;margin-top:7px;color:#62655d}main{min-height:72vh;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:80px 0 100px}.eyebrow{font-size:11px;letter-spacing:.22em;color:#777b6f;margin:0 0 26px}h1{font-size:clamp(36px,6vw,76px);line-height:1.22;letter-spacing:-.055em;font-weight:600;margin:0;color:#282b25}.dot{color:#a94830}.intro{font-size:17px;line-height:1.9;color:#666a60;margin:28px 0 34px}.status{font-size:12px;border:1px solid #d6d9cd;border-radius:99px;padding:9px 14px;color:#626b53;display:inline-flex;gap:8px;align-items:center}.status i{width:6px;height:6px;background:#7c8868;border-radius:50%}footer{border-top:1px solid #deded6;padding:24px 0 32px;display:flex;justify-content:space-between;gap:20px;color:#70746b;font-size:11px}footer nav{display:flex;gap:20px}footer a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}a:focus-visible{outline:2px solid #a94830;outline-offset:5px}@media(max-width:600px){.studio-header,main,footer{width:calc(100% - 40px)}main{min-height:70vh;padding:70px 0}.intro{font-size:14px}footer{flex-direction:column;gap:16px}footer nav{flex-wrap:wrap}}
+  .studio-header,main,footer{width:min(1120px,calc(100% - 64px));margin:auto}
+  .studio-header{padding:30px 0;border-bottom:1px solid #deded6}.studio-header>a{display:inline-flex;align-items:center;gap:12px;color:#282b25;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.12em}.studio-header img{flex:none}.studio-header span{display:block;font-size:11px;font-weight:400;letter-spacing:0;margin-top:7px;color:#62655d}
+  .hero{padding:38px 0 54px}.hero-copy{display:grid;grid-template-columns:1.5fr 1fr;align-items:end;gap:40px;padding:64px 0 36px}.eyebrow{display:block;font-size:11px;letter-spacing:.16em;color:#777b6f;margin:0 0 18px}h1{font-size:clamp(30px,4.5vw,58px);line-height:1.2;letter-spacing:-.055em;font-weight:600;margin:0;color:#282b25}.version{display:block;font-size:clamp(90px,14vw,170px);line-height:1;margin-top:12px;font-weight:500;letter-spacing:-.065em}.dot{color:#a94830}.intro{font-size:18px;line-height:1.9;color:#666a60;margin:0 0 8px}.jump{display:inline-flex;align-items:center;gap:24px;color:#626b53;text-decoration:none;font-size:13px}
+  .projects{border-top:1px solid #deded6;padding:36px 0 64px;scroll-margin-top:24px}.section-heading{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:24px}h2{font-size:24px;letter-spacing:-.04em;margin:0}.section-heading p{font-size:13px;color:#70746b;margin:0}.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.project-card{display:flex;flex-direction:column;background:#fdfcf8;border:1px solid #deded6;border-radius:16px;padding:30px}.card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:26px}.project-mark{display:grid;place-items:center;width:48px;height:48px;background:#edf0e5;border-radius:14px;color:#526147;font-size:23px;font-weight:600}.project-status{font-size:11px;color:#626b53;border:1px solid #d6d9cd;border-radius:30px;padding:6px 10px}.category{font-size:11px;letter-spacing:.04em;color:#777b6f;margin:0 0 8px}h3{font-size:29px;margin:0;letter-spacing:-.045em}.description{font-size:15px;line-height:1.9;color:#666a60;margin:16px 0 28px;max-width:390px;word-break:keep-all}.project-card>a{margin-top:auto;color:#a94830;font-size:13px;font-weight:600;text-decoration:none;display:flex;justify-content:space-between;gap:12px}
+  .chapters{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:42px 0 64px;border-top:1px solid #deded6}.previous{text-decoration:none;color:#282b25}.chapters h2{font-size:23px}.chapters p{font-size:14px;line-height:1.9;color:#70746b}.chapter-action{font-size:13px;color:#a94830}.next{border-left:1px solid #deded6;padding-left:40px}.chapter-note{font-size:12px;color:#777b6f}
+  footer{border-top:1px solid #deded6;padding:24px 0 32px;display:flex;justify-content:space-between;gap:20px;color:#70746b;font-size:11px}footer nav{display:flex;gap:20px}footer a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}a:focus-visible{outline:2px solid #a94830;outline-offset:5px}
+  @media(max-width:650px){.studio-header,main,footer{width:calc(100% - 40px)}.studio-header{padding:24px 0}.studio-header img{width:38px;height:38px}.hero{padding-top:26px}.hero-copy{grid-template-columns:1fr;gap:28px;padding:42px 0 28px}.intro{font-size:15px}.section-heading{display:block}.section-heading p{margin-top:10px}.project-grid{grid-template-columns:1fr}.project-card{padding:24px}.chapters{grid-template-columns:1fr;gap:32px}.next{border-left:0;border-top:1px dashed #d6d9cd;padding:32px 0 0}footer{flex-direction:column;gap:16px}footer nav{flex-wrap:wrap}}
 </style>

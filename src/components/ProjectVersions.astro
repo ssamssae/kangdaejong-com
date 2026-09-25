@@ -1,0 +1,19 @@
+---
+import { projectVersions } from '../data/project-versions';
+const { current } = Astro.props;
+---
+<nav class="project-versions" aria-label="프로젝트 버전">
+  {projectVersions.map(item => item.href ?
+    <a href={item.href} aria-current={current === item.version ? 'page' : undefined}><strong>{item.version}</strong><span>{item.label}</span></a> :
+    <span class="future"><strong>{item.version}</strong><span>{item.label}</span></span>
+  )}
+</nav>
+<style>
+  .project-versions{display:flex;flex-wrap:wrap;gap:10px;font-family:inherit}
+  .project-versions>a,.future{display:flex;align-items:center;gap:10px;padding:12px 16px;border:1px solid #d6d9cd;border-radius:10px;font-size:12px;line-height:1.5;text-decoration:none;color:#62655d}
+  .project-versions strong{font-size:15px;font-variant-numeric:tabular-nums}
+  .project-versions a[aria-current="page"]{background:#282f27;border-color:#282f27;color:#fff}
+  .project-versions a:hover{border-color:#a94830}.project-versions a:focus-visible{outline:2px solid #a94830;outline-offset:4px}
+  .future{border-style:dashed;color:#74786e}
+  @media(max-width:420px){.project-versions{gap:8px}.project-versions>a,.future{padding:10px 12px;flex-direction:column;align-items:flex-start;gap:3px}}
+</style>
