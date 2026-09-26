@@ -7,6 +7,7 @@ export const projectVersions = [
 
 export const currentProjects = [
   { name: '입타', mark: '입', category: '말을 글로', status: 'Mac · Windows', description: '쓰던 입력칸에서 말하면 글이 됩니다. 한국어 받아쓰기는 내 컴퓨터에서 처리합니다.', href: '/ipta/', action: '설치·사용 방법 보기' },
+  { name: '문의노트', mark: '문', category: '비전화 문의 관리', status: '개인 작업실 · 로그인 필요', description: '문의문을 작성하고 업체별 답변과 다음 확인일을 정리합니다. 본인 계정으로 로그인해 사용하는 개인 작업실입니다.', href: 'https://inquiry-note.neat-olive-7471.chatgpt.site', action: '문의노트 열기' },
   { name: '기록실', mark: '기', category: '작업 메모를 블로그로', status: '테스트 베타', description: '사진과 작업 메모로 블로그 초안을 만들고 다듬습니다. 네이버에 붙여넣고 사진을 첨부해 사용하세요.', href: 'https://giroksil.kangdaejong.com/', action: '기록실 체험하기' },
   { name: '콜타', mark: '콜', category: '목소리로 대화', status: '무료 음성 대화', description: 'AI와 목소리로 이야기를 나눕니다. 한 번에 한 분, 최대 3분 동안 이용할 수 있습니다.', href: 'https://callta.kangdaejong.com/', action: '콜타와 이야기하기' },
   { name: '로고꾸러미', mark: '로', category: '브랜드의 첫 모습', status: '무료 견본 편집', description: '로고 견본을 편집하고 활용 파일을 내려받습니다. 유료 AI 생성은 준비 중입니다.', href: 'https://logo.kangdaejong.com/', action: '로고꾸러미 둘러보기' },
