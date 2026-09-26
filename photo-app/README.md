@@ -83,3 +83,7 @@ npx playwright test --config photo-app/playwright.commerce.config.mjs
 이메일 인증 후 충전팩 결제 또는 구독 카드 등록을 시작하면 서버가 인증된 이메일의 `@` 앞부분을 Toss `customerName`으로 전달한다(최대 100자). 기존 이메일 저장 규칙에 따라 소문자로 표시하며, 전체 이메일을 추가 전송하지 않는다. 예: `buyer.name+photo@example.test` → `buyer.name+photo`. GPT 로그인 연동은 포함하지 않는다.
 
 T-260925-011: 결제 요청 API에서 인증 전 차단·클라이언트 이름 위조 무시·인증 이메일 기반 이름 전달을 검증한다. 수정 후 실제 Toss 결제내역 메일의 표시 재검증은 별도 미완료다.
+
+## 운영 준비
+
+정지 상태의 SQLite 백업·격리 복구 절차와 공급자/출시 증거는 [운영 준비 기록](OPERATIONS.md)에 정리한다. 백업 도구는 Node 22.16 이상을 요구하며 기존 앱의 최소 런타임과 구분한다.
