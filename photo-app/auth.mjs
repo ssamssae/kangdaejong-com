@@ -27,6 +27,7 @@ export function createAuth(store,{mailer=null,origin}={}){
   return {
     required:!!mailer,
     verified:user=>!!db.prepare('SELECT verified FROM identities WHERE user_id=?').get(user)?.verified,
+    customerName:user=>db.prepare('SELECT email FROM identities WHERE user_id=? AND verified=1').get(user)?.email.split('@')[0].slice(0,100),
     async register(username,password,email){validatePassword(password);if(typeof email!=='string'||email.length>254||!/^\S+@[^\s@]+\.[^\s@]+$/.test(email))throw fault(400,'이메일 주소를 확인해주세요.');email=email.toLowerCase().trim();
       const digest=await passwordHash(password);let id;
       try{id=store.register(username,digest,{trial:false});db.prepare('INSERT INTO identities VALUES(?,?,0)').run(id,email);}catch(e){if(id)db.prepare('DELETE FROM users WHERE id=?').run(id);if(e.message.includes('UNIQUE'))throw fault(409,'이미 등록된 아이디 또는 이메일입니다.');throw e;}
