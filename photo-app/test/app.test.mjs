@@ -103,3 +103,15 @@ test('second process cannot open a live database and refund its reserved work',a
   const dir=await mkdtemp(join(tmpdir(),'photo-lock-')),path=join(dir,'test.sqlite'),store=createStore(path);
   try{const id=store.register('lock-user','hash');store.reserve(id,'one','x',{category:'portrait',preset:'natural',strength:60});assert.throws(()=>createStore(path),/locked/);assert.equal(store.wallet.balance(id),2);}finally{store.close();await rm(dir,{recursive:true,force:true});}
 });
+
+
+test('checkout names come from the verified account email, not client input or username',async t=>{
+  const sent=[],f=await fixture(t,{mailer:async m=>sent.push(m),gateway:{clientKey:'test_ck_fixture',mode:'test'},encryptionKey:'ab'.repeat(32)});
+  const response=await f.call('/api/register',{method:'POST',body:JSON.stringify({username:'different-user',password:'test-only-password-123',email:'Buyer.Name+photo@example.test'})});
+  assert.equal(response.status,200);const cookie=response.headers.get('set-cookie').split(';')[0];
+  const checkout=()=>f.call('/api/checkout',{cookie,method:'POST',body:JSON.stringify({plan:'pack',requestKey:'customer-name-test-01',customerName:'spoofed',email:'other@example.test'})});
+  assert.equal((await checkout()).status,403);
+  assert.equal((await f.call('/api/verify-email',{cookie,method:'POST',body:JSON.stringify({token:sent[0].token})})).status,200);
+  const order=await checkout();assert.equal(order.status,200);const data=await order.json();assert.equal(data.customerName,'buyer.name+photo');assert.equal(data.customerEmail,undefined);
+  const subscription=await f.call('/api/subscription/start',{cookie,method:'POST'});assert.equal(subscription.status,200);assert.equal((await subscription.json()).customerName,'buyer.name+photo');
+});

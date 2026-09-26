@@ -101,11 +101,11 @@ export async function createApp({ dataDir = resolve(root,'data'), origin = 'http
         if(path.startsWith('/api/billing') || path==='/api/checkout' || path.startsWith('/api/subscription')){
           if(!commerce.enabled)throw error(503,'결제·구독은 아직 활성화되지 않았습니다.');
           if(auth.required&&!auth.verified(user.id))throw error(403,'이메일 인증 후 결제를 진행해주세요.');
-          if(path==='/api/checkout'&&req.method==='POST'){const body=await readJson(req);return send({...commerce.order(user.id,body.plan,body.requestKey),customerKey:user.id,clientKey:commerce.clientKey});}
+          if(path==='/api/checkout'&&req.method==='POST'){const body=await readJson(req);return send({...commerce.order(user.id,body.plan,body.requestKey),customerKey:user.id,clientKey:commerce.clientKey,customerName:auth.customerName(user.id)});}
           if(path==='/api/billing/confirm'&&req.method==='POST'){const body=await readJson(req);return send(await commerce.confirm(user.id,body.orderId,body.paymentKey));}
           if(path==='/api/billing/reconcile'&&req.method==='POST'){const body=await readJson(req);return send(await commerce.reconcile(user.id,body.orderId));}
           if(path==='/api/billing/refund'&&req.method==='POST'){const body=await readJson(req);return send(await commerce.refund(user.id,body.orderId));}
-          if(path==='/api/subscription/start'&&req.method==='POST')return send(commerce.startSubscription(user.id));
+          if(path==='/api/subscription/start'&&req.method==='POST')return send({...commerce.startSubscription(user.id),customerName:auth.customerName(user.id)});
           if(path==='/api/subscription/authorize'&&req.method==='POST'){const body=await readJson(req);return send(await commerce.authorize(user.id,body.authKey,body.customerKey));}
           if(path==='/api/subscription/cancel'&&req.method==='POST')return send(commerce.cancelSubscription(user.id));
         }
