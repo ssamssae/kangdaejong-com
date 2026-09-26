@@ -17,7 +17,7 @@
 ## 문의노트 진입 링크 — T-260926-014
 
 - 진입점: https://kangdaejong.com/ → 함께 만드는 서비스 → 문의노트 열기.
-- 목적지: https://inquiry-note.neat-olive-7471.chatgpt.site
+- 목적지: https://inquiry-note.ssamssae.chatgpt.site
 - 사전 조건: 해당 Sites 소유자 계정으로 로그인. 홈페이지는 공개이며 문의 작업실은 비공개.
 - 기대 결과: 별도 Mac 실행 없이 작업실 접속. 문의·답변은 서버 D1에 계정별 저장.
 - 검증: 홈페이지 빌드 및 공유 header/footer·homepage-renewal 검사 통과. 생성 HTML에 이름·목적지·로그인 필요 표기 확인. 실제 배포 URL과 DB/접근제어 실측은 티켓 근거 파일 참고.
