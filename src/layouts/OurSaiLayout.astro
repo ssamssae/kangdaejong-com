@@ -1,0 +1,10 @@
+---
+import SiteLayout from "./SiteLayout.astro";
+const { title, description, path } = Astro.props;
+---
+<SiteLayout title={title} description={description} canonical={`https://kangdaejong.com/our-sai/${path || ""}`}>
+<main id="main-content" class="our-sai"><a class="brand" href="/our-sai/">우리 사이 <span>둘만의 기록</span></a><slot /><nav aria-label="우리 사이 안내"><a href="/our-sai/">앱 소개</a><a href="/our-sai/privacy/">개인정보처리방침</a><a href="/our-sai/support/">지원·삭제 안내</a><a href="/our-sai/terms/">이용 안내</a></nav></main>
+</SiteLayout>
+<style is:global>
+.our-sai{max-width:800px;margin:48px auto;padding:0 24px 72px;color:#30263d}.our-sai .brand{color:#7448b7;font-weight:800;text-decoration:none}.our-sai .brand span{font-size:14px;font-weight:400;margin-left:8px}.our-sai h1{font-size:clamp(30px,6vw,48px);line-height:1.3;margin:32px 0 20px}.our-sai h2{font-size:24px;margin:36px 0 12px}.our-sai p,.our-sai li{line-height:1.85;overflow-wrap:anywhere}.our-sai a{color:#68409d;text-underline-offset:4px}.our-sai nav{display:flex;gap:12px 22px;flex-wrap:wrap;margin-top:48px;border-top:1px solid #e4daef;padding-top:24px}.our-sai .intro{font-size:20px}.our-sai .note{background:#f3edf9;padding:20px;border-radius:16px}.our-sai ul{padding-left:24px}
+</style>
