@@ -22,3 +22,9 @@
 - 기대 결과: 별도 Mac 실행 없이 작업실 접속. 문의·답변은 서버 D1에 계정별 저장.
 - 검증: 홈페이지 빌드 및 공유 header/footer·homepage-renewal 검사 통과. 생성 HTML에 이름·목적지·로그인 필요 표기 확인. 실제 배포 URL과 DB/접근제어 실측은 티켓 근거 파일 참고.
 - 범위: 진입 링크 추가. 기존 프로젝트와 판매 보류 상태 유지.
+
+## 메인 홈페이지 톤 (T-260928-017)
+
+`/`의 프로젝트 인덱스·대표 프로젝트 보기 → `#projects`; 세 프로젝트 링크와 서비스 링크는 기존 경로를 유지한다. 1.0은 `/archive/`, 기존 `#books`는 `/archive/#books`로 이동한다. 메뉴 추첨·제외·초기화는 기존 기능이다. 그래픽은 장식이며 실제 서비스 UI가 아니다.
+
+디자인 근거 및 360/390/768/1440px, 키보드, 동작 줄이기 검증 경로: [home-tone-research.md](home-tone-research.md). 검증: `tests/home-tone.spec.mjs`, `tests/menu-picker.spec.mjs`, `tests/books-anchor.spec.mjs`. 공개 반영 여부는 배포 근거로 별도 확인한다.

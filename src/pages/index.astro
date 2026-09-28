@@ -1,29 +1,39 @@
 ---
+import '../styles/home-tone.css';
 import MenuPicker from '../components/MenuPicker.astro';
 import StudioFooter from '../components/StudioFooter.astro';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import ProjectVersions from '../components/ProjectVersions.astro';
 import { currentProjects, featuredProjects } from '../data/project-versions';
 ---
-<SiteLayout title="강대종의 프로젝트 2.0" description="텔레그램 브릿지, 입타, 자비스. 내 컴퓨터의 AI를 연결하고, 말로 쓰고, 목소리로 부르는 강대종의 프로젝트." canonical="https://kangdaejong.com/" minimal>
-  <header class="studio-header"><a href="/" aria-label="마이너스베타스튜디오 홈"><img src="https://kangdaejong.com/brand/current/logo.svg" alt="" width="48" height="48" /><div>MINUS BETA STUDIO<span>마이너스베타스튜디오</span></div></a></header>
+<SiteLayout title="강대종의 프로젝트 2.0" description="텔레그램 브릿지, 입타, 자비스. 내 컴퓨터의 AI를 연결하고, 말로 쓰고, 목소리로 부르는 강대종의 프로젝트." canonical="https://kangdaejong.com/" minimal bodyClass="home-editorial">
+  <header class="studio-header"><a href="/" aria-label="마이너스베타스튜디오 홈"><img src="https://kangdaejong.com/brand/current/logo.svg" alt="" width="48" height="48" /><div>MINUS BETA STUDIO<span>마이너스베타스튜디오</span></div></a><a class="header-index" href="#projects">프로젝트 인덱스 <span aria-hidden="true">↘</span></a></header>
   <main id="main-content">
     <section class="hero" aria-labelledby="chapter-title">
-      <ProjectVersions current="2.0" />
-      <div class="hero-copy"><div><p class="eyebrow">KANG DAEJONG / CHAPTER 02</p><h1 id="chapter-title">강대종의 프로젝트<span class="version">2.0<span class="dot">.</span></span></h1></div><p class="intro">내 컴퓨터의 AI를 더 가까이.<br />브릿지로 연결하고, 입타로 쓰고,<br />자비스를 목소리로 부릅니다.</p></div>
-      <a class="jump" href="#projects">대표 프로젝트 보기 <span aria-hidden="true">↓</span></a>
+      <div class="hero-meta"><p class="eyebrow">INDEPENDENT STUDIO · SEOUL</p><ProjectVersions current="2.0" /></div>
+      <div class="hero-copy">
+        <div class="hero-title"><p class="hero-name">강대종의 프로젝트</p><h1 id="chapter-title">내 컴퓨터의 AI를,<br /><span>더 가까이.</span></h1></div>
+        <div class="edition" aria-label="프로젝트 2.0"><span class="edition-caption">THE SECOND CHAPTER</span><span class="version">2.0<span class="dot">.</span></span><span class="edition-foot">연결하고 · 말하고 · 부르다</span></div>
+      </div>
+      <div class="hero-bottom"><p class="intro">브릿지로 연결하고, 입타로 쓰고,<br />자비스를 목소리로 부릅니다.</p><a class="jump" href="#projects">대표 프로젝트 보기 <span aria-hidden="true">↓</span></a></div>
     </section>
     <section class="projects" id="projects" aria-labelledby="projects-title">
-      <div class="section-heading"><h2 id="projects-title">브릿지 · 입타 · 자비스</h2><p>직접 만들고 다듬는 대표 프로젝트</p></div>
-      <div class="project-grid featured-project-grid">{featuredProjects.map((project, index) => <article class="project-card">
-        <div class="card-top"><span class="project-mark" aria-hidden="true">{project.mark}</span><span class="project-status">{project.status}</span></div>
+      <div class="section-heading"><div><p class="eyebrow">01 — SELECTED WORK</p><h2 id="projects-title">브릿지 · 입타 · 자비스</h2></div><p>직접 만들고, 쓰고, 다듬습니다.</p></div>
+      <div class="project-grid featured-project-grid">{featuredProjects.map((project, index) => <article class:list={["project-card", `project-${index}`]}>
+        <div class="project-visual" aria-hidden="true">
+          <div class="visual-label"><span>MINUS BETA / 0{index + 1}</span><span>↗</span></div>
+          {index === 0 ? <div class="bridge-art"><div class="bridge-phone"><span>요청</span><i></i><i></i><b>↗</b></div><span class="bridge-line">↔</span><div class="bridge-desktop"><span>내 컴퓨터</span><i></i><i></i><b>응답 ↙</b></div></div> : index === 1 ? <div class="ipta-art"><div class="wave">{[12,24,40,28,52,68,40,24,46,60,34,18,28].map(height => <i style={`--bar:${height}px`}></i>)}</div><span>말이 글이 되는 순간<span class="caret">|</span></span></div> : <div class="jarvis-art"><div class="voice-orbit"><div class="voice-core"><span>자비스</span><small>듣고 있어요</small></div></div></div>}
+          <span class="visual-caption">{['A BRIDGE TO YOUR AI', 'YOUR VOICE, IN WORDS', 'A VOICE FOR YOUR COMPUTER'][index]}</span>
+        </div>
+        <div class="card-copy"><div class="card-top"><span class="project-status">{project.status}</span></div>
         <p class="category">0{index + 1} / {project.category}</p><h3>{project.name}</h3><p class="description">{project.description}</p>
         <a href={project.href}>{project.action} <span aria-hidden="true">↗</span></a>
+        </div>
       </article>)}</div>
     </section>
-    <MenuPicker />
+    <div class="interlude"><MenuPicker /></div>
     <section class="projects" aria-labelledby="other-projects-title">
-      <div class="section-heading"><h2 id="other-projects-title">함께 만드는 서비스</h2><p>일상에서 쓰는 작은 도구들</p></div>
+      <div class="section-heading"><div><p class="eyebrow">02 — EVERYDAY TOOLS</p><h2 id="other-projects-title">함께 만드는 서비스</h2></div><p>일상에서 쓰는 작은 도구들</p></div>
       <div class="other-grid">{currentProjects.slice(1).map(project => <article class="other-card"><p class="category">{project.status}</p><h3>{project.name}</h3><p class="description">{project.description}</p><a href={project.href}>{project.action} ↗</a></article>)}</div>
     </section>
     <section class="chapters" aria-label="이전과 다음 프로젝트">
@@ -41,13 +51,3 @@ import { currentProjects, featuredProjects } from '../data/project-versions';
     window.addEventListener('hashchange', openArchivedSection);
   </script>
 </SiteLayout>
-<style>
-  .studio-header,main,footer{width:min(1120px,calc(100% - 64px));margin:auto}
-  .studio-header{padding:30px 0;border-bottom:1px solid #deded6}.studio-header>a{display:inline-flex;align-items:center;gap:12px;color:#282b25;text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.12em}.studio-header img{flex:none}.studio-header span{display:block;font-size:11px;font-weight:400;letter-spacing:0;margin-top:7px;color:#62655d}
-  .hero{padding:38px 0 54px}.hero-copy{display:grid;grid-template-columns:1.5fr 1fr;align-items:end;gap:40px;padding:64px 0 36px}.eyebrow{display:block;font-size:11px;letter-spacing:.16em;color:#777b6f;margin:0 0 18px}h1{font-size:clamp(30px,4.5vw,58px);line-height:1.2;letter-spacing:-.055em;font-weight:600;margin:0;color:#282b25}.version{display:block;font-size:clamp(90px,14vw,170px);line-height:1;margin-top:12px;font-weight:500;letter-spacing:-.065em}.dot{color:#a94830}.intro{font-size:18px;line-height:1.9;color:#666a60;margin:0 0 8px}.jump{display:inline-flex;align-items:center;gap:24px;color:#626b53;text-decoration:none;font-size:13px}
-  .projects{border-top:1px solid #deded6;padding:36px 0 64px;scroll-margin-top:24px}.section-heading{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:24px}h2{font-size:24px;letter-spacing:-.04em;margin:0}.section-heading p{font-size:13px;color:#70746b;margin:0}.project-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.project-card{display:flex;flex-direction:column;background:#fdfcf8;border:1px solid #deded6;border-radius:16px;padding:30px}.card-top{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:26px}.project-mark{display:grid;place-items:center;width:48px;height:48px;background:#edf0e5;border-radius:14px;color:#526147;font-size:23px;font-weight:600}.project-status{font-size:11px;color:#626b53;border:1px solid #d6d9cd;border-radius:30px;padding:6px 10px}.category{font-size:11px;letter-spacing:.04em;color:#777b6f;margin:0 0 8px}h3{font-size:29px;margin:0;letter-spacing:-.045em}.description{font-size:15px;line-height:1.9;color:#666a60;margin:16px 0 28px;max-width:390px;word-break:keep-all}.project-card>a{margin-top:auto;color:#a94830;font-size:13px;font-weight:600;text-decoration:none;display:flex;justify-content:space-between;gap:12px}
-  .featured-project-grid,.other-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.other-card{padding:24px 0}.other-card h3{font-size:23px}.other-card a{color:#a94830;font-size:13px}.other-card .description{margin-bottom:18px}
-  .chapters{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:42px 0 64px;border-top:1px solid #deded6}.previous{text-decoration:none;color:#282b25}.chapters h2{font-size:23px}.chapters p{font-size:14px;line-height:1.9;color:#70746b}.chapter-action{font-size:13px;color:#a94830}.next{border-left:1px solid #deded6;padding-left:40px}.chapter-note{font-size:12px;color:#777b6f}
-  footer{border-top:1px solid #deded6;padding:24px 0 32px;display:flex;justify-content:space-between;gap:20px;color:#70746b;font-size:11px}footer nav{display:flex;gap:20px}footer a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}a:focus-visible{outline:2px solid #a94830;outline-offset:5px}
-  @media(max-width:650px){.studio-header,main,footer{width:calc(100% - 40px)}.studio-header{padding:24px 0}.studio-header img{width:38px;height:38px}.hero{padding-top:26px}.hero-copy{grid-template-columns:1fr;gap:28px;padding:42px 0 28px}.intro{font-size:15px}.section-heading{display:block}.section-heading p{margin-top:10px}.project-grid,.other-grid{grid-template-columns:1fr}.project-card{padding:24px}.chapters{grid-template-columns:1fr;gap:32px}.next{border-left:0;border-top:1px dashed #d6d9cd;padding:32px 0 0}footer{flex-direction:column;gap:16px}footer nav{flex-wrap:wrap}}
-</style>
