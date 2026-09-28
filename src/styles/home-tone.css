@@ -75,9 +75,6 @@
 .home-editorial .description { font-size: 14px; line-height: 1.9; color: var(--quiet); margin: 16px 0 22px; word-break: keep-all; }
 .home-editorial .card-copy > a { display: flex; justify-content: space-between; gap: 8px; padding-block: 12px; border-top: 1px solid var(--rule); font-size: 12px; text-decoration: none; margin-top: auto; }
 .home-editorial .card-copy > a > span { color: var(--rust); }
-.home-editorial .interlude { margin-bottom: 64px; }
-.home-editorial .interlude .menu-picker { border-radius: 0; border: 1px solid var(--rule); background: #ebeae2; box-shadow: none; margin-block: 0; }
-.home-editorial .interlude .menu-result { border-radius: 3px; box-shadow: none; }
 .home-editorial .other-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 0 36px; }
 .home-editorial .other-card { border-top: 1px solid var(--rule); padding: 24px 0 32px; }
 .home-editorial .other-card h3 { font-size: 22px; }
@@ -138,7 +135,6 @@
   .home-editorial .card-copy { padding-top: 20px; }
   .home-editorial h3 { font-size: 26px; }
   .home-editorial .projects { padding-block: 28px 44px; }
-  .home-editorial .interlude { margin-bottom: 44px; }
   .home-editorial .chapters { grid-template-columns: 1fr; gap: 32px; padding-block: 32px 44px; }
   .home-editorial .next { padding: 28px 0 0; border-left: 0; border-top: 1px solid var(--rule); }
 }
