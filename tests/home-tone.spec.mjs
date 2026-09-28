@@ -8,6 +8,8 @@ for (const width of [360, 390, 768, 1440]) {
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('내 컴퓨터의 AI를,더 가까이.');
+    await expect(page.locator('#menu-picker')).toHaveCount(0);
+    await expect(page.getByRole('heading', { name: '함께 만드는 서비스' })).toBeVisible();
     await expect(page.locator('#projects h3')).toHaveText(['텔레그램 브릿지', '입타', '자비스']);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await expect(page.getByRole('link', { name: '브릿지 시연·설치 안내 보기' })).toHaveAttribute('href', '/archive/#open-tools');
