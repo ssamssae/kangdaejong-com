@@ -26,3 +26,13 @@ test('sales remain off on both domains and origin validation remains enforced',a
  }
  const r=await worker.fetch(new Request('https://logo.kangdaejong.com/logo/api/orders',{method:'POST',headers:{origin:'https://attacker.invalid'}}),{});assert.equal(r.status,403);
 });
+
+test('closed deployment blocks all public paths before storage or providers',async()=>{
+ const env={SERVICE_CLOSED:'true',SALES_ENABLED:'true',get ORDERS(){throw Error('must not access orders');},get ASSETS(){throw Error('must not access assets');}};
+ for(const host of ['logo.kangdaejong.com','kangdaejong.com','logo-kureomi.example.workers.dev'])for(const path of ['/','/logo/','/terms/','/logo/api/config','/logo/api/orders','/logo/api/orders/logo_'+'a'.repeat(32)+'/generate'])for(const method of ['GET','POST','HEAD']){
+  const r=await worker.fetch(new Request('https://'+host+path,{method}),env);
+  assert.equal(r.status,410);assert.equal(r.headers.get('cache-control'),'no-store');
+  if(path.startsWith('/logo/api/'))assert.equal((await r.json()).closed,true);
+  else if(method!=='HEAD')assert.match(await r.text(),/서비스를 종료했습니다/);
+ }
+});

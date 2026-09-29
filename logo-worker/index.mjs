@@ -1,3 +1,4 @@
+import { CLOSED_HTML } from './closed.mjs';
 // Separate service: no changes to the existing first-name payment database.
 export const PRICE = 9900;
 export const LIMIT = 8;
@@ -17,6 +18,11 @@ export default {
  async fetch(request,env) {
   try {
    const url=new URL(request.url);
+   // Retire public access before touching providers, assets, or stored orders.
+   if(env.SERVICE_CLOSED === 'true') {
+    if(url.pathname.startsWith('/logo/api/'))return json({ready:false,closed:true,error:'로고꾸러미 서비스를 종료했습니다.'},410);
+    return new Response(request.method==='HEAD'?null:CLOSED_HTML,{status:410,headers:{'content-type':'text/html; charset=utf-8','cache-control':'no-store','x-robots-tag':'noindex, nofollow'}});
+   }
    if(!url.pathname.startsWith('/logo/api/')) {
     if(url.hostname==='logo.kangdaejong.com') {
      const page = {'/':'/logo/','/terms/':'/logo/terms/','/privacy/':'/logo/privacy/'};
