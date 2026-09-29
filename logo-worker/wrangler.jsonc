@@ -25,14 +25,16 @@
     }
   ],
   "vars": {
-    "SALES_ENABLED": "false"
+    "SALES_ENABLED": "false",
+    "SERVICE_CLOSED": "true"
   },
   "observability": {
     "enabled": false
   },
   "routes": [
+    {"pattern": "kangdaejong.com/logo", "zone_name": "kangdaejong.com"},
     {
-      "pattern": "kangdaejong.com/logo/api/*",
+      "pattern": "kangdaejong.com/logo/*",
       "zone_name": "kangdaejong.com"
     },
     {

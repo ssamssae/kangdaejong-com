@@ -1,5 +1,11 @@
 # 로고꾸러미 서비스
 
+## 서비스 종료 — T-260924-066 (2026-09-29)
+공급자 실질 답변 미수신 시 폐쇄하라는 사용자 승인에 따라 서비스를 종료했다. 아래 내용은 기존 구현·복원용 기록이며 판매 재개 승인이 아니다.
+`SERVICE_CLOSED=true`에서 전용 도메인·Worker 기본주소·기존 `/logo`와 `/logo/*`는 HTTP 410을 반환한다. API는 저장소·공급자 호출 전에 차단한다. 회사 홈페이지의 서비스 링크도 제거했다. 소스 이력, Durable Object, 기존 secret, 브라우저 저장값은 보존한다. 기존 보관기간에 따른 alarm은 변경하지 않는다. 사진꾸러미와 다른 서비스는 변경하지 않는다.
+검증: `node --test tests/logo/*.test.mjs`, `npm run test:logo-ui`, `npx playwright test tests/logo-domain.spec.mjs` 및 공개 주소 HTTP 410/종료문구/API 차단 확인.
+
+
 T-260924-061. 화면 `/logo/`, API `/logo/api/*`. 회사 홈페이지의 기존 주문 DB와 분리된 Cloudflare Durable Object를 사용한다.
 
 ## 검증과 배포

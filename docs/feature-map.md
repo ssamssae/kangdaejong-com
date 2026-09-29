@@ -18,3 +18,6 @@
 `/`의 프로젝트 인덱스·대표 프로젝트 보기 → `#projects`; 세 프로젝트 링크와 서비스 링크는 기존 경로를 유지한다. 1.0은 `/archive/`, 기존 `#books`는 `/archive/#books`로 이동한다. 메뉴 추첨은 T-260929-001에서 제거했다. 그래픽은 장식이며 실제 서비스 UI가 아니다.
 
 디자인 근거 및 360/390/768/1440px, 키보드, 동작 줄이기 검증 경로: [home-tone-research.md](home-tone-research.md). 검증: `tests/home-tone.spec.mjs`, `tests/books-anchor.spec.mjs`. 공개 반영 여부는 배포 근거로 별도 확인한다.
+
+## 로고꾸러미 종료 — T-260924-066
+2026-09-29: `https://logo.kangdaejong.com/`와 `https://kangdaejong.com/logo/`에서 종료 안내를 표시하고 HTTP 410을 반환한다. `/logo/api/config`와 주문·생성 경로도 410이며 공급자·주문 저장소에 접근하지 않는다. 회사 메인에서 로고꾸러미 링크를 제거했다. 브라우저 저장값과 서버 주문 데이터는 폐쇄 작업으로 삭제하지 않는다. 공개 반영은 배포 후 별도 확인한다.
