@@ -194,6 +194,7 @@
           <div class="biz">
             <span>마이너스베타스튜디오 · 대표 강대종</span>
             <span>사업자등록번호 878-21-02478</span>
+            <span>호스팅 서비스 제공자 Cloudflare, Inc.</span>
             <span>통신판매업신고번호 제 2026-서울마포-1177 호</span>
             <span>서울특별시 마포구 만리재로10길 4 (공덕동)</span>
             <span>정보통신업 / 응용 소프트웨어 개발 및 공급업</span>

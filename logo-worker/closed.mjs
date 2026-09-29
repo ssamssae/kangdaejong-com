@@ -1,4 +1,4 @@
 export const CLOSED_HTML = `<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>로고꾸러미 서비스 종료</title>
 <style>body{margin:0;background:#f7f6f2;color:#253d32;font-family:system-ui,sans-serif;line-height:1.8}main{max-width:640px;margin:15vh auto;padding:32px}h1{font-size:clamp(28px,6vw,40px);line-height:1.4}a{color:inherit}footer{margin-top:48px;font-size:14px}p{word-break:keep-all}</style></head>
-<body><main><p>마이너스베타스튜디오</p><h1>로고꾸러미 서비스를 종료했습니다.</h1><p>2026년 9월 29일부터 로고 편집·생성·다운로드와 신규 주문을 제공하지 않습니다.</p><p>기존 이용 내역에 관한 문의는 <a href="mailto:minusbetastudio@gmail.com">minusbetastudio@gmail.com</a>으로 보내주세요.</p><footer><a href="https://kangdaejong.com/">마이너스베타스튜디오 홈으로</a></footer></main></body></html>`;
+<body><main><p>마이너스베타스튜디오</p><h1>로고꾸러미 서비스를 종료했습니다.</h1><p>2026년 9월 29일부터 로고 편집·생성·다운로드와 신규 주문을 제공하지 않습니다.</p><p>기존 이용 내역에 관한 문의는 <a href="mailto:minusbetastudio@gmail.com">minusbetastudio@gmail.com</a>으로 보내주세요.</p><footer><a href="https://kangdaejong.com/">마이너스베타스튜디오 홈으로</a><p>호스팅 서비스 제공자 Cloudflare, Inc.</p></footer></main></body></html>`;
