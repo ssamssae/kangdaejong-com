@@ -32,6 +32,8 @@
     "enabled": false
   },
   "routes": [
+    {"pattern": "kangdaejong.com/photo", "zone_name": "kangdaejong.com"},
+    {"pattern": "kangdaejong.com/photo/*", "zone_name": "kangdaejong.com"},
     {"pattern": "kangdaejong.com/logo", "zone_name": "kangdaejong.com"},
     {
       "pattern": "kangdaejong.com/logo/*",

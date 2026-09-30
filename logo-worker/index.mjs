@@ -1,4 +1,5 @@
 import { CLOSED_HTML } from './closed.mjs';
+import { CLOSED_HTML as PHOTO_CLOSED_HTML } from '../photo-app/closed.mjs';
 // Separate service: no changes to the existing first-name payment database.
 export const PRICE = 9900;
 export const LIMIT = 8;
@@ -18,6 +19,11 @@ export default {
  async fetch(request,env) {
   try {
    const url=new URL(request.url);
+   // Photo retirement is permanent here and independent of the logo sales flag.
+   if(url.pathname === '/photo' || url.pathname.startsWith('/photo/')) {
+    const api=url.pathname === '/photo/api' || url.pathname.startsWith('/photo/api/');
+    return new Response(request.method==='HEAD'?null:(api?JSON.stringify({closed:true,error:'사진꾸러미 서비스를 종료했습니다.'}):PHOTO_CLOSED_HTML),{status:410,headers:{'content-type':api?'application/json; charset=utf-8':'text/html; charset=utf-8','cache-control':'no-store','x-robots-tag':'noindex, nofollow','x-content-type-options':'nosniff'}});
+   }
    // Retire public access before touching providers, assets, or stored orders.
    if(env.SERVICE_CLOSED === 'true') {
     if(url.pathname.startsWith('/logo/api/'))return json({ready:false,closed:true,error:'로고꾸러미 서비스를 종료했습니다.'},410);

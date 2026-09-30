@@ -159,6 +159,8 @@ export async function createApp({ dataDir = resolve(root,'data'), origin = 'http
   return {server,store,commerce,auth,generated,close:async()=>{clearInterval(timer);await new Promise(resolve=>server.close(resolve));await renewalTask;store.close();}};
 }
 if(process.argv[1] && import.meta.url===pathToFileURL(resolve(process.argv[1])).href) {
+  console.error('사진꾸러미 서비스를 종료했습니다. 로컬 상용 서버를 시작하지 않습니다.');
+  process.exit(1);
   const port=Number(process.env.PORT??4387), origin=`http://127.0.0.1:${port}`;
   const gateway=process.env.PHOTO_PAYMENTS_MODE==='test'?createToss({secretKey:process.env.PHOTO_TOSS_SECRET_KEY,clientKey:process.env.PHOTO_TOSS_CLIENT_KEY}):null;
   const mailer=process.env.PHOTO_MAIL_ENABLED==='true'?createResend({apiKey:process.env.PHOTO_RESEND_KEY,from:process.env.PHOTO_MAIL_FROM,origin}):null;
