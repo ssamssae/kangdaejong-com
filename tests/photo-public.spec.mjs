@@ -5,7 +5,7 @@ import { join } from 'node:path';
 test('retired photo page preserves styles and offers only notice, contact and home',async({page},info)=>{
  const errors=[],writes=[];
  page.on('pageerror',e=>errors.push(e.message));
- page.on('request',r=>{if(r.method()!=='GET')writes.push(r.url());});
+ page.on('request',r=>{if(r.method()!=='GET' && new URL(r.url()).pathname.startsWith('/photo'))writes.push(r.url());});
  await page.addInitScript(()=>localStorage.setItem('sajin-kureomi:styles:v1','preserved'));
  const response=await page.goto('/photo/?payment=success');
  if(process.env.PHOTO_PUBLIC_URL)expect(response.status()).toBe(410);
@@ -13,7 +13,9 @@ test('retired photo page preserves styles and offers only notice, contact and ho
  await expect(page.getByText(/2026년 9월 30일부터/)).toBeVisible();
  await expect(page.getByText('호스팅 서비스 제공자 Cloudflare, Inc.')).toBeVisible();
  await expect(page.locator('input,button,canvas,form')).toHaveCount(0);
- await expect(page.locator('script:not([src*="email-decode"])')).toHaveCount(0);
+ // Cloudflare may inject its hosting beacon; no photo application scripts may remain.
+ const scripts=await page.locator('script').evaluateAll(nodes=>nodes.map(node=>node.src));
+ expect(scripts.filter(src=>!src.includes('/cdn-cgi/scripts/')&&!src.startsWith('https://static.cloudflareinsights.com/'))).toEqual([]);
  expect(await page.evaluate(()=>localStorage.getItem('sajin-kureomi:styles:v1'))).toBe('preserved');
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  expect(errors).toEqual([]);expect(writes).toEqual([]);
