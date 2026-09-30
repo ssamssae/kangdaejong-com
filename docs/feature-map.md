@@ -27,3 +27,14 @@
 - 진입/조작: 공개 첫 화면을 열고 하단 사업자정보 확인. 로그인 불필요.
 - 기대: 홈페이지 및 로고 종료 화면 하단에 Cloudflare, Inc. 표시. 홈페이지는 Cloudflare Pages, 로고는 Cloudflare Workers. 종료 화면 410 및 신규 주문 차단 유지.
 - 검증: 관련 소스 검사와 빌드 후 공개 화면 확인. 배포 실측은 T-260930-006 종결 근거에 기록.
+
+## 사진꾸러미 종료 — T-260925-011
+
+2026-09-30 사용자 요청으로 무료 공개 기능과 AI·유료 출시를 종료한다.
+- 진입/조작: 로그인 없이 `https://kangdaejong.com/photo/` 접속 → 종료 안내 → 회사 홈 링크.
+- 기대: 9월 30일 종료 안내·문의처·호스팅 제공자 표시. 사진 입력·보정·다운로드·결제 UI 없음. 메인 서비스 링크 없음. 기존 브라우저 스타일 저장값 유지.
+- `/photo`, `/photo/*`는 기존 `logo-kureomi` Worker에서 HTTP 410, `no-store`, `noindex`를 반환한다. API GET/POST/HEAD도 저장소·공급자 호출 전에 차단한다. 로고 종료 상태는 유지한다.
+- 로컬 상용 서버 `npm start`는 포트·DB·공급자 초기화 전에 종료한다. 내부 테스트용 `createApp`과 소스/데이터는 보존한다. 새 계정·DNS·유료 호출·데이터 삭제 없음.
+- 검증: `node --test tests/logo/*.test.mjs tests/photo-closure.test.mjs`, `npm run build`, 공유 header/footer 검사, `npx playwright test --config playwright.photo-public.config.mjs`. 데스크톱·모바일·WebKit 화면, 저장값 보존, 홈 이동을 확인한다.
+- 승인된 배포: 같은 머지 커밋에서 `npx wrangler deploy --config logo-worker/wrangler.jsonc`, `npx wrangler pages deploy dist --project-name kangdaejong-com --branch main`. 기존 로고 Worker 라우트·DO·secret을 보존하며 사진 경로 두 개만 추가한다.
+- 공개 검증: 위 브라우저 검사에 `PHOTO_PUBLIC_URL=https://kangdaejong.com` 지정, `/photo`·API 410과 홈페이지 링크 제거를 별도 조회. 실제 시각·배포 버전·결과는 T-260925-011 종료 근거에 기록한다.

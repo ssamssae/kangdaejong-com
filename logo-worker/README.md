@@ -59,3 +59,6 @@ npx wrangler deploy --config logo-worker/wrangler.jsonc --dry-run
 ## 실제 SVG 회귀
 
 T-260924-064 실결제창 테스트에서 생성된 크림 배경 path까지 단색화하여 로고가 사각형처럼 보이는 결함을 발견했다. 전체 viewBox를 덮는 밝은 사각형만 제거하고 밝은 내부 도형은 보존한다. SVG 다운로드에서 C2PA manifest base64를 보존하는 브라우저 회귀 검사를 추가했다. 실제 생성 SVG를 다시 렌더링해 심볼 확인 완료.
+
+## 사진꾸러미 종료 경로 — T-260925-011
+2026-09-30부터 같은 Worker가 `/photo`와 `/photo/*`의 종료 응답(HTTP 410)도 제공한다. 로고 설정·저장소·secret은 그대로 보존한다. [검증·배포 경로](../docs/feature-map.md#사진꾸러미-종료--t-260925-011)를 참고한다.

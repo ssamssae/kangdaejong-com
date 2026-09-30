@@ -5,7 +5,7 @@ for(const path of ['/logo/','/logo/terms/','/logo/privacy/'])test(`retired page 
  await expect(page.locator('input,button')).toHaveCount(0);expect(calls).toEqual([]);
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
 });
-test('homepage removes the retired service and keeps photo service',async({page})=>{
+test('homepage removes the retired service and photo service',async({page})=>{
  await page.goto('/');await expect(page.locator('a[href="https://logo.kangdaejong.com/"]')).toHaveCount(0);
- await expect(page.locator('a[href="/photo/"]')).toBeVisible();
+ await expect(page.locator('a[href="/photo/"]')).toHaveCount(0);
 });
