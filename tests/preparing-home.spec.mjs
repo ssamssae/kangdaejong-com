@@ -4,7 +4,7 @@ for (const width of [390, 1440]) test(`single home retains business disclosure a
   await page.goto('/');
   await expect(page.locator('h1')).toContainText('강대종');
   await expect(page.locator('main')).not.toContainText('첫이름');
-  await expect(page.locator('mb-header, mb-footer')).toHaveCount(0);
+  await expect(page.locator('mb-header')).toHaveCount(1);
   const business = page.locator('footer details');
   await expect(business).not.toHaveAttribute('open');
   await business.locator('summary').click();

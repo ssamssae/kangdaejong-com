@@ -13,7 +13,7 @@ async function visitOrganization(page) {
   await expect(page.locator('dl')).toContainText('878-21-02478');
   await expect(page.getByRole('heading', {name:'새로운 서비스를 준비하고 있습니다.'})).toBeVisible();
   await expect(page.getByRole('link', {name:'minusbetastudio@gmail.com ↗'})).toHaveAttribute('href','mailto:minusbetastudio@gmail.com');
-  await expect(page.locator('mb-header, mb-footer')).toHaveCount(0);
+  await expect(page.locator('mb-header')).toHaveCount(1);
   return errors;
 }
 

@@ -1,46 +1,46 @@
-/* T-260912-066 · Minus Beta: warm paper, ink, vermilion. */
+/* T-260912-066 · Minus Beta: white, slate, blue. */
 :root {
   color-scheme: light;
-  --bg: #f7f6f2;
-  --bg-elev: #eeede7;
+  --bg: #ffffff;
+  --bg-elev: #f7f8fa;
   --bg-tint: #f0efe9;
-  --fg-faint: #707369;
-  --accent-hover: #97341f;
-  --accent-tint: #f2e5db;
-  --cta-bg: #c64b2e;
-  --code-bg: #eeede7;
-  --page-gutter: 48px;
-  --page-max: 1280px;
+  --fg-faint: #69717d;
+  --accent-hover: #19449f;
+  --accent-tint: #eef3ff;
+  --cta-bg: #2458cc;
+  --code-bg: #f7f8fa;
+  --page-gutter: 24px;
+  --page-max: 1000px;
   --header-h: 88px;
   --pad-head-bottom: 48px;
   --radius-pill: 9999px;
-  --bg-elev2: #e5e4dd;
-  --border: #d8d8ce;
-  --border-soft: #e7e7df;
-  --fg: #242720;
-  --fg-dim: #62655d;
-  --fg-mute: #707369;
-  --cyan: #a8432b;
+  --bg-elev2: #eef1f5;
+  --border: #e6e8ed;
+  --border-soft: #eceef2;
+  --fg: #242930;
+  --fg-dim: #626b78;
+  --fg-mute: #69717d;
+  --cyan: #2458cc;
   --magenta: #466448;
-  --accent: #b8452b;
-  --accent-cta: #c64b2e;
+  --accent: #2458cc;
+  --accent-cta: #2458cc;
   --accent-2: #466448;
-  --accent-dim: #97341f;
-  --cta-fg: #fffaf3;
+  --accent-dim: #19449f;
+  --cta-fg: #ffffff;
   --danger: #b02f29;
   --success: #3c664b;
   --warn: #84601e;
   --danger-bg: #faeae6;
-  --accent-bg: #f2e5db;
+  --accent-bg: #eef3ff;
   --invert-bg: #282e25;
   --invert-fg: #f8f7ef;
   --invert-dim: #c5cbbb;
   --invert-border: #495041;
-  --shadow: 0 6px 24px #24272008;
-  --shadow-pop: 0 16px 40px #24272012;
+  --shadow: 0 6px 24px #24293008;
+  --shadow-pop: 0 16px 40px #24293012;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --sans:
-    "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
     sans-serif;
   --serif: "Noto Serif KR", Georgia, "Times New Roman", serif;
   --text-h1: clamp(38px, 5.5vw, 68px);

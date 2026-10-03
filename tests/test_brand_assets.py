@@ -20,9 +20,10 @@ class CentralBrand(unittest.TestCase):
         layout = (ROOT/'src/layouts/SiteLayout.astro').read_text()
         for name in ('logo.svg','favicon.ico','apple-touch-icon.png','social.png'):
             self.assertIn(BASE+name, layout)
-        self.assertIn('src="https://kangdaejong.com/mb-components.js"',layout)
-        for relative in ('src/pages/index.astro','src/pages/organization.astro','public/mb-components.js'):
-            self.assertIn(BASE+'logo.svg',(ROOT/relative).read_text())
+        self.assertIn('src="/mb-components.js"',layout)
+        for relative in ('src/pages/index.astro','src/pages/organization.astro'):
+            self.assertIn('<mb-header ',(ROOT/relative).read_text())
+        self.assertIn(BASE+'logo.svg',(ROOT/'public/mb-components.js').read_text())
         headers = (ROOT/'public/_headers').read_text().split('/brand/*')[1]
         self.assertIn('max-age=0, must-revalidate',headers)
         self.assertIn('Access-Control-Allow-Origin: *',headers)

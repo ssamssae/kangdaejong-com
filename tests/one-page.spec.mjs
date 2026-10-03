@@ -12,8 +12,8 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('#products .app-row')).toHaveCount(6);
     await expect(page.locator('#books .book-row')).toHaveCount(3);
     await expect(page.locator('main')).not.toContainText(/단어요|한컵|포모도로|첫이름|한장궁합|한장택일/);
-    await expect(page.getByRole('navigation', { name: '페이지 메뉴' }).getByRole('link')).toHaveCount(3);
-    await page.getByRole('navigation', { name: '페이지 메뉴' }).getByRole('link', { name: '앱' }).click();
+    await expect(page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link')).toHaveCount(3);
+    await page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link', { name: '앱' }).click();
     await expect(page).toHaveURL(/#products$/);
     await expect(page.locator('#products')).toBeInViewport();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
