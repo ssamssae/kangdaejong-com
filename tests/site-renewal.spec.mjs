@@ -21,27 +21,17 @@ const routes = [
 ];
 
 test("home presents apps, books and all four bridges", async ({ page }) => {
-  await page.goto("/archive/");
-  await expect(page.getByRole("heading", { level: 1, name: "일상의 작은 불편에, 쓸모 있는 답." })).toBeVisible();
-  await expect(page.locator("#products")).toBeVisible();
-  await expect(page.locator("#books")).toBeVisible();
-  await expect(page.locator("#open-tools")).toBeVisible();
-  await expect(page.locator("#company")).toBeVisible();
-  await expect(page.locator(".r-app")).toHaveCount(12);
-  await expect(page.locator('#products a[href="https://cheotireum.kangdaejong.com/unse"]')).toHaveCount(1);
-  await expect(page.locator('#products a[href="https://taekil.kangdaejong.com/"]')).toHaveCount(1);
-  await expect(page.locator('#products a[href="https://cheotireum.kangdaejong.com/pet"]')).toHaveCount(1);
-  await expect(page.locator('#products a[href="https://hanjang.kangdaejong.com/"]')).toHaveCount(1);
-  await expect(page.locator('#products a[href="https://sangho.kangdaejong.com/"]')).toHaveCount(1);
-  await expect(page.locator('#products a[href="https://play.google.com/store/apps/details?id=com.ssamssae.hankeup"]')).toHaveCount(1);
-  await expect(page.locator(".r-tool")).toHaveCount(4);
-  await expect(page.locator('#open-tools a[href="https://github.com/ssamssae/cursor-telegram-bridge"]')).toHaveCount(1);
-  await expect(page.getByRole("link", { name: "초소 둘러보기 ↗" }).first()).toHaveAttribute("href", "https://choso.kangdaejong.com/guest");
-  await expect(page.locator("#company")).toContainText("Since 2026. 5. 4.");
-  await expect(page.locator("#company")).toContainText("2026년 5월 4일부터 서울에서 운영하고 있습니다.");
-  const cheotireumLinks = page.getByRole("link", { name: "첫이름 살펴보기 ↗" });
-  await expect(cheotireumLinks).toHaveCount(1);
-  await expect(cheotireumLinks.first()).toHaveAttribute("href", "https://cheotireum.kangdaejong.com/");
+  await page.goto("/");
+  await expect(page.locator("h1")).toContainText("강대종");
+  await expect(page.locator(".app-row")).toHaveCount(6);
+  await expect(page.locator(".book-row")).toHaveCount(3);
+  await page.locator("#open-tools > summary").click();
+  await expect(page.locator(".bridge-links > div")).toHaveCount(4);
+  for (const name of ['codex', 'claude', 'cursor', 'grok']) {
+    await expect(page.locator(`#open-tools a[href="https://github.com/ssamssae/${name}-telegram-bridge"]`)).toBeVisible();
+    await expect(page.locator(`#open-tools a[href="https://github.com/ssamssae/${name}-telegram-bridge/releases"]`)).toBeVisible();
+  }
+  await expect(page.locator('.social-grid a[href="https://choso.kangdaejong.com/guest"]')).toBeVisible();
 });
 
 test("organization explains public responsibility without publishing the internal roster", async ({ page }) => {
@@ -141,7 +131,7 @@ test("copy fallback restores visible focus when execCommand returns true", async
 });
 
 test("shared components scope the warm palette to explicit studio tone", async ({ page }) => {
-  await page.goto("/archive/");
+  await page.goto("/system/");
   const palettes = await page.evaluate(() => {
     const readBackground = (element) => getComputedStyle(element).getPropertyValue("--mb-bg").trim().toLowerCase();
     const defaultHeader = document.createElement("mb-header");
@@ -174,7 +164,7 @@ test("local links, anchors, and images resolve on every public route", async ({ 
   for (const route of routes) {
     await page.goto(route, { waitUntil: "networkidle" });
     await page.locator("body").press("End");
-    const hrefs = await page.locator("a").evaluateAll((anchors) => anchors.map((anchor) => anchor.href));
+    const hrefs = await page.locator("a[href]").evaluateAll((anchors) => anchors.map((anchor) => anchor.href));
     for (const href of hrefs) {
       const url = new URL(href);
       if (url.origin === "http://127.0.0.1:4321") internalLinks.add(`${url.pathname}${url.search}`);
@@ -195,12 +185,12 @@ test("local links, anchors, and images resolve on every public route", async ({ 
   }
 });
 
-test("core text colors meet WCAG AA contrast on the warm canvas", async ({ page }) => {
-  await page.goto("/archive/");
+test("home text colors meet WCAG AA contrast", async ({ page }) => {
+  await page.goto("/");
   const colors = await page.evaluate(() => {
     const body = getComputedStyle(document.body);
-    const muted = getComputedStyle(document.querySelector(".r-lead"));
-    const accent = getComputedStyle(document.querySelector(".r-since"));
+    const muted = getComputedStyle(document.querySelector(".intro-description"));
+    const accent = getComputedStyle(document.querySelector(".intro-links a"));
     return { background: body.backgroundColor, foreground: body.color, muted: muted.color, accent: accent.color };
   });
   const rgb = (value) => value.match(/[\d.]+/g).slice(0, 3).map(Number);
@@ -218,7 +208,7 @@ test("core text colors meet WCAG AA contrast on the warm canvas", async ({ page 
 });
 
 test("shared menu closes with Escape and keeps button state in sync", async ({ page }) => {
-  await page.goto("/archive/");
+  await page.goto("/system/");
   const button = page.getByRole("button", { name: "둘러보기", exact: true });
   await button.click();
   await expect(button).toHaveAttribute("aria-expanded", "true");

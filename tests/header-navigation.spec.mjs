@@ -4,7 +4,7 @@ const more = page => page.getByRole('button', { name: '둘러보기', exact: tru
 const menu = page => page.getByRole('navigation', { name: '스튜디오 둘러보기' });
 
 test('all secondary destinations are reachable in one panel', async ({ page }) => {
-  await page.goto('/archive/');
+  await page.goto('/system/');
   await more(page).click();
   await expect(menu(page).getByRole('link')).toHaveCount(10);
   for (const [label, href] of [
@@ -38,7 +38,8 @@ test('keyboard opens at the first destination and Escape restores the trigger', 
   await more(page).focus();
   await page.keyboard.press('ArrowDown');
   await expect(menu(page).getByRole('link', { name: /^회사·조직도/ })).toBeFocused();
-  await expect(menu(page).getByRole('link', { name: /^개발·운영 시스템/ })).toHaveAttribute('aria-current', 'page');
+  // The deep-document destination is on work.kangdaejong.com, not this local summary.
+  await expect(menu(page).getByRole('link', { name: /^개발·운영 시스템/ })).not.toHaveAttribute('aria-current', 'page');
   await page.keyboard.press('Escape');
   await expect(menu(page)).toBeHidden();
   await expect(more(page)).toBeFocused();
@@ -48,7 +49,7 @@ test('keyboard opens at the first destination and Escape restores the trigger', 
 for (const width of [320, 390, 800, 1280]) {
   test(`menu stays within the viewport at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 700 });
-    await page.goto('/archive/');
+    await page.goto('/system/');
     await more(page).click();
     const box = await menu(page).boundingBox();
     expect(box.x).toBeGreaterThanOrEqual(0);
@@ -72,7 +73,7 @@ test('outside click and focus departure close the panel', async ({ page }) => {
 
 test('lab is a direct destination without a hover flyout', async ({ page, context }) => {
   await context.route('https://work.kangdaejong.com/lab/', route => route.fulfill({ body: 'Lab' }));
-  await page.goto('/archive/');
+  await page.goto('/system/');
   await more(page).click();
   await menu(page).getByRole('link', { name: /^실험실/ }).click();
   await expect(page).toHaveURL('https://work.kangdaejong.com/lab/');
@@ -80,7 +81,7 @@ test('lab is a direct destination without a hover flyout', async ({ page, contex
 
 test("protein tab follows public tools and opens the dedicated subdomain", async ({ page, context }) => {
   await context.route('https://protein.kangdaejong.com/', route => route.fulfill({ body: 'Protein atlas' }));
-  await page.goto('/archive/');
+  await page.goto('/system/');
   const links = page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link');
   await expect(links).toHaveText(['제품', '책·템플릿', '공개 도구', '단백질']);
   await page.getByRole('link', { name: '단백질', exact: true }).click();

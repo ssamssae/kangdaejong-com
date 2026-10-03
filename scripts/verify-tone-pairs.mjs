@@ -1,25 +1,14 @@
-import { readFileSync } from "node:fs";
-
-const read = (path) => readFileSync(new URL(`../${path}`, import.meta.url), "utf8");
-const tokens = read("src/styles/tokens.css");
-const site = read("src/styles/site.css");
-const header = read("public/mb-components.js");
-const home = read("src/pages/index.astro");
-const studioPalette = header.match(/const PALETTE_STUDIO = `([\s\S]*?)`;/)?.[1] ?? "";
-
+import { readFileSync } from 'node:fs';
+const read = path => readFileSync(new URL('../' + path, import.meta.url), 'utf8');
+const css = read('src/styles/home-simple.css');
+const home = read('src/pages/index.astro');
 const checks = [
-  ["warm ledger tokens define shared canvas, paper, and copper", /--bg: #11100e;/.test(tokens) && /--fg: #f5efe2;/.test(tokens) && /--accent: #d5a06f;/.test(tokens)],
-  ["display and body typography have separate roles", /--serif: "Noto Serif KR"/.test(tokens) && /--sans: "Pretendard Variable"/.test(tokens)],
-  ["studio chrome matches the warm palette", /--mb-bg:#11100e/.test(studioPalette) && /--mb-fg:#f5efe2/.test(studioPalette) && /--mb-accent:#d5a06f/.test(studioPalette)],
-  ["site stylesheet includes desktop and narrow mobile systems", /@media \(max-width: 980px\)/.test(site) && /@media \(max-width: 390px\)/.test(site)],
-  ["old neon and Linear-indigo values stay out of the renewed studio theme", !/(#00e5ff|#00b8d4|#ff00aa|#7170FF|--cyan|--magenta)/i.test(`${tokens}\n${site}\n${studioPalette}\n${home}`)],
-  ["homepage photographs remain real repository assets", /\/studio\/hero-desk\.jpg/.test(home) && /\/studio\/cheotireum\.jpg/.test(home)],
+ ['home opts into scoped styling', home.includes("../styles/home-simple.css") && home.includes('bodyClass="simple-home"')],
+ ['neutral canvas and blue link color are defined', /--bg:#fff/.test(css) && /--fg:#242930/.test(css) && /--accent:#2458cc/.test(css)],
+ ['responsive layout covers narrow screens', /max-width:650px/.test(css) && /max-width:360px/.test(css)],
+ ['focus and reduced-motion styles remain', css.includes(':focus-visible') && css.includes('prefers-reduced-motion:reduce')],
+ ['home avoids chapter and legacy photographic layout', !/ProjectVersions|sales-hero|hero-desk/.test(home)],
 ];
-
-const failures = checks.filter(([, ok]) => !ok);
-if (failures.length) {
-  console.error("Tone pair verification failed:");
-  failures.forEach(([label]) => console.error(`- ${label}`));
-  process.exit(1);
-}
-console.log("Tone pair verification passed");
+const failed = checks.filter(([,ok]) => !ok);
+if (failed.length) { failed.forEach(([label]) => console.error(label)); process.exit(1); }
+console.log(`Home tone verification passed (${checks.length} checks; rendered contrast is checked in site-renewal.spec.mjs)`);
