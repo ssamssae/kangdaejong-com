@@ -7,7 +7,7 @@ const badge = read("public/minusbeta-badge.svg");
 const checks = [
   ["shared layout uses central ICO", layout.includes('href="https://kangdaejong.com/brand/current/favicon.ico"')],
   ["shared layout uses central SVG", layout.includes('href="https://kangdaejong.com/brand/current/logo.svg"')],
-  ["shared header script is not a per-site copy", layout.includes('src="https://kangdaejong.com/mb-components.js"')],
+  ["shared header script is not a per-site copy", layout.includes('src="/mb-components.js"')],
   ["favicon artwork matches the brand badge", favicon === badge],
 ];
 

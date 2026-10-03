@@ -6,9 +6,9 @@ const menu = page => page.getByRole('navigation', { name: '스튜디오 둘러�
 test('all secondary destinations are reachable in one panel', async ({ page }) => {
   await page.goto('/system/');
   await more(page).click();
-  await expect(menu(page).getByRole('link')).toHaveCount(10);
+  await expect(menu(page).getByRole('link')).toHaveCount(14);
   for (const [label, href] of [
-    ['회사·조직도', 'https://kangdaejong.com/organization/'],
+    ['스튜디오 소개', 'https://kangdaejong.com/organization/'],
     ['작업장', 'https://work.kangdaejong.com/'],
     ['개발·운영 시스템', 'https://work.kangdaejong.com/system/'],
     ['실험실', 'https://work.kangdaejong.com/lab/'],
@@ -37,7 +37,7 @@ test('keyboard opens at the first destination and Escape restores the trigger', 
   await page.goto('/system/');
   await more(page).focus();
   await page.keyboard.press('ArrowDown');
-  await expect(menu(page).getByRole('link', { name: /^회사·조직도/ })).toBeFocused();
+  await expect(menu(page).getByRole('link', { name: /^전체 제품/ })).toBeFocused();
   // The deep-document destination is on work.kangdaejong.com, not this local summary.
   await expect(menu(page).getByRole('link', { name: /^개발·운영 시스템/ })).not.toHaveAttribute('aria-current', 'page');
   await page.keyboard.press('Escape');
@@ -67,7 +67,7 @@ test('outside click and focus departure close the panel', async ({ page }) => {
   await page.mouse.click(2, 600);
   await expect(menu(page)).toBeHidden();
   await more(page).click();
-  await page.getByRole('link', { name: '문의', exact: true }).focus();
+  await page.getByRole('link', { name: '연락', exact: true }).focus();
   await expect(menu(page)).toBeHidden();
 });
 
@@ -79,11 +79,12 @@ test('lab is a direct destination without a hover flyout', async ({ page, contex
   await expect(page).toHaveURL('https://work.kangdaejong.com/lab/');
 });
 
-test("protein tab follows public tools and opens the dedicated subdomain", async ({ page, context }) => {
+test("protein remains reachable from the shared menu and opens the dedicated subdomain", async ({ page, context }) => {
   await context.route('https://protein.kangdaejong.com/', route => route.fulfill({ body: 'Protein atlas' }));
   await page.goto('/system/');
   const links = page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link');
-  await expect(links).toHaveText(['제품', '책·템플릿', '공개 도구', '단백질']);
-  await page.getByRole('link', { name: '단백질', exact: true }).click();
+  await expect(links).toHaveText(['프로젝트', '앱', '연락']);
+  await more(page).click();
+  await menu(page).getByRole('link', { name: '단백질', exact: true }).click();
   await expect(page).toHaveURL('https://protein.kangdaejong.com/');
 });

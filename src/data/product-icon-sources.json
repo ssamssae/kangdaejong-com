@@ -23,19 +23,23 @@
       "name": "더치페이 계산기",
       "storeName": "더치페이 계산기",
       "appId": "6762072499",
-      "icon": "/product-icons/6762072499-17c5730a71.jpg",
-      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/29/0b/64/290b64cd-6252-caf2-3089-e2568a7746e7/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
-      "version": "1.0.7",
-      "sha256": "17c5730a7102b0efbfaf1f1a3103700261d48f44c127acf777880ffce76ce03b"
+      "icon": "/product-icons/dutchPayCalculator-0e89d465a7f4.png",
+      "source": "https://github.com/ssamssae/dutch_pay_calculator/blob/b5b1a5f676f0bfed1c4b1c3994b5b0a00bfcbff2/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "sha256": "0e89d465a7f4da65d80592585ff2725f1d374555499c5076469c4ab634d3dff1",
+      "revision": "b5b1a5f676f0bfed1c4b1c3994b5b0a00bfcbff2",
+      "checkedAt": "2026-10-03",
+      "sourceType": "repository-main"
     },
     {
       "name": "약먹자",
       "storeName": "약먹자 - 복용 알림",
       "appId": "6762100639",
-      "icon": "/product-icons/6762100639-41b67f90b6.jpg",
-      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/08/8e/fd/088efd88-7360-698f-6778-8df4316b1983/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
-      "version": "1.0.5",
-      "sha256": "41b67f90b6d3dd9c86511cc7e6bae286abeed0b7e6c3bf6dc14adebb28a0cd89"
+      "icon": "/product-icons/yakmukja-f16ca3ee8023.png",
+      "source": "https://github.com/ssamssae/yakmukja/blob/8aab6ce82c385850c5268fae31d78fd65f25a0eb/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "sha256": "f16ca3ee802305ec605d5974c77dc530a5b0ad942c5e84481b315a07fb142cfe",
+      "revision": "8aab6ce82c385850c5268fae31d78fd65f25a0eb",
+      "checkedAt": "2026-10-03",
+      "sourceType": "repository-main"
     },
     {
       "name": "단어요",
@@ -97,6 +101,15 @@
       "source": "https://raw.githubusercontent.com/ssamssae/ipta/v0.1.24/App/Resources/icon_1024.png",
       "version": "0.1.24",
       "sha256": "779f2694b78a3b57ba3706ca3f067a398b7fb138a5434d2506930c0dd8399834"
+    },
+    {
+      "name": "계산기알람",
+      "icon": "/product-icons/ireonayo-14aeddc80846.png",
+      "source": "https://github.com/ssamssae/motjayo/blob/e9998bb6b0dedc63fcf58aaae101c49a621032a7/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "sha256": "14aeddc80846ed737270bbfe8972252ecb4e80917dc5e7dd31bca72122f5c92a",
+      "revision": "e9998bb6b0dedc63fcf58aaae101c49a621032a7",
+      "checkedAt": "2026-10-03",
+      "sourceType": "repository-main"
     }
   ]
 }

@@ -10,7 +10,7 @@ const checks = [
   ["dead cost page stays absent", !/key: 'cost'/.test(source) && !/work\.kangdaejong\.com\/cost/.test(source)],
   ["menu state supports click, outside click, and Escape", /aria-expanded="false"/.test(source) && /document\.addEventListener\('click'/.test(source) && /event\.key === 'Escape'/.test(source) && /closeMenu\(true\)/.test(source)],
   ["open shadow navigation has visible keyboard focus", /:where\(a,button\):focus-visible/.test(source)],
-  ["mobile navigation remains on a dedicated scroll-safe row", /grid-column:1 \/ -1; grid-row:2/.test(source) && /overflow-x:auto/.test(source)],
+  ["mobile navigation retains compact responsive sizing", /@media\(max-width:380px\)/.test(source) && /width:calc\(100% - 40px\)/.test(source)],
   ["contact action keeps the verified email", /mailto:minusbetastudio@gmail\.com/.test(source)],
   ["shared consumers keep the default palette unless studio tone is explicit", /const PALETTE_DEFAULT = `/.test(source) && /const PALETTE_STUDIO = `/.test(source) && /getAttribute\('tone'\)/.test(source) && /dataset\.tone/.test(source) && /hostPalette\(this\)/.test(source)],
 ];

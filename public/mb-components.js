@@ -5,14 +5,19 @@
 
   // active = home|products|books|tools|protein|organization|system|workshop|worklog|newsletter|founder
   const NAV_PRIMARY = [
-    { key: 'products', label: '제품', href: 'https://work.kangdaejong.com/products/' },
-    { key: 'books', label: '책·템플릿', href: 'https://kangdaejong.com/#books' },
-    { key: 'tools', label: '공개 도구', href: 'https://work.kangdaejong.com/products/?category=tool#catalog' },
-    { key: 'protein', label: '단백질', href: 'https://protein.kangdaejong.com/' },
+    { key: 'projects', label: '프로젝트', href: 'https://kangdaejong.com/#projects' },
+    { key: 'products', label: '앱', href: 'https://kangdaejong.com/#products' },
+    { key: 'contact', label: '연락', href: 'https://kangdaejong.com/#contact' },
   ];
   const NAV_GROUPS = [
+    { label: '제품과 도구', items: [
+      { key: 'catalog', label: '전체 제품', href: 'https://work.kangdaejong.com/products/' },
+      { key: 'books', label: '책·템플릿', href: 'https://kangdaejong.com/#books' },
+      { key: 'tools', label: '공개 도구', href: 'https://work.kangdaejong.com/products/?category=tool#catalog' },
+      { key: 'protein', label: '단백질', href: 'https://protein.kangdaejong.com/' },
+    ] },
     { label: '회사 소개', items: [
-      { key: 'organization', label: '회사·조직도', description: '누가 만들고 책임지는지', href: 'https://kangdaejong.com/organization/' },
+      { key: 'organization', label: '스튜디오 소개', description: '누가 만들고 책임지는지', href: 'https://kangdaejong.com/organization/' },
       { key: 'founder', label: '대표 소개', description: '만드는 사람, 강대종', href: 'https://founder.kangdaejong.com/' },
       { key: 'system', label: '만드는 방식', description: '기획부터 출시까지의 원칙', href: 'https://kangdaejong.com/system/' },
     ] },
@@ -30,17 +35,17 @@
   ];
 
   const PALETTE_DEFAULT = `
-    --mb-bg:#f7f6f2; --mb-elev:#eeede7; --mb-fg:#242720; --mb-dim:#62655d; --mb-mute:#707369;
-    --mb-border:#d8d8ce; --mb-soft:#eeede7; --mb-accent:#b8452b;
-    --mb-cta-bg:#c64b2e; --mb-cta-fg:#fffaf3;
+    --mb-bg:#ffffff; --mb-elev:#f7f8fa; --mb-fg:#242930; --mb-dim:#626b78; --mb-mute:#69717d;
+    --mb-border:#e6e8ed; --mb-soft:#f7f8fa; --mb-accent:#2458cc;
+    --mb-cta-bg:#2458cc; --mb-cta-fg:#ffffff;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
     --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
   `;
   const PALETTE_STUDIO = `
-    --mb-bg:#f7f6f2; --mb-elev:#eeede7; --mb-fg:#242720; --mb-dim:#62655d; --mb-mute:#707369;
-    --mb-border:#d8d8ce; --mb-soft:#eeede7; --mb-accent:#b8452b;
-    --mb-cta-bg:#c64b2e; --mb-cta-fg:#fffaf3;
+    --mb-bg:#ffffff; --mb-elev:#f7f8fa; --mb-fg:#242930; --mb-dim:#626b78; --mb-mute:#69717d;
+    --mb-border:#e6e8ed; --mb-soft:#f7f8fa; --mb-accent:#2458cc;
+    --mb-cta-bg:#2458cc; --mb-cta-fg:#ffffff;
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
     --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
@@ -59,7 +64,8 @@
         else if (path.startsWith('/timeline')) active = 'timeline';
         else if (active === 'system') active = 'work-system';
       }
-      const makeLink = (item) => `<a href="${item.href}"${item.newWindow ? ' target="_blank" rel="noopener noreferrer"' : ''}${item.key === active ? ' class="active" aria-current="page"' : ''}><span class="link-title">${item.label}${item.newWindow ? '<span class="external-arrow" aria-hidden="true">↗</span>' : ''}${item.key === active ? '<span class="current">현재 위치</span>' : ''}</span>${item.description ? `<small>${item.description}</small>` : ''}</a>`;
+      const localHome = location.pathname === '/' && location.hostname !== 'work.kangdaejong.com' && (location.hostname === 'kangdaejong.com' || location.hostname === '127.0.0.1' || location.hostname === 'localhost');
+      const makeLink = (item) => `<a href="${localHome && item.href.startsWith(BRAND_HREF + '#') ? item.href.slice(BRAND_HREF.length) : item.href}"${item.newWindow ? ' target="_blank" rel="noopener noreferrer"' : ''}${item.key === active ? ' class="active" aria-current="page"' : ''}><span class="link-title">${item.label}${item.newWindow ? '<span class="external-arrow" aria-hidden="true">↗</span>' : ''}${item.key === active ? '<span class="current">현재 위치</span>' : ''}</span>${item.description ? `<small>${item.description}</small>` : ''}</a>`;
       const moreActive = NAV_GROUPS.some(group => group.items.some(item => item.key === active));
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
@@ -67,10 +73,10 @@
           :host { ${hostPalette(this)} display:block; line-height:1.5; letter-spacing:normal; }
           * { box-sizing:border-box; }
           .header { position:relative; z-index:70; border-bottom:1px solid var(--mb-border); background:var(--mb-bg); font-family:var(--mb-sans); }
-          .inner { width:min(calc(100% - 96px),1280px); min-height:88px; margin:0 auto; display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:center; gap:28px; }
-          .brand { display:inline-flex; align-items:center; gap:11px; color:var(--mb-fg); font-size:21px; font-weight:750; text-decoration:none; white-space:nowrap; }
-          .brand img { width:43px; height:43px; display:block; }
-          .brand small { display:block; font-size:10px; font-weight:450; color:var(--mb-mute); margin-top:4px; }
+          .inner { width:min(calc(100% - 48px),1000px); min-height:94px; margin:0 auto; display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:28px; }
+          .brand { display:inline-flex; align-items:center; gap:11px; color:var(--mb-fg); font-size:15px; font-weight:650; text-decoration:none; white-space:nowrap; }
+          .brand img { width:30px; height:30px; display:block; }
+          .brand small { display:block; font-size:10px; font-weight:450; color:var(--mb-mute); margin-top:1px; }
           .links { display:flex; justify-content:center; align-items:center; gap:22px; min-width:0; font-size:13px; white-space:nowrap; }
           .links a { display:flex; align-items:center; min-height:44px; color:var(--mb-dim); text-decoration:none; }
           .links a:hover,.links a.active { color:var(--mb-accent); }
@@ -82,13 +88,13 @@
           .more-button:hover,.more-button.active,.more.open .more-button { background:var(--mb-soft); border-color:var(--mb-accent); color:var(--mb-accent); }
           .chevron { display:inline-block; margin-left:7px; font-size:10px; transition:transform .16s ease; }
           .more.open .chevron { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:max(24px,calc((100% - 1280px)/2)); top:calc(100% + 8px); width:min(780px,calc(100% - 48px)); padding:22px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:18px; box-shadow:0 18px 55px #24272026; max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; }
+          .more-panel { position:absolute; right:max(24px,calc((100% - 1000px)/2)); top:calc(100% + 8px); width:min(780px,calc(100% - 48px)); padding:22px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:18px; box-shadow:0 18px 55px #24293026; max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; }
           .more-panel[hidden] { display:none; }
           .panel-heading { display:flex; justify-content:space-between; align-items:center; gap:16px; padding-bottom:16px; border-bottom:1px solid var(--mb-border); }
           .panel-heading strong { font-size:17px; letter-spacing:-.03em; }
           .panel-heading p { margin:4px 0 0; font-size:12px; color:var(--mb-dim); }
           .panel-close { min-width:58px; padding:0 10px; }
-          .menu-groups { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:20px; padding-top:18px; }
+          .menu-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:20px; padding-top:18px; }
           .menu-group h2 { font-size:11px; letter-spacing:.04em; margin:0 10px 10px; color:var(--mb-accent); }
           .menu-group a { display:block; min-height:62px; padding:10px; border-radius:9px; color:var(--mb-fg); text-decoration:none; }
           .menu-group a:hover,.menu-group a.active { background:var(--mb-soft); }
@@ -100,22 +106,19 @@
           .contact { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:0 14px; border:1px solid var(--mb-border); border-radius:9px; color:var(--mb-fg); font-size:13px; font-weight:600; text-decoration:none; }
           .contact:hover { border-color:var(--mb-accent); color:var(--mb-accent); }
           :where(a,button):focus-visible { outline:2px solid var(--mb-accent); outline-offset:3px; }
-          @media(max-width:1000px) { .inner { gap:16px; width:calc(100% - 48px); }.brand small { display:none; }.links { gap:15px; }.brand { font-size:18px; } }
-          @media(max-width:760px) {
-            .inner { min-height:auto; padding:12px 0 4px; grid-template-columns:1fr auto; gap:8px 14px; }
-            .brand span { display:none; }.brand img { width:38px; height:38px; }
-            .links { grid-column:1 / -1; grid-row:2; justify-content:flex-start; gap:22px; overflow-x:auto; scrollbar-width:none; }
-            .links::-webkit-scrollbar { display:none; }.actions { grid-column:2; grid-row:1; }
-            .more-panel { width:calc(100% - 24px); right:12px; padding:16px; top:calc(100% + 6px); max-height:calc(100dvh - 140px); }
-            .menu-groups { grid-template-columns:1fr; gap:16px; }.menu-group { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px; }
-            .menu-group h2 { grid-column:1 / -1; margin-bottom:4px; }.menu-group a { padding:9px; }.link-title { flex-wrap:wrap; }.current { margin-left:0; }
+          @media(max-width:650px) {
+            .inner { width:calc(100% - 40px); min-height:76px; gap:13px; }
+            .brand { font-size:14px; gap:8px; }.brand small { display:none; }.brand img { width:28px; height:28px; }
+            .links { gap:14px; font-size:12px; }.link-title { font-size:12px; }.more-button { font-size:12px; padding:0 8px; border:0; }.chevron { margin-left:4px; }
+            .more-panel { width:calc(100% - 24px); right:12px; padding:16px; max-height:calc(100dvh - 105px); }
+            .menu-groups { gap:18px 8px; }.menu-group a { padding:8px; }.current { display:none; }
           }
-          @media(max-width:390px) { .inner { width:calc(100% - 32px); }.contact { padding:0 11px; }.menu-groups { gap:12px; }.menu-group small { font-size:11px; } }
+          @media(max-width:380px) { .inner { gap:8px; }.links { gap:9px; }.brand img { width:24px; height:24px; }.brand { font-size:13px; }.more-button { padding:0 4px; } }
           @media(prefers-reduced-motion:reduce) { .chevron { transition:none; } }
         </style>
         <header class="header">
           <div class="inner">
-            <a class="brand" href="${BRAND_HREF}" aria-label="마이너스베타스튜디오 홈"><img src="${BADGE}" alt="" width="43" height="43"/><span>minus beta<small>독립적인 생각, 쓸모 있는 제품.</small></span></a>
+            <a class="brand" href="${BRAND_HREF}" aria-label="강대종 홈"><img src="${BADGE}" alt="" width="30" height="30"/><span>강대종<small>마이너스베타스튜디오</small></span></a>
             <nav class="links" aria-label="주요 메뉴">${NAV_PRIMARY.map(makeLink).join('')}</nav>
             <div class="actions">
               <div class="more">
@@ -125,7 +128,7 @@
                   <div class="menu-groups">${NAV_GROUPS.map(group => `<section class="menu-group"><h2>${group.label}</h2>${group.items.map(makeLink).join('')}</section>`).join('')}</div>
                 </nav>
               </div>
-              <a class="contact" href="mailto:minusbetastudio@gmail.com">문의</a>
+
             </div>
           </div>
         </header>`;
@@ -170,9 +173,9 @@
       root.innerHTML = `
         <style>
           :host { ${hostPalette(this)} display:block; }
-          footer { width:min(calc(100% - 96px),1280px); margin:0 auto; padding:42px 0 58px; border-top:1px solid var(--mb-border); color:var(--mb-mute); font-family:var(--mb-sans); font-size:12px; line-height:1.7; }
+          footer { width:min(calc(100% - 48px),1000px); margin:0 auto; padding:42px 0 58px; border-top:1px solid var(--mb-border); color:var(--mb-mute); font-family:var(--mb-sans); font-size:12px; line-height:1.7; }
           .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:18px; }
-          .foot-head strong { color:var(--mb-fg); font-family:var(--mb-sans); font-size:21px; font-weight:750; }
+          .foot-head strong { color:var(--mb-fg); font-family:var(--mb-sans); font-size:15px; font-weight:650; }
           .foot-head a { color:var(--mb-fg); text-decoration:none; }
           .foot-head a:hover { color:var(--mb-accent); }
           .biz { display:flex; flex-wrap:wrap; gap:6px 15px; }

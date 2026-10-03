@@ -130,7 +130,7 @@ test("copy fallback restores visible focus when execCommand returns true", async
   await expect(copy).toBeFocused();
 });
 
-test("shared components scope the warm palette to explicit studio tone", async ({ page }) => {
+test("shared components use the homepage palette for every consumer", async ({ page }) => {
   await page.goto("/system/");
   const palettes = await page.evaluate(() => {
     const readBackground = (element) => getComputedStyle(element).getPropertyValue("--mb-bg").trim().toLowerCase();
@@ -146,9 +146,9 @@ test("shared components scope the warm palette to explicit studio tone", async (
   });
 
   expect(palettes).toEqual({
-    pageStudio: "#f7f6f2",
-    defaultConsumer: "#f7f6f2",
-    dataToneStudio: "#f7f6f2",
+    pageStudio: "#ffffff",
+    defaultConsumer: "#ffffff",
+    dataToneStudio: "#ffffff",
   });
 });
 
