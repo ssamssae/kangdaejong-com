@@ -20,55 +20,25 @@ const steps = [
 const description = "마이너스베타스튜디오가 제품을 작게 만들고, 확인하고, 오래 유지하는 공개 원칙.";
 ---
 
-<SiteLayout title="만드는 방식" description={description} canonical="https://kangdaejong.com/system/" active="system" bodyClass="system-page">
-  <main id="main-content">
-    <section class="subpage-hero" aria-labelledby="page-title">
-      <div class="site-shell subpage-hero-grid">
-        <div>
-          <p class="eyebrow">How we build</p>
-          <h1 class="page-title" id="page-title">작게 만들고,<br />확인하고,<br />오래 돌봅니다.</h1>
-          <p class="lede">마이너스베타스튜디오의 시스템은 복잡한 자동화 자랑이 아니라, 생활 가까운 제품을 무리 없이 계속 운영하기 위한 약속입니다.</p>
-        </div>
-        <div class="subpage-mark" aria-hidden="true">循</div>
-      </div>
+<SiteLayout title="만드는 방식" description={description} canonical="https://kangdaejong.com/system/" active="system" bodyClass="studio-page">
+  <main id="main-content" class="studio-width" tabindex="-1">
+    <section class="studio-hero" aria-labelledby="page-title">
+      <p class="studio-label">만들고 운영하는 방식</p>
+      <h1 id="page-title">작게 만들고, 확인하고,<br/><span>오래 돌봅니다.</span></h1>
+      <p class="studio-lead">생활 가까운 제품을 무리 없이 계속 운영하기 위한 약속입니다.</p>
     </section>
-
-    <section class="section site-shell" aria-labelledby="sequence-title">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">A small loop</p>
-          <h2 class="section-title" id="sequence-title">제품이 오래 남게 하는 세 단계.</h2>
-        </div>
-        <p class="section-intro">내부 배차나 기기 이름 대신, 제품을 쓰는 사람이 결과에서 확인할 수 있는 원칙만 적었습니다.</p>
-      </div>
-      <ol class="system-sequence">
-        {steps.map((step, index) => (
-          <li class="system-step">
-            <span>{String(index + 1).padStart(2, "0")}</span>
-            <h3>{step.title}</h3>
-            <p>{step.description}</p>
-          </li>
-        ))}
-      </ol>
+    <section class="studio-section" aria-labelledby="sequence-title">
+      <h2 id="sequence-title">제품이 오래 남게 하는 세 단계.</h2>
+      <div class="studio-cards">{steps.map((step,index)=><article class="studio-card"><span class="step-number">0{index+1}</span><h3>{step.title}</h3><p>{step.description}</p></article>)}</div>
     </section>
-
-    <section class="section site-shell" aria-labelledby="boundary-title">
-      <div class="system-boundary">
-        <h2 class="section-title" id="boundary-title">자동화가 넘지 않는 선.</h2>
-        <div>
-          <h3>공개와 비용, 되돌리기 어려운 결정은 사람이 닫습니다.</h3>
-          <p>AI와 자동화 도구는 조사와 반복 작업을 빠르게 돕습니다. 하지만 제품 공개, 외부 발신, 결제, 배포처럼 영향이 큰 일은 사람이 근거를 확인하고 결정합니다.</p>
-        </div>
-      </div>
+    <section class="studio-section" aria-labelledby="boundary-title">
+      <h2 id="boundary-title">자동화가 넘지 않는 선.</h2>
+      <p class="boundary-copy">AI와 자동화 도구는 조사와 반복 작업을 돕습니다. 공개, 외부 발신, 결제, 배포처럼 영향이 큰 일은 사람이 근거를 확인하고 결정합니다.</p>
     </section>
-
-    <section class="site-shell closing-callout" aria-label="시스템 관련 링크">
-      <p>더 자세한 운영 문서와 작업 기록은 별도의 공개 작업장에 정리합니다.</p>
-      <div class="button-row">
-        <a class="button" href="/">회사 홈으로</a>
-        <a class="button" href="https://choso.kangdaejong.com/guest">초소 둘러보기</a>
-        <a class="button primary" href={destination}>운영 시스템 자세히 보기</a>
-      </div>
+    <section class="studio-section" aria-label="시스템 관련 링크">
+      <h2>더 자세한 작업 기록</h2><p class="boundary-copy">운영 문서와 작업 기록은 공개 작업장에서 볼 수 있습니다.</p>
+      <div class="system-links"><a class="studio-link" href="/">회사 홈으로</a><a class="studio-link" href="https://choso.kangdaejong.com/guest">초소 둘러보기</a><a class="studio-link" href={destination}>운영 시스템 자세히 보기</a></div>
     </section>
   </main>
 </SiteLayout>
+<style>.step-number{font-size:11px;color:#69717d}.studio-card h3{margin:18px 0 9px}.studio-card p{margin:0}.boundary-copy{font-size:14px;line-height:1.9;color:#626b78;max-width:700px;margin:16px 0 0}.system-links{display:flex;gap:24px;flex-wrap:wrap}</style>

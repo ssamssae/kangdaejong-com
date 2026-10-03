@@ -1,0 +1,29 @@
+/* Shared page rhythm: the accepted kangdaejong.com homepage. */
+body.studio-page{--bg:#fff;--fg:#242930;--fg-dim:#626b78;--accent:#2458cc;--border:#e6e8ed;--bg-tint:#eef3ff;margin:0;background:#fff;color:#242930;font-family:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,sans-serif;font-size:15px;line-height:1.65;letter-spacing:-.025em}
+.studio-page *{box-sizing:border-box}.studio-page .studio-width{width:min(1000px,calc(100% - 48px));margin-inline:auto;padding-inline:0}
+body.studio-page h1{font-family:inherit;font-size:clamp(32px,4.6vw,51px);font-weight:600;line-height:1.35;letter-spacing:-.065em;margin:0;word-break:keep-all}
+body.studio-page h1 em,body.studio-page h1 span{font-family:inherit;font-style:normal;color:#2458cc}
+body.studio-page h2{font-size:23px;line-height:1.45;font-weight:600;letter-spacing:-.05em;margin:0}
+body.studio-page h3{font-size:18px;line-height:1.5;font-weight:600;letter-spacing:-.04em}
+.studio-page .studio-hero{padding:76px 0 66px}.studio-page .studio-label{font-family:inherit;font-size:13px;font-weight:500;line-height:1.65;letter-spacing:0;color:#626b78;margin:0 0 18px}.studio-page .studio-lead{font-size:16px;line-height:1.9;color:#626b78;margin:22px 0 0;word-break:keep-all}
+.studio-page .studio-section{padding:38px 0 42px;border-top:1px solid #e6e8ed}.studio-page .studio-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:23px}.studio-page .studio-card{padding:23px;background:#f7f8fa;border:1px solid #eceef2;border-radius:12px}.studio-page .studio-card p{font-size:13px;color:#626b78;line-height:1.8}
+.studio-page a{color:inherit;text-underline-offset:4px}.studio-page a:hover{color:#2458cc}.studio-page .studio-link{display:inline-flex;align-items:center;min-height:44px;color:#2458cc;font-size:13px;text-decoration:none;margin-top:20px}.studio-page :where(a,button,input,summary):focus-visible{outline:2px solid #2458cc;outline-offset:4px}
+@media(max-width:650px){.studio-page .studio-width{width:calc(100% - 40px)}body.studio-page h1{font-size:34px}body.studio-page h2{font-size:21px}.studio-page .studio-hero{padding:48px 0 38px}.studio-page .studio-lead{font-size:14px;margin-top:18px}.studio-page .studio-section{padding:29px 0 32px}.studio-page .studio-cards{grid-template-columns:1fr;gap:10px}.studio-page .studio-card{padding:19px 20px}}
+@media(max-width:360px){body.studio-page h1{font-size:30px}}@media(prefers-reduced-motion:reduce){.studio-page{scroll-behavior:auto}}
+
+/* Page-specific shells use the same measure and heading hierarchy. */
+body.studio-page main :is(h1,h2,h3){font-family:inherit}
+body.studio-page main#main-content h1{font-size:51px;font-weight:600;line-height:1.35;letter-spacing:-.065em}
+body.studio-page main#main-content h2{font-size:23px;line-height:1.45;font-weight:600}
+body.studio-page main#main-content h3{font-size:18px;line-height:1.5;font-weight:600}
+body.studio-page :is(.digital-page,.ipta-page,.closed-page,.our-sai){width:min(1000px,calc(100% - 48px));max-width:none;margin:0 auto;padding:76px 0 66px}
+body.studio-page :is(.digital-page .hero,.ipta-hero){padding-top:0;padding-bottom:42px}
+body.studio-page .our-sai{color:#242930}
+body.studio-page .our-sai a{color:#2458cc}
+body.studio-page .our-sai .note{background:#eef3ff;border-radius:12px}
+body.studio-page .our-sai nav{border-color:#e6e8ed}
+body.studio-page .template-shell{max-width:1000px;gap:40px;padding:76px 0 66px;margin:auto;grid-template-columns:280px minmax(0,1fr)}
+body.studio-page main#main-content .template-rail h1{font-size:34px}
+body.studio-page main#main-content .markdown-body h1{font-size:30px}
+@media(max-width:820px){body.studio-page .template-shell{grid-template-columns:1fr;width:calc(100% - 40px)}}
+@media(max-width:650px){body.studio-page main#main-content h1{font-size:34px}body.studio-page main#main-content h2{font-size:21px}body.studio-page :is(.digital-page,.ipta-page,.closed-page,.our-sai){width:calc(100% - 40px);padding:48px 0 38px}body.studio-page .template-shell{padding:48px 0 38px}body.studio-page main#main-content .template-rail h1{font-size:34px}}
