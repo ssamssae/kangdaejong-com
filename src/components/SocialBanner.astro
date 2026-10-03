@@ -1,4 +1,5 @@
 ---
+const { compact = false } = Astro.props;
 const channels = [
   { name: 'GitHub', detail: '공개 코드와 도구', mark: '{ }', href: 'https://github.com/ssamssae', color: '#242720', tint: '#eeeee8' },
   { name: 'Instagram', detail: '사진과 짧은 영상', mark: '◎', href: 'https://www.instagram.com/minusbetastudio/', color: '#a12c62', tint: '#faeaf1' },
@@ -14,7 +15,7 @@ const channels = [
   { name: '초소', detail: '지금 작업장의 공개 현황', mark: '◉', href: 'https://choso.kangdaejong.com/guest', color: '#326254', tint: '#e5efe8' },
 ];
 ---
-<section class="social-banner" aria-labelledby="social-banner-title">
+<section class:list={["social-banner", {compact}]} aria-labelledby="social-banner-title">
   <div class="social-heading">
     <div><p class="r-kicker">CONNECT / 강대종 · 마이너스베타스튜디오</p><h2 id="social-banner-title">만드는 일, 나누는 이야기.</h2></div>
     <p>코드부터 일상까지, 모든 채널을 한곳에.</p>
@@ -56,4 +57,12 @@ const channels = [
     .social-copy > span { font-size: 10px; }
     .social-arrow { display: none; }
   }
+  .compact { border: 0; padding: 0; }
+  .compact .social-heading { display: none; }
+  .compact .social-grid { display: flex; flex-wrap: wrap; gap: 0 24px; }
+  .compact .social-card { border: 0; border-radius: 0; background: none; min-height: 44px; padding: 8px 0; gap: 5px; color: #4a5361; }
+  .compact .social-card:hover { color: #2458cc; background: none; text-decoration: underline; }
+  .compact .social-mark, .compact .social-copy > span { display: none; }
+  .compact .social-copy strong { font-size: 13px; font-weight: 450; }
+  .compact .social-arrow { display: block; font-size: 11px; margin: 0; color: inherit; }
 </style>

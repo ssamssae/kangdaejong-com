@@ -6,18 +6,24 @@
 
 ## 문의노트 진입 링크 — T-260926-014
 
-- 진입점: https://kangdaejong.com/ → 함께 만드는 서비스 → 문의노트 열기.
+- 진입점: https://kangdaejong.com/ → 만드는 도구 아래 → 문의노트.
 - 목적지: https://inquiry-note.ssamssae.chatgpt.site
 - 사전 조건: 해당 Sites 소유자 계정으로 로그인. 홈페이지는 공개이며 문의 작업실은 비공개.
 - 기대 결과: 별도 Mac 실행 없이 작업실 접속. 문의·답변은 서버 D1에 계정별 저장.
 - 검증: 홈페이지 빌드 및 공유 header/footer·homepage-renewal 검사 통과. 생성 HTML에 이름·목적지·로그인 필요 표기 확인. 실제 배포 URL과 DB/접근제어 실측은 티켓 근거 파일 참고.
 - 범위: 진입 링크 추가. 기존 프로젝트와 판매 보류 상태 유지.
 
-## 메인 홈페이지 톤 (T-260928-017)
+## 단일 페이지 홈페이지 — T-261003-016
 
-`/`의 프로젝트 인덱스·대표 프로젝트 보기 → `#projects`; 세 프로젝트 링크와 서비스 링크는 기존 경로를 유지한다. 1.0은 `/archive/`, 기존 `#books`는 `/archive/#books`로 이동한다. 메뉴 추첨은 T-260929-001에서 제거했다. 그래픽은 장식이며 실제 서비스 UI가 아니다.
-
-디자인 근거 및 360/390/768/1440px, 키보드, 동작 줄이기 검증 경로: [home-tone-research.md](home-tone-research.md). 검증: `tests/home-tone.spec.mjs`, `tests/books-anchor.spec.mjs`. 공개 반영 여부는 배포 근거로 별도 확인한다.
+- 진입점: `/`. 상단 프로젝트·앱·연락은 같은 페이지의 해당 구역으로 이동한다. 1.0/2.0/3.0 선택 메뉴를 제거했다.
+- 프로젝트 → 텔레그램 브릿지 설치 안내: 접힌 설치·시연 구역이 열리고 4종 브릿지 저장소/릴리스와 자막 영상을 확인한다.
+- 앱 6개 → 기존 App Store/Google Play 링크. 책 3개 → 기존 크몽 링크. 문의·SNS 12개·무료 양식은 한 홈에서 접근한다.
+- `/archive/`는 `/`로 301 이동한다. 브라우저는 기존 fragment를 이어받는다. 로컬 정적 미리보기에서는 스크립트가 query와 fragment를 보존한다. JS를 끄면 홈 이동 링크를 제공한다.
+- `/#books`, `/archive/#books`, `/#open-tools`, `/archive/#mood`의 기존 앵커를 유지한다. mood는 접힌 쉬어가기 구역을 연다. JS 없이도 summary를 눌러 콘텐츠를 볼 수 있다.
+- 하단 사업자 정보를 펼치면 기존 등록번호·전화·이메일·호스팅 제공자를 확인한다. 상세·지원·법적 페이지는 기존 경로를 유지한다.
+- 로컬 검증: `npm run build`, `npm run verify:homepage-renewal`, `npx playwright test tests/one-page.spec.mjs tests/home-tone.spec.mjs tests/books-anchor.spec.mjs tests/social-banner.spec.mjs tests/preparing-home.spec.mjs tests/mood-corner.spec.mjs tests/header-navigation.spec.mjs tests/site-renewal.spec.mjs tests/digital-products.spec.mjs --workers=2`.
+- 화면 폭 320~1440px, 키보드 이동, 동작 줄이기, JS 비활성, 링크·그림 로딩을 확인한다. 공개 배포 여부와 실측은 티켓 체크포인트에 별도로 기록한다.
+- 배포 연결: 저장소 GitHub Actions는 공유 소스 검사/PR 머지만 수행한다. 기존 Cloudflare Pages에 같은 머지 버전으로 `npx wrangler pages deploy dist --project-name=kangdaejong-com --branch=main` 후 공개 홈과 archive 리다이렉트를 검증한다. 배포 설정 변경은 없다.
 
 ## 로고꾸러미 종료 — T-260924-066
 2026-09-29: `https://logo.kangdaejong.com/`와 `https://kangdaejong.com/logo/`에서 종료 안내를 표시하고 HTTP 410을 반환한다. `/logo/api/config`와 주문·생성 경로도 410이며 공급자·주문 저장소에 접근하지 않는다. 회사 메인에서 로고꾸러미 링크를 제거했다. 브라우저 저장값과 서버 주문 데이터는 폐쇄 작업으로 삭제하지 않는다. 공개 반영은 배포 후 별도 확인한다.

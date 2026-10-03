@@ -60,7 +60,8 @@ test("small screens fit the corner and all controls", async ({ page }) => {
 test("without JavaScript the default landscape remains and inactive controls are hidden", async ({ browser }) => {
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
-  await page.goto("http://127.0.0.1:4321/#mood");
+  await page.goto("http://127.0.0.1:4321/");
+  await page.locator(".pause-details > summary").click();
   await expect(page.locator("#mood").getByRole("status")).toHaveText("오늘은 작은 일에도 빛이 드는 날.");
   await expect(page.locator("#mood .mood-controls")).toBeHidden();
   await expect(page.locator("#mood .mood-orb")).toHaveCSS("animation-play-state", "paused");

@@ -1,51 +1,75 @@
 ---
-import '../styles/home-tone.css';
-import StudioFooter from '../components/StudioFooter.astro';
+import '../styles/home-simple.css';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import ProjectVersions from '../components/ProjectVersions.astro';
-import { currentProjects, featuredProjects } from '../data/project-versions';
+import StudioFooter from '../components/StudioFooter.astro';
+import SocialBanner from '../components/SocialBanner.astro';
+import MoodCorner from '../components/MoodCorner.astro';
+import productIcons from '../data/product-icon-sources.json';
+import { currentProjects } from '../data/project-versions';
+import { apps, books, tools } from '../data/home';
+const iconFor = (name: string) => productIcons.icons.find(item => item.name === name)?.icon;
+const projects = [
+  { name: '텔레그램 브릿지', mark: '↔', description: '휴대폰에서 내 컴퓨터의 AI에게 요청하고 답을 받습니다.', note: '공개 소스', href: '#open-tools', action: '설치 안내', icon: null },
+  { name: '입타', mark: '입', description: '쓰던 입력칸에서 말하면 글이 됩니다. Mac과 Windows에서.', note: '음성 입력', href: '/ipta/', action: '입타 알아보기', icon: '/product-icons/ipta-779f2694b7.png' },
+  { name: '자비스', mark: '⌁', description: '목소리로 부르고, AI의 답을 스피커로 듣는 개인 비서입니다.', note: '실험 중 · 공개 소스', href: 'https://github.com/ssamssae/jarvis-mac', action: '소스 보기', icon: null },
+];
 ---
-<SiteLayout title="강대종의 프로젝트 2.0" description="텔레그램 브릿지, 입타, 자비스. 내 컴퓨터의 AI를 연결하고, 말로 쓰고, 목소리로 부르는 강대종의 프로젝트." canonical="https://kangdaejong.com/" minimal bodyClass="home-editorial">
-  <header class="studio-header"><a href="/" aria-label="마이너스베타스튜디오 홈"><img src="https://kangdaejong.com/brand/current/logo.svg" alt="" width="48" height="48" /><div>MINUS BETA STUDIO<span>마이너스베타스튜디오</span></div></a><a class="header-index" href="#projects">프로젝트 인덱스 <span aria-hidden="true">↘</span></a></header>
-  <main id="main-content">
-    <section class="hero" aria-labelledby="chapter-title">
-      <div class="hero-meta"><p class="eyebrow">INDEPENDENT STUDIO · SEOUL</p><ProjectVersions current="2.0" /></div>
-      <div class="hero-copy">
-        <div class="hero-title"><p class="hero-name">강대종의 프로젝트</p><h1 id="chapter-title">내 컴퓨터의 AI를,<br /><span>더 가까이.</span></h1></div>
-        <div class="edition" aria-label="프로젝트 2.0"><span class="edition-caption">THE SECOND CHAPTER</span><span class="version">2.0<span class="dot">.</span></span><span class="edition-foot">연결하고 · 말하고 · 부르다</span></div>
-      </div>
-      <div class="hero-bottom"><p class="intro">브릿지로 연결하고, 입타로 쓰고,<br />자비스를 목소리로 부릅니다.</p><a class="jump" href="#projects">대표 프로젝트 보기 <span aria-hidden="true">↓</span></a></div>
+<SiteLayout title="강대종 — 직접 만드는 작은 도구들" description="강대종의 프로젝트를 한곳에. 텔레그램 브릿지, 입타, 자비스와 생활 앱, AI 자동화 책을 만나보세요." canonical="https://kangdaejong.com/" minimal bodyClass="simple-home">
+  <header class="home-header home-width">
+    <a class="home-brand" href="/" aria-label="강대종 홈"><img src="/brand/current/logo.svg" alt="" width="30" height="30"/><span>강대종<span class="brand-studio">마이너스베타스튜디오</span></span></a>
+    <nav aria-label="페이지 메뉴"><a href="#projects">프로젝트</a><a href="#products">앱</a><a href="#contact">연락</a></nav>
+  </header>
+  <main id="main-content" class="home-width" tabindex="-1">
+    <section class="intro" aria-labelledby="intro-title">
+      <p class="intro-label">만들고, 써 보고, 다듬습니다.</p>
+      <h1 id="intro-title">안녕하세요.<br/>만드는 사람 <span>강대종</span>입니다.</h1>
+      <p class="intro-description">일할 때 필요한 도구부터 일상의 작은 앱까지.<br class="desktop-break"/> 직접 만들어 쓰는 것들을 이곳에 모았습니다.</p>
+      <div class="intro-links"><a href="#projects">프로젝트 둘러보기 <span aria-hidden="true">↓</span></a><a href="https://github.com/ssamssae" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
     </section>
-    <section class="projects" id="projects" aria-labelledby="projects-title">
-      <div class="section-heading"><div><p class="eyebrow">01 — SELECTED WORK</p><h2 id="projects-title">브릿지 · 입타 · 자비스</h2></div><p>직접 만들고, 쓰고, 다듬습니다.</p></div>
-      <div class="project-grid featured-project-grid">{featuredProjects.map((project, index) => <article class:list={["project-card", `project-${index}`]}>
-        <div class="project-visual" aria-hidden="true">
-          <div class="visual-label"><span>MINUS BETA / 0{index + 1}</span><span>↗</span></div>
-          {index === 0 ? <div class="bridge-art"><div class="bridge-phone"><span>요청</span><i></i><i></i><b>↗</b></div><span class="bridge-line">↔</span><div class="bridge-desktop"><span>내 컴퓨터</span><i></i><i></i><b>응답 ↙</b></div></div> : index === 1 ? <div class="ipta-art"><div class="wave">{[12,24,40,28,52,68,40,24,46,60,34,18,28].map(height => <i style={`--bar:${height}px`}></i>)}</div><span>말이 글이 되는 순간<span class="caret">|</span></span></div> : <div class="jarvis-art"><div class="voice-orbit"><div class="voice-core"><span>자비스</span><small>듣고 있어요</small></div></div></div>}
-          <span class="visual-caption">{['A BRIDGE TO YOUR AI', 'YOUR VOICE, IN WORDS', 'A VOICE FOR YOUR COMPUTER'][index]}</span>
-        </div>
-        <div class="card-copy"><div class="card-top"><span class="project-status">{project.status}</span></div>
-        <p class="category">0{index + 1} / {project.category}</p><h3>{project.name}</h3><p class="description">{project.description}</p>
-        <a href={project.href}>{project.action} <span aria-hidden="true">↗</span></a>
-        </div>
+    <section id="projects" class="home-section" aria-labelledby="projects-title">
+      <div class="section-title"><h2 id="projects-title">만드는 도구</h2><span>일하는 방식을 조금 더 편하게</span></div>
+      <div class="project-grid">{projects.map(project => <article class="project-card">
+        <div class="project-top">{project.icon ? <img class="project-icon" src={project.icon} width="40" height="40" alt=""/> : <span class="project-mark" aria-hidden="true">{project.mark}</span>}<span class="project-note">{project.note}</span></div>
+        <h3>{project.name}</h3><p>{project.description}</p><a href={project.href}>{project.action}<span aria-hidden="true">↗</span></a>
       </article>)}</div>
+      <details id="open-tools" class="bridge-details"><summary>텔레그램 브릿지 설치·시연 <span>Codex · Cursor · Claude · Grok</span></summary>
+        <div class="bridge-links">{tools.map(tool => <div><strong>{tool.name.replace(' Telegram Bridge','')}</strong><a href={tool.repo}>설치 안내 ↗</a><a href={tool.release}>릴리스 ↗</a></div>)}</div>
+        <video controls playsinline preload="none" width="768" height="500" poster="https://work.kangdaejong.com/product-demos/bridge-iphone-20260923.jpg" aria-label="텔레그램 브릿지 실제 시연"><source src="https://work.kangdaejong.com/product-demos/bridge-iphone-20260923.mp4" type="video/mp4"/><track kind="captions" src="/bridge-demo.ko.vtt" srclang="ko" label="한국어" default/><a href="https://work.kangdaejong.com/product-demos/bridge-iphone-20260923.mp4">시연 영상 보기</a></video><p class="video-note">2026.09.23 시연 · 대기 일부 생략 · 한국어 자막</p>
+      </details>
+      <div class="service-list">{currentProjects.slice(1).map(project => <a class="service-row" href={project.href}><span><strong>{project.name}</strong><span>{project.category}</span></span><span class="service-note">{project.status}<span aria-hidden="true"> ↗</span></span></a>)}</div>
     </section>
-    <section class="projects" aria-labelledby="other-projects-title">
-      <div class="section-heading"><div><p class="eyebrow">02 — EVERYDAY TOOLS</p><h2 id="other-projects-title">함께 만드는 서비스</h2></div><p>일상에서 쓰는 작은 도구들</p></div>
-      <div class="other-grid">{currentProjects.slice(1).map(project => <article class="other-card"><p class="category">{project.status}</p><h3>{project.name}</h3><p class="description">{project.description}</p><a href={project.href}>{project.action} ↗</a></article>)}</div>
+    <section id="products" class="home-section" aria-labelledby="apps-title">
+      <span id="everyday" class="anchor-alias"></span>
+      <div class="section-title"><h2 id="apps-title">생활에 가까운 앱</h2><span>필요할 때 가볍게 꺼내 쓰세요</span></div>
+      <div class="app-grid">{apps.map(app => <article class="app-row">{iconFor(app.name) ? <img src={iconFor(app.name)} alt="" width="48" height="48" loading="lazy"/> : <span class="app-letter" aria-hidden="true">{app.name.slice(0,1)}</span>}<div><h3>{app.name}</h3><p>{app.description}</p><div class="store-links"><a href={`https://apps.apple.com/kr/app/id${app.appId}`} aria-label={`${app.name} App Store`}>App Store ↗</a><a href={`https://play.google.com/store/apps/details?id=${app.package}`} aria-label={`${app.name} Google Play`}>Google Play ↗</a></div></div></article>)}</div>
     </section>
-    <section class="chapters" aria-label="이전과 다음 프로젝트">
-      <a class="previous" href="/archive/"><span class="eyebrow">CHAPTER 01 / 1.0</span><h2>지금의 시작이 된 것들</h2><p>입타 이전에 만든 앱과 웹 서비스,<br />공개 도구를 모았습니다.</p><span class="chapter-action">1.0 프로젝트 둘러보기 ↗</span></a>
-      <div class="next"><span class="eyebrow">CHAPTER 03 / 3.0</span><h2>다음 이야기는, 나중에.</h2><p>새로운 장을 시작하면<br />이곳에 이어 담겠습니다.</p><span class="chapter-note">아직 시작하지 않은 다음 버전</span></div>
+    <section id="books" class="home-section" aria-labelledby="books-title">
+      <div class="section-title"><h2 id="books-title">만들며 배운 것</h2><a href="/digital-products/">책·양식 구성 자세히 보기 ↗</a></div>
+      <div class="book-list">{books.map((book,index) => <a class="book-row" href={book.purchase}><span class="book-number">0{index+1}</span><span><strong>{book.name}</strong><span>{book.description}</span></span><span class="book-action">크몽에서 보기 ↗</span></a>)}</div>
+      <a class="template-link" href="/ebook-automation-workshop/vol1/templates/t01-repeat-work-inventory/">무료 업무 정리 양식 보기 ↗</a>
+    </section>
+    <section id="contact" class="home-section contact-section" aria-labelledby="contact-title">
+      <span id="company" class="anchor-alias"></span><span id="choso" class="anchor-alias"></span>
+      <div class="contact-heading"><div><h2 id="contact-title">이야기를 나눠요.</h2><p>궁금한 점이나 하고 싶은 이야기가 있다면.</p></div><a class="contact-email" href="mailto:minusbetastudio@gmail.com">이메일 보내기 ↗</a></div>
+      <SocialBanner compact />
+      <details class="pause-details"><summary>잠깐 쉬어가기 <span aria-hidden="true">＋</span></summary><MoodCorner /></details>
     </section>
   </main>
-  <StudioFooter />
-  <script is:inline>
-    // Preserve existing book links when moving between project chapters.
-    const openArchivedSection = () => {
-      if (window.location.hash === '#books') window.location.replace('/archive/' + window.location.search + '#books');
-    };
-    openArchivedSection();
-    window.addEventListener('hashchange', openArchivedSection);
+  <StudioFooter compact />
+  <script>
+    function revealAnchor() {
+      let id; try { id = decodeURIComponent(location.hash.slice(1)); } catch { return; }
+      const target = document.getElementById(id);
+      if (!target) return;
+      let parent: HTMLElement | null = target;
+      while (parent) { if (parent instanceof HTMLDetailsElement) parent.open = true; parent = parent.parentElement; }
+      requestAnimationFrame(() => target.scrollIntoView({ behavior: 'instant', block: 'start' }));
+    }
+    revealAnchor(); window.addEventListener('hashchange', revealAnchor);
+    document.querySelectorAll<HTMLAnchorElement>('a[href^="#"]').forEach(link => {
+      link.addEventListener('click', () => {
+        if (link.hash === location.hash) revealAnchor();
+      });
+    });
   </script>
 </SiteLayout>
