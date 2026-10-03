@@ -5,7 +5,6 @@ export const books = [
     price: "전자책 · 판매 종료",
     description: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했습니다.",
     purchase: "/digital-products/",
-    template: "/ebook-automation-workshop/vol1/templates/t01-repeat-work-inventory/",
   },
   {
     number: "02",
@@ -13,7 +12,6 @@ export const books = [
     price: "전자책 · 판매 종료",
     description: "혼자 일하면서 여러 AI 역할을 팀처럼 구성하고 운영하는 방법을 정리했습니다.",
     purchase: "/digital-products/",
-    template: "/ai-team-ebook/vol2/templates/t01-task-queue/",
   },
   {
     number: "03",

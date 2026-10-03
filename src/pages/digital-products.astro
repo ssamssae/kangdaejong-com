@@ -1,14 +1,16 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import "../styles/renewal.css";
 import { books } from "../data/home";
 ---
-<SiteLayout title="전자책 판매 종료 안내" description="전자책 3종의 크몽 판매를 종료했습니다. 기존 무료 실습 양식은 계속 이용할 수 있습니다." canonical="https://kangdaejong.com/digital-products/" active="products" bodyClass="renewal">
+<SiteLayout title="전자책·무료 양식 제공 종료" description="전자책 판매와 무료 실습 양식의 공개 제공을 종료했습니다. 판매 종료일은 2026년 10월 3일, 무료 양식 제공 종료일은 10월 4일입니다." canonical="https://kangdaejong.com/digital-products/" active="products" bodyClass="digital-closed" ogImage="https://kangdaejong.com/brand/current/social.png?v=59a349c1f82627cd-digital-20261004">
   <main id="main-content" class="digital-page">
-    <header><p class="r-kicker">전자책</p><h1>전자책 판매를 종료했습니다.</h1><p>2026년 10월 3일부터 아래 전자책 3종의 크몽 판매를 종료했습니다.</p></header>
-    <section aria-label="판매 종료 전자책"><ul>{books.map(book => <li><h2>{book.name}</h2><p>{book.description}</p><span>판매 종료</span></li>)}</ul></section>
-    <section><h2>무료 실습 양식</h2><p>공개된 실습 양식은 계속 이용할 수 있습니다.</p><ul><li><a href="/ebook-automation-workshop/vol1/templates/t01-repeat-work-inventory/">반복 업무 정리 양식 →</a></li><li><a href="/ai-team-ebook/vol2/templates/t01-task-queue/">AI 팀 작업 대기열 양식 →</a></li></ul></section>
-    <a href="/#books">홈으로 돌아가기 →</a>
+    <header><p class="eyebrow">제공 종료 안내</p><h1>전자책과 무료 양식,<br/><span>제공을 마쳤습니다.</span></h1><p class="lead">전자책 판매와 무료 실습 양식의 공개 제공을 종료했습니다.</p></header>
+    <section class="closure-summary" aria-label="종료 일정"><div><span>전자책 판매 종료</span><time datetime="2026-10-03">2026. 10. 03.</time></div><div><span>무료 실습 양식 제공 종료</span><time datetime="2026-10-04">2026. 10. 04.</time></div></section>
+    <section aria-labelledby="books-title"><h2 id="books-title">판매를 종료한 전자책</h2><ul class="book-list">{books.map((book,index) => <li><span class="number">0{index+1}</span><div><h3>{book.name}</h3><p>{book.description}</p></div><span class="status">판매 종료</span></li>)}</ul></section>
+    <section class="template-notice" aria-labelledby="templates-title"><h2 id="templates-title">무료 실습 양식</h2><p>반복 업무 정리, AI 팀 작업 대기열을 포함한 실습 양식 14종의 웹 열람과 다운로드를 종료했습니다.</p></section>
+    <nav aria-label="다른 페이지"><a href="/">홈으로 돌아가기 <span aria-hidden="true">↗</span></a><a href="https://work.kangdaejong.com/products/">현재 제품 보기 <span aria-hidden="true">↗</span></a></nav>
   </main>
 </SiteLayout>
-<style>.digital-page{max-width:960px;margin:0 auto;padding:64px 24px}h1{font-size:clamp(30px,5vw,48px);line-height:1.3}h2{font-size:24px}p{line-height:1.8;color:#53616a}section{padding:32px 0;border-top:1px solid #e6e8ed;margin-top:32px}ul{padding-left:22px}li{margin:24px 0}span{color:#6b7280;font-size:14px}a{color:#2458cc;text-underline-offset:4px}</style>
+<style>
+.digital-page{max-width:1000px;margin:0 auto;padding:56px 24px 80px;color:#242930}.eyebrow{color:#69717d;font-size:12px;margin:0 0 18px}h1{font-size:clamp(32px,5vw,52px);font-weight:650;line-height:1.22;letter-spacing:-.055em;margin:0}h1 span{color:#2458cc}.lead{font-size:15px;line-height:1.8;color:#626b78;margin:24px 0 32px}.closure-summary{border-block:1px solid #e6e8ed;padding:20px 0;margin-bottom:44px}.closure-summary>div{display:flex;justify-content:space-between;gap:16px;font-size:13px;line-height:2.2}.closure-summary span{color:#626b78}h2{font-size:20px;letter-spacing:-.035em;margin:0 0 20px}.book-list{list-style:none;padding:0;margin:0}.book-list li{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:18px;padding:24px 0;border-bottom:1px solid #e6e8ed}.number{font-size:12px;color:#69717d;padding-top:4px}h3{font-size:17px;line-height:1.5;margin:0 0 8px}.book-list p,.template-notice p{font-size:13px;line-height:1.85;color:#626b78;margin:0;word-break:keep-all}.status{font-size:11px;color:#69717d;white-space:nowrap;padding-top:5px}.template-notice{margin-top:40px;padding:24px 0;border-bottom:1px solid #e6e8ed}nav{display:flex;flex-wrap:wrap;gap:24px;margin-top:24px}nav a{display:inline-flex;align-items:center;gap:16px;min-height:44px;color:#2458cc;text-decoration:none;font-size:13px}nav a:hover{text-decoration:underline}@media(max-width:600px){.digital-page{padding-top:36px}.book-list li{grid-template-columns:22px minmax(0,1fr);gap:10px}.status{grid-column:2;padding:0}.closure-summary>div{font-size:12px}}
+</style>

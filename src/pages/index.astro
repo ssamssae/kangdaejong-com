@@ -43,7 +43,6 @@ const projects = [
     <section id="books" class="home-section" aria-labelledby="books-title">
       <div class="section-title"><h2 id="books-title">만들며 배운 것</h2><a href="/digital-products/">전자책 판매 종료 안내 ↗</a></div>
       <div class="book-list">{books.map((book,index) => <a class="book-row" href={book.purchase}><span class="book-number">0{index+1}</span><span><strong>{book.name}</strong><span>{book.description}</span></span><span class="book-action">판매 종료</span></a>)}</div>
-      <a class="template-link" href="/ebook-automation-workshop/vol1/templates/t01-repeat-work-inventory/">무료 업무 정리 양식 보기 ↗</a>
     </section>
     <section id="contact" class="home-section contact-section" aria-labelledby="contact-title">
       <span id="company" class="anchor-alias"></span><span id="choso" class="anchor-alias"></span>
