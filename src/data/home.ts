@@ -4,21 +4,18 @@ export const books = [
     name: "1인회사 AI자동화",
     price: "전자책 · 판매 종료",
     description: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했습니다.",
-    purchase: "/digital-products/",
   },
   {
     number: "02",
     name: "혼자서 AI팀",
     price: "전자책 · 판매 종료",
     description: "혼자 일하면서 여러 AI 역할을 팀처럼 구성하고 운영하는 방법을 정리했습니다.",
-    purchase: "/digital-products/",
   },
   {
     number: "03",
     name: "폰으로 내 컴퓨터 AI 부리기",
     price: "전자책 · 판매 종료",
     description: "텔레그램에 내 컴퓨터의 AI 도구를 연결하는 과정을 비개발자 눈높이로 정리한 안내서입니다.",
-    purchase: "/digital-products/",
   },
 ];
 

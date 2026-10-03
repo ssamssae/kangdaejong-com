@@ -2,5 +2,8 @@
 /archive/ / 301
 
 # Free template publication ended 2026-10-04; sources kept outside public/.
-/ebook-automation-workshop/vol1/templates/* /digital-products/ 301
-/ai-team-ebook/vol2/templates/* /digital-products/ 301
+/ebook-automation-workshop/vol1/templates/* https://work.kangdaejong.com/products/#retired-products 301
+/ai-team-ebook/vol2/templates/* https://work.kangdaejong.com/products/#retired-products 301
+
+/digital-products https://work.kangdaejong.com/products/#retired-products 301
+/digital-products/ https://work.kangdaejong.com/products/#retired-products 301

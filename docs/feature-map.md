@@ -68,3 +68,5 @@
 - 무료 양식 14종은 `archive/free-templates/`에 원본을 보존하고 배포 산출물에서 제외한다. 기존 HTML·Markdown URL은 Cloudflare Pages `_redirects`의 두 prefix 규칙으로 종료 안내에 301 연결한다.
 - 홈·설치 지원 안내에서 무료 양식 제공/다운로드 링크를 제거했다. 실제 배포 후 28개 기존 URL(HTML14/Markdown14) redirect 및 본문 비노출을 확인한다.
 - 검증: build, `python3 -m unittest discover -s tests -p test_free_template_retirement.py`, 390/1440px 화면. 근거 `/Users/user/reports/T-261004-002/`. main 머지 후 기존 Cloudflare Pages 공개 배포는 사용자 오프보딩 및 카드톤 수정 요청 범위다.
+
+- 후속 사용자 지시로 digital-products 페이지 자체도 종료. 원본은 archive에 보존. 기존 28개 양식 URL과 /digital-products 두 주소는 제품 목록 #retired-products로 301 연결. 별도 종료 안내 페이지는 배포하지 않는다.
