@@ -49,3 +49,7 @@
 - 검증: `node --test tests/logo/*.test.mjs tests/photo-closure.test.mjs`, `npm run build`, 공유 header/footer 검사, `npx playwright test --config playwright.photo-public.config.mjs`. 데스크톱·모바일·WebKit 화면, 저장값 보존, 홈 이동을 확인한다.
 - 승인된 배포: 같은 머지 커밋에서 `npx wrangler deploy --config logo-worker/wrangler.jsonc`, `npx wrangler pages deploy dist --project-name kangdaejong-com --branch main`. 기존 로고 Worker 라우트·DO·secret을 보존하며 사진 경로 두 개만 추가한다.
 - 공개 검증: 위 브라우저 검사에 `PHOTO_PUBLIC_URL=https://kangdaejong.com` 지정, `/photo`·API 410과 홈페이지 링크 제거를 별도 조회. 실제 시각·배포 버전·결과는 T-260925-011 종료 근거에 기록한다.
+
+## T-261003-018 · 사이트 디자인 통일
+
+공통 톤: 홈·system·organization·ipta·digital-products·전자책 양식·our-sai와 단백질 도감을 390/1440px로 열어 흰 배경, 제목 34/51px, 1000px 본문 폭과 가로 넘침을 확인. protein.spec.mjs는 메뉴 열기·20개 구조·검색/필터·3D·확대 조작 검사. site-renewal.spec.mjs의 전체 링크·모바일 검사도 유지.

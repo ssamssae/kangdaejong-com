@@ -4,7 +4,8 @@ test('protein gallery has twenty loaded structures and accessible header navigat
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('20가지');
   await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', 'https://protein.kangdaejong.com/');
-  await expect(page.getByRole('link', { name: '단백질', exact: true })).toHaveAttribute('aria-current', 'page');
+  await page.getByRole('button', { name: /둘러보기/ }).click();
+  await expect(page.getByRole('link', { name: /^단백질(?: 현재 위치)?$/ })).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('.amino-card')).toHaveCount(20);
   for (const img of await page.locator('.amino-card img').all()) {
     await img.scrollIntoViewIfNeeded();
@@ -34,7 +35,8 @@ for (const width of [360, 800, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-    await expect(page.getByRole('link', { name: '단백질', exact: true })).toBeVisible();
+    await page.getByRole('button', { name: /둘러보기/ }).click();
+    await expect(page.getByRole('link', { name: /^단백질(?: 현재 위치)?$/ })).toBeVisible();
   });
 }
 
