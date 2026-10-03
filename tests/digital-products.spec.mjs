@@ -1,12 +1,13 @@
 import {test,expect} from '@playwright/test';
-test('home offers digital products and no installation intake',async({page})=>{
+test('home shows ebook closure and no purchase links',async({page})=>{
  await page.goto('/');
  await expect(page.locator('a[href="/ai-setup/"]')).toHaveCount(0);
  await expect(page.locator('main')).not.toContainText('99,000');
- await page.getByRole('link',{name:'책·양식 구성 자세히 보기'}).click();
+ await page.getByRole('link',{name:'전자책 판매 종료 안내'}).click();
  await expect(page).toHaveURL(/digital-products/);
- await expect(page.locator('h1')).toContainText('내 속도로');
- await expect(page.getByRole('link',{name:'크몽에서 미리보기·구매'})).toHaveAttribute('href','https://kmong.com/gig/786557');
+ await expect(page.locator('h1')).toContainText('판매를 종료했습니다');
+ await expect(page.locator('a[href*="kmong.com/gig"]')).toHaveCount(0);
+ await expect(page.locator('main')).not.toContainText('10,000');
 });
 test('old installation URL closes intake and leads to replacement',async({page})=>{
  await page.goto('/ai-setup/');
@@ -19,11 +20,10 @@ test('old installation URL closes intake and leads to replacement',async({page})
 });
 test('free sample works without purchase; written support does not promise calls',async({page})=>{
  await page.goto('/digital-products/');
- await page.getByText('문의는 어디에 남기나요?',{exact:true}).click();
- await expect(page.locator('#faq')).toContainText('실시간 응답이나 전화 상담을 제공하는 상품은 아닙니다');
+ await expect(page.locator('main')).toContainText('판매를 종료했습니다');
  await expect(page.locator('main a[href^="tel:"]')).toHaveCount(0);
  await expect(page.locator('form')).toHaveCount(0);
- await page.getByRole('link',{name:'무료 업무 정리 양식부터 보기'}).click();
+ await page.getByRole('link',{name:'반복 업무 정리 양식'}).click();
  await expect(page).toHaveURL(/t01-repeat-work-inventory/);
  await expect(page.locator('h1')).toContainText('반복 업무');
 });
