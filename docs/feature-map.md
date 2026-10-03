@@ -61,3 +61,10 @@
 - 진입: 대표 홈페이지 `/#books`, `/digital-products/`, 작업장 `/products/`의 전자책.
 - 기대: 판매 종료 안내, 신규 구매 링크 및 가격 없음. 공개 무료 양식 링크 정상.
 - 검증: 양쪽 빌드, 기존 전자책 화면 회귀 및 뉴스레터 구매 hop 제거 검사. 공개 반영·크몽 실측 근거는 `/Users/user/reports/T-261003-019/`에 기록.
+
+## 무료 실습 양식 제공 종료 — T-261004-002
+
+- `/digital-products/`는 흰 배경·파란 강조색과 구분선 목록으로 전자책 판매 종료 및 2026-10-04 양식 제공 종료를 안내한다.
+- 무료 양식 14종은 `archive/free-templates/`에 원본을 보존하고 배포 산출물에서 제외한다. 기존 HTML·Markdown URL은 Cloudflare Pages `_redirects`의 두 prefix 규칙으로 종료 안내에 301 연결한다.
+- 홈·설치 지원 안내에서 무료 양식 제공/다운로드 링크를 제거했다. 실제 배포 후 28개 기존 URL(HTML14/Markdown14) redirect 및 본문 비노출을 확인한다.
+- 검증: build, `python3 -m unittest discover -s tests -p test_free_template_retirement.py`, 390/1440px 화면. 근거 `/Users/user/reports/T-261004-002/`. main 머지 후 기존 Cloudflare Pages 공개 배포는 사용자 오프보딩 및 카드톤 수정 요청 범위다.
