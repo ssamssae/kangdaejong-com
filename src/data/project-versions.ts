@@ -7,7 +7,6 @@ export const projectVersions = [
 
 export const currentProjects = [
   { name: '입타', mark: '입', category: '말을 글로', status: 'Mac · Windows', description: '쓰던 입력칸에서 말하면 글이 됩니다. 한국어 받아쓰기는 내 컴퓨터에서 처리합니다.', href: '/ipta/', action: '설치·사용 방법 보기' },
-  { name: '기록실', mark: '기', category: '작업 메모를 블로그로', status: '테스트 베타', description: '사진과 작업 메모로 블로그 초안을 만들고 다듬습니다. 네이버에 붙여넣고 사진을 첨부해 사용하세요.', href: 'https://giroksil.kangdaejong.com/', action: '기록실 체험하기' },
   { name: '콜타', mark: '콜', category: '목소리로 대화', status: '무료 음성 대화', description: 'AI와 목소리로 이야기를 나눕니다. 한 번에 한 분, 최대 3분 동안 이용할 수 있습니다.', href: 'https://callta.kangdaejong.com/', action: '콜타와 이야기하기' },
 ];
 
