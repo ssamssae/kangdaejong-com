@@ -85,3 +85,13 @@
 - 홈페이지의 기록실 체험 링크를 제거했다. 콜타 등 다른 서비스와 인사이트 배너는 유지한다.
 - 기록실 도메인은 종료 안내와 HTTP 410을 제공한다. 원본 소스·사용자 데이터는 보존한다.
 - 확인: 홈에서 기록실 링크 없음, 인사이트 배너 정상, 기록실 공개 루트 및 API 410. 실제 배포 근거는 해당 티켓 체크포인트 참조.
+
+## 전수검사 개선 — T-261004-013
+
+- 홈 → 320px에서 전자책 각 행의 `판매 종료`가 보이고 가짜 링크 화살표가 없다. 소개 메타는 판매 중인 책을 홍보하지 않는다. 인사이트 배너와 기존 기록실 종료를 보존한다.
+- `/ipta/` → Mac/Windows 다운로드 버튼은 기본·hover·focus에서 흰 글씨를 유지한다. 공용 링크 색 덮어쓰기로 생겼던 대비 문제를 공통 버튼 규칙으로 수정했다.
+- 임의의 없는 주소 → `404.html`의 안내·홈 링크와 HTTP 404. Cloudflare Pages의 SPA 홈 fallback을 막는다. 기존 종료/이동 리다이렉트는 유지한다.
+- `npm run build` → 빌드된 HTML의 현재 자기 canonical과 noindex를 기준으로 `dist/sitemap.xml` 생성. 종료 안내와 외부 이동 페이지는 제외한다.
+- 콜타는 T-261002-007에서 2026-10-02 종료된 상태다. 서버/터널/메일을 재개하지 않는다. `callta-retired/worker.mjs`가 기존 호스트의 1033 오류를 종료 안내(410)로 바꾸고 모든 API를 차단한다. 홈페이지 운영 링크도 제거한다.
+- 검증: `npx playwright test tests/audit-fixes.spec.mjs --workers=1`과 `node --test callta-retired/worker.test.mjs`. 기존 버전에서 4개 결함 재현 후 수정 버전에서 통과.
+- 배포: 머지 버전의 `npm run build`, `npx wrangler pages deploy dist --project-name=kangdaejong-com --branch=main`, `npx wrangler deploy --config callta-retired/wrangler.jsonc`. 별도 자동 배포 설정 변경 없음. 공개 실측은 T-261004-013 체크포인트에 연결한다.

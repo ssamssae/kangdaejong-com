@@ -1,0 +1,13 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+---
+<SiteLayout title="페이지를 찾을 수 없습니다" description="주소가 잘못되었거나 페이지가 이동했습니다. 홈페이지에서 필요한 정보를 찾아보세요." robots="noindex,follow">
+  <main id="main-content" class="not-found" tabindex="-1">
+    <p class="code">404</p><h1>페이지를 찾을 수 없습니다.</h1>
+    <p>주소가 잘못되었거나 페이지가 이동했습니다.<br/>홈페이지에서 필요한 정보를 찾아보세요.</p>
+    <a href="/">홈으로 돌아가기</a>
+  </main>
+</SiteLayout>
+<style>
+.not-found{max-width:760px;margin:0 auto;padding:80px 24px;min-height:60vh}.code{color:#626b78;font-size:14px}.not-found h1{font-size:clamp(28px,5vw,42px);line-height:1.4;word-break:keep-all}.not-found p{line-height:1.9}.not-found a{display:inline-block;margin-top:20px;padding:12px 18px;border:1px solid #2458cc;border-radius:8px;color:#2458cc}
+</style>
