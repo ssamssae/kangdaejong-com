@@ -1,0 +1,24 @@
+<aside class="insight-banner" aria-labelledby="insight-banner-title">
+  <div class="insight-banner-copy">
+    <span class="insight-banner-label">보고 배운 것을 모았습니다</span>
+    <h2 id="insight-banner-title">다시 꺼내 읽는 인사이트</h2>
+    <p>AI와 일하는 방법, 생각을 넓혀 준 영상의 핵심을 정리합니다.</p>
+  </div>
+  <a href="https://work.kangdaejong.com/insights/">인사이트 모아보기 <span aria-hidden="true">↗</span></a>
+</aside>
+
+<style>
+  .insight-banner { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 24px; padding: 24px 28px; background: #eef3ff; border: 1px solid #d3dff8; border-left: 4px solid #2458cc; border-radius: 12px; }
+  .insight-banner-copy { min-width: 0; }
+  .insight-banner-label { display: block; color: #3d5790; font-size: 12px; font-weight: 550; margin-bottom: 5px; }
+  .insight-banner #insight-banner-title { color: #183665; font-size: 23px; font-weight: 650; line-height: 1.4; letter-spacing: -.045em; }
+  .insight-banner p { margin-top: 7px; color: #4b5d7b; font-size: 13px; line-height: 1.7; word-break: keep-all; }
+  .insight-banner a { display: inline-flex; align-items: center; justify-content: center; gap: 18px; flex-shrink: 0; min-height: 46px; padding: 0 19px; border-radius: 7px; background: #2458cc; color: #fff; font-size: 13px; font-weight: 600; }
+  .insight-banner a:hover { background: #19449f; color: #fff; }
+  .insight-banner a:focus-visible { outline: 3px solid #183665; outline-offset: 4px; }
+  @media (max-width: 650px) {
+    .insight-banner { align-items: stretch; flex-direction: column; gap: 18px; margin-top: 18px; padding: 21px 20px; }
+    .insight-banner #insight-banner-title { font-size: 21px; }
+    .insight-banner a { align-self: flex-start; }
+  }
+</style>
