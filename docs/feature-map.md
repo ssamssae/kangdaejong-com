@@ -70,3 +70,11 @@
 - 검증: build, `python3 -m unittest discover -s tests -p test_free_template_retirement.py`, 390/1440px 화면. 근거 `/Users/user/reports/T-261004-002/`. main 머지 후 기존 Cloudflare Pages 공개 배포는 사용자 오프보딩 및 카드톤 수정 요청 범위다.
 
 - 후속 사용자 지시로 digital-products 페이지 자체도 종료. 원본은 archive에 보존. 기존 28개 양식 URL과 /digital-products 두 주소는 제품 목록 #retired-products로 301 연결. 별도 종료 안내 페이지는 배포하지 않는다.
+
+
+## 인사이트 상단 배너 — T-261004-011
+
+- 진입점: `https://kangdaejong.com/`. 로그인 없이 첫 화면의 소개글 위에 인사이트 배너를 표시한다.
+- 조작: `인사이트 모아보기`를 누르면 `https://work.kangdaejong.com/insights/` 목록으로 이동한다.
+- 기대: 320/390/1440px에서 가로 넘침 없이 제목과 버튼이 보이며, 키보드로 버튼을 선택할 수 있다.
+- 검증 근거: T-261004-011의 로컬·공개 화면 및 링크 검사 결과. 구현·머지·공개 반영은 체크포인트에서 구분한다.

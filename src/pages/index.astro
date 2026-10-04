@@ -3,6 +3,7 @@ import '../styles/home-simple.css';
 import SiteLayout from '../layouts/SiteLayout.astro';
 import StudioFooter from '../components/StudioFooter.astro';
 import SocialBanner from '../components/SocialBanner.astro';
+import InsightBanner from '../components/InsightBanner.astro';
 import MoodCorner from '../components/MoodCorner.astro';
 import productIcons from '../data/product-icon-sources.json';
 import { currentProjects } from '../data/project-versions';
@@ -17,6 +18,7 @@ const projects = [
 <SiteLayout title="강대종 — 직접 만드는 작은 도구들" description="강대종의 프로젝트를 한곳에. 텔레그램 브릿지, 입타, 자비스와 생활 앱, AI 자동화 책을 만나보세요." canonical="https://kangdaejong.com/" minimal bodyClass="simple-home">
   <mb-header active="home" tone="studio"></mb-header>
   <main id="main-content" class="home-width" tabindex="-1">
+    <InsightBanner />
     <section class="intro" aria-labelledby="intro-title">
       <p class="intro-label">만들고, 써 보고, 다듬습니다.</p>
       <h1 id="intro-title">안녕하세요.<br/>만드는 사람 <span>강대종</span>입니다.</h1>
