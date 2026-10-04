@@ -7,7 +7,6 @@ export const projectVersions = [
 
 export const currentProjects = [
   { name: '입타', mark: '입', category: '말을 글로', status: 'Mac · Windows', description: '쓰던 입력칸에서 말하면 글이 됩니다. 한국어 받아쓰기는 내 컴퓨터에서 처리합니다.', href: '/ipta/', action: '설치·사용 방법 보기' },
-  { name: '콜타', mark: '콜', category: '목소리로 대화', status: '무료 음성 대화', description: 'AI와 목소리로 이야기를 나눕니다. 한 번에 한 분, 최대 3분 동안 이용할 수 있습니다.', href: 'https://callta.kangdaejong.com/', action: '콜타와 이야기하기' },
 ];
 
 // Featured work spans chapters; historical membership remains unchanged.

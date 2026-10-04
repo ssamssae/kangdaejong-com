@@ -15,7 +15,7 @@ const projects = [
   { name: '자비스', mark: '⌁', description: '목소리로 부르고, AI의 답을 스피커로 듣는 개인 비서입니다.', note: '실험 중 · 공개 소스', href: 'https://github.com/ssamssae/jarvis-mac', action: '소스 보기', icon: null },
 ];
 ---
-<SiteLayout title="강대종 — 직접 만드는 작은 도구들" description="강대종의 프로젝트를 한곳에. 텔레그램 브릿지, 입타, 자비스와 생활 앱, AI 자동화 책을 만나보세요." canonical="https://kangdaejong.com/" minimal bodyClass="simple-home">
+<SiteLayout title="강대종 — 직접 만드는 작은 도구들" description="강대종의 프로젝트를 한곳에. 텔레그램 브릿지, 입타, 자비스와 생활 앱, 만들며 배운 기록을 만나보세요." canonical="https://kangdaejong.com/" minimal bodyClass="simple-home">
   <mb-header active="home" tone="studio"></mb-header>
   <main id="main-content" class="home-width" tabindex="-1">
     <InsightBanner />
@@ -35,7 +35,7 @@ const projects = [
         <div class="bridge-links">{tools.map(tool => <div><strong>{tool.name.replace(' Telegram Bridge','')}</strong><a href={tool.repo}>설치 안내 ↗</a><a href={tool.release}>릴리스 ↗</a></div>)}</div>
         <video controls playsinline preload="none" width="768" height="500" poster="https://work.kangdaejong.com/product-demos/bridge-iphone-20260923.jpg" aria-label="텔레그램 브릿지 실제 시연"><source src="https://work.kangdaejong.com/product-demos/bridge-iphone-20260923.mp4" type="video/mp4"/><track kind="captions" src="/bridge-demo.ko.vtt" srclang="ko" label="한국어" default/><a href="https://work.kangdaejong.com/product-demos/bridge-iphone-20260923.mp4">시연 영상 보기</a></video><p class="video-note">2026.09.23 시연 · 대기 일부 생략 · 한국어 자막</p>
       </details>
-      <div class="service-list">{currentProjects.slice(1).map(project => <a class="service-row" href={project.href}><span><strong>{project.name}</strong><span>{project.category}</span></span><span class="service-note">{project.status}<span aria-hidden="true"> ↗</span></span></a>)}</div>
+      {currentProjects.length > 1 && <div class="service-list">{currentProjects.slice(1).map(project => <a class="service-row" href={project.href}><span><strong>{project.name}</strong><span>{project.category}</span></span><span class="service-note">{project.status}<span aria-hidden="true"> ↗</span></span></a>)}</div>}
     </section>
     <section id="products" class="home-section" aria-labelledby="apps-title">
       <span id="everyday" class="anchor-alias"></span>
