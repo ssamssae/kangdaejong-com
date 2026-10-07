@@ -110,6 +110,15 @@
       "revision": "e9998bb6b0dedc63fcf58aaae101c49a621032a7",
       "checkedAt": "2026-10-03",
       "sourceType": "repository-main"
+    },
+    {
+      "name": "노래찾기",
+      "storeName": "노래찾기",
+      "appId": null,
+      "icon": "/product-icons/noraechatgi-ccdf5b0ad0.jpg",
+      "source": "https://github.com/ssamssae/noraechatgi/blob/main/assets/icon/icon-1024.png",
+      "version": "1.0.0 (출시 전)",
+      "sha256": "ccdf5b0ad0006aa6facba2e3f39a7c2e8948d8653e9f0cae694722554b84ea2c"
     }
   ]
 }

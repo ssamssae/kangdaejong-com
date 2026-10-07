@@ -23,7 +23,7 @@ const routes = [
 test("home presents apps, books and all four bridges", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("h1")).toContainText("강대종");
-  await expect(page.locator(".app-row")).toHaveCount(6);
+  await expect(page.locator(".app-row")).toHaveCount(7);
   await expect(page.locator(".book-row")).toHaveCount(3);
   await page.locator("#open-tools > summary").click();
   await expect(page.locator(".bridge-links > div")).toHaveCount(4);

@@ -83,5 +83,10 @@ export const apps = [
     "description": "계산 문제를 풀며 잠에서 깹니다.",
     "appId": "6811111727",
     "package": "com.daejongkang.ireonayo"
+  },
+  {
+    "name": "노래찾기",
+    "description": "버튼 한 번으로 주변 음악의 제목과 가수를 찾습니다.",
+    "status": "iPhone · App Store 출시 준비 중"
   }
 ];
