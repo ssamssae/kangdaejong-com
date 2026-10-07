@@ -7,7 +7,7 @@ for (const width of [390, 1440]) {
     const row = page.locator('.app-row').filter({ has: page.getByRole('heading', { name: '노래찾기', exact: true }) });
     await expect(row).toHaveCount(1);
     await expect(row).toContainText('주변 음악의 제목과 가수');
-    await expect(row.locator('.app-status')).toHaveText('iPhone · App Store 출시 준비 중');
+    await expect(row.locator('.app-status')).toHaveText('iPhone · App Store 심사 중');
     await expect(row.locator('a')).toHaveCount(0);
     const image = row.locator('img');
     await image.scrollIntoViewIfNeeded();
