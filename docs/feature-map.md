@@ -1,5 +1,13 @@
 # 기능 확인 경로
 
+## 노래찾기 앱 등록 — T-261007-020
+
+- 진입점: `/#products` → 노래찾기 행. 공개 전에는 스토어 링크 없이 「iPhone · App Store 출시 준비 중」만 표시한다. App Store 공개 후 `src/data/home.ts`에 `appId`를 넣고 상태 문구를 지운다. 허구의 다운로드 링크를 넣지 않는다.
+- 앱 행의 App Store·Google Play 링크는 `appId`·`package`가 있을 때만 렌더링한다(노래찾기는 iPhone 전용).
+- 스토어 제출용 안내: `/privacy-noraechatgi/`, `/support-noraechatgi/`.
+- 아이콘: 앱 저장소 `assets/icon/icon-1024.png`를 512px JPG로 변환. `product-icon-sources.json` sha256으로 확인.
+- 검증: `tests/noraechatgi.spec.mjs`, `one-page.spec.mjs`(앱 7개), `site-renewal.spec.mjs`.
+
 ## 오늘 뭐 먹지? 메뉴 추첨기 — 제거됨
 
 2026-09-29 사용자 요청(T-260929-001)으로 메인에서 제거했다. 대표 프로젝트 아래에는 함께 만드는 서비스가 바로 이어진다.

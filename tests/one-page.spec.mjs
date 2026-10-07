@@ -9,7 +9,7 @@ for (const width of [320, 390, 768, 1440]) {
     await expect(page.locator('h1')).toContainText('강대종');
     await expect(page.locator('.project-versions, .edition, .chapters')).toHaveCount(0);
     await expect(page.locator('#projects .project-card')).toHaveCount(3);
-    await expect(page.locator('#products .app-row')).toHaveCount(6);
+    await expect(page.locator('#products .app-row')).toHaveCount(7);
     await expect(page.locator('#books .book-row')).toHaveCount(3);
     await expect(page.locator('main')).not.toContainText(/단어요|한컵|포모도로|첫이름|한장궁합|한장택일/);
     await expect(page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link')).toHaveCount(3);
@@ -53,7 +53,7 @@ test('without JavaScript primary content and links remain usable', async ({ brow
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4321/');
-  await expect(page.locator('#products .app-row')).toHaveCount(6);
+  await expect(page.locator('#products .app-row')).toHaveCount(7);
   await page.locator('#open-tools summary').click();
   await expect(page.locator('#open-tools a[href*="codex-telegram-bridge"]').first()).toBeVisible();
   await context.close();
