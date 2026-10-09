@@ -2,11 +2,12 @@
 
 ## 노래찾기 앱 등록 — T-261007-020
 
-- 진입점: `/#products` → 노래찾기 행. 공개 전에는 스토어 링크 없이 상태만 표시한다(2026-10-07 21:09 심사 제출 → 「iPhone · App Store 심사 중」). App Store 공개 후 `src/data/home.ts`에 `appId`를 넣고 상태 문구를 지운다. 허구의 다운로드 링크를 넣지 않는다.
+- 진입점: `/#products` → 노래찾기 행. 2026-10-08 01:06 KST App Store 공개(id6820080312, 1.0.0) → `src/data/home.ts`에 `appId`를 넣고 상태 문구를 지웠다. 행에는 App Store 링크 1개만 표시한다. 허구의 다운로드 링크를 넣지 않는다.
 - 앱 행의 App Store·Google Play 링크는 `appId`·`package`가 있을 때만 렌더링한다(노래찾기는 iPhone 전용).
 - 스토어 제출용 안내: `/privacy-noraechatgi/`, `/support-noraechatgi/`.
 - 아이콘: 앱 저장소 `assets/icon/icon-1024.png`를 512px JPG로 변환. `product-icon-sources.json` sha256으로 확인.
-- 검증: `tests/noraechatgi.spec.mjs`, `one-page.spec.mjs`(앱 7개), `site-renewal.spec.mjs`.
+- 링크가 1개뿐인 행도 링크를 제목과 같은 왼쪽 선에 둔다(`home-simple.css`의 `.store-links` 왼쪽 정렬). 공통 `site.css`는 오른쪽 정렬이라 설명이 링크보다 길면 링크가 밀린다.
+- 검증: `tests/noraechatgi.spec.mjs`(href·상태 문구 없음·390/1440px 왼쪽 정렬), `one-page.spec.mjs`(앱 7개), `site-renewal.spec.mjs`.
 
 ## 오늘 뭐 먹지? 메뉴 추첨기 — 제거됨
 
