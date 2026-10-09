@@ -87,6 +87,6 @@ export const apps = [
   {
     "name": "노래찾기",
     "description": "버튼 한 번으로 주변 음악의 제목과 가수를 찾습니다.",
-    "status": "iPhone · App Store 심사 중"
+    "appId": "6820080312"
   }
 ];

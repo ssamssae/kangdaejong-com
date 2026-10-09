@@ -57,7 +57,7 @@ html:has(.simple-home){background:#fff;scroll-padding-top:28px}
 .simple-home .app-letter{height:48px;display:grid;place-items:center;background:#f0f4fc;color:#2458cc;font-size:20px}
 .simple-home .app-row h3{font-size:15px}
 .simple-home .app-row p{font-size:12px;color:#69717d;margin-top:3px;word-break:keep-all}
-.simple-home .store-links{display:flex;gap:17px;margin-top:4px;font-size:11px;color:#2458cc}
+.simple-home .store-links{display:flex;justify-content:flex-start;gap:17px;margin-top:4px;font-size:11px;color:#2458cc}
 .simple-home .store-links a{display:flex;align-items:center;min-height:44px}
 .simple-home .app-status{display:flex;align-items:center;min-height:44px;color:#69717d}
 .simple-home .book-row{display:flex;align-items:center;gap:22px;border-bottom:1px solid #f0f1f4;padding:19px 0}
