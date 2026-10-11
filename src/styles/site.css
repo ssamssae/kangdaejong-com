@@ -2,7 +2,6 @@
 
 html {
   background: var(--bg);
-  color-scheme: light;
   scroll-behavior: smooth;
 }
 

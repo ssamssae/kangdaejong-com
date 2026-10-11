@@ -1,5 +1,15 @@
 # 기능 확인 경로
 
+## 다크 모드·PC 넓은 레이아웃·한국어/EN 전환·가벼운 아이콘 — T-261011-068
+
+- 다크 모드: 기기 설정(prefers-color-scheme)을 따르고 토글은 없다. `SiteLayout`의 `theme="auto"`가 `<html data-theme="auto">`를 켜고, `src/styles/tokens.css`의 다크 블록이 토큰을 덮는다(초소와 같은 파란 계열: 바탕 #121519, 강조 #7aa2ff). 라이트는 `var(--토큰, 원래색)` 대체값으로 픽셀 그대로. 공용 헤더·푸터는 호스트의 `--mb-host-*` 변수를 상속해 같이 어두워지고, 변수를 정의하지 않는 founder 는 라이트 그대로다. 로고·사진·단백질·전자책 템플릿 페이지는 켜지 않았다.
+- PC 넓은 레이아웃: `tokens.css`의 `--page-max`가 1000px → 1440px. 홈 본문(`.home-width`)·하위 페이지(`.studio-width`)·푸터·공용 헤더(`--mb-max`)가 같은 값을 쓴다. 1100px 이상에서 앱 목록은 3열. 모바일(650px 이하)은 그대로.
+- 한국어/EN 전환: 홈 헤더의 `한국어 | EN` 버튼(`<mb-header lang-toggle>`) → `mb-lang-change` 이벤트 → `src/scripts/lang-toggle.js`가 본문·헤더·푸터(shadow DOM)·aria-label 류 속성을 `src/data/i18n-en.json`(한국어 문자열 → 영어)으로 바꾼다. 새로고침 없이 즉시 바뀌고 `localStorage['mb-lang']`에 기억한다. 영어 문구를 고치려면 JSON 값만 고친다. 한국어 문구를 바꾸면 같은 키를 JSON에도 맞춘다(없는 키는 한국어 그대로 남는다).
+- 아이콘: `public/product-icons/*-96.webp`(+`-192.webp` 2x). 1024px PNG 원본 4장(3.4MB)과 512px JPG 4장을 지우고 `product-icon-sources.json`의 `icon`/`icon2x`/`derivedFrom`으로 가리킨다. 원본 출처(`source`, `sha256`)는 그대로 둔다.
+- 함께 고친 것: 섹션 소제목이 제목의 자간(-.045em)을 물려받아 글자가 겹치던 것(`letter-spacing:0`), 인사이트 배너 제목이 h1보다 먼저 오던 제목 순서(h2 → p), 작은 링크 탭 영역 44px, `_headers`에 HSTS·X-Frame-Options·Permissions-Policy와 `/_astro/*`·`/product-icons/*` 1년 캐시, Google Fonts 요청을 JetBrains Mono만(Noto Serif KR은 전자책 템플릿 페이지만 `fonts="mono-serif"`), 홈 JSON-LD(Organization·Person·WebSite), 헤더 메뉴 `/worklog` → `/worklog/`, 헤더 정의 전 높이 예약(CLS).
+- 검증: `npm run build`, `npm run verify:shared-header`, `verify:shared-footer`, `verify:favicon-brand`, `verify:tone-pairs`, `npx playwright test tests/theme-lang-layout.spec.mjs tests/home-corrections.spec.mjs tests/one-page.spec.mjs tests/header-navigation.spec.mjs`. 390/1440/1920px 라이트·다크 스크린샷, EN 전환·새로고침 유지·한국어 복귀.
+- 배포: 머지 후 `npm run build` → `npx wrangler pages deploy dist --project-name=kangdaejong-com --branch=main`. 공용 헤더(`/mb-components.js`)는 founder 도 라이브로 읽으므로 배포 뒤 founder 헤더가 라이트 그대로인지 확인한다.
+
 ## 노래찾기 앱 등록 — T-261007-020
 
 - 진입점: `/#products` → 노래찾기 행. 2026-10-08 01:06 KST App Store 공개(id6820080312, 1.0.0) → `src/data/home.ts`에 `appId`를 넣고 상태 문구를 지웠다. 행에는 App Store 링크 1개만 표시한다. 허구의 다운로드 링크를 넣지 않는다.
