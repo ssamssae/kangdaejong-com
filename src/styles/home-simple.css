@@ -85,7 +85,7 @@ html:has(.simple-home){background:var(--bg,#fff);scroll-padding-top:28px}
 @media(min-width:1100px){
 .simple-home .app-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .simple-home .app-row:nth-last-child(-n+2){border-bottom:1px solid var(--line-soft,#f0f1f4)}
-.simple-home .app-row:last-child{border:0}
+.simple-home .app-row:nth-child(3n+1):nth-last-child(-n+3),.simple-home .app-row:nth-child(3n+1):nth-last-child(-n+3)~.app-row{border:0}
 }
 @media(max-width:650px){
 .simple-home .home-width{width:calc(100% - 40px)}

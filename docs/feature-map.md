@@ -1,5 +1,14 @@
 # 기능 확인 경로
 
+## 살아있음·우리 사이 앱 등록 — T-261011-070
+
+- 진입점: `/#products` 「생활에 가까운 앱」. 계산기알람 다음, 노래찾기 앞(출시 순서). 2026-10-11 실측: 살아있음 App Store id6812609143(1.0.5, 10/05 출시)·Google Play `com.daejongkang.stillhere` 공개, 우리 사이 App Store id6816725770(1.0.0, 10/07 출시)·Google Play 미공개. 우리 사이 행은 App Store 링크 1개만 둔다. Google Play 주소를 추측해 넣지 않는다.
+- 아이콘: App Store artworkUrl512 JPG를 96/192px WebP로 줄였다(`public/product-icons/<appId>-<sha8>-96/192.webp`). 원본 주소·sha256은 `product-icon-sources.json`에 있다.
+- 영어: `i18n-en.json`에 앱 이름·설명·스토어 링크 이름 7개.
+- 우리 사이 소개(`/our-sai/`) 안내 문구: App Store 다운로드 링크, Android는 준비 중.
+- 1100px 이상 3열: 마지막 줄 밑줄 규칙을 앱 개수와 무관하게 바꿨다(`nth-child(3n+1):nth-last-child(-n+3)`와 그 뒤 형제). 9개면 마지막 줄 세 칸 모두 밑줄이 없다. 650~1099px 2열의 기존 밑줄 규칙은 그대로다.
+- 검증: `tests/life-apps.spec.mjs`(링크·아이콘·390/1440px·마지막 줄 밑줄·우리 사이 안내 문구), 앱 개수 검사 7→9(`one-page`·`site-renewal`), 아이콘 수 9→11(`theme-lang-layout`).
+
 ## 다크 모드·PC 넓은 레이아웃·한국어/EN 전환·가벼운 아이콘 — T-261011-068
 
 - 다크 모드: 기기 설정(prefers-color-scheme)을 따르고 토글은 없다. `SiteLayout`의 `theme="auto"`가 `<html data-theme="auto">`를 켜고, `src/styles/tokens.css`의 다크 블록이 토큰을 덮는다(초소와 같은 파란 계열: 바탕 #121519, 강조 #7aa2ff). 라이트는 `var(--토큰, 원래색)` 대체값으로 픽셀 그대로. 공용 헤더·푸터는 호스트의 `--mb-host-*` 변수를 상속해 같이 어두워지고, 변수를 정의하지 않는 founder 는 라이트 그대로다. 로고·사진·단백질·전자책 템플릿 페이지는 켜지 않았다.

@@ -58,7 +58,7 @@ test('the header toggle switches the whole page to English and back without relo
 
 test('product icons are small WebP files with 2x sources and valid JSON-LD is present',async({page})=>{
  await page.setViewportSize({width:1440,height:900}); await page.goto('/');
- const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(9);
+ const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(11);
  for(const image of await images.all()) {
   await expect(image).toHaveAttribute('src',/-96\.webp$/); await expect(image).toHaveAttribute('srcset',/-192\.webp 2x$/);
   await image.scrollIntoViewIfNeeded(); await expect.poll(()=>image.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);

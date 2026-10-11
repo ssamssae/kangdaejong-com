@@ -94,6 +94,17 @@ export const apps = [
     "package": "com.daejongkang.ireonayo"
   },
   {
+    "name": "살아있음",
+    "description": "두 사람이 하루 한 번 서로의 안부를 나눕니다.",
+    "appId": "6812609143",
+    "package": "com.daejongkang.stillhere"
+  },
+  {
+    "name": "우리 사이",
+    "description": "사진과 일기, 기념일로 둘만의 일상을 남깁니다.",
+    "appId": "6816725770"
+  },
+  {
     "name": "노래찾기",
     "description": "버튼 한 번으로 주변 음악의 제목과 가수를 찾습니다.",
     "appId": "6820080312"
