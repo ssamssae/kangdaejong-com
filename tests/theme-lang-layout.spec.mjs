@@ -58,12 +58,22 @@ test('the header toggle switches the whole page to English and back without relo
 
 test('product icons are small WebP files with 2x sources and valid JSON-LD is present',async({page})=>{
  await page.setViewportSize({width:1440,height:900}); await page.goto('/');
- const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(8);
+ const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(9);
  for(const image of await images.all()) {
   await expect(image).toHaveAttribute('src',/-96\.webp$/); await expect(image).toHaveAttribute('srcset',/-192\.webp 2x$/);
   await image.scrollIntoViewIfNeeded(); await expect.poll(()=>image.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
  }
  for(const entry of icons.icons.filter(i=>i.icon2x)) expect(entry.icon).toMatch(/-96\.webp$/);
+ // T-261011-068 후속: 그록봇이 만든 브릿지 4칸 카드·자비스 아이콘·브릿지 타일 4개.
+ const bridge=page.locator('#projects .project-card').filter({has:page.getByRole('heading',{name:'텔레그램 브릿지',exact:true})});
+ await expect(bridge.locator('.project-visual')).toHaveAttribute('alt','Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지');
+ await expect(bridge.locator('.project-mark')).toHaveCount(0);
+ const jarvis=page.locator('#projects .project-card').filter({has:page.getByRole('heading',{name:'자비스',exact:true})});
+ await expect(jarvis.locator('.project-icon')).toHaveAttribute('src',icons.icons.find(i=>i.name==='자비스').icon);
+ await page.locator('#open-tools summary').click();
+ const tiles=page.locator('.bridge-links .bridge-tile'); await expect(tiles).toHaveCount(4);
+ for(const tile of await tiles.all()) { await expect.poll(()=>tile.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true); }
+ expect(await bridge.locator('.project-visual').evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
  const ld=await page.locator('script[type="application/ld+json"]').textContent(); const graph=JSON.parse(ld)['@graph'];
  expect(graph.map(n=>n['@type'])).toEqual(['Organization','Person','WebSite']);
  expect(await page.evaluate(()=>[...document.querySelectorAll('h1,h2,h3')][0].tagName)).toBe('H1');

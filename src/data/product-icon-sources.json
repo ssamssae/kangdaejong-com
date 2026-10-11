@@ -155,6 +155,16 @@
       "derivedFrom": "/product-icons/ipta-779f2694b7.png",
       "derivedAt": "2026-10-11",
       "derivedNote": "ipta 1024px PNG 원본을 96/192px WebP로 축소. 화면 표시 40px. T-261011-068"
+    },
+    {
+      "name": "자비스",
+      "icon": "/product-icons/jarvis-6863105c-96.webp",
+      "icon2x": "/product-icons/jarvis-6863105c-192.webp",
+      "source": "https://github.com/ssamssae/jarvis-mac",
+      "sourceType": "designed-for-site",
+      "sha256": "6863105c6efba4ad9dc8aeb001e27872e0eb12eaa3bb3de52eb00b5baca76c30",
+      "checkedAt": "2026-10-11",
+      "derivedNote": "그록봇이 2026-10-11 그린 홈페이지용 자비스 아이콘(입타 아이콘 톤). 원본 1024px PNG sha256 위, 96/192px WebP 로 축소. jarvis-mac 저장소에는 로고가 없다. T-261011-068"
     }
   ]
 }

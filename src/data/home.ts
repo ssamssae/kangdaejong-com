@@ -19,27 +19,36 @@ export const books = [
   },
 ];
 
+// icon/icon2x: 그록봇이 2026-10-11 만든 4칸 카드(tgbridges_card.jpg)를 브릿지별로 자른 타일, 48/96px WebP (T-261011-068).
 export const tools = [
   {
     name: "Grok Telegram Bridge",
+    icon: "/product-icons/bridge-grok-f431e691-48.webp",
+    icon2x: "/product-icons/bridge-grok-f431e691-96.webp",
     description: "텔레그램으로 자기 컴퓨터의 Grok 세션을 사용하는 공개 브릿지.",
     repo: "https://github.com/ssamssae/grok-telegram-bridge",
     release: "https://github.com/ssamssae/grok-telegram-bridge/releases",
   },
   {
     name: "Codex Telegram Bridge",
+    icon: "/product-icons/bridge-codex-41955708-48.webp",
+    icon2x: "/product-icons/bridge-codex-41955708-96.webp",
     description: "Codex CLI 세션에 텍스트와 미디어를 전달하고 진행 상황을 받는 공개 브릿지.",
     repo: "https://github.com/ssamssae/codex-telegram-bridge",
     release: "https://github.com/ssamssae/codex-telegram-bridge/releases",
   },
   {
     name: "Claude Telegram Bridge",
+    icon: "/product-icons/bridge-claude-9e27b3a5-48.webp",
+    icon2x: "/product-icons/bridge-claude-9e27b3a5-96.webp",
     description: "Claude Code 세션을 텔레그램에 연결하는 공개 브릿지.",
     repo: "https://github.com/ssamssae/claude-telegram-bridge",
     release: "https://github.com/ssamssae/claude-telegram-bridge/releases",
   },
   {
     name: "Cursor Telegram Bridge",
+    icon: "/product-icons/bridge-cursor-2e723079-48.webp",
+    icon2x: "/product-icons/bridge-cursor-2e723079-96.webp",
     description: "텔레그램으로 자기 컴퓨터의 Cursor 세션에 질문하고 답변을 받는 공개 브릿지.",
     repo: "https://github.com/ssamssae/cursor-telegram-bridge",
     release: "https://github.com/ssamssae/cursor-telegram-bridge/releases",

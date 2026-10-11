@@ -190,5 +190,6 @@
  "__intro_title_html": "Hello.<br/>I'm <span>Daejong Kang</span>, and I build things.",
  "__title": "Daejong Kang — Small tools I build myself — Minus Beta Studio",
  "__description": "Daejong Kang's projects, all in one place: Telegram Bridge, 입타 voice typing, the 자비스 (Jarvis) voice assistant, everyday apps, and notes on what he learned while building them.",
- "언어 선택": "Language"
+ "언어 선택": "Language",
+ "Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지": "Claude, Codex, Grok and Cursor — four open-source Telegram bridges"
 }
