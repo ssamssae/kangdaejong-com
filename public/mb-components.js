@@ -3,7 +3,7 @@
   const BADGE = 'https://kangdaejong.com/brand/current/logo.svg';
   const BRAND_HREF = 'https://kangdaejong.com/';
 
-  // active = home|products|books|tools|protein|organization|system|workshop|worklog|newsletter|founder
+  // active = home|projects|products|contact|catalog|books|tools|protein|organization|founder|system|workshop|worklog|newsletter|timeline|work-system|lab|choso|ontology
   const NAV_PRIMARY = [
     { key: 'projects', label: '프로젝트', href: 'https://kangdaejong.com/#projects' },
     { key: 'products', label: '앱', href: 'https://kangdaejong.com/#products' },
@@ -23,7 +23,7 @@
     ] },
     { label: '작업과 기록', items: [
       { key: 'workshop', label: '작업장', description: '최근 작업과 이야기 한눈에', href: 'https://work.kangdaejong.com/' },
-      { key: 'worklog', label: '작업일지', description: '날마다 만든 것과 고친 것', href: 'https://work.kangdaejong.com/worklog' },
+      { key: 'worklog', label: '작업일지', description: '날마다 만든 것과 고친 것', href: 'https://work.kangdaejong.com/worklog/' },
       { key: 'newsletter', label: '뉴스레터', description: '과정에서 건진 이야기 · 새 탭', href: 'https://minusbetastudio.substack.com', newWindow: true },
       { key: 'timeline', label: '타임라인', description: '처음부터 지금까지의 변화', href: 'https://work.kangdaejong.com/timeline.html/' },
     ] },
@@ -43,10 +43,13 @@
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
     --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
   `;
+  // T-261011-068: studio tone follows the host page's --mb-host-* variables (set by kangdaejong.com
+  // tokens.css only when the device prefers dark); the var() fallbacks are the light values, so
+  // consumers that never define them (founder) keep the light palette unchanged.
   const PALETTE_STUDIO = `
-    --mb-bg:#ffffff; --mb-elev:#f7f8fa; --mb-fg:#242930; --mb-dim:#626b78; --mb-mute:#69717d;
-    --mb-border:#e6e8ed; --mb-soft:#f7f8fa; --mb-accent:#2458cc;
-    --mb-cta-bg:#2458cc; --mb-cta-fg:#ffffff;
+    --mb-bg:var(--mb-host-bg,#ffffff); --mb-elev:var(--mb-host-elev,#f7f8fa); --mb-fg:var(--mb-host-fg,#242930); --mb-dim:var(--mb-host-dim,#626b78); --mb-mute:var(--mb-host-mute,#69717d);
+    --mb-border:var(--mb-host-border,#e6e8ed); --mb-soft:var(--mb-host-soft,#f7f8fa); --mb-accent:var(--mb-host-accent,#2458cc);
+    --mb-cta-bg:var(--mb-host-cta-bg,#2458cc); --mb-cta-fg:#ffffff; --mb-shadow:var(--mb-host-shadow,#24293026);
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
     --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
@@ -74,7 +77,7 @@
           :host { ${hostPalette(this)} display:block; line-height:1.5; letter-spacing:normal; }
           * { box-sizing:border-box; }
           .header { position:relative; z-index:70; border-bottom:1px solid var(--mb-border); background:var(--mb-bg); font-family:var(--mb-sans); }
-          .inner { width:min(calc(100% - 48px),1000px); min-height:94px; margin:0 auto; display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:28px; }
+          .inner { width:min(calc(100% - 48px),var(--mb-max,1000px)); min-height:94px; margin:0 auto; display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:28px; }
           .brand { display:inline-flex; align-items:center; gap:11px; color:var(--mb-fg); font-size:15px; font-weight:650; text-decoration:none; white-space:nowrap; }
           .brand img { width:30px; height:30px; display:block; }
           .brand small { display:block; font-size:10px; font-weight:450; color:var(--mb-mute); margin-top:1px; }
@@ -89,7 +92,7 @@
           .more-button:hover,.more-button.active,.more.open .more-button { background:var(--mb-soft); border-color:var(--mb-accent); color:var(--mb-accent); }
           .chevron { display:inline-block; margin-left:7px; font-size:10px; transition:transform .16s ease; }
           .more.open .chevron { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:max(24px,calc((100% - 1000px)/2)); top:calc(100% + 8px); width:min(780px,calc(100% - 48px)); padding:22px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:18px; box-shadow:0 18px 55px #24293026; max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; }
+          .more-panel { position:absolute; right:max(24px,calc((100% - var(--mb-max,1000px))/2)); top:calc(100% + 8px); width:min(780px,calc(100% - 48px)); padding:22px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:18px; box-shadow:0 18px 55px var(--mb-shadow,#24293026); max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; }
           .more-panel[hidden] { display:none; }
           .panel-heading { display:flex; justify-content:space-between; align-items:center; gap:16px; padding-bottom:16px; border-bottom:1px solid var(--mb-border); }
           .panel-heading strong { font-size:17px; letter-spacing:-.03em; }
@@ -106,9 +109,15 @@
           .current { margin-left:auto; font-size:9px; font-weight:500; white-space:nowrap; color:var(--mb-accent); }
           .contact { display:inline-flex; min-height:44px; align-items:center; justify-content:center; padding:0 14px; border:1px solid var(--mb-border); border-radius:9px; color:var(--mb-fg); font-size:13px; font-weight:600; text-decoration:none; }
           .contact:hover { border-color:var(--mb-accent); color:var(--mb-accent); }
+          .lang { display:inline-flex; align-items:center; border:1px solid var(--mb-border); border-radius:9px; overflow:hidden; }
+          .lang-button { min-height:42px; padding:0 11px; border:0; background:transparent; color:var(--mb-dim); cursor:pointer; font:600 12px var(--mb-sans); }
+          .lang-button + .lang-button { border-left:1px solid var(--mb-border); }
+          .lang-button:hover { color:var(--mb-accent); }
+          .lang-button[aria-pressed="true"] { background:var(--mb-soft); color:var(--mb-accent); }
           :where(a,button):focus-visible { outline:2px solid var(--mb-accent); outline-offset:3px; }
           @media(max-width:650px) {
             .inner { width:calc(100% - 40px); min-height:76px; gap:13px; }
+            .lang-button { min-height:40px; padding:0 8px; font-size:11px; }
             .brand { font-size:14px; gap:8px; }.brand small { display:none; }.brand img { width:28px; height:28px; }
             .links { gap:14px; font-size:12px; }.link-title { font-size:12px; }.more-button { font-size:12px; padding:0 8px; border:0; }.chevron { margin-left:4px; }
             .more-panel { width:calc(100% - 24px); right:12px; padding:16px; max-height:calc(100dvh - 105px); }
@@ -122,6 +131,7 @@
             <a class="brand" href="${BRAND_HREF}" aria-label="강대종 홈"><img src="${BADGE}" alt="" width="30" height="30"/><span>강대종<small>마이너스베타스튜디오</small></span></a>
             <nav class="links" aria-label="주요 메뉴">${NAV_PRIMARY.map(makeLink).join('')}</nav>
             <div class="actions">
+              ${this.hasAttribute('lang-toggle') ? `<div class="lang" role="group" aria-label="언어 선택"><button class="lang-button" type="button" data-lang="ko" lang="ko" aria-pressed="true" data-i18n-skip>한국어</button><button class="lang-button" type="button" data-lang="en" lang="en" aria-pressed="false" data-i18n-skip>EN</button></div>` : ''}
               <div class="more">
                 <button class="more-button${moreActive ? ' active' : ''}" type="button" aria-expanded="false" aria-controls="studio-navigation">둘러보기<span class="chevron" aria-hidden="true">⌄</span></button>
                 <nav class="more-panel" id="studio-navigation" aria-label="스튜디오 둘러보기" hidden>
@@ -161,7 +171,24 @@
       this._outsideFocus = event => { if (!event.composedPath().includes(this)) closeMenu(); };
       document.addEventListener('click', this._outsideClick);
       document.addEventListener('focusin', this._outsideFocus);
+      // T-261011-068: optional 한국어/EN toggle. The host page listens for mb-lang-change and swaps its copy.
+      const langGroup = root.querySelector('.lang');
+      if (langGroup) {
+        this._paintLang = () => {
+          const current = this.getAttribute('lang') || 'ko';
+          langGroup.querySelectorAll('.lang-button').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.lang === current)));
+        };
+        langGroup.addEventListener('click', event => {
+          const button = event.target.closest('.lang-button');
+          if (!button) return;
+          this.setAttribute('lang', button.dataset.lang);
+          this.dispatchEvent(new CustomEvent('mb-lang-change', { detail: { lang: button.dataset.lang }, bubbles: true, composed: true }));
+        });
+        this._paintLang();
+      }
     }
+    static get observedAttributes() { return ['lang']; }
+    attributeChangedCallback() { if (this._paintLang) this._paintLang(); }
     disconnectedCallback() {
       document.removeEventListener('click', this._outsideClick);
       document.removeEventListener('focusin', this._outsideFocus);
@@ -174,7 +201,7 @@
       root.innerHTML = `
         <style>
           :host { ${hostPalette(this)} display:block; }
-          footer { width:min(calc(100% - 48px),1000px); margin:0 auto; padding:42px 0 58px; border-top:1px solid var(--mb-border); color:var(--mb-mute); font-family:var(--mb-sans); font-size:12px; line-height:1.7; }
+          footer { width:min(calc(100% - 48px),var(--mb-max,1000px)); margin:0 auto; padding:42px 0 58px; border-top:1px solid var(--mb-border); color:var(--mb-mute); font-family:var(--mb-sans); font-size:12px; line-height:1.7; }
           .foot-head { display:flex; align-items:baseline; justify-content:space-between; gap:20px; margin-bottom:18px; }
           .foot-head strong { color:var(--mb-fg); font-family:var(--mb-sans); font-size:15px; font-weight:650; }
           .foot-head a { color:var(--mb-fg); text-decoration:none; }

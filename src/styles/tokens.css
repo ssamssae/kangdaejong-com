@@ -10,7 +10,7 @@
   --cta-bg: #2458cc;
   --code-bg: #f7f8fa;
   --page-gutter: 24px;
-  --page-max: 1000px;
+  --page-max: 1440px; /* T-261011-068: PC에서 넓게 (옛 1000px). 헤더·푸터·본문이 같은 값을 쓴다. */
   --header-h: 88px;
   --pad-head-bottom: 48px;
   --radius-pill: 9999px;
@@ -62,4 +62,74 @@
   --gap-card: 24px;
   --pad-section: 80px;
   --pad-section-sm: 48px;
+}
+
+/* T-261011-068 · 다크 모드 — 기기 설정(prefers-color-scheme)을 따른다. 수동 토글 없음.
+   페이지가 SiteLayout의 theme="auto"로 <html data-theme="auto">를 켠 경우에만 적용된다.
+   라이트 값은 위 :root 그대로. --text-2 같은 역할 토큰은 다크에서만 정의하고, 각 선언은
+   var(--토큰, 원래색) 대체값으로 라이트 화면을 픽셀 그대로 유지한다. 팔레트는 초소(choso)
+   다크 팔레트와 같은 파란 계열(#121519 바탕, #7aa2ff 강조). */
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] {
+    color-scheme: dark;
+    --bg: #121519;
+    --bg-elev: #191d23;
+    --bg-tint: #1a2130;
+    --fg-faint: #8b95a3;
+    --accent-hover: #9ab8ff;
+    --accent-tint: #1d2a44;
+    --cta-bg: #2f63d6;
+    --code-bg: #1f242b;
+    --bg-elev2: #1f242b;
+    --border: #2c333c;
+    --border-soft: #272e37;
+    --fg: #e3e7ed;
+    --fg-dim: #bfc7d2;
+    --fg-mute: #a0aab7;
+    --cyan: #7aa2ff;
+    --magenta: #8fb59a;
+    --accent: #7aa2ff;
+    --accent-cta: #2f63d6;
+    --accent-2: #8fb59a;
+    --accent-dim: #9ab8ff;
+    --cta-fg: #ffffff;
+    --danger: #ff9d8f;
+    --success: #8ad47f;
+    --warn: #f2b46a;
+    --danger-bg: #3d1f1c;
+    --accent-bg: #1d2a44;
+    --invert-bg: #e3e7ed;
+    --invert-fg: #121519;
+    --invert-dim: #4a5360;
+    --invert-border: #bfc7d2;
+    --shadow: 0 6px 24px #00000059;
+    --shadow-pop: 0 16px 40px #000000a6;
+    /* 역할 토큰 (다크 전용 정의) */
+    --text-2: #bfc7d2;
+    --text-3: #a0aab7;
+    --text-4: #8b95a3;
+    --surface-2: #1f242b;
+    --surface-3: #272e37;
+    --line-soft: #242a32;
+    --accent-line: #2a3a5e;
+    --accent-text: #dfe8ff;
+    --accent-text-2: #aec2f2;
+    --accent-text-3: #b9c6e0;
+    --mood-fg: #cdd5e0;
+    --mood-hover: #232a33;
+    --mood-hover-line: #4f5967;
+    --social-fg: #cdd5e0;
+    /* 공용 헤더·푸터(mb-components.js, shadow DOM)가 상속받는 호스트 팔레트.
+       라이트에서는 정의하지 않아 컴포넌트의 var() 대체값(원래 색)이 쓰인다. */
+    --mb-host-bg: #121519;
+    --mb-host-elev: #191d23;
+    --mb-host-fg: #e3e7ed;
+    --mb-host-dim: #bfc7d2;
+    --mb-host-mute: #a0aab7;
+    --mb-host-border: #2c333c;
+    --mb-host-soft: #1f242b;
+    --mb-host-accent: #7aa2ff;
+    --mb-host-cta-bg: #2f63d6;
+    --mb-host-shadow: #000000a6;
+  }
 }

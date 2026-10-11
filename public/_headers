@@ -1,3 +1,16 @@
+# T-261011-068: baseline security headers for every page. CSP is intentionally not set here
+# (inline module scripts + Cloudflare email-decode would need per-build hashes).
+/*
+  Strict-Transport-Security: max-age=31536000
+  X-Frame-Options: SAMEORIGIN
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# T-261011-068: hashed build output and content-hashed icons never change in place — cache for a year.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+/product-icons/*
+  Cache-Control: public, max-age=31536000, immutable
+
 # Shared canonical header/components — must propagate to all consumer sites fast.
 # Short cache (was default 4h, which made header edits invisible for hours). (T-260627-20)
 /mb-components.js

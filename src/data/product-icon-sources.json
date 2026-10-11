@@ -5,41 +5,57 @@
       "name": "한줄일기",
       "storeName": "한줄일기 - 하루 한 줄",
       "appId": "6764308678",
-      "icon": "/product-icons/6764308678-f4fa94ec51.jpg",
+      "icon": "/product-icons/6764308678-f4fa94ec-96.webp",
       "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e1/ad/b7/e1adb7a4-9704-0369-d058-e4e48dcb9ffa/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
       "version": "1.4.3",
-      "sha256": "f4fa94ec511dca63fb02f8a62a4fc6731ada0585e26612c048b08b5e6ce382dd"
+      "sha256": "f4fa94ec511dca63fb02f8a62a4fc6731ada0585e26612c048b08b5e6ce382dd",
+      "derivedFrom": "/product-icons/6764308678-f4fa94ec51.jpg",
+      "icon2x": "/product-icons/6764308678-f4fa94ec-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "원본(derivedFrom, sha256=source 파일)을 96/192px WebP로 축소. 화면 표시 48px. T-261011-068"
     },
     {
       "name": "메모요",
       "storeName": "메모요",
       "appId": "6762068073",
-      "icon": "/product-icons/6762068073-9fffec3bbd.jpg",
+      "icon": "/product-icons/6762068073-9fffec3b-96.webp",
       "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/cc/6c/0bcc6cf8-b022-c9f3-37d3-70fdb421f8e0/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
       "version": "1.0.19",
-      "sha256": "9fffec3bbd2eaa6d8e21c97d2748480bb54364e0875d53736fddb35d7cb7ae0c"
+      "sha256": "9fffec3bbd2eaa6d8e21c97d2748480bb54364e0875d53736fddb35d7cb7ae0c",
+      "derivedFrom": "/product-icons/6762068073-9fffec3bbd.jpg",
+      "icon2x": "/product-icons/6762068073-9fffec3b-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "원본(derivedFrom, sha256=source 파일)을 96/192px WebP로 축소. 화면 표시 48px. T-261011-068"
     },
     {
       "name": "더치페이 계산기",
       "storeName": "더치페이 계산기",
       "appId": "6762072499",
-      "icon": "/product-icons/dutchPayCalculator-0e89d465a7f4.png",
+      "icon": "/product-icons/dutchPayCalculator-0e89d465-96.webp",
       "source": "https://github.com/ssamssae/dutch_pay_calculator/blob/b5b1a5f676f0bfed1c4b1c3994b5b0a00bfcbff2/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
       "sha256": "0e89d465a7f4da65d80592585ff2725f1d374555499c5076469c4ab634d3dff1",
       "revision": "b5b1a5f676f0bfed1c4b1c3994b5b0a00bfcbff2",
       "checkedAt": "2026-10-03",
-      "sourceType": "repository-main"
+      "sourceType": "repository-main",
+      "derivedFrom": "/product-icons/dutchPayCalculator-0e89d465a7f4.png",
+      "icon2x": "/product-icons/dutchPayCalculator-0e89d465-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "원본(derivedFrom, sha256=source 파일)을 96/192px WebP로 축소. 화면 표시 48px. T-261011-068"
     },
     {
       "name": "약먹자",
       "storeName": "약먹자 - 복용 알림",
       "appId": "6762100639",
-      "icon": "/product-icons/yakmukja-f16ca3ee8023.png",
+      "icon": "/product-icons/yakmukja-f16ca3ee-96.webp",
       "source": "https://github.com/ssamssae/yakmukja/blob/8aab6ce82c385850c5268fae31d78fd65f25a0eb/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
       "sha256": "f16ca3ee802305ec605d5974c77dc530a5b0ad942c5e84481b315a07fb142cfe",
       "revision": "8aab6ce82c385850c5268fae31d78fd65f25a0eb",
       "checkedAt": "2026-10-03",
-      "sourceType": "repository-main"
+      "sourceType": "repository-main",
+      "derivedFrom": "/product-icons/yakmukja-f16ca3ee8023.png",
+      "icon2x": "/product-icons/yakmukja-f16ca3ee-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "원본(derivedFrom, sha256=source 파일)을 96/192px WebP로 축소. 화면 표시 48px. T-261011-068"
     },
     {
       "name": "단어요",
@@ -72,10 +88,14 @@
       "name": "심플 가계부",
       "storeName": "심플 가계부",
       "appId": "6769037337",
-      "icon": "/product-icons/6769037337-2ad919041d.jpg",
+      "icon": "/product-icons/6769037337-2ad91904-96.webp",
       "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/bd/fd/23/bdfd23bd-6982-5241-1a5b-b1165fe61e8d/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
       "version": "1.0.1",
-      "sha256": "2ad919041df6311b93bf030ffcbdd7746948d3646e3e96e273c08e2d1e2d2a73"
+      "sha256": "2ad919041df6311b93bf030ffcbdd7746948d3646e3e96e273c08e2d1e2d2a73",
+      "derivedFrom": "/product-icons/6769037337-2ad919041d.jpg",
+      "icon2x": "/product-icons/6769037337-2ad91904-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "원본(derivedFrom, sha256=source 파일)을 96/192px WebP로 축소. 화면 표시 48px. T-261011-068"
     },
     {
       "name": "행운번호 생성기",
@@ -104,21 +124,37 @@
     },
     {
       "name": "계산기알람",
-      "icon": "/product-icons/ireonayo-14aeddc80846.png",
+      "icon": "/product-icons/ireonayo-14aeddc8-96.webp",
       "source": "https://github.com/ssamssae/motjayo/blob/e9998bb6b0dedc63fcf58aaae101c49a621032a7/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
       "sha256": "14aeddc80846ed737270bbfe8972252ecb4e80917dc5e7dd31bca72122f5c92a",
       "revision": "e9998bb6b0dedc63fcf58aaae101c49a621032a7",
       "checkedAt": "2026-10-03",
-      "sourceType": "repository-main"
+      "sourceType": "repository-main",
+      "derivedFrom": "/product-icons/ireonayo-14aeddc80846.png",
+      "icon2x": "/product-icons/ireonayo-14aeddc8-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "원본(derivedFrom, sha256=source 파일)을 96/192px WebP로 축소. 화면 표시 48px. T-261011-068"
     },
     {
       "name": "노래찾기",
       "storeName": "노래찾기",
       "appId": null,
-      "icon": "/product-icons/noraechatgi-ccdf5b0ad0.jpg",
+      "icon": "/product-icons/noraechatgi-ccdf5b0a-96.webp",
       "source": "https://github.com/ssamssae/noraechatgi/blob/main/assets/icon/icon-1024.png",
       "version": "1.0.0 (출시 전)",
-      "sha256": "ccdf5b0ad0006aa6facba2e3f39a7c2e8948d8653e9f0cae694722554b84ea2c"
+      "sha256": "ccdf5b0ad0006aa6facba2e3f39a7c2e8948d8653e9f0cae694722554b84ea2c",
+      "derivedFrom": "/product-icons/noraechatgi-ccdf5b0ad0.jpg",
+      "icon2x": "/product-icons/noraechatgi-ccdf5b0a-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "원본(derivedFrom, sha256=source 파일)을 96/192px WebP로 축소. 화면 표시 48px. T-261011-068"
+    },
+    {
+      "name": "입타",
+      "icon": "/product-icons/ipta-779f2694-96.webp",
+      "icon2x": "/product-icons/ipta-779f2694-192.webp",
+      "derivedFrom": "/product-icons/ipta-779f2694b7.png",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "ipta 1024px PNG 원본을 96/192px WebP로 축소. 화면 표시 40px. T-261011-068"
     }
   ]
 }
