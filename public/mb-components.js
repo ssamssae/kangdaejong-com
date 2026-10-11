@@ -31,6 +31,7 @@
       { key: 'work-system', label: '개발·운영 시스템', description: '작업을 지탱하는 도구와 구조', href: 'https://work.kangdaejong.com/system/' },
       { key: 'lab', label: '실험실', description: '시험해 본 것과 배운 점', href: 'https://work.kangdaejong.com/lab/' },
       { key: 'choso', label: '초소', description: '공개된 운영 현황 둘러보기', href: 'https://choso.kangdaejong.com/guest' },
+      { key: 'ontology', label: '운영 정의', description: '초소 로그인 후 종류·관계·규칙 읽기', href: 'https://choso.kangdaejong.com/ontology' },
     ] },
   ];
 
