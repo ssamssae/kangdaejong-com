@@ -119,6 +119,16 @@
       "source": "https://github.com/ssamssae/noraechatgi/blob/main/assets/icon/icon-1024.png",
       "version": "1.0.0 (출시 전)",
       "sha256": "ccdf5b0ad0006aa6facba2e3f39a7c2e8948d8653e9f0cae694722554b84ea2c"
+    },
+    {
+      "name": "자비스",
+      "icon": "/product-icons/jarvis-6863105c6e.png",
+      "source": "https://github.com/ssamssae/jarvis-mac",
+      "sourcePage": "https://work.kangdaejong.com/jarvis",
+      "sourceType": "designed-for-site",
+      "checkedAt": "2026-10-11",
+      "sha256": "6863105c6efba4ad9dc8aeb001e27872e0eb12eaa3bb3de52eb00b5baca76c30",
+      "note": "jarvis-mac has no logo or app icon, and work.kangdaejong.com/jarvis uses only the studio brand. Drawn for this page in the 입타 icon style."
     }
   ]
 }

@@ -23,6 +23,12 @@ const routes = [
 test("home presents apps, books and all four bridges", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("h1")).toContainText("강대종");
+  const bridge = page.locator("#projects .project-card").filter({ has: page.getByRole("heading", { name: "텔레그램 브릿지", exact: true }) });
+  await expect(bridge.locator("img")).toHaveAttribute("alt", "Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지");
+  await expect(bridge.locator(".project-mark")).toHaveCount(0);
+  const jarvis = page.locator("#projects .project-card").filter({ has: page.getByRole("heading", { name: "자비스", exact: true }) });
+  await expect(jarvis.locator("img")).toHaveAttribute("src", "/product-icons/jarvis-6863105c6e.png");
+  await expect(jarvis.locator(".project-mark")).toHaveCount(0);
   await expect(page.locator(".app-row")).toHaveCount(7);
   await expect(page.locator(".book-row")).toHaveCount(3);
   await page.locator("#open-tools > summary").click();

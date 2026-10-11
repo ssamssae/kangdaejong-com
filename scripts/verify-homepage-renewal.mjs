@@ -12,6 +12,8 @@ const checks = [
  ['retired apps are not promoted', !/단어요|한컵|포모도로|첫이름|한장택일|한장궁합/.test(home + data)],
  ['retired books link to closure notice', !data.includes('kmong.com/gig/') && (data.match(/판매 종료/g) || []).length === 3 && home.includes('전자책 판매 종료 안내')],
  ['four bridge repos and releases remain', ['grok','codex','claude','cursor'].every(name => data.includes(`ssamssae/${name}-telegram-bridge`) && data.includes(`ssamssae/${name}-telegram-bridge/releases`))],
+ ['telegram bridge card shows the four-bridge image', home.includes('/product-screens/telegram-bridges-531861e1cd.jpg') && home.includes('Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지')],
+ ['jarvis card uses a drawn icon', home.includes('/product-icons/jarvis-6863105c6e.png')],
  ['optional content and contact remain', home.includes('<MoodCorner') && home.includes('<SocialBanner compact') && home.includes('<StudioFooter compact')],
  ['business details remain', read('src/components/StudioFooter.astro').includes('878-21-02478')],
 ];
