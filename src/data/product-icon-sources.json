@@ -149,6 +149,30 @@
       "derivedNote": "원본(derivedFrom, sha256=source 파일)을 96/192px WebP로 축소. 화면 표시 48px. T-261011-068"
     },
     {
+      "name": "살아있음",
+      "storeName": "살아있음 - StillHere",
+      "appId": "6812609143",
+      "icon": "/product-icons/6812609143-282708d5-96.webp",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ba/89/18/ba891857-3b7b-9521-4647-2e46019d6aca/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "version": "1.0.5",
+      "sha256": "282708d5fa730ed2e27571f9c8882896b873fae446034297838eb1eb51814e52",
+      "icon2x": "/product-icons/6812609143-282708d5-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "App Store 512px JPG(source, sha256)를 96/192px WebP로 축소. 화면 표시 48px. 저장소에는 WebP 만 둔다. T-261011-070"
+    },
+    {
+      "name": "우리 사이",
+      "storeName": "우리 사이 - 둘만의 기록",
+      "appId": "6816725770",
+      "icon": "/product-icons/6816725770-ef35b79c-96.webp",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c7/ab/55/c7ab5552-8110-6f91-2a87-8777909766e5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "version": "1.0.0",
+      "sha256": "ef35b79c24e4471098383dd42065a783d8c98294ecaec47d0eee89ce25c9d99c",
+      "icon2x": "/product-icons/6816725770-ef35b79c-192.webp",
+      "derivedAt": "2026-10-11",
+      "derivedNote": "App Store 512px JPG(source, sha256)를 96/192px WebP로 축소. 화면 표시 48px. 저장소에는 WebP 만 둔다. T-261011-070"
+    },
+    {
       "name": "입타",
       "icon": "/product-icons/ipta-779f2694-96.webp",
       "icon2x": "/product-icons/ipta-779f2694-192.webp",
