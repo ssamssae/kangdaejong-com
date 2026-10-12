@@ -1,5 +1,8 @@
 ---
+import brandManifest from "../../public/brand/manifest.json";
 const destination = 'https://protein.kangdaejong.com/';
+// T-261012-040: 이동 껍데기도 링크 미리보기에 공용 카드를 보이고, 다크 기기에서 흰 화면이 번쩍이지 않게 한다.
+const ogImage = `https://kangdaejong.com/brand/current/social.png?v=${brandManifest.files["social.png"].sha256.slice(0, 16)}`;
 ---
 <!doctype html>
-<html lang="ko"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta http-equiv="refresh" content={`0;url=${destination}`}/><link rel="canonical" href={destination}/><meta name="robots" content="noindex"/><title>단백질 도감으로 이동</title></head><body><p><a href={destination}>단백질 도감으로 이동합니다.</a></p></body></html>
+<html lang="ko"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><meta name="color-scheme" content="light dark"/><meta http-equiv="refresh" content={`0;url=${destination}`}/><link rel="canonical" href={destination}/><meta name="robots" content="noindex"/><title>단백질 도감으로 이동</title><meta property="og:title" content="단백질 도감으로 이동"/><meta property="og:url" content={destination}/><meta property="og:image" content={ogImage}/><meta name="twitter:card" content="summary_large_image"/><meta name="twitter:image" content={ogImage}/></head><body><p><a href={destination}>단백질 도감으로 이동합니다.</a></p></body></html>

@@ -15,6 +15,7 @@
     "verify:organization-tone": "node scripts/verify-organization-tone.mjs",
     "verify:homepage-renewal": "node scripts/verify-homepage-renewal.mjs",
     "verify:tone-pairs": "node scripts/verify-tone-pairs.mjs",
+    "verify:dark-cards": "node scripts/verify-dark-cards.mjs",
     "test": "playwright test",
     "preview": "astro preview",
     "astro": "astro",
