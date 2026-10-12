@@ -61,6 +61,7 @@ async function openMolecule(button) {
   }
   title.textContent = `${button.dataset.name} · ${button.dataset.code}`;
   image.href = `/protein/${button.dataset.molecule}.png`;
+  image.dataset.darkHref = `/protein/dark/${button.dataset.molecule}.webp`;
   stage.setAttribute('aria-label', `${button.dataset.name} 회전 가능한 분자 모형`);
   stage.setAttribute('aria-busy', 'true');
   status.textContent = '3D 구조를 불러오는 중입니다…';
@@ -76,7 +77,9 @@ async function openMolecule(button) {
     const sdf = await response.text();
     if (id !== requestId || !dialog.open) return;
     if (!viewer) {
-      viewer = library.createViewer(stage, { antialias: true, backgroundColor: '#eeede7' });
+      // T-261012-024: 기기 설정이 다크면 3D 뷰어 바탕도 다크 --bg-elev(#191d23).
+      const dark = document.documentElement.dataset.theme === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches;
+      viewer = library.createViewer(stage, { antialias: true, backgroundColor: dark ? '#191d23' : '#eeede7' });
     }
     viewer.resize();
     viewer.removeAllModels();

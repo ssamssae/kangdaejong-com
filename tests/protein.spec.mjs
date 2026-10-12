@@ -137,3 +137,20 @@ test('closing during loading does not replace a subsequently opened molecule', a
   await expect(page.getByRole('dialog')).toHaveAccessibleName('트립토판 · Trp');
   await page.getByRole('button', { name: '3D 보기 닫기' }).click();
 });
+
+// T-261012-024: 기기 설정이 다크면 회사홈·작업장과 같은 다크 팔레트, 그림은 다크 바탕판(lighten 합성), 확대도 다크판.
+test('dark scheme uses the company dark palette and dark molecule images', async ({ page }) => {
+  await page.emulateMedia({ colorScheme: 'dark' });
+  await page.goto('/');
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
+  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 21, 25)');
+  const first = page.locator('.amino-card .structure-link img').first();
+  await first.scrollIntoViewIfNeeded();
+  await expect(first).toHaveJSProperty('complete', true);
+  expect(await first.evaluate(el => new URL(el.currentSrc).pathname)).toMatch(/^\/protein\/dark\/[a-z-]+\.webp$/);
+  await expect(first).toHaveCSS('mix-blend-mode', 'lighten');
+  await page.locator('.amino-card .structure-link').first().click();
+  const zoomed = page.locator('#protein-image-dialog img');
+  await expect(zoomed).toBeVisible();
+  expect(await zoomed.evaluate(el => new URL(el.src).pathname)).toMatch(/^\/protein\/dark\/[a-z-]+\.webp$/);
+});
