@@ -1,5 +1,12 @@
 # 기능 확인 경로
 
+## 사다리요 개인정보 처리 안내 — T-261012-019
+
+- 진입점: `/privacy-sadariyo/` (App Store·Google Play 제출용 개인정보처리방침 URL). 홈 앱 목록(`src/data/home.ts`) 반영은 심사 통과 뒤 별도 단계(T-261012-018)라 이번에는 페이지만 더한다.
+- 기대 결과: h1 「사다리요 개인정보 처리 안내」, 수집 없음·기기 안 저장(앱이 밖으로 보내지 않음)·네트워크/광고/분석 없음·권한 없음·문의 메일, canonical `https://kangdaejong.com/privacy-sadariyo/`. 앱 안 안내(`ssamssae/sadariyo` `lib/about/about_sheet.dart`)와 같은 내용이다.
+- 검증: `tests/sadariyo.spec.mjs`. 라이브 응답은 배포 뒤 여러 번 받아 200 을 확인한다.
+- 사이트맵: canonical 이 경로와 같아 `dist/sitemap.xml` 에 자동으로 들어간다. `tests/audit-fixes.spec.mjs` 의 사이트맵 목록 검사는 이 변경 전부터 origin/main 에서 RED 다(목록 10개, 실제 12개 — 노래찾기 2페이지 미반영).
+
 ## 살아있음·우리 사이 앱 등록 — T-261011-070
 
 - 진입점: `/#products` 「생활에 가까운 앱」. 계산기알람 다음, 노래찾기 앞(출시 순서). 2026-10-11 실측: 살아있음 App Store id6812609143(1.0.5, 10/05 출시)·Google Play `com.daejongkang.stillhere` 공개, 우리 사이 App Store id6816725770(1.0.0, 10/07 출시)·Google Play 미공개. 우리 사이 행은 App Store 링크 1개만 둔다. Google Play 주소를 추측해 넣지 않는다.
