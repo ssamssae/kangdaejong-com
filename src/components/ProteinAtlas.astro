@@ -7,7 +7,7 @@ const sources = new Map(molecularData.aminoAcids.map(item => [item.slug, item.pu
 const groups = ['전체', '비극성', '방향족', '극성', '산성', '염기성'];
 const description = '단백질을 구성하는 표준 아미노산 20종을 3D 분자 그림으로 만나보세요. 이름, 구조, 곁사슬의 성질을 한곳에서 살펴봅니다.';
 ---
-<SiteLayout title="단백질 · 아미노산 20" description={description} canonical="https://protein.kangdaejong.com/" active="protein" bodyClass="studio-page" theme="auto">
+<SiteLayout title="단백질 · 아미노산 20" description={description} canonical="https://protein.kangdaejong.com/" active="protein" bodyClass="studio-page" theme="auto" langToggle>
   <main id="main-content" class="protein-shell studio-width">
     <section class="protein-hero studio-hero" aria-labelledby="protein-title">
       <div class="hero-copy">
@@ -65,6 +65,7 @@ const description = '단백질을 구성하는 표준 아미노산 20종을 3D �
 </SiteLayout>
 <script>
   import "../scripts/protein-viewer.js";
+  import "../scripts/lang-toggle-protein.js";
   const search = document.querySelector<HTMLInputElement>('.search input')!;
   const filters = document.querySelectorAll<HTMLButtonElement>('[data-group]');
   const cards = document.querySelectorAll<HTMLElement>('.amino-card');
