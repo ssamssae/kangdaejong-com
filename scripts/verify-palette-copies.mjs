@@ -27,6 +27,8 @@ const hits = [];
 for (const file of files) {
   readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
     if (line.includes('tokens:fixed')) return;
+    // 자기 자신을 가리키는 정의(--border: var(--border))는 값이 비어 색이 사라진다(T-261013-004 실사고).
+    for (const m of line.matchAll(/(--[\w-]+)\s*:\s*var\(\s*(--[\w-]+)\s*\)/g)) if (m[1] === m[2]) hits.push(`${file}:${i + 1}: ${m[0]} (자기 참조)  ${line.trim().slice(0, 80)}`);
     for (const m of line.matchAll(pattern)) {
       if (longs.has(asLong(m[0]))) hits.push(`${file}:${i + 1}: ${m[0]}  ${line.trim().slice(0, 100)}`);
     }
