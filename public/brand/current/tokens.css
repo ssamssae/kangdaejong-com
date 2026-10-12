@@ -42,6 +42,7 @@
   --text-2: var(--fg-dim);
   --text-3: var(--fg-mute);
   --text-4: #98a4b5;
+  --surface: #ffffff; /* 카드·패널 바탕(라이트 = 흰 바탕, 다크 = 한 단 밝게) */
   --surface-2: #f7f8fa;
   --surface-3: #eef1f5;
   --line-soft: #f0f1f4;
@@ -104,6 +105,7 @@
     --shadow: 0 6px 24px #00000059;
     --shadow-pop: 0 16px 40px #000000a6;
     --text-4: #8b95a3;
+    --surface: #191d23;
     --surface-2: #1f242b;
     --surface-3: #272e37;
     --line-soft: #242a32;
