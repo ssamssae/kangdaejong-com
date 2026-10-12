@@ -50,6 +50,14 @@ for (const root of roots) {
     pages += 1;
   }
 }
+// T-261013-004: 공용 tokens.css 는 https://kangdaejong.com 에서 온다. www·다른 경로에서 그 파일을 막는 CSP 가 있으면
+// 페이지가 색 없이 뜬다(실사고: www.kangdaejong.com/photo/ 의 style-src 'self'). style-src 를 가진 모든 CSP 가 그 주소를 허용해야 한다.
+for (const line of fs.readFileSync('public/_headers', 'utf8').split('\n')) {
+  const csp = line.match(/Content-Security-Policy:\s*(.*)$/i);
+  if (!csp) continue;
+  const style = csp[1].split(';').map((s) => s.trim()).find((s) => s.startsWith('style-src'));
+  if (style && !style.split(/\s+/).includes('https://kangdaejong.com')) errors.push(`public/_headers: style-src 가 공용 tokens.css 주소를 막는다 — ${style}`);
+}
 if (errors.length) {
   console.error(errors.slice(0, 30).join('\n'));
   console.error(`dark/card verification failed: ${errors.length} problems in ${pages} pages`);
