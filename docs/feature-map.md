@@ -88,7 +88,7 @@
 
 ## T-261012-029 · 우리 사이 다크 모드·단백질 한국어/EN 전환
 
-- 「우리 사이」 안내 4페이지(OurSaiLayout): `theme="auto"`, 보라 톤 리터럴은 `var(--os-*, 원래색)` — 다크에선 밝은 보라(#b997f2·#c3a5f6)와 #251f2f 안내 상자.
+- 「우리 사이」 안내 4페이지(OurSaiLayout): `theme="auto"` 만 켠다. 레이아웃의 보라색·800px 지정은 회사 공용 스타일에 덮여 라이트에서도 쓰이지 않으므로(실측: 브랜드·링크 #2458cc, 폭 none) 다크도 회사 토큰(#7aa2ff 등)을 그대로 따른다.
 - 전환 로직은 `src/scripts/lang-toggle-core.js` 의 `startLangToggle(dict)` 하나다. 홈 = `lang-toggle.js`(i18n-en.json), 단백질 = `lang-toggle-protein.js`(i18n-protein-en.json). `SiteLayout langToggle` 이 공용 헤더에 전환 버튼을 띄운다. 대표소개(ssamssae.github.io)의 `lang-toggle.js` 는 이 core 의 사본이다 — 고칠 땐 양쪽을 같이.
 - core 보강: 검색칸 `placeholder` 번역, 페이지 스크립트가 나중에 바꾼 문구·속성(3D 뷰어 aria-label)은 새 원문으로 인식, 처음부터 마크업에 있던 영어(카드의 'Glycine')는 한국어 복귀 때 역번역하지 않음.
 - 단백질 사전 318항목: 아미노산 20종 반복 문구는 틀로 생성(이름·3D로 보기·구조 그림·PubChem·회전 모형·창 제목), 공용 헤더·푸터는 홈 사전 값 재사용. protein.spec.mjs 에 전환 검사 1개.
