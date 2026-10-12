@@ -32,3 +32,14 @@ T-261012-032: 공유 카드는 회사홈 다크 팔레트로 바꿨다(바탕 #1
 T-261012-041: 소비 사이트(작업장·대표소개)는 공용 카드를 버전 없는 고정 주소 `https://kangdaejong.com/brand/current/social.png` 하나로만 가리킨다. 그래서 카드를 바꿀 때 고칠 곳은 이 저장소의 그림(`npm run brand:render`)과 배포뿐이고, 소비 사이트는 손대지도 다시 배포하지도 않는다(위 「변경 절차」 4번과 같은 계약). `/brand/*` 는 `max-age=0, must-revalidate` 라 고정 주소가 늘 최신 그림을 준다. 이 저장소의 SiteLayout 은 manifest 에서 `?v=` 를 자동으로 붙이므로 손으로 적는 곳이 없다. 재발 방지 검사 = 작업장 `scripts/verify-og-images.mjs`(빌드 결과 모든 HTML 이 고정 주소와 정확히 같아야 함)·대표소개 `scripts/verify-founder-shared-header.mjs`(고정 주소, `social.png?` 금지). 이미 공유된 링크의 미리보기는 메신저가 따로 저장한 사본이라 이 계약과 무관하다 — 텔레그램은 @WebpageBot 에 주소를 보내 새로 가져오게 한다.
 
 T-261012-040: 같은 계약을 따라 종료 안내 화면(`logo-worker/closed.mjs`·`photo-app/closed.mjs` — Worker 와 이 사이트 빌드가 같이 씀), 작업장 이동 껍데기(`src/components/RedirectStub.astro`, `src/lib/og-image.mjs` 의 `SHARED_OG_IMAGE`)·`public/privacy-miniexpense.html`, 초소 방문객 페이지, 제품 안내 사이트(product.kangdaejong.com 첫 화면·브릿지 설명서 4개)도 고정 주소를 쓴다. `src/pages/protein.astro`(이동 껍데기)는 SiteLayout 처럼 manifest 에서 `?v=` 를 붙인다. 이 저장소 `scripts/verify-dark-cards.mjs`(`tests/test_dark_cards.sh`)가 빌드 결과(dist·dist-protein)의 모든 HTML 이 공용 카드(고정 주소 또는 manifest 버전)와 다크 모드를 갖는지 검사한다.
+
+## 공용 디자인 값 — 색·폭은 한 파일 (T-261013-004)
+
+색(라이트·다크)과 PC 폭(`--page-max`)의 원본은 `public/brand/current/tokens.css` 하나다. 공개 주소 `https://kangdaejong.com/brand/current/tokens.css`(고정, `/brand/*` 캐시 = 매번 재확인). 회사의 모든 사이트가 페이지 머리말에서 이 파일을 읽고, 사이트 스타일에는 `var(--이름)` 만 쓴다(대체값 없음). 다크는 기기 설정을 따라 기본으로 켜지고, 라이트로 고정할 페이지만 `<html data-theme="light">`.
+
+**색을 바꾸는 법**
+1. `public/brand/current/tokens.css` 의 값을 고친다(라이트 = `:root`, 다크 = 아래 다크 블록).
+2. 다크 값이 바뀌었으면 `npm run brand:render` 로 공유 카드를 다시 그린다 — 안 그리면 `npm run build` 가 「공유 카드가 옛 색」으로 멈춘다(`public/brand/current/social.tokens` 지문). 단백질 분자 그림은 `scripts/render-amino-acids*.mjs` 가 같은 원본을 읽는다.
+3. 회사홈만 배포한다. 다른 사이트는 다시 배포하지 않아도 다음 방문부터 새 색이다.
+
+**막는 검사** — `scripts/verify-palette-copies.mjs`(`tests/test_palette_copies.sh`): 회사 팔레트 색 값이 원본 밖에 복사되면 실패(테마와 무관한 색은 그 줄에 `tokens:fixed`). `scripts/verify-dark-cards.mjs`: 빌드 결과의 모든 HTML 이 공용 tokens.css 를 읽는지. 그림 생성기·테스트는 `scripts/brand-tokens.mjs`(빌드 첫 단계가 만드는 `tokens.json`)로 같은 원본을 읽는다.

@@ -28,3 +28,5 @@ pnpm-debug.log*
 .dev.vars
 .dev.vars.*
 .wrangler/
+# T-261013-004: 빌드 첫 단계(scripts/brand-tokens.mjs)가 tokens.css 에서 만든다
+public/brand/current/tokens.json

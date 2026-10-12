@@ -165,14 +165,14 @@ a:hover { color: var(--accent-hover); }
 .record-band { background: var(--fg); color: var(--cta-fg); }
 .record-band .section { border: 0; }
 .record-band .eyebrow { color: #eab7a8; }
-.record-band .section-intro { color: #c5cbbb; }
-.record-links { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid rgba(248,247,239,.24); }
-.record-link { padding: 28px 28px 30px 0; border-right: 1px solid rgba(248,247,239,.24); color: var(--cta-fg); text-decoration: none; }
+.record-band .section-intro { color: var(--invert-dim); }
+.record-links { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid color-mix(in srgb, var(--invert-fg) 24%, transparent); }
+.record-link { padding: 28px 28px 30px 0; border-right: 1px solid color-mix(in srgb, var(--invert-fg) 24%, transparent); color: var(--cta-fg); text-decoration: none; }
 .record-link + .record-link { padding-left: 28px; }
 .record-link:last-child { border-right: 0; }
 .record-link span { display: block; margin-bottom: 22px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; }
 .record-link strong { display: block; font-family: var(--sans); font-size: 24px; font-weight: 600; }
-.record-link small { display: block; margin-top: 8px; color: #c5cbbb; }
+.record-link small { display: block; margin-top: 8px; color: var(--invert-dim); }
 
 .company-layout { display: grid; grid-template-columns: minmax(0, .78fr) minmax(420px, 1.22fr); gap: clamp(60px, 10vw, 150px); }
 .company-note p { max-width: 31rem; margin: 24px 0 0; color: var(--fg-dim); font-size: var(--text-lead); word-break: keep-all; }
@@ -251,7 +251,7 @@ a:hover { color: var(--accent-hover); }
   .tool-row { grid-template-columns: 42px 1fr; gap: 18px; }
   .tool-row p, .tool-row .store-links { grid-column: 2; }
   .record-links { grid-template-columns: 1fr; }
-  .record-link, .record-link + .record-link { padding: 24px 0; border-right: 0; border-bottom: 1px solid rgba(248,247,239,.24); }
+  .record-link, .record-link + .record-link { padding: 24px 0; border-right: 0; border-bottom: 1px solid color-mix(in srgb, var(--invert-fg) 24%, transparent); }
   .record-link:last-child { border-bottom: 0; }
   .company-info > div { grid-template-columns: 1fr; gap: 5px; }
   .subpage-hero { padding: 82px 0 72px; }

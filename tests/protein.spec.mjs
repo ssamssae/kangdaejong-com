@@ -1,4 +1,12 @@
 import { test, expect } from '@playwright/test';
+import { rgb } from './brand-colors.mjs';
+import { fileURLToPath } from 'node:url';
+
+// T-261013-004: 단백질 페이지는 회사홈 주소의 공용 tokens.css 를 읽는다. 테스트는 라이브가 아니라 이 저장소의 원본으로 본다.
+const tokensFile = fileURLToPath(new URL('../public/brand/current/tokens.css', import.meta.url));
+test.beforeEach(async ({ page }) => {
+  await page.route('https://kangdaejong.com/brand/current/tokens.css', (route) => route.fulfill({ path: tokensFile, contentType: 'text/css' }));
+});
 
 test('protein gallery has twenty loaded structures and accessible header navigation', async ({ page }) => {
   await page.goto('/');
@@ -143,7 +151,7 @@ test('dark scheme uses the company dark palette and dark molecule images', async
   await page.emulateMedia({ colorScheme: 'dark' });
   await page.goto('/');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
-  await expect(page.locator('body')).toHaveCSS('background-color', 'rgb(18, 21, 25)');
+  await expect(page.locator('body')).toHaveCSS('background-color', rgb('dark','--bg'));
   const first = page.locator('.amino-card .structure-link img').first();
   await first.scrollIntoViewIfNeeded();
   await expect(first).toHaveJSProperty('complete', true);

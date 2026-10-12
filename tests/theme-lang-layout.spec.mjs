@@ -1,6 +1,7 @@
 // T-261011-068: 기기 설정을 따르는 다크 모드, PC 넓은 레이아웃, 한국어/EN 즉시 전환, 가벼운 아이콘.
 // 공용 헤더는 라이브(kangdaejong.com/mb-components.js)가 아니라 이 저장소의 사본으로 검사한다.
 import {test, expect} from '@playwright/test';
+import {brand, rgb} from './brand-colors.mjs';
 import {fileURLToPath} from 'node:url';
 import icons from '../src/data/product-icon-sources.json' with {type:'json'};
 const components=fileURLToPath(new URL('../public/mb-components.js',import.meta.url));
@@ -10,16 +11,16 @@ const header=page=>page.locator('mb-header');
 test('dark mode follows the device setting and keeps light untouched',async({page})=>{
  await page.setViewportSize({width:1440,height:900});
  await page.emulateMedia({colorScheme:'light'}); await page.goto('/');
- await expect(page.locator('body')).toHaveCSS('background-color','rgb(255, 255, 255)');
- expect(await header(page).evaluate(e=>getComputedStyle(e).getPropertyValue('--mb-bg').trim())).toBe('#ffffff');
+ await expect(page.locator('body')).toHaveCSS('background-color',rgb('light','--bg'));
+ expect(await header(page).evaluate(e=>getComputedStyle(e).getPropertyValue('--mb-bg').trim())).toBe(brand.light['--mb-host-bg']);
  await page.emulateMedia({colorScheme:'dark'}); await page.goto('/');
- await expect(page.locator('body')).toHaveCSS('background-color','rgb(18, 21, 25)');
- await expect(page.locator('body')).toHaveCSS('color','rgb(227, 231, 237)');
- await expect(page.locator('h1 span')).toHaveCSS('color','rgb(122, 162, 255)');
- await expect(page.locator('.project-card').first()).toHaveCSS('background-color','rgb(25, 29, 35)');
- expect(await header(page).evaluate(e=>getComputedStyle(e.shadowRoot.querySelector('.header')).backgroundColor)).toBe('rgb(18, 21, 25)');
+ await expect(page.locator('body')).toHaveCSS('background-color',rgb('dark','--bg'));
+ await expect(page.locator('body')).toHaveCSS('color',rgb('dark','--fg'));
+ await expect(page.locator('h1 span')).toHaveCSS('color',rgb('dark','--accent'));
+ await expect(page.locator('.project-card').first()).toHaveCSS('background-color',rgb('dark','--bg-elev'));
+ expect(await header(page).evaluate(e=>getComputedStyle(e.shadowRoot.querySelector('.header')).backgroundColor)).toBe(rgb('dark','--bg'));
  expect(await page.evaluate(()=>getComputedStyle(document.documentElement).colorScheme)).toBe('dark');
- for(const path of ['/organization/','/system/','/ipta/']) { await page.goto(path); await expect(page.locator('body')).toHaveCSS('background-color','rgb(18, 21, 25)'); }
+ for(const path of ['/organization/','/system/','/ipta/']) { await page.goto(path); await expect(page.locator('body')).toHaveCSS('background-color',rgb('dark','--bg')); }
  await page.goto('/'); await page.screenshot({path:test.info().outputPath('home-dark.png'),fullPage:true});
 });
 
