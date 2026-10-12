@@ -1,5 +1,6 @@
 // T-261012-040: 빌드 결과(dist·dist-protein)의 모든 HTML 이 회사홈 공용 카드와 다크 모드를 갖는지 전수 검사한다.
-// 공유 카드 = public/brand/manifest.json 의 social.png sha256 앞 16자리(SiteLayout 과 같은 계산). og:image·twitter:image 둘 다.
+// 공유 카드 = 회사홈 공용 카드. SiteLayout·protein.astro 는 manifest 의 social.png sha256 앞 16자리를 ?v= 로 붙이고,
+//   종료 안내 화면은 T-261012-041 고정 주소(버전 없음)를 쓴다. 둘 중 하나여야 하고 og:image·twitter:image 가 같아야 한다.
 // 다크 = (1) <html data-theme="auto"> + CSS 의 prefers-color-scheme: dark 규칙(SiteLayout theme="auto"), 또는
 //        (2) data-theme 없이 바로 적용되는 다크 규칙(:root·html{·body·*), 또는
 //        (3) 이동 껍데기(meta refresh)의 <meta name="color-scheme" content="light dark">.
@@ -9,7 +10,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const manifest = JSON.parse(fs.readFileSync('public/brand/manifest.json', 'utf8'));
-const SHARED = `https://kangdaejong.com/brand/current/social.png?v=${manifest.files['social.png'].sha256.slice(0, 16)}`;
+const SHARED_FIXED = 'https://kangdaejong.com/brand/current/social.png';
+const SHARED = `${SHARED_FIXED}?v=${manifest.files['social.png'].sha256.slice(0, 16)}`;
+const ALLOWED = new Set([SHARED, SHARED_FIXED]);
 const roots = ['dist', 'dist-protein'].filter((d) => fs.existsSync(d));
 if (!roots.includes('dist')) {
   console.error('dark/card verification failed: run npm run build first');
@@ -45,10 +48,11 @@ for (const root of roots) {
   for (const file of htmlFiles(root)) {
     const html = fs.readFileSync(file, 'utf8');
     const rel = path.join(root, path.relative(root, file));
-    for (const key of ['og:image', 'twitter:image']) {
-      const values = metaAny(html, key);
-      if (values.length !== 1 || values[0] !== SHARED) errors.push(`${rel}: ${key}=${values.join(',') || '(없음)'}`);
+    const cards = ['og:image', 'twitter:image'].map((key) => [key, metaAny(html, key)]);
+    for (const [key, values] of cards) {
+      if (values.length !== 1 || !ALLOWED.has(values[0])) errors.push(`${rel}: ${key}=${values.join(',') || '(없음)'}`);
     }
+    if (cards[0][1][0] !== cards[1][1][0]) errors.push(`${rel}: og:image ≠ twitter:image`);
     const css = [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1])
       .concat([...html.matchAll(/<link\b[^>]*>/gi)].map(([tag]) => tag).filter((tag) => /rel="stylesheet"/i.test(tag))
         .map((tag) => localCss((tag.match(/href="([^"]+)"/) || [])[1] || '')))
@@ -64,4 +68,4 @@ if (errors.length) {
   console.error(`dark/card verification failed: ${errors.length} problems in ${pages} pages`);
   process.exit(1);
 }
-console.log(`dark/card verification passed: ${pages} pages use ${SHARED.split('?')[1]} and have dark mode`);
+console.log(`dark/card verification passed: ${pages} pages use the shared card (${SHARED.split('?')[1]} or fixed) and have dark mode`);
