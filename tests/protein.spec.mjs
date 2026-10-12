@@ -154,3 +154,34 @@ test('dark scheme uses the company dark palette and dark molecule images', async
   await expect(zoomed).toBeVisible();
   expect(await zoomed.evaluate(el => new URL(el.src).pathname)).toMatch(/^\/protein\/dark\/[a-z-]+\.webp$/);
 });
+
+// T-261012-029: 헤더 전환 버튼으로 도감 전체가 영어가 되고, 다시 누르면 원문이 그대로 돌아온다. 3D 창 문구도 영어.
+test('the header toggle switches the protein atlas to English and back', async ({ browser, baseURL }) => {
+  const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, baseURL });
+  try {
+    await page.goto('/');
+    const toggle = (lang) => page.locator(`mb-header .lang-button[data-lang="${lang}"]`);
+    await expect(toggle('ko')).toHaveAttribute('aria-pressed', 'true');
+    const korean = await page.locator('main').innerText();
+    await toggle('en').click();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+    await expect(page).toHaveTitle('Protein · 20 amino acids — Minus Beta Studio');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('small structures');
+    await expect(page.locator('.amino-card h3').first()).toHaveText('Glycine');
+    await expect(page.locator('.search input')).toHaveAttribute('placeholder', 'Search by name or abbreviation');
+    const leftover = await page.locator('main').evaluate((main) => {
+      const out = []; const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT); let node;
+      while ((node = walker.nextNode())) if (/[가-힣]/.test(node.nodeValue) && !['SCRIPT', 'STYLE', 'NOSCRIPT', 'TEMPLATE'].includes(node.parentElement.tagName) && !node.parentElement.closest('[data-i18n-skip]')) out.push(node.nodeValue.trim());
+      return out;
+    });
+    expect(leftover).toEqual([]);
+    await toggle('ko').click();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'ko');
+    expect(await page.locator('main').innerText()).toBe(korean);
+    await toggle('en').click();
+    await page.getByRole('button', { name: 'View Glycine in 3D', exact: true }).click();
+    await expect(page.locator('#molecule-status')).toHaveText('Drag to rotate.');
+    await expect(page.locator('#molecule-title')).toHaveText('Glycine · Gly');
+    await page.getByRole('button', { name: 'Close 3D view' }).click();
+  } finally { await page.close(); }
+});

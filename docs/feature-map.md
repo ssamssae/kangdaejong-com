@@ -86,6 +86,13 @@
 - 승인된 배포: 같은 머지 커밋에서 `npx wrangler deploy --config logo-worker/wrangler.jsonc`, `npx wrangler pages deploy dist --project-name kangdaejong-com --branch main`. 기존 로고 Worker 라우트·DO·secret을 보존하며 사진 경로 두 개만 추가한다.
 - 공개 검증: 위 브라우저 검사에 `PHOTO_PUBLIC_URL=https://kangdaejong.com` 지정, `/photo`·API 410과 홈페이지 링크 제거를 별도 조회. 실제 시각·배포 버전·결과는 T-260925-011 종료 근거에 기록한다.
 
+## T-261012-029 · 우리 사이 다크 모드·단백질 한국어/EN 전환
+
+- 「우리 사이」 안내 4페이지(OurSaiLayout): `theme="auto"` 만 켠다. 레이아웃의 보라색·800px 지정은 회사 공용 스타일에 덮여 라이트에서도 쓰이지 않으므로(실측: 브랜드·링크 #2458cc, 폭 none) 다크도 회사 토큰(#7aa2ff 등)을 그대로 따른다.
+- 전환 로직은 `src/scripts/lang-toggle-core.js` 의 `startLangToggle(dict)` 하나다. 홈 = `lang-toggle.js`(i18n-en.json), 단백질 = `lang-toggle-protein.js`(i18n-protein-en.json). `SiteLayout langToggle` 이 공용 헤더에 전환 버튼을 띄운다. 대표소개(ssamssae.github.io)의 `lang-toggle.js` 는 이 core 의 사본이다 — 고칠 땐 양쪽을 같이.
+- core 보강: 검색칸 `placeholder` 번역, 페이지 스크립트가 나중에 바꾼 문구·속성(3D 뷰어 aria-label)은 새 원문으로 인식, 처음부터 마크업에 있던 영어(카드의 'Glycine')는 한국어 복귀 때 역번역하지 않음.
+- 단백질 사전 318항목: 아미노산 20종 반복 문구는 틀로 생성(이름·3D로 보기·구조 그림·PubChem·회전 모형·창 제목), 공용 헤더·푸터는 홈 사전 값 재사용. protein.spec.mjs 에 전환 검사 1개.
+
 ## T-261012-024 · 단백질 도감 다크 모드·넓은 폭
 
 단백질 도감(protein.kangdaejong.com)도 홈과 같은 톤: `ProteinAtlas` 가 `SiteLayout theme="auto"` 를 켜고, 본문 폭은 `--page-max`(1440px). 분자 그림은 다크용 `public/protein/dark/<slug>.webp`(바탕 #121519, `npm run render:protein-dark` — 저장소의 SDF·고정 3Dmol 로 원본과 같은 구도, manifest 의 pixelBounds ±2px 확인 후에만 저장)를 `<picture media="(prefers-color-scheme: dark)">` 로 쓰고 다크에선 `mix-blend-mode:lighten` 으로 카드에 녹인다(라이트의 multiply 는 다크에서 분자를 검게 묻는다). 확대 창·3D 뷰어 정적 그림 링크는 `data-dark-href`, 3D 뷰어 바탕은 다크 #191d23. protein.spec.mjs 에 다크 검사 1개.

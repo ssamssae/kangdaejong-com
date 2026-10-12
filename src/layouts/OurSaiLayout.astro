@@ -2,7 +2,7 @@
 import SiteLayout from "./SiteLayout.astro";
 const { title, description, path } = Astro.props;
 ---
-<SiteLayout title={title} description={description} canonical={`https://kangdaejong.com/our-sai/${path || ""}`}>
+<SiteLayout title={title} description={description} canonical={`https://kangdaejong.com/our-sai/${path || ""}`} theme="auto">
 <main id="main-content" class="our-sai"><a class="brand" href="/our-sai/">우리 사이 <span>둘만의 기록</span></a><slot /><nav aria-label="우리 사이 안내"><a href="/our-sai/">앱 소개</a><a href="/our-sai/privacy/">개인정보처리방침</a><a href="/our-sai/support/">지원·삭제 안내</a><a href="/our-sai/terms/">이용 안내</a></nav></main>
 </SiteLayout>
 <style is:global>

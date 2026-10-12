@@ -12,6 +12,7 @@ const {
   robots,
   bodyClass = "",
   theme = "", // "auto" = 기기 설정(prefers-color-scheme)을 따르는 다크 모드. 비우면 라이트 고정. (T-261011-068)
+  langToggle = false, // true = 공용 헤더에 한국어/EN 전환 버튼을 띄운다. 페이지가 자기 사전으로 lang-toggle-core 를 시작해야 한다. (T-261012-029)
   fonts = "mono", // Google Fonts 요청 범위: "mono"(JetBrains Mono) | "mono-serif"(+Noto Serif KR) | "none". (T-261011-068)
   jsonLd = null, // schema.org 객체. 있으면 JSON-LD 로 넣는다. (T-261011-068)
   ogImage = `https://kangdaejong.com/brand/current/social.png?v=${brandManifest.files["social.png"].sha256.slice(0, 16)}`,
@@ -84,7 +85,7 @@ const jsonLdText = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : nu
   </head>
   <body class={`studio-page ${bodyClass}`}>
     <a class="skip-link" href="#main-content">본문으로 건너뛰기</a>
-    {!minimal && <mb-header active={active} tone="studio"></mb-header>}
+    {!minimal && <mb-header active={active} tone="studio" lang-toggle={langToggle || undefined}></mb-header>}
     <slot />
     {!minimal && <mb-footer tone="studio"></mb-footer>}
   </body>
