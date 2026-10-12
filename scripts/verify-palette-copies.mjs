@@ -6,9 +6,6 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync } from 'node:fs';
 import { readBrandTokens } from './brand-tokens.mjs';
 
-// ⚠️ 한시 예외(T-261013-004 6단계에서 걷는다): 다른 사이트가 실행 시점에 읽는 공용 파일이라,
-//   모든 사이트가 tokens.css 를 읽게 된 뒤에야 안의 대체 색을 지울 수 있다.
-const TEMPORARY_SHARED = new Set(['public/mb-components.js', 'public/studio-page.css']);
 const EXCLUDE = /^(public\/brand\/|public\/protein\/vendor\/|archive\/|callta-retired\/|node_modules\/|dist)|(^|\/)_retired\//;
 const INCLUDE = /\.(css|astro|html|mjs|js|ts|py)$/;
 
@@ -22,7 +19,7 @@ const rgbPattern = /rgba?\(\s*(\d{1,3})\s*,\s*(\d{1,3})\s*,\s*(\d{1,3})\s*(?:,[^
 const rgbHex = (r, g, b) => `#${[r, g, b].map((n) => Number(n).toString(16).padStart(2, '0')).join('')}`;
 
 const files = execFileSync('git', ['ls-files'], { encoding: 'utf8' }).split('\n')
-  .filter((f) => INCLUDE.test(f) && !EXCLUDE.test(f) && !TEMPORARY_SHARED.has(f) && f !== 'scripts/verify-palette-copies.mjs');
+  .filter((f) => INCLUDE.test(f) && !EXCLUDE.test(f) && f !== 'scripts/verify-palette-copies.mjs');
 const hits = [];
 for (const file of files) {
   readFileSync(file, 'utf8').split('\n').forEach((line, i) => {
