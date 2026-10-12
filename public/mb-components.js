@@ -24,7 +24,7 @@
     { label: '작업과 기록', items: [
       { key: 'workshop', label: '작업장', description: '최근 작업과 이야기 한눈에', href: 'https://work.kangdaejong.com/' },
       { key: 'worklog', label: '작업일지', description: '날마다 만든 것과 고친 것', href: 'https://work.kangdaejong.com/worklog/' },
-      { key: 'newsletter', label: '뉴스레터', description: '과정에서 건진 이야기 · 새 탭', href: 'https://minusbetastudio.substack.com', newWindow: true },
+      { key: 'newsletter', label: '뉴스레터', description: '과정에서 건진 이야기', href: 'https://work.kangdaejong.com/newsletter/' },
       { key: 'timeline', label: '타임라인', description: '처음부터 지금까지의 변화', href: 'https://work.kangdaejong.com/timeline.html/' },
     ] },
     { label: '시스템과 실험', items: [

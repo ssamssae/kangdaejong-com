@@ -20,17 +20,15 @@ test('all secondary destinations are reachable in one panel', async ({ page }) =
   }
 });
 
-test('newsletter opens safely in a new tab without changing the original route', async ({ page, context }) => {
-  await context.route('https://minusbetastudio.substack.com/**', route => route.fulfill({ body: 'Newsletter' }));
+test('newsletter opens the workshop newsletter page in the same tab', async ({ page, context }) => {
+  await context.route('https://work.kangdaejong.com/newsletter/', route => route.fulfill({ body: 'Newsletter' }));
   await page.goto('/system/');
-  const originalUrl = page.url();
   await more(page).click();
-  const popupPromise = context.waitForEvent('page');
-  await menu(page).getByRole('link', { name: /^뉴스레터/ }).click();
-  const popup = await popupPromise;
-  await expect(popup).toHaveURL('https://minusbetastudio.substack.com/');
-  expect(page.url()).toBe(originalUrl);
-  expect(await popup.evaluate(() => window.opener)).toBeNull();
+  const link = menu(page).getByRole('link', { name: /^뉴스레터/ });
+  await expect(link).toHaveAttribute('href', 'https://work.kangdaejong.com/newsletter/');
+  await expect(link).not.toHaveAttribute('target', '_blank');
+  await link.click();
+  await expect(page).toHaveURL('https://work.kangdaejong.com/newsletter/');
 });
 
 test('keyboard opens at the first destination and Escape restores the trigger', async ({ page }) => {
