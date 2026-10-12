@@ -2,7 +2,7 @@
 import { readBrandTokens } from '../scripts/brand-tokens.mjs';
 
 export const brand = readBrandTokens();
-// rgb('light', '--bg') → 'rgb(255, 255, 255)' (브라우저 getComputedStyle 형식)
+// rgb('light', '--bg') → 'rgb(r, g, b)' 문자열(브라우저 getComputedStyle 형식)
 export function rgb(mode, name) {
   const hex = brand[mode][name];
   if (!/^#[0-9a-f]{6}$/i.test(hex)) throw new Error(`${mode} ${name} 는 #rrggbb 가 아니다: ${hex}`);
