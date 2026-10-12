@@ -26,3 +26,5 @@ manifest 버전은 모든 출력 파일의 SHA256에서 자동 생성한다. 소
 열어 둔 브라우저 탭은 새로고침 전까지 바뀌지 않을 수 있다. Telegram 등 외부 플랫폼 자체 미리보기 캐시는 사이트의 Cache-Control과 별개여서 즉시 갱신을 보장할 수 없다. 이미 보낸 메시지는 그대로 남을 수 있으므로 새 버전 공유는 `https://kangdaejong.com/?v=2`처럼 페이지 버전을 붙인 링크의 실제 미리보기로 확인한다(대표 canonical은 루트 유지). 중앙 도메인 장애 시 회사 이미지에도 영향이 있으며, 로컬 복사본을 자동 폴백하면 옛 이미지가 남을 수 있으므로 사용하지 않는다.
 
 T-261003-017: 승인된 로고 도형은 유지하고 공유 카드는 흰 배경·파란 제목으로 맞춘다. `brand:render`의 마지막 `render-share-card.mjs` 단계가 `brand/current/social.png`와 manifest hash를 갱신한다. 기존 메시지의 Telegram 미리보기 캐시는 별도이므로 실제 응답 메타데이터와 이미지 hash로 배포를 검증한다.
+
+T-261012-032: 공유 카드는 회사홈 다크 팔레트로 바꿨다(바탕 #121519·제목 #e3e7ed·강조 #7aa2ff). 링크 미리보기는 보는 사람 설정과 무관한 그림 한 장이라 라이트·다크 겸용 1장이다. 이 저장소 밖에서 버전값(`social.png?v=<sha16>`)을 직접 적는 곳 — 작업장(ssamssae/daejong-page) `src/layouts/Layout.astro`·`scripts/verify-og-images.mjs`·`scripts/verify-offboarding-ui.mjs`·`tests/test_product_offboarding.py`·`public/privacy*.html`·`public/dead-ends/detail.html`, 대표소개(ssamssae/ssamssae.github.io) `index.html` 2곳 — 은 카드를 다시 그리면 같이 바꾼다. 작업장 `verify-og-images.mjs` 가 빌드 결과의 모든 HTML 을 검사해 옛 버전을 막는다. 작업장 글별 카드(src/lib/og-image.mjs)도 같은 다크 팔레트이고 주소에 `?v=OG_IMAGE_VERSION` 을 붙인다.
