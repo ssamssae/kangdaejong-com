@@ -3,7 +3,7 @@
   const BADGE = 'https://kangdaejong.com/brand/current/logo.svg';
   const BRAND_HREF = 'https://kangdaejong.com/';
 
-  // active = home|projects|products|contact|catalog|books|tools|protein|organization|founder|system|workshop|worklog|newsletter|timeline|work-system|lab|choso|ontology
+  // active = home|projects|products|contact|catalog|tools|protein|organization|founder|system|workshop|worklog|newsletter|timeline|work-system|lab|choso|ontology
   const NAV_PRIMARY = [
     { key: 'projects', label: '프로젝트', href: 'https://kangdaejong.com/#projects' },
     { key: 'products', label: '앱', href: 'https://kangdaejong.com/#products' },
@@ -12,7 +12,6 @@
   const NAV_GROUPS = [
     { label: '제품과 도구', items: [
       { key: 'catalog', label: '전체 제품', href: 'https://work.kangdaejong.com/products/' },
-      { key: 'books', label: '책·템플릿', href: 'https://kangdaejong.com/#books' },
       { key: 'tools', label: '공개 도구', href: 'https://work.kangdaejong.com/products/?category=tool#catalog' },
       { key: 'protein', label: '단백질', href: 'https://protein.kangdaejong.com/' },
     ] },
