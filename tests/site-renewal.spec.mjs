@@ -1,4 +1,5 @@
 import { test, expect } from "@playwright/test";
+import { brand, rgb } from './brand-colors.mjs';
 
 const routes = [
   "/",
@@ -146,9 +147,9 @@ test("shared components use the homepage palette for every consumer", async ({ p
   });
 
   expect(palettes).toEqual({
-    pageStudio: "#ffffff",
-    defaultConsumer: "#ffffff",
-    dataToneStudio: "#ffffff",
+    pageStudio: brand.light['--mb-host-bg'],
+    defaultConsumer: brand.light['--mb-host-bg'],
+    dataToneStudio: brand.light['--mb-host-bg'],
   });
 });
 

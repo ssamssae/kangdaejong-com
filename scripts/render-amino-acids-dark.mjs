@@ -9,13 +9,14 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 import sharp from 'sharp';
+import { readBrandTokens } from './brand-tokens.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public/protein');
 const DARK_OUT = join(OUT, 'dark');
 const VENDOR = join(ROOT, 'public/protein/vendor/3dmol-2.5.5');
-// tokens.css 다크 --bg(#121519). 라이트 그림의 흰 바탕(#ffffff = 라이트 --bg)과 같은 관계로 카드(--bg-elev) 안에 놓인다.
-const DARK_BACKGROUND = 0x121519;
+// 공용 tokens.css 다크 --bg. 라이트 그림의 바탕(라이트 --bg)과 같은 관계로 카드(--bg-elev) 안에 놓인다(T-261013-004: 값은 원본에서 읽음).
+const DARK_BACKGROUND = parseInt(readBrandTokens().dark['--bg'].slice(1), 16);
 const BOUNDS_TOLERANCE = 2;
 
 async function atomBounds(page, image) {
@@ -53,7 +54,7 @@ async function renderDark(page, slug, sdf, recorded) {
   await page.setContent(`<!doctype html>
     <html><head><style>
       * { box-sizing: border-box; }
-      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #ffffff; }
+      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: ${readBrandTokens().light['--bg']}; }
       #viewer { position: absolute; inset: 0; }
     </style></head><body><div id="viewer"></div></body></html>`);
   await page.addScriptTag({ path: join(VENDOR, '3Dmol-min.js') });

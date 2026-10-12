@@ -77,9 +77,9 @@ async function openMolecule(button) {
     const sdf = await response.text();
     if (id !== requestId || !dialog.open) return;
     if (!viewer) {
-      // T-261012-024: 기기 설정이 다크면 3D 뷰어 바탕도 다크 --bg-elev(#191d23).
-      const dark = document.documentElement.dataset.theme === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches;
-      viewer = library.createViewer(stage, { antialias: true, backgroundColor: dark ? '#191d23' : '#eeede7' });
+      // T-261013-004: 3D 뷰어 바탕 = 카드 바탕 --bg-elev. 값은 공용 tokens.css 가 정한다(다크도 같은 이름).
+      const background = getComputedStyle(document.documentElement).getPropertyValue('--bg-elev').trim() || 'white';
+      viewer = library.createViewer(stage, { antialias: true, backgroundColor: background });
     }
     viewer.resize();
     viewer.removeAllModels();

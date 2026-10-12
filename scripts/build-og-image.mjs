@@ -27,7 +27,7 @@ const BG = '#000000';
 const MINT = '#f2f2f2';
 const FG = '#f2f2f2';
 const DIM = '#8a8a8a';
-const RULE = 'rgba(255,255,255,0.08)';
+const RULE = 'rgba(255,255,255,0.08)'; // tokens:fixed — 옛 OG 그림(그록 톤, 검정 바탕) 고정 디자인
 const FONT = 'Helvetica, Arial, sans-serif'; // 로크업 SVG 와 같은 스택
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">

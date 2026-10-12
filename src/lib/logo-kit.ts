@@ -23,7 +23,7 @@ export function cleanSymbol(source: string, color: string) {
   if (doc.querySelector('parsererror') || doc.documentElement.localName !== 'svg') throw Error('벡터 파일을 읽지 못했습니다.');
   // Recraft often draws a cream canvas as a full-size path. It is not the symbol.
   const vb=(doc.documentElement.getAttribute('viewBox')||'').trim().split(/[ ,]+/).map(Number);
-  const light=(value:string)=>{const rgb=value.match(/^rgb\(\s*(\d+)[, ]+\s*(\d+)[, ]+\s*(\d+)\s*\)$/i);const hex=value.match(/^#([a-f0-9]{6})$/i);const c=rgb?rgb.slice(1).map(Number):hex?[0,2,4].map(i=>parseInt(hex[1].slice(i,i+2),16)):value==='white'||value==='#fff'?[255,255,255]:null;return !!c&&Math.min(...c)>=210;};
+  const light=(value:string)=>{const rgb=value.match(/^rgb\(\s*(\d+)[, ]+\s*(\d+)[, ]+\s*(\d+)\s*\)$/i);const hex=value.match(/^#([a-f0-9]{6})$/i);const c=rgb?rgb.slice(1).map(Number):hex?[0,2,4].map(i=>parseInt(hex[1].slice(i,i+2),16)):value==='white'||value==='#fff'?[255,255,255]:null;return !!c&&Math.min(...c)>=210;}; // tokens:fixed — SVG 색 판별 로직(스타일 아님)
   for(const el of [...doc.querySelectorAll('path,rect')]){
     if(!light(el.getAttribute('fill')||''))continue;
     const d=el.getAttribute('d')||'';
@@ -39,7 +39,7 @@ export function cleanSymbol(source: string, color: string) {
     }
     for (const name of ['fill', 'stroke']) {
       const value = el.getAttribute(name);
-      if (value && !['none', 'transparent', 'white', '#fff', '#ffffff'].includes(value.toLowerCase()) && !light(value) && !/^url\(#/.test(value)) el.setAttribute(name, color);
+      if (value && !['none', 'transparent', 'white', '#fff', '#ffffff'].includes(value.toLowerCase()) && !light(value) && !/^url\(#/.test(value)) el.setAttribute(name, color); // tokens:fixed — SVG 색 판별 로직(스타일 아님)
     }
   }
   // Preserve the supplied C2PA manifest verbatim as inert base64 metadata.

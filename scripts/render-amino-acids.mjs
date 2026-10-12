@@ -3,6 +3,7 @@ import { mkdir, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
+import { readBrandTokens } from './brand-tokens.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const OUT = join(ROOT, 'public/protein');
@@ -166,7 +167,7 @@ async function renderMolecule(page, aminoAcid, sdf) {
   await page.setContent(`<!doctype html>
     <html><head><style>
       * { box-sizing: border-box; }
-      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: #ffffff; }
+      html, body { margin: 0; width: 100%; height: 100%; overflow: hidden; background: ${readBrandTokens().light['--bg']}; }
       #viewer { position: absolute; inset: 0; }
     </style></head><body><div id="viewer"></div></body></html>`);
   await page.addScriptTag({ path: join(VENDOR, '3Dmol-min.js') });
