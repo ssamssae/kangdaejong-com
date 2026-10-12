@@ -19,6 +19,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "build:protein": "astro build --config astro.protein.config.mjs",
+    "render:protein-dark": "node scripts/render-amino-acids-dark.mjs",
     "test:protein": "playwright test --config playwright.protein.config.mjs",
     "test:logo-api": "node --test tests/logo/api.test.mjs",
     "test:logo-ui": "playwright test tests/logo-studio.spec.mjs --workers=2",

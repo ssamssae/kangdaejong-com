@@ -86,6 +86,10 @@
 - 승인된 배포: 같은 머지 커밋에서 `npx wrangler deploy --config logo-worker/wrangler.jsonc`, `npx wrangler pages deploy dist --project-name kangdaejong-com --branch main`. 기존 로고 Worker 라우트·DO·secret을 보존하며 사진 경로 두 개만 추가한다.
 - 공개 검증: 위 브라우저 검사에 `PHOTO_PUBLIC_URL=https://kangdaejong.com` 지정, `/photo`·API 410과 홈페이지 링크 제거를 별도 조회. 실제 시각·배포 버전·결과는 T-260925-011 종료 근거에 기록한다.
 
+## T-261012-024 · 단백질 도감 다크 모드·넓은 폭
+
+단백질 도감(protein.kangdaejong.com)도 홈과 같은 톤: `ProteinAtlas` 가 `SiteLayout theme="auto"` 를 켜고, 본문 폭은 `--page-max`(1440px). 분자 그림은 다크용 `public/protein/dark/<slug>.webp`(바탕 #121519, `npm run render:protein-dark` — 저장소의 SDF·고정 3Dmol 로 원본과 같은 구도, manifest 의 pixelBounds ±2px 확인 후에만 저장)를 `<picture media="(prefers-color-scheme: dark)">` 로 쓰고 다크에선 `mix-blend-mode:lighten` 으로 카드에 녹인다(라이트의 multiply 는 다크에서 분자를 검게 묻는다). 확대 창·3D 뷰어 정적 그림 링크는 `data-dark-href`, 3D 뷰어 바탕은 다크 #191d23. protein.spec.mjs 에 다크 검사 1개.
+
 ## T-261003-018 · 사이트 디자인 통일
 
 공통 톤: 홈·system·organization·ipta·digital-products·전자책 양식·our-sai와 단백질 도감을 390/1440px로 열어 흰 배경, 제목 34/51px, 1000px 본문 폭과 가로 넘침을 확인. protein.spec.mjs는 메뉴 열기·20개 구조·검색/필터·3D·확대 조작 검사. site-renewal.spec.mjs의 전체 링크·모바일 검사도 유지.
