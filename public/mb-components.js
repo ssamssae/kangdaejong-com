@@ -35,9 +35,9 @@
   ];
 
   const PALETTE_DEFAULT = `
-    --mb-bg:#ffffff; --mb-elev:#f7f8fa; --mb-fg:#242930; --mb-dim:#626b78; --mb-mute:#69717d;
-    --mb-border:#e6e8ed; --mb-soft:#f7f8fa; --mb-accent:#2458cc;
-    --mb-cta-bg:#2458cc; --mb-cta-fg:#ffffff;
+    --mb-bg:var(--mb-host-bg); --mb-elev:var(--mb-host-elev); --mb-fg:var(--mb-host-fg); --mb-dim:var(--mb-host-dim); --mb-mute:var(--mb-host-mute);
+    --mb-border:var(--mb-host-border); --mb-soft:var(--mb-host-soft); --mb-accent:var(--mb-host-accent);
+    --mb-cta-bg:var(--mb-host-cta-bg); --mb-cta-fg:var(--cta-fg); --mb-shadow:var(--mb-host-shadow);
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
     --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
@@ -46,9 +46,9 @@
   // tokens.css only when the device prefers dark); the var() fallbacks are the light values, so
   // consumers that never define them (founder) keep the light palette unchanged.
   const PALETTE_STUDIO = `
-    --mb-bg:var(--mb-host-bg,#ffffff); --mb-elev:var(--mb-host-elev,#f7f8fa); --mb-fg:var(--mb-host-fg,#242930); --mb-dim:var(--mb-host-dim,#626b78); --mb-mute:var(--mb-host-mute,#69717d);
-    --mb-border:var(--mb-host-border,#e6e8ed); --mb-soft:var(--mb-host-soft,#f7f8fa); --mb-accent:var(--mb-host-accent,#2458cc);
-    --mb-cta-bg:var(--mb-host-cta-bg,#2458cc); --mb-cta-fg:#ffffff; --mb-shadow:var(--mb-host-shadow,#24293026);
+    --mb-bg:var(--mb-host-bg); --mb-elev:var(--mb-host-elev); --mb-fg:var(--mb-host-fg); --mb-dim:var(--mb-host-dim); --mb-mute:var(--mb-host-mute);
+    --mb-border:var(--mb-host-border); --mb-soft:var(--mb-host-soft); --mb-accent:var(--mb-host-accent);
+    --mb-cta-bg:var(--mb-host-cta-bg); --mb-cta-fg:var(--cta-fg); --mb-shadow:var(--mb-host-shadow);
     --mb-mono:'JetBrains Mono','SF Mono',Menlo,Consolas,monospace;
     --mb-sans:'Pretendard Variable',Pretendard,-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;
     --mb-serif:'Noto Serif KR','Iropke Batang',Georgia,serif;
@@ -91,7 +91,7 @@
           .more-button:hover,.more-button.active,.more.open .more-button { background:var(--mb-soft); border-color:var(--mb-accent); color:var(--mb-accent); }
           .chevron { display:inline-block; margin-left:7px; font-size:10px; transition:transform .16s ease; }
           .more.open .chevron { transform:rotate(180deg); }
-          .more-panel { position:absolute; right:max(24px,calc((100% - var(--mb-max,1000px))/2)); top:calc(100% + 8px); width:min(780px,calc(100% - 48px)); padding:22px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:18px; box-shadow:0 18px 55px var(--mb-shadow,#24293026); max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; }
+          .more-panel { position:absolute; right:max(24px,calc((100% - var(--mb-max,1000px))/2)); top:calc(100% + 8px); width:min(780px,calc(100% - 48px)); padding:22px; border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:18px; box-shadow:0 18px 55px var(--mb-shadow); max-height:calc(100dvh - 120px); overflow-y:auto; overscroll-behavior:contain; }
           .more-panel[hidden] { display:none; }
           .panel-heading { display:flex; justify-content:space-between; align-items:center; gap:16px; padding-bottom:16px; border-bottom:1px solid var(--mb-border); }
           .panel-heading strong { font-size:17px; letter-spacing:-.03em; }
