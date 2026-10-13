@@ -1,0 +1,32 @@
+name: Site release coverage
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  site-release-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm ci
+      - run: npm run test:site-release
+      - run: node scripts/site-release/discover-public.mjs
+        env:
+          GH_TOKEN: ${{ github.token }}
+      - run: npm run build
+      - run: npm run build:protein
+      - run: npm run verify:shared-header && npm run verify:shared-footer && npm run verify:dark-cards && npm run verify:palette-copies
+      - run: npx playwright install --with-deps chromium
+      - name: Homepage icon consumer regression
+        run: npx playwright test tests/home-corrections.spec.mjs --grep 'home corrections' --workers=1
+      - name: Candidate compatibility across registered live sites
+        run: node scripts/site-release/live.mjs --candidate --output site-release-report/candidate
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: site-release-evidence
+          path: site-release-report/

@@ -1,0 +1,266 @@
+{
+  "schema": 1,
+  "products": [
+    {
+      "id": "hanjul",
+      "name": "한줄일기",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e1/ad/b7/e1adb7a4-9704-0369-d058-e4e48dcb9ffa/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "f4fa94ec511dca63fb02f8a62a4fc6731ada0585e26612c048b08b5e6ce382dd",
+      "files": {
+        "icon": {
+          "source": "/product-icons/6764308678-f4fa94ec-96.webp",
+          "sha256": "440691f0df474c291e1102329bd106a8f5a1a2e7a11d2cef33233e0f5330bb89"
+        },
+        "icon2x": {
+          "source": "/product-icons/6764308678-f4fa94ec-192.webp",
+          "sha256": "dcdbba73add28af87a6bac574110fcb732ea9d17784400fb019f2a132f99ce0d"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/hanjul.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/hanjul@2x.webp"
+    },
+    {
+      "id": "memoyo",
+      "name": "메모요",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/cc/6c/0bcc6cf8-b022-c9f3-37d3-70fdb421f8e0/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "9fffec3bbd2eaa6d8e21c97d2748480bb54364e0875d53736fddb35d7cb7ae0c",
+      "files": {
+        "icon": {
+          "source": "/product-icons/6762068073-9fffec3b-96.webp",
+          "sha256": "ba7ae0576f091e791c1a3179afee5fce39624ea71385d9e8b6383bf36b059942"
+        },
+        "icon2x": {
+          "source": "/product-icons/6762068073-9fffec3b-192.webp",
+          "sha256": "e958113bbbfb992b9f5d3033dc300c985a38c1fca3b7a1d008aef42aa7890d48"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/memoyo.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/memoyo@2x.webp"
+    },
+    {
+      "id": "dutchpay",
+      "name": "더치페이 계산기",
+      "source": "https://github.com/ssamssae/dutch_pay_calculator/blob/b5b1a5f676f0bfed1c4b1c3994b5b0a00bfcbff2/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "sourceSha256": "0e89d465a7f4da65d80592585ff2725f1d374555499c5076469c4ab634d3dff1",
+      "files": {
+        "icon": {
+          "source": "/product-icons/dutchPayCalculator-0e89d465-96.webp",
+          "sha256": "7ac147dfa2d3356df8f254e975ee143e07052043ecfca41439ec077586523118"
+        },
+        "icon2x": {
+          "source": "/product-icons/dutchPayCalculator-0e89d465-192.webp",
+          "sha256": "26268a10ba86e64a630ff307a00b8e3d4645e00ab350af653830036cceb4971a"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/dutchpay.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/dutchpay@2x.webp"
+    },
+    {
+      "id": "yakmeokja",
+      "name": "약먹자",
+      "source": "https://github.com/ssamssae/yakmukja/blob/8aab6ce82c385850c5268fae31d78fd65f25a0eb/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "sourceSha256": "f16ca3ee802305ec605d5974c77dc530a5b0ad942c5e84481b315a07fb142cfe",
+      "files": {
+        "icon": {
+          "source": "/product-icons/yakmukja-f16ca3ee-96.webp",
+          "sha256": "1f0887f3a6e7ed342f9b0a0b8a384acc680b66ff204775f4abf14ef11ffcf40c"
+        },
+        "icon2x": {
+          "source": "/product-icons/yakmukja-f16ca3ee-192.webp",
+          "sha256": "af511e22444d29c9e1da0439bf1cf7ce55865256dbf5e18567eafa26d4ed57b9"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/yakmeokja.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/yakmeokja@2x.webp"
+    },
+    {
+      "id": "gagyebu",
+      "name": "심플 가계부",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/bd/fd/23/bdfd23bd-6982-5241-1a5b-b1165fe61e8d/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "2ad919041df6311b93bf030ffcbdd7746948d3646e3e96e273c08e2d1e2d2a73",
+      "files": {
+        "icon": {
+          "source": "/product-icons/6769037337-2ad91904-96.webp",
+          "sha256": "a30059d353761dc74445a74776eef605220b7454b13308e1db437cdd0b0dc28b"
+        },
+        "icon2x": {
+          "source": "/product-icons/6769037337-2ad91904-192.webp",
+          "sha256": "b6e2a50b0c30a3222de5950db70f75e4b997c8e317eead79334ef2c0779d5dff"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/gagyebu.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/gagyebu@2x.webp"
+    },
+    {
+      "id": "calcalarm",
+      "name": "계산기알람",
+      "source": "https://github.com/ssamssae/motjayo/blob/e9998bb6b0dedc63fcf58aaae101c49a621032a7/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
+      "sourceSha256": "14aeddc80846ed737270bbfe8972252ecb4e80917dc5e7dd31bca72122f5c92a",
+      "files": {
+        "icon": {
+          "source": "/product-icons/ireonayo-14aeddc8-96.webp",
+          "sha256": "b98de35fdb14ad03c8ad3e499bcaa4d64e605f870a5eba8671d8fa715f4ff317"
+        },
+        "icon2x": {
+          "source": "/product-icons/ireonayo-14aeddc8-192.webp",
+          "sha256": "9e1240da2f8939d5dfdf2cd722fd276a1318b825dd06f75d30bb5e44f4a286e6"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/calcalarm.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/calcalarm@2x.webp"
+    },
+    {
+      "id": "stillhere",
+      "name": "살아있음",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ba/89/18/ba891857-3b7b-9521-4647-2e46019d6aca/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "282708d5fa730ed2e27571f9c8882896b873fae446034297838eb1eb51814e52",
+      "files": {
+        "icon": {
+          "source": "/product-icons/6812609143-282708d5-96.webp",
+          "sha256": "c7f9d7db743550bd8b1133824f8e11ccdb8c3aafacd3cbd96a943f77418ed738"
+        },
+        "icon2x": {
+          "source": "/product-icons/6812609143-282708d5-192.webp",
+          "sha256": "4a1d3927fc2507002a0de7ee730a748395f268ed24fe9dcf12dbf883231ee76b"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/stillhere.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/stillhere@2x.webp"
+    },
+    {
+      "id": "oursai",
+      "name": "우리 사이",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c7/ab/55/c7ab5552-8110-6f91-2a87-8777909766e5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "ef35b79c24e4471098383dd42065a783d8c98294ecaec47d0eee89ce25c9d99c",
+      "files": {
+        "icon": {
+          "source": "/product-icons/6816725770-ef35b79c-96.webp",
+          "sha256": "e5fdd5d818b24a9ce2a109d8ec9ba869c9f07b7a67327b823ec4416c126fa12f"
+        },
+        "icon2x": {
+          "source": "/product-icons/6816725770-ef35b79c-192.webp",
+          "sha256": "79f5c8e23e6a829249882674be8008b6c1a66ec3c5f26fc44de1091ca765cf66"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/oursai.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/oursai@2x.webp"
+    },
+    {
+      "id": "noraechatgi",
+      "name": "노래찾기",
+      "source": "https://github.com/ssamssae/noraechatgi/blob/main/assets/icon/icon-1024.png",
+      "sourceSha256": "ccdf5b0ad0006aa6facba2e3f39a7c2e8948d8653e9f0cae694722554b84ea2c",
+      "files": {
+        "icon": {
+          "source": "/product-icons/noraechatgi-ccdf5b0a-96.webp",
+          "sha256": "590e95afa6d2230c1720d47a42eb531eadd6ba8034fd4a20fbefe5d1b5fd9762"
+        },
+        "icon2x": {
+          "source": "/product-icons/noraechatgi-ccdf5b0a-192.webp",
+          "sha256": "756ccb3a23a43a246e6e557ba5882eb1264f98507a12cfad045b99a240f2c261"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/noraechatgi.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/noraechatgi@2x.webp"
+    },
+    {
+      "id": "ipta",
+      "name": "입타",
+      "source": "https://raw.githubusercontent.com/ssamssae/ipta/v0.1.24/App/Resources/icon_1024.png",
+      "sourceSha256": "779f2694b78a3b57ba3706ca3f067a398b7fb138a5434d2506930c0dd8399834",
+      "files": {
+        "icon": {
+          "source": "/product-icons/ipta-779f2694-96.webp",
+          "sha256": "16dda122c21444cd9270be997dd8f0fc8e42049ac6efc73ba50e2e55a215d0df"
+        },
+        "icon2x": {
+          "source": "/product-icons/ipta-779f2694-192.webp",
+          "sha256": "b01646e207f12330b6ce29deaa168606011ac7d26859541cc89164f6251e69fb"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/ipta.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/ipta@2x.webp",
+      "aliases": [
+        "입타 (Ipta)"
+      ]
+    },
+    {
+      "id": "jarvis",
+      "name": "자비스",
+      "source": "https://github.com/ssamssae/jarvis-mac",
+      "sourceSha256": "6863105c6efba4ad9dc8aeb001e27872e0eb12eaa3bb3de52eb00b5baca76c30",
+      "files": {
+        "icon": {
+          "source": "/product-icons/jarvis-6863105c-96.webp",
+          "sha256": "4162494cef5ee53ff7ff40030758af39a26dcd492b53c56be1d6d6ccaee74fc8"
+        },
+        "icon2x": {
+          "source": "/product-icons/jarvis-6863105c-192.webp",
+          "sha256": "bbc99c84dc6937f993293fc9825a919aaf070dc959a433d90587f4f7e5678837"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/jarvis.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/jarvis@2x.webp",
+      "aliases": [
+        "Jarvis Mac"
+      ]
+    },
+    {
+      "id": "bridge-grok",
+      "name": "Grok Telegram Bridge",
+      "source": "https://github.com/ssamssae/kangdaejong-com/tree/b922024a91aded857838a4a606def9fcdce1a10b/public/product-icons",
+      "sourceNote": "Grok 2026-10-11 approved four-panel bridge illustration; preserve current crop",
+      "files": {
+        "icon": {
+          "source": "/product-icons/bridge-grok-f431e691-96.webp",
+          "sha256": "6828396340791b84a76da13e875729f4f028290a38e2343f3bb05d18b7cafaac"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/bridge-grok.webp"
+    },
+    {
+      "id": "bridge-codex",
+      "name": "Codex Telegram Bridge",
+      "source": "https://github.com/ssamssae/kangdaejong-com/tree/b922024a91aded857838a4a606def9fcdce1a10b/public/product-icons",
+      "sourceNote": "Grok 2026-10-11 approved four-panel bridge illustration; preserve current crop",
+      "files": {
+        "icon": {
+          "source": "/product-icons/bridge-codex-41955708-96.webp",
+          "sha256": "db8efa99be9d1a3fdd73c18f690bd18c17d5ed7690cf87f06436ddd1103dcac2"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/bridge-codex.webp"
+    },
+    {
+      "id": "bridge-claude",
+      "name": "Claude Telegram Bridge",
+      "source": "https://github.com/ssamssae/kangdaejong-com/tree/b922024a91aded857838a4a606def9fcdce1a10b/public/product-icons",
+      "sourceNote": "Grok 2026-10-11 approved four-panel bridge illustration; preserve current crop",
+      "files": {
+        "icon": {
+          "source": "/product-icons/bridge-claude-9e27b3a5-96.webp",
+          "sha256": "de26fcc3666b87c40ff515f67c212aba510320d314c246ed4f65c143ea2fb376"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/bridge-claude.webp"
+    },
+    {
+      "id": "bridge-cursor",
+      "name": "Cursor Telegram Bridge",
+      "source": "https://github.com/ssamssae/kangdaejong-com/tree/b922024a91aded857838a4a606def9fcdce1a10b/public/product-icons",
+      "sourceNote": "Grok 2026-10-11 approved four-panel bridge illustration; preserve current crop",
+      "files": {
+        "icon": {
+          "source": "/product-icons/bridge-cursor-2e723079-96.webp",
+          "sha256": "a2a31f81bd81c7a09ca12a9d1ae4c830f33d1c2ff4c0ae4b4931c5a15ac04f9b"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/bridge-cursor.webp"
+    },
+    {
+      "id": "bridge-local",
+      "name": "Local Telegram Bridge",
+      "exception": "No approved image was supplied. Preserve the existing >_ glyph; no inferred substitute."
+    }
+  ]
+}

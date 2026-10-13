@@ -1,0 +1,437 @@
+{
+  "schema": 1,
+  "sites": [
+    {
+      "id": "home",
+      "url": "https://kangdaejong.com/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social",
+        "header"
+      ],
+      "aliases": [
+        "https://www.kangdaejong.com/",
+        "https://kangdaejong-com.pages.dev/"
+      ],
+      "sitemaps": [
+        "https://kangdaejong.com/sitemap.xml"
+      ],
+      "pages": [
+        "/",
+        "/tools/text/",
+        "/our-sai/privacy/",
+        "/logo/privacy/",
+        "/logo/terms/",
+        "/photo/",
+        "/logo/"
+      ],
+      "productPages": [
+        "/"
+      ],
+      "screens": [
+        "/",
+        "/tools/text/",
+        "/photo/"
+      ],
+      "deployments": [
+        "cloudflare-pages:kangdaejong-com",
+        "cloudflare-route:logo-kureomi"
+      ],
+      "headerExceptions": {
+        "/tools/text/": "Standalone local text tool uses a static studio header and restrictive CSP.",
+        "/logo/": "Retired service notice has a compact company link.",
+        "/logo/privacy/": "Retired service policy notice uses the same compact company link.",
+        "/logo/terms/": "Retired service policy notice uses the same compact company link.",
+        "/photo/": "Retired service notice has a compact company link."
+      }
+    },
+    {
+      "id": "work",
+      "url": "https://work.kangdaejong.com/",
+      "mode": "shared",
+      "checks": [
+        "tokens"
+      ],
+      "sitemaps": [
+        "https://work.kangdaejong.com/sitemap-index.xml"
+      ],
+      "pages": [
+        "/",
+        "/products/",
+        "/privacy-miniexpense.html"
+      ],
+      "socialPages": [
+        "/",
+        "/products/",
+        "/privacy-miniexpense.html"
+      ],
+      "productPages": [
+        "/products/"
+      ],
+      "screens": [
+        "/products/",
+        "/privacy-miniexpense.html"
+      ],
+      "deployments": [
+        "github-pages:daejong-page"
+      ]
+    },
+    {
+      "id": "claude-telegram-bridge",
+      "url": "https://product.kangdaejong.com/claude-telegram-bridge/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social"
+      ],
+      "aliases": [
+        "https://founder.kangdaejong.com/claude-telegram-bridge/"
+      ],
+      "deployments": [
+        "github-pages:claude-telegram-bridge"
+      ]
+    },
+    {
+      "id": "codex-telegram-bridge",
+      "url": "https://product.kangdaejong.com/codex-telegram-bridge/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social"
+      ],
+      "aliases": [
+        "https://founder.kangdaejong.com/codex-telegram-bridge/"
+      ],
+      "deployments": [
+        "github-pages:codex-telegram-bridge"
+      ]
+    },
+    {
+      "id": "cursor-telegram-bridge",
+      "url": "https://product.kangdaejong.com/cursor-telegram-bridge/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social"
+      ],
+      "aliases": [
+        "https://founder.kangdaejong.com/cursor-telegram-bridge/"
+      ],
+      "deployments": [
+        "github-pages:cursor-telegram-bridge"
+      ]
+    },
+    {
+      "id": "grok-telegram-bridge",
+      "url": "https://product.kangdaejong.com/grok-telegram-bridge/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social"
+      ],
+      "aliases": [
+        "https://founder.kangdaejong.com/grok-telegram-bridge/"
+      ],
+      "deployments": [
+        "github-pages:grok-telegram-bridge"
+      ]
+    },
+    {
+      "id": "dutch_pay_calculator-legacy",
+      "url": "https://founder.kangdaejong.com/dutch_pay_calculator/",
+      "mode": "exception",
+      "reason": "Legacy app support/privacy site with its own product identity; not the corporate visual theme. Keep accessible.",
+      "deployments": [
+        "github-pages:dutch_pay_calculator"
+      ]
+    },
+    {
+      "id": "simple-memo-app-legacy",
+      "url": "https://founder.kangdaejong.com/simple-memo-app/",
+      "mode": "exception",
+      "reason": "Legacy app support/privacy site with its own product identity; not the corporate visual theme. Keep accessible.",
+      "deployments": [
+        "github-pages:simple-memo-app"
+      ]
+    },
+    {
+      "id": "yakmukja-legacy",
+      "url": "https://founder.kangdaejong.com/yakmukja/",
+      "mode": "exception",
+      "reason": "Legacy app support/privacy site with its own product identity; not the corporate visual theme. Keep accessible.",
+      "deployments": [
+        "github-pages:yakmukja"
+      ]
+    },
+    {
+      "id": "founder",
+      "url": "https://founder.kangdaejong.com/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social",
+        "header"
+      ],
+      "pages": [
+        "/"
+      ],
+      "screens": [
+        "/"
+      ],
+      "deployments": [
+        "github-pages:ssamssae.github.io"
+      ]
+    },
+    {
+      "id": "product",
+      "url": "https://product.kangdaejong.com/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social"
+      ],
+      "pages": [
+        "/"
+      ],
+      "screens": [
+        "/"
+      ],
+      "deployments": [
+        "cloudflare-worker:product-bridge-docs"
+      ]
+    },
+    {
+      "id": "protein",
+      "url": "https://protein.kangdaejong.com/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social",
+        "header"
+      ],
+      "aliases": [
+        "https://protein-kangdaejong.pages.dev/"
+      ],
+      "pages": [
+        "/"
+      ],
+      "screens": [
+        "/"
+      ],
+      "deployments": [
+        "cloudflare-pages:protein-kangdaejong"
+      ]
+    },
+    {
+      "id": "logo",
+      "url": "https://logo.kangdaejong.com/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social"
+      ],
+      "pages": [
+        "/"
+      ],
+      "screens": [
+        "/"
+      ],
+      "lifecycle": "retired",
+      "deployments": [
+        "cloudflare-worker:logo-kureomi"
+      ]
+    },
+    {
+      "id": "choso-guest",
+      "url": "https://choso.kangdaejong.com/guest",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social"
+      ],
+      "pages": [
+        "/guest"
+      ],
+      "screens": [
+        "/guest"
+      ],
+      "deployments": [],
+      "identityIconExceptions": {
+        "https://choso.kangdaejong.com/static/favicon.svg": "Choso keeps its application favicon. The public guest page shares corporate colors and social card, not the application identity."
+      }
+    },
+    {
+      "id": "choso-internal",
+      "url": "https://choso.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Authenticated operator application. Only /guest is a corporate public surface.",
+      "deployments": []
+    },
+    {
+      "id": "callta",
+      "url": "https://callta.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Retired standalone product closure notice. Preserve its independent identity and retired state; no product reactivation.",
+      "lifecycle": "retired",
+      "deployments": [
+        "cloudflare-route:callta-retired"
+      ]
+    },
+    {
+      "id": "giroksil",
+      "url": "https://giroksil.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Retired standalone product closure notice. Preserve its independent identity and retired state; no product reactivation.",
+      "lifecycle": "retired",
+      "deployments": [
+        "cloudflare-route:giroksil-retired"
+      ]
+    },
+    {
+      "id": "babmeokja",
+      "url": "https://babmeokja.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "deployments": [
+        "cloudflare-worker:babmeokja-api"
+      ]
+    },
+    {
+      "id": "hanjang",
+      "url": "https://hanjang.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "deployments": [
+        "cloudflare-worker:hanjanggunghap-worker"
+      ]
+    },
+    {
+      "id": "sangho",
+      "url": "https://sangho.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "deployments": [
+        "cloudflare-worker:hanjang-sangho-worker"
+      ]
+    },
+    {
+      "id": "taekil",
+      "url": "https://taekil.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "deployments": [
+        "cloudflare-worker:hanjang-taekil-worker"
+      ]
+    },
+    {
+      "id": "tojeong",
+      "url": "https://tojeong.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "deployments": []
+    },
+    {
+      "id": "cheotireum",
+      "url": "https://cheotireum.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "aliases": [
+        "https://cheotireum.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:cheotireum"
+      ]
+    },
+    {
+      "id": "butler",
+      "url": "https://butler.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Internal service/tunnel endpoint, not a public corporate website.",
+      "deployments": []
+    },
+    {
+      "id": "butler-voice",
+      "url": "https://butler-voice.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Internal service/tunnel endpoint, not a public corporate website.",
+      "deployments": []
+    },
+    {
+      "id": "jarvis",
+      "url": "https://jarvis.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Internal service/tunnel endpoint, not a public corporate website.",
+      "deployments": []
+    },
+    {
+      "id": "queue",
+      "url": "https://queue.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Internal service/tunnel endpoint, not a public corporate website.",
+      "deployments": []
+    },
+    {
+      "id": "mail-rsend.giroksil",
+      "url": "https://rsend.giroksil.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Mail delivery/tracking DNS; not a website theme consumer.",
+      "deployments": []
+    },
+    {
+      "id": "mail-rsend",
+      "url": "https://rsend.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Mail delivery/tracking DNS; not a website theme consumer.",
+      "deployments": []
+    },
+    {
+      "id": "mail-rsend.photo-mail",
+      "url": "https://rsend.photo-mail.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Mail delivery/tracking DNS; not a website theme consumer.",
+      "deployments": []
+    },
+    {
+      "id": "mail-send",
+      "url": "https://send.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Mail delivery/tracking DNS; not a website theme consumer.",
+      "deployments": []
+    },
+    {
+      "id": "mail-send.photo-mail",
+      "url": "https://send.photo-mail.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Mail delivery/tracking DNS; not a website theme consumer.",
+      "deployments": []
+    },
+    {
+      "id": "shiftee-guide-1006",
+      "url": "https://shiftee-guide-1006.pages.dev/",
+      "mode": "exception",
+      "reason": "Separate demo/product deployment without corporate shared theme; retain its current purpose.",
+      "deployments": [
+        "cloudflare-pages:shiftee-guide-1006"
+      ]
+    },
+    {
+      "id": "cheotunse",
+      "url": "https://cheotunse.pages.dev/",
+      "mode": "exception",
+      "reason": "Separate demo/product deployment without corporate shared theme; retain its current purpose.",
+      "deployments": [
+        "cloudflare-pages:cheotunse"
+      ]
+    },
+    {
+      "id": "emoji-gate-runner",
+      "url": "https://emoji-gate-runner.pages.dev/",
+      "mode": "exception",
+      "reason": "Separate demo/product deployment without corporate shared theme; retain its current purpose.",
+      "deployments": [
+        "cloudflare-pages:emoji-gate-runner"
+      ]
+    }
+  ]
+}
