@@ -1,0 +1,101 @@
+import { test, expect } from '@playwright/test';
+
+test('homepage card opens the public tool and the tool links back', async ({ page }) => {
+  await page.goto('/');
+  const card = page.locator('#projects .text-tool-card');
+  await expect(card.getByRole('heading', { name: '복붙 정리기' })).toBeVisible();
+  await card.getByRole('link', { name: '글 정리하기' }).click();
+  await expect(page).toHaveURL(/\/tools\/text\/$/);
+  await expect(page).toHaveTitle('복붙 정리기 — 글을 깔끔하게');
+  await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://kangdaejong.com/tools/text/');
+  await page.getByRole('link', { name: '홈페이지' }).click();
+  await expect(page).toHaveURL(/\/#projects$/);
+});
+
+test('cleaning modes preserve the original and reject stale results', async ({ page }) => {
+  await page.goto('/tools/text/');
+  await expect(page.locator('#copy')).toBeDisabled();
+  await page.locator('#source').fill('  첫   문장\n이어지는 말\n\n- 항목 하나\n- 항목 둘  ');
+  const original = await page.locator('#source').inputValue();
+  await page.locator('#clean').click();
+  await expect(page.locator('#result')).toHaveValue('첫 문장\n이어지는 말\n\n- 항목 하나\n- 항목 둘');
+  await page.getByLabel('끊긴 줄 연결', { exact: true }).check();
+  await expect(page.locator('#result')).toHaveValue('첫 문장 이어지는 말\n\n- 항목 하나\n- 항목 둘');
+  await page.getByLabel('한 줄로', { exact: true }).check();
+  await expect(page.locator('#result')).toHaveValue('첫 문장 이어지는 말 - 항목 하나 - 항목 둘');
+  await expect(page.locator('#source')).toHaveValue(original);
+  await page.locator('#source').fill('수정한   글');
+  await expect(page.locator('#result')).toHaveValue('');
+  await expect(page.locator('#copy')).toBeDisabled();
+  await page.locator('#source').press('Control+Enter');
+  await expect(page.locator('#result')).toHaveValue('수정한 글');
+});
+
+test('clear can be undone and the sample never replaces existing text', async ({ page }) => {
+  await page.goto('/tools/text/');
+  await page.locator('#source').fill('  내 원문  ');
+  await expect(page.locator('#sample')).toBeDisabled();
+  await page.locator('#clear').click();
+  await page.locator('#undo').click();
+  await expect(page.locator('#source')).toHaveValue('  내 원문  ');
+  await page.locator('#clear').click();
+  await page.locator('#sample').click();
+  await expect(page.locator('#undo')).toBeHidden();
+  await expect(page.locator('#result')).not.toHaveValue('');
+});
+
+test('copy sends only the cleaned result and offers manual copy when denied', async ({ page }) => {
+  await page.goto('/tools/text/');
+  await page.evaluate(() => Object.defineProperty(navigator, 'clipboard', {
+    configurable: true, value: { writeText: async value => { window.copiedValue = value; } },
+  }));
+  await page.locator('#source').fill(' 복사할   글 ');
+  await page.locator('#clean').click();
+  await page.locator('#copy').click();
+  expect(await page.evaluate(() => window.copiedValue)).toBe('복사할 글');
+  await expect(page.locator('#status')).toContainText('클립보드에 복사');
+  await page.evaluate(() => {
+    navigator.clipboard.writeText = async () => { throw new Error('denied'); };
+    document.execCommand = () => false;
+  });
+  await page.locator('#copy').click();
+  await expect(page.locator('#status')).toContainText('자동 복사를 할 수 없어요');
+  expect(await page.locator('#result').evaluate(e => e.value.slice(e.selectionStart, e.selectionEnd))).toBe('복사할 글');
+});
+
+test('text remains local, literal and unsaved, including HTML-looking input', async ({ page, context }) => {
+  const requests = [];
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/tools/text/');
+  page.on('request', request => requests.push(request.url()));
+  await page.locator('#source').fill('<img src="https://invalid.example/x" onerror="window.bad=true">  🧑🏽‍💻');
+  await page.locator('#clean').click();
+  await expect(page.locator('#result')).toHaveValue('<img src="https://invalid.example/x" onerror="window.bad=true"> 🧑🏽‍💻');
+  expect(await page.locator('img').count()).toBe(0);
+  expect(await page.evaluate(() => window.bad)).toBeUndefined();
+  expect(requests).toEqual([]);
+  expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);
+  expect(await context.cookies()).toEqual([]);
+  await page.reload();
+  await expect(page.locator('#source')).toHaveValue('');
+  expect(errors).toEqual([]);
+});
+
+test('the tool works without overflow at phone, tablet and desktop widths', async ({ page }) => {
+  await page.goto('/tools/text/');
+  await page.locator('#sample').click();
+  for (const width of [320, 390, 768, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.locator('#copy').scrollIntoViewIfNeeded();
+    await expect(page.locator('#copy')).toBeVisible();
+    await page.screenshot({ path: test.info().outputPath(`text-${width}.png`), fullPage: true });
+  }
+});
+
+test('the sitemap includes the selected public address', async ({ request }) => {
+  const response = await request.get('/sitemap.xml');
+  expect(response.ok()).toBe(true);
+  expect(await response.text()).toContain('<loc>https://kangdaejong.com/tools/text/</loc>');
+});

@@ -51,4 +51,4 @@ Cloudflare Pages 프로젝트는 `protein-kangdaejong`입니다. 회사 홈페�
 
 ## 기능 확인
 
-[메뉴 추첨기 확인 경로](docs/feature-map.md)에서 홈페이지 동작 검증 방법을 확인합니다.
+[기능 확인 경로](docs/feature-map.md)에서 홈페이지와 복붙 정리기의 동작 검증 방법을 확인합니다.
