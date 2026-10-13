@@ -10,7 +10,7 @@ for (const width of [360, 390, 768, 1440]) {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('안녕하세요.만드는 사람 강대종입니다.');
     await expect(page.locator('#menu-picker')).toHaveCount(0);
     await expect(page.getByRole('heading', { name: '만드는 도구' })).toBeVisible();
-    await expect(page.locator('#projects h3')).toHaveText(['텔레그램 브릿지', '입타', '자비스']);
+    await expect(page.locator('#projects h3')).toHaveText(['텔레그램 브릿지', '입타', '자비스', '복붙 정리기']);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await expect(page.getByRole('link', { name: '설치 안내', exact: true })).toHaveAttribute('href', '#open-tools');
     await expect(page.getByRole('link', { name: '입타 알아보기' })).toHaveAttribute('href', '/ipta/');

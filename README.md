@@ -51,4 +51,8 @@ Cloudflare Pages 프로젝트는 `protein-kangdaejong`입니다. 회사 홈페�
 
 ## 기능 확인
 
-[메뉴 추첨기 확인 경로](docs/feature-map.md)에서 홈페이지 동작 검증 방법을 확인합니다.
+[기능 확인 경로](docs/feature-map.md)에서 홈페이지와 복붙 정리기의 동작 검증 방법을 확인합니다.
+
+## 사이트 변경 검증·배포
+
+공통 변경은 [사이트 누락 방지 절차](docs/site-release.md)를 따른다. 승인된 회사홈 배포 명령은 `npm run deploy:site`다. 대상 발견·회귀 검사·공개 바이트/화면 검증을 함께 실행한다.

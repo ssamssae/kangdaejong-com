@@ -1,3 +1,4 @@
+import { productIcon } from '../lib/product-icons.mjs';
 export const books = [
   {
     number: "01",
@@ -23,32 +24,28 @@ export const books = [
 export const tools = [
   {
     name: "Grok Telegram Bridge",
-    icon: "/product-icons/bridge-grok-f431e691-48.webp",
-    icon2x: "/product-icons/bridge-grok-f431e691-96.webp",
+    ...productIcon('bridge-grok'),
     description: "텔레그램으로 자기 컴퓨터의 Grok 세션을 사용하는 공개 브릿지.",
     repo: "https://github.com/ssamssae/grok-telegram-bridge",
     release: "https://github.com/ssamssae/grok-telegram-bridge/releases",
   },
   {
     name: "Codex Telegram Bridge",
-    icon: "/product-icons/bridge-codex-41955708-48.webp",
-    icon2x: "/product-icons/bridge-codex-41955708-96.webp",
+    ...productIcon('bridge-codex'),
     description: "Codex CLI 세션에 텍스트와 미디어를 전달하고 진행 상황을 받는 공개 브릿지.",
     repo: "https://github.com/ssamssae/codex-telegram-bridge",
     release: "https://github.com/ssamssae/codex-telegram-bridge/releases",
   },
   {
     name: "Claude Telegram Bridge",
-    icon: "/product-icons/bridge-claude-9e27b3a5-48.webp",
-    icon2x: "/product-icons/bridge-claude-9e27b3a5-96.webp",
+    ...productIcon('bridge-claude'),
     description: "Claude Code 세션을 텔레그램에 연결하는 공개 브릿지.",
     repo: "https://github.com/ssamssae/claude-telegram-bridge",
     release: "https://github.com/ssamssae/claude-telegram-bridge/releases",
   },
   {
     name: "Cursor Telegram Bridge",
-    icon: "/product-icons/bridge-cursor-2e723079-48.webp",
-    icon2x: "/product-icons/bridge-cursor-2e723079-96.webp",
+    ...productIcon('bridge-cursor'),
     description: "텔레그램으로 자기 컴퓨터의 Cursor 세션에 질문하고 답변을 받는 공개 브릿지.",
     repo: "https://github.com/ssamssae/cursor-telegram-bridge",
     release: "https://github.com/ssamssae/cursor-telegram-bridge/releases",
@@ -59,53 +56,62 @@ export const tools = [
 export const apps = [
   {
     "name": "한줄일기",
+    ...productIcon('hanjul'),
     "description": "하루를 한 줄로 남기는 일기.",
     "appId": "6764308678",
     "package": "com.daejongkang.hanjul"
   },
   {
     "name": "메모요",
+    ...productIcon('memoyo'),
     "description": "생각날 때 바로 적는 메모장.",
     "appId": "6762068073",
     "package": "com.daejongkang.simple_memo_app"
   },
   {
     "name": "더치페이 계산기",
+    ...productIcon('dutchpay'),
     "description": "모임의 비용을 간편하게 나눕니다.",
     "appId": "6762072499",
     "package": "com.daejongkang.dutchpay"
   },
   {
     "name": "약먹자",
+    ...productIcon('yakmeokja'),
     "description": "약 먹을 시간을 알려드립니다.",
     "appId": "6762100639",
     "package": "com.daejongkang.yakmukja"
   },
   {
     "name": "심플 가계부",
+    ...productIcon('gagyebu'),
     "description": "수입과 지출을 가볍게 기록합니다.",
     "appId": "6769037337",
     "package": "com.ssamssae.mini_expense"
   },
   {
     "name": "계산기알람",
+    ...productIcon('calcalarm'),
     "description": "계산 문제를 풀며 잠에서 깹니다.",
     "appId": "6811111727",
     "package": "com.daejongkang.ireonayo"
   },
   {
     "name": "살아있음",
+    ...productIcon('stillhere'),
     "description": "두 사람이 하루 한 번 서로의 안부를 나눕니다.",
     "appId": "6812609143",
     "package": "com.daejongkang.stillhere"
   },
   {
     "name": "우리 사이",
+    ...productIcon('oursai'),
     "description": "사진과 일기, 기념일로 둘만의 일상을 남깁니다.",
     "appId": "6816725770"
   },
   {
     "name": "노래찾기",
+    ...productIcon('noraechatgi'),
     "description": "버튼 한 번으로 주변 음악의 제목과 가수를 찾습니다.",
     "appId": "6820080312"
   }
