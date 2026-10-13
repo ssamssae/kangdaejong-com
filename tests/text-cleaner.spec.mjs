@@ -88,6 +88,9 @@ test('text remains local, literal and unsaved, including HTML-looking input', as
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto('/tools/text/');
+  // The branded favicon can load after the document load event. Observe only
+  // requests triggered by input after the page's static assets have settled.
+  await page.waitForLoadState('networkidle');
   page.on('request', request => requests.push(request.url()));
   await page.locator('#source').fill('<img src="https://invalid.example/x" onerror="window.bad=true">  🧑🏽‍💻');
   await page.locator('#clean').click();
@@ -112,6 +115,50 @@ test('the tool works without overflow at phone, tablet and desktop widths', asyn
     await expect(page.locator('#copy')).toBeVisible();
     await page.screenshot({ path: test.info().outputPath(`text-${width}.png`), fullPage: true });
   }
+});
+
+test('the tool follows the homepage palette, typography and width in both system themes', async ({ page }) => {
+  const errors = [];
+  page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
+  page.on('pageerror', error => errors.push(error.message));
+  const appearance = () => page.evaluate(async () => {
+    await document.fonts.ready;
+    const body = getComputedStyle(document.body);
+    const main = document.querySelector('main');
+    const title = getComputedStyle(document.querySelector('h1'));
+    return {
+      background: body.backgroundColor,
+      color: body.color,
+      font: body.fontFamily,
+      headingSize: title.fontSize,
+      headingWeight: title.fontWeight,
+      accent: body.getPropertyValue('--accent').trim(),
+      width: main.getBoundingClientRect().width,
+    };
+  });
+  for (const width of [320, 390, 768, 1440, 1920]) {
+    await page.setViewportSize({ width, height: 1000 });
+    const homepage = {};
+    for (const colorScheme of ['light', 'dark']) {
+      await page.emulateMedia({ colorScheme });
+      await page.goto('/');
+      homepage[colorScheme] = await appearance();
+    }
+    await page.goto('/tools/text/');
+    await page.locator('#sample').click();
+    const result = await page.locator('#result').inputValue();
+    for (const colorScheme of ['light', 'dark']) {
+      await page.emulateMedia({ colorScheme });
+      expect(await appearance()).toEqual(homepage[colorScheme]);
+      await expect(page.locator('#result')).toHaveValue(result);
+      await expect(page.locator('#copy')).toBeEnabled();
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+      expect(await page.evaluate(() => document.fonts.check('600 16px "Pretendard Variable"'))).toBe(true);
+      await page.screenshot({ path: test.info().outputPath(`text-tone-${colorScheme}-${width}.png`), fullPage: true });
+    }
+    expect(homepage.light.background).not.toBe(homepage.dark.background);
+  }
+  expect(errors).toEqual([]);
 });
 
 test('the sitemap includes the selected public address', async ({ request }) => {
