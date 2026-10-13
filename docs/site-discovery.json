@@ -1,0 +1,237 @@
+{
+  "schema": 1,
+  "observedAt": "2026-10-13T14:59:26.022905+00:00",
+  "sources": [
+    "cloudflare-pages",
+    "cloudflare-workers",
+    "cloudflare-routes",
+    "cloudflare-dns",
+    "github-pages"
+  ],
+  "targets": [
+    {
+      "url": "https://babmeokja.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://babmeokja.kangdaejong.com/",
+      "source": "cloudflare-worker:babmeokja-api"
+    },
+    {
+      "url": "https://butler-voice.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://butler.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://callta.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://callta.kangdaejong.com/",
+      "source": "cloudflare-route:callta-retired"
+    },
+    {
+      "url": "https://cheotireum.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://cheotireum.kangdaejong.com/",
+      "source": "cloudflare-pages:cheotireum"
+    },
+    {
+      "url": "https://cheotireum.pages.dev/",
+      "source": "cloudflare-pages:cheotireum"
+    },
+    {
+      "url": "https://cheotunse.pages.dev/",
+      "source": "cloudflare-pages:cheotunse"
+    },
+    {
+      "url": "https://choso.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://emoji-gate-runner.pages.dev/",
+      "source": "cloudflare-pages:emoji-gate-runner"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/",
+      "source": "github-pages:ssamssae.github.io"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/claude-telegram-bridge/",
+      "source": "github-pages:claude-telegram-bridge"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/codex-telegram-bridge/",
+      "source": "github-pages:codex-telegram-bridge"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/cursor-telegram-bridge/",
+      "source": "github-pages:cursor-telegram-bridge"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/dutch_pay_calculator/",
+      "source": "github-pages:dutch_pay_calculator"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/grok-telegram-bridge/",
+      "source": "github-pages:grok-telegram-bridge"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/simple-memo-app/",
+      "source": "github-pages:simple-memo-app"
+    },
+    {
+      "url": "https://founder.kangdaejong.com/yakmukja/",
+      "source": "github-pages:yakmukja"
+    },
+    {
+      "url": "https://giroksil.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://giroksil.kangdaejong.com/",
+      "source": "cloudflare-route:giroksil-retired"
+    },
+    {
+      "url": "https://hanjang.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://hanjang.kangdaejong.com/",
+      "source": "cloudflare-worker:hanjanggunghap-worker"
+    },
+    {
+      "url": "https://jarvis.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://kangdaejong-com.pages.dev/",
+      "source": "cloudflare-pages:kangdaejong-com"
+    },
+    {
+      "url": "https://kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://kangdaejong.com/",
+      "source": "cloudflare-pages:kangdaejong-com"
+    },
+    {
+      "url": "https://kangdaejong.com/logo",
+      "source": "cloudflare-route:logo-kureomi"
+    },
+    {
+      "url": "https://kangdaejong.com/logo/",
+      "source": "cloudflare-route:logo-kureomi"
+    },
+    {
+      "url": "https://kangdaejong.com/photo",
+      "source": "cloudflare-route:logo-kureomi"
+    },
+    {
+      "url": "https://kangdaejong.com/photo/",
+      "source": "cloudflare-route:logo-kureomi"
+    },
+    {
+      "url": "https://logo.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://logo.kangdaejong.com/",
+      "source": "cloudflare-worker:logo-kureomi"
+    },
+    {
+      "url": "https://product.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://product.kangdaejong.com/",
+      "source": "cloudflare-worker:product-bridge-docs"
+    },
+    {
+      "url": "https://protein-kangdaejong.pages.dev/",
+      "source": "cloudflare-pages:protein-kangdaejong"
+    },
+    {
+      "url": "https://protein.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://protein.kangdaejong.com/",
+      "source": "cloudflare-pages:protein-kangdaejong"
+    },
+    {
+      "url": "https://queue.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://rsend.giroksil.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://rsend.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://rsend.photo-mail.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://sangho.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://sangho.kangdaejong.com/",
+      "source": "cloudflare-worker:hanjang-sangho-worker"
+    },
+    {
+      "url": "https://send.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://send.photo-mail.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://shiftee-guide-1006.pages.dev/",
+      "source": "cloudflare-pages:shiftee-guide-1006"
+    },
+    {
+      "url": "https://taekil.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://taekil.kangdaejong.com/",
+      "source": "cloudflare-worker:hanjang-taekil-worker"
+    },
+    {
+      "url": "https://tojeong.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://work.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://work.kangdaejong.com/",
+      "source": "github-pages:daejong-page"
+    },
+    {
+      "url": "https://www.kangdaejong.com/",
+      "source": "cloudflare-dns"
+    },
+    {
+      "url": "https://www.kangdaejong.com/",
+      "source": "cloudflare-pages:kangdaejong-com"
+    }
+  ]
+}

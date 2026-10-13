@@ -1,5 +1,12 @@
 # 기능 확인 경로
 
+## 사이트 변경 누락 방지 — T-261013-046
+
+- 진입: 회사홈과 작업장 제품 카드, 복붙 정리기, 대표소개, 단백질, 제품 설명서, 종료 안내, 초소 방문객. 대상은 `public/brand/sites.json`, 독립 발견 기록은 `docs/site-discovery.json`.
+- 조작: 아이콘 정본 변경 → 두 사이트의 같은 제품 ID 카드 확인. 새 제품/사이트 등록 없이 빌드하면 실패한다. `npm run deploy:site` 또는 작업장 기존 자동 배포 후 공개 검사가 실행된다.
+- 기대: 390/1440px × light/dark에서 동일 아이콘, 가로 넘침 없음, 다크 흰 카드 없음. 제품 검색은 유지한다. 실패·미확인은 전체 완료로 계산하지 않는다.
+- 근거: `tests/test_site_release.sh`, PR 필수 `site-release-contract`, `site-release-report/*/report.json` 및 PNG. 웹 배포와 Telegram 미리보기 상태는 분리한다. [실행 절차](site-release.md).
+
 ## 복붙 정리기 — T-261013-025
 
 - 진입점: 홈페이지 `/#projects` → 「만드는 도구」 마지막 「복붙 정리기」 카드 → 「글 정리하기」 → `https://kangdaejong.com/tools/text/`. PC·휴대전화 브라우저에서 로그인·설치 없이 사용한다. 도구 하단 「홈페이지」는 `/#projects`로 돌아간다.
