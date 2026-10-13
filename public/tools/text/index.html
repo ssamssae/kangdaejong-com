@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="불필요한 공백과 줄바꿈을 정리하는 작고 간편한 복붙 도구. 글은 기기 안에서만 처리합니다.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <link rel="canonical" href="https://kangdaejong.com/tools/text/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="복붙 정리기 — 글을 깔끔하게">
+  <meta property="og:description" content="불필요한 공백과 줄바꿈을 정리하세요. 설치 없이 PC와 휴대전화에서 쓰고, 글은 브라우저 안에서만 처리합니다.">
+  <meta property="og:url" content="https://kangdaejong.com/tools/text/">
+  <meta name="theme-color" content="#f6f7f3">
+  <meta name="color-scheme" content="light">
+  <title>복붙 정리기 — 글을 깔끔하게</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect width='48' height='48' rx='13' fill='%23df5838'/%3E%3Cpath d='M14 15h20M14 24h14M14 33h20' stroke='white' stroke-width='4' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+:root{font-family:-apple-system,BlinkMacSystemFont,"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif;color:#28312e;background:#f6f7f3;font-synthesis:none;--accent:#c34427;--border:#dfe4dc;--muted:#68726a;--ink:#28312e}
+*{box-sizing:border-box}body{margin:0}button,input,textarea{font:inherit}button,a,input,textarea{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{cursor:default;opacity:.45}button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid #bd4b2d;outline-offset:4px}button{transition:background .15s,transform .15s}button:not(:disabled):active{transform:translateY(1px)}svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}[hidden]{display:none!important}
+.site-header{max-width:1240px;margin:auto;padding:29px 44px;display:flex;align-items:center;justify-content:space-between;gap:20px}.brand{display:inline-flex;align-items:center;gap:11px;color:var(--ink);font-size:17px;font-weight:750;letter-spacing:-.6px;text-decoration:none}.brand-icon{display:grid;place-items:center;width:34px;height:34px;background:var(--accent);color:#fff;border-radius:10px}.brand-icon svg{width:22px;height:22px}.version{border-left:1px solid #cfd6cc;padding-left:13px;margin-left:5px;font-size:11px;letter-spacing:.2px;font-weight:500;color:var(--muted)}.privacy{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}.privacy svg{width:15px;height:15px}
+main{max-width:1240px;padding:30px 44px 20px;margin:auto}.intro{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;margin-bottom:35px}.eyebrow{color:var(--accent);font-weight:650;font-size:13px;margin:0 0 14px;letter-spacing:.2px}h1{font-size:clamp(27px,3.1vw,39px);letter-spacing:-1.8px;line-height:1.32;margin:0;font-weight:750}h1 span{font-weight:450}.subtitle{font-size:14px;color:var(--muted);margin:15px 0 0;line-height:1.6}.mobile-break{display:none}.steps{display:flex;gap:20px;list-style:none;margin:0 0 4px;padding:0;font-size:11px;color:var(--muted);white-space:nowrap}.steps li{display:flex;align-items:center;gap:6px}.steps b{font-size:10px;display:grid;place-items:center;border:1px solid #d5dcd0;width:19px;height:19px;border-radius:50%;color:#718069}
+.workspace{background:white;border:1px solid var(--border);border-radius:19px;box-shadow:0 10px 35px #28312e05;overflow:hidden}.controls{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:20px 24px;background:#fcfdfb;border-bottom:1px solid var(--border)}fieldset{border:0;padding:0;margin:0;min-width:0}legend{float:left;margin:11px 18px 0 0;font-size:12px;font-weight:650}.segmented{display:flex;background:#eef1e9;border:1px solid #e4e8df;border-radius:10px;padding:4px;gap:3px}.segmented label{position:relative;cursor:pointer}.segmented input{position:absolute;opacity:0;width:1px;height:1px}.segmented span{display:block;padding:8px 13px;border-radius:6px;font-size:12px;color:#64705f;white-space:nowrap}.segmented input:checked+span{background:#fff;color:var(--ink);font-weight:650;box-shadow:0 1px 4px #15231413}.segmented input:focus-visible+span{outline:3px solid var(--accent);outline-offset:2px}.mode-help{font-size:11px;color:var(--muted);line-height:1.5;margin:0;text-align:right;max-width:250px}.editors{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.editor{min-width:0;padding:24px 26px 18px;display:flex;flex-direction:column}.source-editor{border-right:1px solid var(--border)}.result-editor{background:#fcfdf9}.editor-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:28px;margin-bottom:15px}h2{font-size:14px;margin:0;display:flex;align-items:center;gap:8px;font-weight:650}.dot{display:block;width:6px;height:6px;background:#889582;border-radius:50%}.dot.accent{background:var(--accent)}.text-button{border:0;background:none;padding:5px 0;color:var(--accent);font-size:11px;line-height:1.5}.text-button:hover:not(:disabled){text-decoration:underline}.text-button.muted{color:var(--muted)}.result-state{font-size:10px;line-height:1.6;color:#66795a;background:#edf2e7;border:1px solid #e3e9dc;border-radius:20px;padding:3px 9px}.result-state.stale{color:#965a21;background:#fff3df;border-color:#f2debb}textarea{display:block;background:transparent;border:0;width:100%;height:264px;min-height:180px;resize:vertical;padding:5px 0 16px;font-size:15px;line-height:1.9;letter-spacing:-.18px;color:var(--ink);border-radius:0;outline:none}textarea::placeholder{color:#85907f;opacity:1}textarea:focus-visible{box-shadow:inset 0 -2px var(--accent)}.result-editor textarea::placeholder{color:#98a18f}.editor-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:28px;font-size:10px;color:var(--muted);margin-top:12px}.editor-footer span{line-height:1.5}#difference{color:#687b57;text-align:right}.options{display:flex;align-items:center;gap:26px;flex-wrap:wrap;padding:17px 25px;border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#fff}.options label{display:flex;gap:7px;align-items:center;font-size:11px;color:#586551;cursor:pointer;line-height:1.5}.options input{appearance:none;width:15px;height:15px;border:1px solid #a8b29f;border-radius:4px;display:grid;place-content:center;margin:0;flex-shrink:0}.options input:checked{background:#677d55;border-color:#677d55}.options input:checked:before{content:"";width:7px;height:4px;border-left:2px solid white;border-bottom:2px solid white;transform:translateY(-1px) rotate(-45deg)}.action-bar{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:20px 25px}.action-notes{font-size:11px;color:var(--muted);line-height:1.8;display:flex;flex-direction:column;align-items:flex-start}.actions{display:flex;gap:9px;flex-shrink:0}.button{border:1px solid transparent;min-height:45px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:600;padding:0 20px}.button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}.button.primary:not(:disabled):hover{background:#aa361c}.button.secondary{color:var(--ink);background:white;border-color:#ccd4c5}.button.secondary:not(:disabled):hover{background:#f2f5ed}.button svg{width:16px;height:16px}kbd{display:inline-block;font-family:inherit;background:#f2f4ef;border:1px solid #e1e6da;border-radius:4px;font-size:10px;color:#6c7864;line-height:1.5;padding:0 4px;margin:0 2px}.below-editor{display:flex;justify-content:space-between;gap:15px;color:#7b8475;font-size:10px;padding:0 4px}.below-editor p{margin:15px 0;line-height:1.65}#status{min-height:21px;font-size:12px;color:var(--accent);text-align:center;margin:1px 0 9px;line-height:1.7}.no-script{color:#a63120}footer{border-top:1px solid #e3e7de;padding-top:20px;font-size:11px;color:#858d80;display:flex;justify-content:space-between;gap:15px}footer a{font-size:11px;color:var(--muted);text-decoration:none;min-height:44px;display:inline-flex;align-items:center;margin-top:-12px}footer a:hover{text-decoration:underline}.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1500px){main{padding-top:55px}.intro{margin-bottom:40px}textarea{height:310px}}@media(max-width:1030px){.steps{display:none}.mode-help{max-width:195px}.controls{gap:14px}legend{display:none}.options{gap:18px}.action-notes{max-width:240px}}@media(max-width:700px){.site-header{padding:22px 20px}.brand{font-size:16px}.brand-icon{width:31px;height:31px}.version{display:none}.privacy{font-size:10px;gap:4px}.privacy svg{width:13px}main{padding:20px 16px}.intro{margin-bottom:26px;padding:0 4px}.eyebrow{font-size:11px;margin-bottom:11px}h1{font-size:30px;letter-spacing:-1.2px;line-height:1.4}.mobile-break{display:initial}.subtitle{font-size:12px;margin-top:11px}.controls{align-items:stretch;flex-direction:column;gap:10px;padding:16px}.modes{width:100%}.segmented{justify-content:space-between}.segmented label{flex:1;text-align:center}.segmented span{padding:9px 5px;font-size:11px}.mode-help{text-align:left;max-width:none;font-size:10px;padding-left:2px}.workspace{border-radius:15px}.editors{grid-template-columns:minmax(0,1fr)}.editor{padding:18px 20px 13px}.source-editor{border-right:0;border-bottom:1px solid var(--border)}.editor-heading{margin-bottom:10px}textarea{height:184px;min-height:140px;font-size:14px;line-height:1.8}.editor-footer{margin-top:3px}.options{padding:16px 19px;column-gap:20px;row-gap:14px}.options label{font-size:11px;min-height:24px}.options input{width:17px;height:17px}.action-bar{flex-direction:column-reverse;align-items:stretch;gap:14px;padding:17px 19px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.button{padding:0 10px;min-height:47px;font-size:12px}.action-notes{font-size:10px;max-width:none;align-items:center}.below-editor{flex-direction:column;gap:0;padding:10px 5px}.below-editor p{margin:3px 0;font-size:10px}#status{margin:2px 4px 15px;font-size:11px}footer{padding-top:17px;font-size:10px}.text-button{min-height:30px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+
+</style>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#main" aria-label="복붙 정리기 본문으로">
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 6h14M5 12h9M5 18h14"/></svg></span>
+      복붙 정리기<span class="version">작은 도구 01</span>
+    </a>
+    <span class="privacy"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2"/></svg>이 브라우저 안에서만</span>
+  </header>
+
+  <main id="main">
+    <section class="intro" aria-labelledby="page-title">
+      <div><p class="eyebrow">글은 그대로, 공백은 가볍게.</p><h1 id="page-title">복사한 글,<br class="mobile-break"> <span>깔끔하게 한 번에.</span></h1><p class="subtitle">불필요한 공백과 줄바꿈만 정리하세요.</p></div>
+      <ol class="steps" aria-label="사용 순서"><li><b>1</b> 붙여넣기</li><li><b>2</b> 정리하기</li><li><b>3</b> 복사하기</li></ol>
+    </section>
+
+    <section class="workspace" aria-label="글 정리 도구">
+      <div class="controls">
+        <fieldset class="modes">
+          <legend>줄바꿈 방식</legend>
+          <div class="segmented">
+            <label><input type="radio" name="mode" value="keep" checked><span>줄바꿈 유지</span></label>
+            <label><input type="radio" name="mode" value="paragraphs"><span>끊긴 줄 연결</span></label>
+            <label><input type="radio" name="mode" value="single"><span>한 줄로</span></label>
+          </div>
+        </fieldset>
+        <p id="mode-help" class="mode-help">줄바꿈과 문단을 그대로 유지합니다.</p>
+      </div>
+      <div class="editors">
+        <section class="editor source-editor" aria-labelledby="source-heading">
+          <div class="editor-heading"><h2 id="source-heading"><span class="dot"></span>원문</h2><button id="sample" class="text-button" type="button">예시 넣기 <span aria-hidden="true">↗</span></button></div>
+          <label class="sr-only" for="source">정리할 원문</label>
+          <textarea id="source" spellcheck="false" autocomplete="off" placeholder="여기에 글을 붙여넣으세요.&#10;&#10;웹페이지, PDF, 메모에서 복사한 글도 좋아요." aria-describedby="source-hint"></textarea>
+          <div class="editor-footer"><span id="source-count">0자 · 0줄</span><button id="clear" class="text-button muted" type="button" disabled>비우기</button></div>
+        </section>
+        <section class="editor result-editor" aria-labelledby="result-heading">
+          <div class="editor-heading"><h2 id="result-heading"><span class="dot accent"></span>정리 결과</h2><span id="result-state" class="result-state">준비됐어요</span></div>
+          <label class="sr-only" for="result">정리된 글</label>
+          <textarea id="result" spellcheck="false" readonly placeholder="정리한 글이 이곳에 나타나요." aria-describedby="result-hint"></textarea>
+          <div class="editor-footer"><span id="result-count">0자 · 0줄</span><span id="difference">원문은 그대로 남아요</span></div>
+        </section>
+      </div>
+      <div class="options" aria-label="추가 정리 옵션">
+        <label><input id="spaces" type="checkbox" checked>앞뒤·연속 공백 정리</label>
+        <label><input id="blank-lines" type="checkbox" checked>여러 빈 줄을 한 줄로</label>
+        <label><input id="invisible" type="checkbox" checked>숨은 복사 문자 제거</label>
+      </div>
+      <div class="action-bar">
+        <div class="action-notes"><span id="source-hint">붙여넣은 뒤 <kbd id="shortcut">⌘ ↵</kbd>로도 정리할 수 있어요.</span><button id="undo" class="text-button" type="button" hidden>비우기 되돌리기</button></div>
+        <div class="actions"><button id="clean" class="button secondary" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15 4 5 5M4 20l3-7L17 3l4 4L11 17l-7 3Zm3-7 4 4M4 4v4m-2-2h4m13 10v4m-2-2h4"/></svg>정리하기</button><button id="copy" class="button primary" type="button" disabled><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg><span id="copy-label">결과 복사</span></button></div>
+      </div>
+    </section>
+
+    <div class="below-editor"><p id="result-hint">문장의 내용과 맞춤법은 바꾸지 않아요.</p><p>입력한 글을 전송하거나 따로 저장하지 않아요.</p></div>
+    <p id="status" role="status" aria-live="polite" aria-atomic="true"></p>
+    <noscript><p class="no-script">이 도구를 사용하려면 브라우저의 JavaScript를 켜 주세요.</p></noscript>
+    <footer>조금 덜 지우고, 조금 더 편하게.<a href="/#projects">← 홈페이지</a></footer>
+  </main>
+  <script>
+(function (root) {
+  'use strict';
+  const defaults = Object.freeze({ mode: 'keep', spaces: true, blankLines: true, invisible: true });
+  const horizontal = /[^\S\n]/gu;
+  const structural = /^\s*(?:[-*+•‣▪◦]\s|\d+[.)]\s|[가-힣][.)]\s|#{1,6}\s|>\s?|```|~~~|\|)/u;
+
+  function cleanText(input, options = {}) {
+    const settings = { ...defaults, ...options };
+    let text = String(input ?? '').replace(/\r\n?/g, '\n').replace(/\u2028/g, '\n').replace(/\u2029/g, '\n\n');
+    if (settings.invisible) text = text.replace(/[\u200B\uFEFF]/g, '');
+    if (settings.spaces) {
+      text = text.split('\n').map(line => line.replace(horizontal, ' ').replace(/ +/g, ' ').trim()).join('\n');
+      text = text.replace(/^\n+|\n+$/g, '');
+    }
+    if (settings.blankLines) text = text.replace(/\n(?:[^\S\n]*\n){2,}/gu, '\n\n');
+    if (settings.mode === 'single') {
+      text = text.replace(/[^\S\n]*\n(?:[^\S\n]*\n)*[^\S\n]*/gu, ' ');
+      if (settings.spaces) text = text.trim();
+    } else if (settings.mode === 'paragraphs') {
+      const lines = text.split('\n');
+      let joined = lines[0] ?? '';
+      let fenced = /^\s*(?:```|~~~)/.test(lines[0] ?? '');
+      for (let i = 1; i < lines.length; i += 1) {
+        const previous = lines[i - 1];
+        const current = lines[i];
+        const boundary = fenced || !previous.trim() || !current.trim() || structural.test(previous) || structural.test(current);
+        joined += (boundary ? '\n' : ' ') + current;
+        if (/^\s*(?:```|~~~)/.test(current)) fenced = !fenced;
+      }
+      text = joined;
+    }
+    return text;
+  }
+
+  const api = { cleanText, defaults };
+  if (typeof module !== 'undefined' && module.exports) module.exports = api;
+  root.PasteCleaner = api;
+})(globalThis);
+
+</script>
+  <script>
+(() => {
+  'use strict';
+  const $ = id => document.getElementById(id);
+  const source = $('source');
+  const result = $('result');
+  const copy = $('copy');
+  const status = $('status');
+  const modeHelp = {
+    keep: '줄바꿈과 문단을 그대로 유지합니다.',
+    paragraphs: '끊긴 줄을 잇고, 빈 줄로 나눈 문단과 목록은 유지합니다.',
+    single: '모든 줄바꿈을 공백 하나로 바꿉니다.'
+  };
+  let hasResult = false;
+  let previousInput = null;
+  let copiedTimer;
+  const charCount = text => [...text].length;
+  const lineCount = text => text ? text.split(/\r\n?|\n/).length : 0;
+  const format = text => `${charCount(text).toLocaleString('ko-KR')}자 · ${lineCount(text).toLocaleString('ko-KR')}줄`;
+  const options = () => ({ mode: document.querySelector('input[name="mode"]:checked').value, spaces: $('spaces').checked, blankLines: $('blank-lines').checked, invisible: $('invisible').checked });
+  const announce = message => { status.textContent = message; };
+
+  function resetCopy() {
+    clearTimeout(copiedTimer);
+    $('copy-label').textContent = '결과 복사';
+  }
+  function inputChanged() {
+    resetCopy();
+    if (source.value) { previousInput = null; $('undo').hidden = true; }
+    $('source-count').textContent = format(source.value);
+    $('clean').disabled = source.value.length === 0;
+    $('clear').disabled = source.value.length === 0;
+    $('sample').disabled = source.value.length > 0;
+    result.value = '';
+    $('result-count').textContent = '0자 · 0줄';
+    $('difference').textContent = '원문은 그대로 남아요';
+    copy.disabled = true;
+    $('result-state').textContent = source.value ? '정리해 주세요' : '준비됐어요';
+    $('result-state').classList.toggle('stale', Boolean(source.value));
+    hasResult = false;
+    announce('');
+  }
+  function clean(shouldAnnounce = true) {
+    resetCopy();
+    if (!source.value) return;
+    const cleaned = PasteCleaner.cleanText(source.value, options());
+    result.value = cleaned;
+    hasResult = true;
+    $('source-count').textContent = format(source.value);
+    $('result-count').textContent = format(cleaned);
+    copy.disabled = cleaned.length === 0;
+    const removed = Math.max(0, charCount(source.value) - charCount(cleaned));
+    $('difference').textContent = removed ? `${removed.toLocaleString('ko-KR')}자 가벼워졌어요` : '불필요한 공백이 없어요';
+    $('result-state').textContent = cleaned ? '정리 완료' : '남은 글이 없어요';
+    $('result-state').classList.remove('stale');
+    if (shouldAnnounce) announce(cleaned ? (source.value === cleaned ? '이미 깔끔한 글이에요. 그대로 복사할 수 있어요.' : '정리했어요. 원문과 비교한 뒤 복사하세요.') : '공백을 정리하니 남은 글이 없어요.');
+  }
+
+  source.addEventListener('input', inputChanged);
+  source.addEventListener('keydown', event => {
+    if ((event.metaKey || event.ctrlKey) && event.key === 'Enter' && !event.isComposing) {
+      event.preventDefault();
+      clean();
+    }
+  });
+  $('clean').addEventListener('click', () => clean());
+  document.querySelectorAll('input').forEach(input => input.addEventListener('change', () => {
+    $('mode-help').textContent = modeHelp[options().mode];
+    if (hasResult) clean();
+  }));
+  $('sample').addEventListener('click', () => {
+    if (source.value) return;
+    source.value = '  복사한 글에    공백이 많거나,\n줄이 중간에 끊겨 있나요?  \n\n\n  내용은 그대로 두고,   읽기 좋게 정리해요.\n\n- 원문은 그대로 보관\n- 정리 결과만 복사  ';
+    inputChanged();
+    clean();
+  });
+  $('clear').addEventListener('click', () => {
+    if (!source.value) return;
+    previousInput = source.value;
+    source.value = '';
+    inputChanged();
+    $('undo').hidden = false;
+    announce('비웠어요. 되돌리기로 원문을 복원할 수 있어요.');
+    source.focus();
+  });
+  $('undo').addEventListener('click', () => {
+    if (source.value || previousInput === null) return;
+    source.value = previousInput;
+    previousInput = null;
+    $('undo').hidden = true;
+    inputChanged();
+    announce('원문을 복원했어요.');
+    source.focus();
+  });
+  copy.addEventListener('click', async () => {
+    if (copy.disabled || !result.value) return;
+    const value = result.value;
+    let success = false;
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(value);
+        success = true;
+      }
+    } catch (_) { /* A browser may require the manual fallback below. */ }
+    if (!success) {
+      result.focus();
+      result.select();
+      try { success = document.execCommand('copy'); } catch (_) { success = false; }
+    }
+    if (success) {
+      $('copy-label').textContent = '복사했어요';
+      announce('클립보드에 복사했어요. 원하는 곳에 붙여넣으세요.');
+      copiedTimer = setTimeout(resetCopy, 2400);
+    } else {
+      announce('자동 복사를 할 수 없어요. 선택된 결과를 ⌘C 또는 Ctrl+C로 복사해 주세요.');
+    }
+  });
+  if (!/Mac|iPhone|iPad/.test(navigator.platform)) $('shortcut').textContent = 'Ctrl ↵';
+  inputChanged();
+})();
+
+</script>
+</body>
+</html>

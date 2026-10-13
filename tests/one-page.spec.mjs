@@ -8,7 +8,7 @@ for (const width of [320, 390, 768, 1440]) {
     await page.goto('/');
     await expect(page.locator('h1')).toContainText('강대종');
     await expect(page.locator('.project-versions, .edition, .chapters')).toHaveCount(0);
-    await expect(page.locator('#projects .project-card')).toHaveCount(3);
+    await expect(page.locator('#projects .project-card')).toHaveCount(4);
     await expect(page.locator('#products .app-row')).toHaveCount(9);
     await expect(page.locator('#books .book-row')).toHaveCount(3);
     await expect(page.locator('main')).not.toContainText(/단어요|한컵|포모도로|첫이름|한장궁합|한장택일/);

@@ -1,5 +1,14 @@
 # 기능 확인 경로
 
+## 복붙 정리기 — T-261013-025
+
+- 진입점: 홈페이지 `/#projects` → 「만드는 도구」 마지막 「복붙 정리기」 카드 → 「글 정리하기」 → `https://kangdaejong.com/tools/text/`. PC·휴대전화 브라우저에서 로그인·설치 없이 사용한다. 도구 하단 「홈페이지」는 `/#projects`로 돌아간다.
+- 조작: 「원문」에 글 붙여넣기 → 「정리하기」 → 줄바꿈 유지·끊긴 줄 연결·한 줄로 중 선택 → 「결과 복사」. 원문은 보존한다. 원문을 수정하면 이전 결과와 복사 버튼을 무효화한다. 「비우기」는 한 번 되돌릴 수 있고, 예시는 기존 글을 덮지 않는다.
+- 처리: `public/tools/text/index.html`의 독립 HTML에 스타일과 스크립트가 들어 있다. 입력 글을 서버로 전송하거나 저장하지 않는다. CSP `connect-src 'none'`으로 연결을 차단한다. 복사가 거절되면 결과를 선택하고 수동 복사를 안내한다. canonical에서 사이트맵을 자동 생성한다. 홈페이지 카드의 EN 문구는 기존 사전에 포함한다.
+- 자동 검증: `node --test tests/text-cleaner.unit.mjs`(배포 HTML의 실제 정리 함수 10개), `npm run build`, `npx playwright test tests/text-cleaner.spec.mjs tests/home-tone.spec.mjs tests/one-page.spec.mjs tests/theme-lang-layout.spec.mjs`(진입·복귀·옵션·복사 API 성공/거절·원문 보존·저장/전송 없음·320/390/768/1440px·홈 회귀). 복사 API 자동 검사는 성공/거절을 모의한다. 실제 클립보드는 별도 Aside 검사로 확인한다.
+- 2026-10-13 로컬 화면 검토: 도구 390/1440px와 홈페이지 390/1440px의 스크린샷에서 새 카드·입력창·버튼·복귀 링크를 확인했다. 근거: `/Users/user/reports/T-261013-025/playwright/`. 실제 휴대전화 기기 조작은 미확인이다.
+- 공개 검증: 머지한 커밋에서 `npm run build` → 기존 `npx wrangler pages deploy dist --project-name=kangdaejong-com --branch=main` → 홈페이지 카드와 `/tools/text/` HTTP·내용 확인 → Aside에서 카드 진입·예시 정리·실제 복사/붙여넣기. 배포 ID·머지 커밋·readback은 T-261013-025 체크포인트에 기록한다. GitHub Actions는 공유 소스 검사와 머지 게이트만 수행하며 자동 배포하지 않는다.
+
 ## 사다리요 개인정보 처리 안내 — T-261012-019
 
 - 진입점: `/privacy-sadariyo/` (App Store·Google Play 제출용 개인정보처리방침 URL). 홈 앱 목록(`src/data/home.ts`) 반영은 심사 통과 뒤 별도 단계(T-261012-018)라 이번에는 페이지만 더한다.

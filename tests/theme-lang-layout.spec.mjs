@@ -41,6 +41,8 @@ test('the header toggle switches the whole page to English and back without relo
  await expect(page.locator('html')).toHaveAttribute('lang','en');
  await expect(page.locator('h1')).toContainText('Daejong Kang');
  await expect(page.locator('#projects-title')).toHaveText('Tools I build');
+ await expect(page.locator('.text-tool-card h3')).toHaveText('복붙 정리기 · Text Cleaner');
+ await expect(page.locator('.text-tool-card > a')).toHaveText('Clean up text→');
  await expect(page.locator('.book-action').first()).toHaveText('No longer on sale');
  expect(await header(page).evaluate(e=>[...e.shadowRoot.querySelectorAll('.links a .link-title')].map(a=>a.textContent.trim()))).toEqual(['Projects','Apps','Contact']);
  await expect(page).toHaveTitle(/Daejong Kang/);
@@ -53,6 +55,7 @@ test('the header toggle switches the whole page to English and back without relo
  await toggle('ko').click();
  await expect(page.locator('html')).toHaveAttribute('lang','ko');
  await expect(page.locator('h1')).toHaveText('안녕하세요.만드는 사람 강대종입니다.');
+ await expect(page.locator('.text-tool-card h3')).toHaveText('복붙 정리기');
  await expect(page.locator('.mood-quote')).toContainText(/[가-힣]/);
  expect(await page.evaluate(()=>localStorage.getItem('mb-lang'))).toBe('ko');
 });
