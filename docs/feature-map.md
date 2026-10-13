@@ -1,5 +1,12 @@
 # 기능 확인 경로
 
+## 입타·자비스 아이콘 교체 — T-261013-018
+
+- 진입점: 홈 `/#projects`의 입타·자비스 카드와 `/ipta/`의 입타 아이콘. 로그인 없이 확인한다.
+- 기대 결과: 입타는 호박색, 자비스는 보라색 새 아이콘을 표시한다. 홈의 「입타 알아보기」를 누르면 상세 페이지에서도 같은 아이콘을 표시한다. 96px WebP와 192px 2x 파일은 사용자 제공 1024px PNG의 SHA256 앞 8자로 이름을 정한다.
+- 원본·변환 기록: `src/data/product-icon-sources.json`. 앱 아이콘 생성 스크립트는 없으므로 Sharp의 Lanczos3·WebP quality 90/effort 6을 사용했다. 상세 페이지도 이 JSON을 읽으며 삭제된 PNG 주소를 사용하지 않는다. OG/Twitter는 스튜디오 공용 카드다.
+- 검증: 2026-10-13 `npm ci`·`npm run build`와 `tests/theme-lang-layout.spec.mjs`의 아이콘 로딩 검사(1440px)가 통과했다. Aside에서 홈 아이콘 표시·「입타 알아보기」 클릭·상세 아이콘 표시를 확인했다. 배포는 이번 범위에 없으며 공개 사이트 반영은 미확인이다.
+
 ## 사다리요 개인정보 처리 안내 — T-261012-019
 
 - 진입점: `/privacy-sadariyo/` (App Store·Google Play 제출용 개인정보처리방침 URL). 홈 앱 목록(`src/data/home.ts`) 반영은 심사 통과 뒤 별도 단계(T-261012-018)라 이번에는 페이지만 더한다.
