@@ -142,3 +142,10 @@
 - 콜타는 T-261002-007에서 2026-10-02 종료된 상태다. 서버/터널/메일을 재개하지 않는다. `callta-retired/worker.mjs`가 기존 호스트의 1033 오류를 종료 안내(410)로 바꾸고 모든 API를 차단한다. 홈페이지 운영 링크도 제거한다.
 - 검증: `npx playwright test tests/audit-fixes.spec.mjs --workers=1`과 `node --test callta-retired/worker.test.mjs`. 기존 버전에서 4개 결함 재현 후 수정 버전에서 통과.
 - 배포: 머지 버전의 `npm run build`, `npx wrangler pages deploy dist --project-name=kangdaejong-com --branch=main`, `npx wrangler deploy --config callta-retired/wrangler.jsonc`. 별도 자동 배포 설정 변경 없음. 공개 실측은 T-261004-013 체크포인트에 연결한다.
+
+## 살아있음 1.0.6 출시 안내 준비 (T-261012-009)
+
+- 진입: `/privacy-stillhere/`와 하단의 `/support-stillhere/` 링크.
+- 기대: 계정 없는 초대·확인 코드 연결, 암호문 중계와 처리 정보, 7일 메시지·30일 미사용 보관함 만료, 연결 해제와 구버전 Drive 안내가 함께 표시된다.
+- 근거: StillHere main `21bc7d522821813dd9b9e53f9cb7919a4398ff95`의 relay 제한·수신 확인·삭제 처리와 연결 화면. `npm run build` 통과. 2026-10-13 Aside 로컬 미리보기에서 두 페이지 문구·레이아웃·페이지 간 링크 확인.
+- 공개 반영: 미실행. 현재 공개 페이지는 1.0.5 기준이다. 이 PR은 출시 자료 준비이며, 공개 안내 배포는 사용자 확인 후 기존 Pages 배포 경로로 수행한다.
