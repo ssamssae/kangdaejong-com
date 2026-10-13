@@ -8,8 +8,28 @@ test('homepage card opens the public tool and the tool links back', async ({ pag
   await expect(page).toHaveURL(/\/tools\/text\/$/);
   await expect(page).toHaveTitle('복붙 정리기 — 글을 깔끔하게');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://kangdaejong.com/tools/text/');
-  await page.getByRole('link', { name: '홈페이지' }).click();
+  await page.locator('footer').getByRole('link', { name: '홈페이지' }).click();
   await expect(page).toHaveURL(/\/#projects$/);
+});
+
+test('the header shows the studio logo and visible home navigation on phones and desktop', async ({ page }) => {
+  for (const width of [320, 390, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto('/tools/text/');
+    const header = page.locator('header');
+    const brand = header.getByRole('link', { name: '마이너스베타스튜디오 홈페이지', exact: true });
+    const home = header.getByRole('link', { name: '홈페이지', exact: true });
+    await expect(brand).toBeInViewport();
+    await expect(brand).toHaveAttribute('href', '/');
+    await expect(brand.locator('img')).toHaveAttribute('src', '/brand/current/logo.svg');
+    expect(await brand.locator('img').evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
+    await expect(home).toBeInViewport();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+    await page.screenshot({ path: test.info().outputPath(`text-header-${width}.png`) });
+    await (width === 390 ? brand : home).click();
+    await expect(page).toHaveURL('http://127.0.0.1:4321/');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('강대종');
+  }
 });
 
 test('cleaning modes preserve the original and reject stale results', async ({ page }) => {
@@ -72,7 +92,7 @@ test('text remains local, literal and unsaved, including HTML-looking input', as
   await page.locator('#source').fill('<img src="https://invalid.example/x" onerror="window.bad=true">  🧑🏽‍💻');
   await page.locator('#clean').click();
   await expect(page.locator('#result')).toHaveValue('<img src="https://invalid.example/x" onerror="window.bad=true"> 🧑🏽‍💻');
-  expect(await page.locator('img').count()).toBe(0);
+  expect(await page.locator('.workspace img').count()).toBe(0);
   expect(await page.evaluate(() => window.bad)).toBeUndefined();
   expect(requests).toEqual([]);
   expect(await page.evaluate(() => [localStorage.length, sessionStorage.length])).toEqual([0, 0]);
