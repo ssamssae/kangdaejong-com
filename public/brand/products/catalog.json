@@ -166,16 +166,17 @@
     {
       "id": "ipta",
       "name": "입타",
-      "source": "https://raw.githubusercontent.com/ssamssae/ipta/v0.1.24/App/Resources/icon_1024.png",
-      "sourceSha256": "779f2694b78a3b57ba3706ca3f067a398b7fb138a5434d2506930c0dd8399834",
+      "source": "https://github.com/ssamssae/ipta",
+      "sourceSha256": "3eed2503c85c1240a3a292f2e277f8f27efb7067afd2165f907a026a63e5fcb9",
+      "sourceNote": "대종님 제공 글자 아이콘 ipta-amber-1024.png(2026-10-13, 아테나 /Users/user/icon-swap-20261013/). sourceSha256 = 그 1024px PNG. 96/192px WebP 는 PR #160 산출(Sharp lanczos3, quality 90). T-261013-018 → T-261014-035",
       "files": {
         "icon": {
-          "source": "/product-icons/ipta-779f2694-96.webp",
-          "sha256": "16dda122c21444cd9270be997dd8f0fc8e42049ac6efc73ba50e2e55a215d0df"
+          "source": "/product-icons/ipta-3eed2503-96.webp",
+          "sha256": "2bd22821a94a72ff7e0d99072a207e9e6449801e1eaa3cab6dc044df5bb8328a"
         },
         "icon2x": {
-          "source": "/product-icons/ipta-779f2694-192.webp",
-          "sha256": "b01646e207f12330b6ce29deaa168606011ac7d26859541cc89164f6251e69fb"
+          "source": "/product-icons/ipta-3eed2503-192.webp",
+          "sha256": "3e4d75299cce2746590cc38e2443c08c1ecf94e52d0994db2717fb2b74918d9e"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/ipta.webp",
@@ -188,15 +189,16 @@
       "id": "jarvis",
       "name": "자비스",
       "source": "https://github.com/ssamssae/jarvis-mac",
-      "sourceSha256": "6863105c6efba4ad9dc8aeb001e27872e0eb12eaa3bb3de52eb00b5baca76c30",
+      "sourceSha256": "db2130df587d8b09f5ede45053ea06a167fea22e1810ef96b33bf8c23bf21a34",
+      "sourceNote": "대종님 제공 글자 아이콘 jarvis-purple-1024.png(2026-10-13, 아테나 /Users/user/icon-swap-20261013/). sourceSha256 = 그 1024px PNG. 96/192px WebP 는 PR #160 산출(Sharp lanczos3, quality 90). jarvis-mac 저장소에는 로고가 없다. T-261013-018 → T-261014-035",
       "files": {
         "icon": {
-          "source": "/product-icons/jarvis-6863105c-96.webp",
-          "sha256": "4162494cef5ee53ff7ff40030758af39a26dcd492b53c56be1d6d6ccaee74fc8"
+          "source": "/product-icons/jarvis-db2130df-96.webp",
+          "sha256": "a0d62cc754233c867a3a3ede02fc1b13ab2117ab8fb9cb6c9269687e05e18c6e"
         },
         "icon2x": {
-          "source": "/product-icons/jarvis-6863105c-192.webp",
-          "sha256": "bbc99c84dc6937f993293fc9825a919aaf070dc959a433d90587f4f7e5678837"
+          "source": "/product-icons/jarvis-db2130df-192.webp",
+          "sha256": "03f3df865899361cfddf4caddab69e5b729a99f021fa1e1ff823e0c784aa1e89"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/jarvis.webp",

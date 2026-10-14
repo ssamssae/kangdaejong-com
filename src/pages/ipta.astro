@@ -1,8 +1,8 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import productIcons from "../data/product-icon-sources.json";
+import { productIcon } from "../lib/product-icons.mjs";
 import "../styles/renewal.css";
-const iptaIcon = productIcons.icons.find((entry) => entry.name === "입타")!;
+const iptaIcon = productIcon("ipta");
 const downloads = {
  mac: "https://github.com/ssamssae/ipta/releases/download/v0.1.24/Ipta-0.1.24-macos.dmg",
  windows: "https://github.com/ssamssae/ipta/releases/download/v0.1.25/Ipta-0.1.25-windows.exe",

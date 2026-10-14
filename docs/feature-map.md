@@ -1,11 +1,13 @@
 # 기능 확인 경로
 
-## 입타·자비스 아이콘 교체 — T-261013-018
+## 입타·자비스 글자 아이콘 교체 — T-261014-035 (PR #160, T-261013-018 계승)
 
-- 진입점: 홈 `/#projects`의 입타·자비스 카드와 `/ipta/`의 입타 아이콘. 로그인 없이 확인한다.
-- 기대 결과: 입타는 호박색, 자비스는 보라색 새 아이콘을 표시한다. 홈의 「입타 알아보기」를 누르면 상세 페이지에서도 같은 아이콘을 표시한다. 96px WebP와 192px 2x 파일은 사용자 제공 1024px PNG의 SHA256 앞 8자로 이름을 정한다.
-- 원본·변환 기록: `src/data/product-icon-sources.json`. 앱 아이콘 생성 스크립트는 없으므로 Sharp의 Lanczos3·WebP quality 90/effort 6을 사용했다. 상세 페이지도 이 JSON을 읽으며 삭제된 PNG 주소를 사용하지 않는다. OG/Twitter는 스튜디오 공용 카드다.
-- 검증: 2026-10-13 `npm ci`·`npm run build`와 `tests/theme-lang-layout.spec.mjs`의 아이콘 로딩 검사(1440px)가 통과했다. Aside에서 홈 아이콘 표시·「입타 알아보기」 클릭·상세 아이콘 표시를 확인했다. 배포는 이번 범위에 없으며 공개 사이트 반영은 미확인이다.
+- 진입점: 홈 `/#projects`의 입타·자비스 카드와 `/ipta/` 머리 아이콘. 작업장(work.kangdaejong.com)의 같은 제품 ID 카드는 공용 카탈로그를 읽으므로 회사홈 배포 뒤 함께 바뀐다. 로그인 없이 확인한다.
+- 기대 결과: 입타는 호박색 바탕에 「입타」 글자, 자비스는 보라색 바탕에 「자비스」 글자가 있는 아이콘을 표시한다. 홈의 「입타 알아보기」를 누르면 상세 페이지에서도 같은 아이콘을 표시한다.
+- 정본: `public/brand/products/catalog.json`의 `ipta`·`jarvis` 항목(`sourceSha256` = 대종님 제공 1024px PNG, `files.*.sha256` = `public/product-icons/<id>-<원본 SHA256 앞 8자>-<96|192>.webp`). 공개 별칭 `public/brand/products/{ipta,jarvis}{,@2x}.webp`는 `scripts/site-release/prepare.mjs`가 정본 파일에서 다시 쓴다(손으로 고치지 않는다). `src/data/product-icon-sources.json`은 이력 기록만 남는다.
+- 검증: `npm run build`(prepare·site-release check 포함), `npm run test:site-release`, `npx playwright test tests/home-corrections.spec.mjs --grep 'home corrections'`. 배포 뒤 `https://kangdaejong.com/brand/products/ipta.webp`·`jarvis.webp`의 SHA256 이 catalog `files.icon.sha256` 과 같은지 잰다.
+- 배포: main 머지만으로는 반영되지 않는다. `npm run build` 뒤 `npx wrangler pages deploy dist --project-name=kangdaejong-com --branch=main`.
+
 ## 사이트 변경 누락 방지 — T-261013-046
 
 - 진입: 회사홈과 작업장 제품 카드, 복붙 정리기, 대표소개, 단백질, 제품 설명서, 종료 안내, 초소 방문객. 대상은 `public/brand/sites.json`, 독립 발견 기록은 `docs/site-discovery.json`.
