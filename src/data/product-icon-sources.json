@@ -117,10 +117,15 @@
     },
     {
       "name": "입타 (Ipta)",
-      "icon": "/product-icons/ipta-779f2694b7.png",
-      "source": "https://raw.githubusercontent.com/ssamssae/ipta/v0.1.24/App/Resources/icon_1024.png",
-      "version": "0.1.24",
-      "sha256": "779f2694b78a3b57ba3706ca3f067a398b7fb138a5434d2506930c0dd8399834"
+      "icon": "/product-icons/ipta-3eed2503-96.webp",
+      "source": "ipta-amber-1024.png",
+      "sha256": "3eed2503c85c1240a3a292f2e277f8f27efb7067afd2165f907a026a63e5fcb9",
+      "icon2x": "/product-icons/ipta-3eed2503-192.webp",
+      "sourceType": "user-provided",
+      "checkedAt": "2026-10-13",
+      "derivedFrom": "ipta-amber-1024.png",
+      "derivedAt": "2026-10-13",
+      "derivedNote": "사용자 제공 1024px PNG(sha256=원본)를 Sharp 0.34.5, Lanczos3, WebP quality 90/effort 6으로 96/192px 축소. 저장소에는 WebP만 둔다. T-261013-018"
     },
     {
       "name": "계산기알람",
@@ -174,21 +179,27 @@
     },
     {
       "name": "입타",
-      "icon": "/product-icons/ipta-779f2694-96.webp",
-      "icon2x": "/product-icons/ipta-779f2694-192.webp",
-      "derivedFrom": "/product-icons/ipta-779f2694b7.png",
-      "derivedAt": "2026-10-11",
-      "derivedNote": "ipta 1024px PNG 원본을 96/192px WebP로 축소. 화면 표시 40px. T-261011-068"
+      "icon": "/product-icons/ipta-3eed2503-96.webp",
+      "icon2x": "/product-icons/ipta-3eed2503-192.webp",
+      "derivedFrom": "ipta-amber-1024.png",
+      "derivedAt": "2026-10-13",
+      "derivedNote": "사용자 제공 1024px PNG(sha256=원본)를 Sharp 0.34.5, Lanczos3, WebP quality 90/effort 6으로 96/192px 축소. 저장소에는 WebP만 둔다. T-261013-018",
+      "source": "ipta-amber-1024.png",
+      "sourceType": "user-provided",
+      "sha256": "3eed2503c85c1240a3a292f2e277f8f27efb7067afd2165f907a026a63e5fcb9",
+      "checkedAt": "2026-10-13"
     },
     {
       "name": "자비스",
-      "icon": "/product-icons/jarvis-6863105c-96.webp",
-      "icon2x": "/product-icons/jarvis-6863105c-192.webp",
-      "source": "https://github.com/ssamssae/jarvis-mac",
-      "sourceType": "designed-for-site",
-      "sha256": "6863105c6efba4ad9dc8aeb001e27872e0eb12eaa3bb3de52eb00b5baca76c30",
-      "checkedAt": "2026-10-11",
-      "derivedNote": "그록봇이 2026-10-11 그린 홈페이지용 자비스 아이콘(입타 아이콘 톤). 원본 1024px PNG sha256 위, 96/192px WebP 로 축소. jarvis-mac 저장소에는 로고가 없다. T-261011-068"
+      "icon": "/product-icons/jarvis-db2130df-96.webp",
+      "icon2x": "/product-icons/jarvis-db2130df-192.webp",
+      "source": "jarvis-purple-1024.png",
+      "sourceType": "user-provided",
+      "sha256": "db2130df587d8b09f5ede45053ea06a167fea22e1810ef96b33bf8c23bf21a34",
+      "checkedAt": "2026-10-13",
+      "derivedNote": "사용자 제공 1024px PNG(sha256=원본)를 Sharp 0.34.5, Lanczos3, WebP quality 90/effort 6으로 96/192px 축소. 저장소에는 WebP만 둔다. T-261013-018",
+      "derivedFrom": "jarvis-purple-1024.png",
+      "derivedAt": "2026-10-13"
     }
   ],
   "historicalOnly": "Active rendered icon mapping is public/brand/products/catalog.json. This file retains original source evidence."

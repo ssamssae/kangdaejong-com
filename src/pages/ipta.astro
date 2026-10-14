@@ -1,6 +1,8 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { productIcon } from "../lib/product-icons.mjs";
 import "../styles/renewal.css";
+const iptaIcon = productIcon("ipta");
 const downloads = {
  mac: "https://github.com/ssamssae/ipta/releases/download/v0.1.24/Ipta-0.1.24-macos.dmg",
  windows: "https://github.com/ssamssae/ipta/releases/download/v0.1.25/Ipta-0.1.25-windows.exe",
@@ -8,7 +10,7 @@ const downloads = {
 ---
 <SiteLayout theme="auto" title="입타 — 말하면 글이 되는 한국어 음성 입력" description="Mac과 Windows에서 쓰는 한국어 받아쓰기. 입타 다운로드, 설치, 권한 설정과 자주 묻는 질문을 확인하세요." canonical="https://kangdaejong.com/ipta/" active="products" bodyClass="renewal">
 <main id="main-content" class="ipta-page">
-  <header class="ipta-hero"><img src="/product-icons/ipta-779f2694b7.png" width="80" height="80" alt="입타 앱 아이콘" /><p class="r-kicker">IPTA / 한국어 음성 입력</p><h1>말하면 글이 됩니다.</h1><p class="lead">입력할 곳을 선택하고, 단축키를 누르고, 말하세요.<br />한국어 받아쓰기를 내 컴퓨터에서 처리합니다.</p>
+  <header class="ipta-hero"><img src={iptaIcon.icon} srcset={`${iptaIcon.icon2x} 2x`} width="80" height="80" alt="입타 앱 아이콘" /><p class="r-kicker">IPTA / 한국어 음성 입력</p><h1>말하면 글이 됩니다.</h1><p class="lead">입력할 곳을 선택하고, 단축키를 누르고, 말하세요.<br />한국어 받아쓰기를 내 컴퓨터에서 처리합니다.</p>
   <div class="downloads"><a class="r-button" href={downloads.mac}>Mac 다운로드 · 0.1.24 ↗</a><a class="r-button secondary" href={downloads.windows}>Windows 다운로드 · 0.1.25 ↗</a></div>
   <p class="requirements">macOS 14 이상 · Apple Silicon / Intel<br />Windows 10·11 x64 · 처음 한 번 모델 다운로드 필요</p>
   <p><a href="#install">설치 방법</a> · <a href="#permissions">권한과 데이터</a> · <a href="#faq">자주 묻는 질문</a></p></header>
