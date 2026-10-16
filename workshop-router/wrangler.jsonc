@@ -1,0 +1,16 @@
+{
+  "$schema": "../node_modules/wrangler/config-schema.json",
+  "name": "workshop-router",
+  "main": "index.mjs",
+  "compatibility_date": "2026-10-17",
+  // Same-zone origin fetch bypasses this router, avoiding an old-host redirect loop.
+  "compatibility_flags": ["global_fetch_private_origin"],
+  "workers_dev": false,
+  "preview_urls": false,
+  "observability": {"enabled": false},
+  "routes": [
+    {"pattern": "kangdaejong.com/work*", "zone_name": "kangdaejong.com"},
+    {"pattern": "kangdaejong.com/sitemap.xml*", "zone_name": "kangdaejong.com"},
+    {"pattern": "work.kangdaejong.com/*", "zone_name": "kangdaejong.com"}
+  ]
+}

@@ -11,8 +11,8 @@
   ];
   const NAV_GROUPS = [
     { label: '제품과 도구', items: [
-      { key: 'catalog', label: '전체 제품', href: 'https://work.kangdaejong.com/products/' },
-      { key: 'tools', label: '공개 도구', href: 'https://work.kangdaejong.com/products/?category=tool#catalog' },
+      { key: 'catalog', label: '전체 제품', href: 'https://kangdaejong.com/work/products/' },
+      { key: 'tools', label: '공개 도구', href: 'https://kangdaejong.com/work/products/?category=tool#catalog' },
       { key: 'protein', label: '단백질', href: 'https://protein.kangdaejong.com/' },
     ] },
     { label: '회사 소개', items: [
@@ -21,14 +21,14 @@
       { key: 'system', label: '만드는 방식', description: '기획부터 출시까지의 원칙', href: 'https://kangdaejong.com/system/' },
     ] },
     { label: '작업과 기록', items: [
-      { key: 'workshop', label: '작업장', description: '최근 작업과 이야기 한눈에', href: 'https://work.kangdaejong.com/' },
-      { key: 'worklog', label: '작업일지', description: '날마다 만든 것과 고친 것', href: 'https://work.kangdaejong.com/worklog/' },
-      { key: 'newsletter', label: '뉴스레터', description: '과정에서 건진 이야기', href: 'https://work.kangdaejong.com/newsletter/' },
-      { key: 'timeline', label: '타임라인', description: '처음부터 지금까지의 변화', href: 'https://work.kangdaejong.com/timeline.html/' },
+      { key: 'workshop', label: '작업장', description: '최근 작업과 이야기 한눈에', href: 'https://kangdaejong.com/work/' },
+      { key: 'worklog', label: '작업일지', description: '날마다 만든 것과 고친 것', href: 'https://kangdaejong.com/work/worklog/' },
+      { key: 'newsletter', label: '뉴스레터', description: '과정에서 건진 이야기', href: 'https://kangdaejong.com/work/newsletter/' },
+      { key: 'timeline', label: '타임라인', description: '처음부터 지금까지의 변화', href: 'https://kangdaejong.com/work/timeline.html/' },
     ] },
     { label: '시스템과 실험', items: [
-      { key: 'work-system', label: '개발·운영 시스템', description: '작업을 지탱하는 도구와 구조', href: 'https://work.kangdaejong.com/system/' },
-      { key: 'lab', label: '실험실', description: '시험해 본 것과 배운 점', href: 'https://work.kangdaejong.com/lab/' },
+      { key: 'work-system', label: '개발·운영 시스템', description: '작업을 지탱하는 도구와 구조', href: 'https://kangdaejong.com/work/system/' },
+      { key: 'lab', label: '실험실', description: '시험해 본 것과 배운 점', href: 'https://kangdaejong.com/work/lab/' },
       { key: 'choso', label: '초소', description: '공개된 운영 현황 둘러보기', href: 'https://choso.kangdaejong.com/guest' },
       { key: 'ontology', label: '운영 정의', description: '초소 로그인 후 종류·관계·규칙 읽기', href: 'https://choso.kangdaejong.com/ontology' },
     ] },
@@ -60,8 +60,9 @@
     connectedCallback() {
       if (this.shadowRoot) return;
       let active = this.getAttribute('active') || '';
-      const path = location.pathname;
-      if (location.hostname === 'work.kangdaejong.com') {
+      const mountedWork = location.hostname === 'kangdaejong.com' && (location.pathname === '/work' || location.pathname.startsWith('/work/'));
+      const path = mountedWork ? location.pathname.slice('/work'.length) || '/' : location.pathname;
+      if (mountedWork || location.hostname === 'work.kangdaejong.com') {
         if (path.startsWith('/products')) active = new URLSearchParams(location.search).get('category') === 'tool' ? 'tools' : 'products';
         else if (path.startsWith('/lab')) active = 'lab';
         else if (path.startsWith('/timeline')) active = 'timeline';
