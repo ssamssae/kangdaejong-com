@@ -13,6 +13,7 @@ class StudioBrand(unittest.TestCase):
         self.assertIn('#a94830', (ROOT/'dist/favicon.svg').read_text())
     def test_company_body_phone(self):
         html = (ROOT/'dist/organization/index.html').read_text().split('<main')[1].split('</main>')[0]
-        self.assertEqual(html.count('href="tel:01074842927"'), 2)
+        self.assertEqual(html.count('href="tel:01074842927"'), 1)
+        self.assertIn('href="tel:01048672382"', html.split('id="contact"')[1])
 if __name__ == '__main__':
     unittest.main()
