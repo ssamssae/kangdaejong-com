@@ -11,9 +11,9 @@ test('all secondary destinations are reachable in one panel', async ({ page }) =
   await expect(menu(page).getByRole('link', { name: /^책·템플릿/ })).toHaveCount(0);
   for (const [label, href] of [
     ['스튜디오 소개', 'https://kangdaejong.com/organization/'],
-    ['작업장', 'https://work.kangdaejong.com/'],
-    ['개발·운영 시스템', 'https://work.kangdaejong.com/system/'],
-    ['실험실', 'https://work.kangdaejong.com/lab/'],
+    ['작업장', 'https://kangdaejong.com/work/'],
+    ['개발·운영 시스템', 'https://kangdaejong.com/work/system/'],
+    ['실험실', 'https://kangdaejong.com/work/lab/'],
     ['초소', 'https://choso.kangdaejong.com/guest'],
   ]) {
     const link = menu(page).getByRole('link', { name: new RegExp('^' + label) });
@@ -23,14 +23,14 @@ test('all secondary destinations are reachable in one panel', async ({ page }) =
 });
 
 test('newsletter opens the workshop newsletter page in the same tab', async ({ page, context }) => {
-  await context.route('https://work.kangdaejong.com/newsletter/', route => route.fulfill({ body: 'Newsletter' }));
+  await context.route('https://kangdaejong.com/work/newsletter/', route => route.fulfill({ body: 'Newsletter' }));
   await page.goto('/system/');
   await more(page).click();
   const link = menu(page).getByRole('link', { name: /^뉴스레터/ });
-  await expect(link).toHaveAttribute('href', 'https://work.kangdaejong.com/newsletter/');
+  await expect(link).toHaveAttribute('href', 'https://kangdaejong.com/work/newsletter/');
   await expect(link).not.toHaveAttribute('target', '_blank');
   await link.click();
-  await expect(page).toHaveURL('https://work.kangdaejong.com/newsletter/');
+  await expect(page).toHaveURL('https://kangdaejong.com/work/newsletter/');
 });
 
 test('keyboard opens at the first destination and Escape restores the trigger', async ({ page }) => {
@@ -72,11 +72,11 @@ test('outside click and focus departure close the panel', async ({ page }) => {
 });
 
 test('lab is a direct destination without a hover flyout', async ({ page, context }) => {
-  await context.route('https://work.kangdaejong.com/lab/', route => route.fulfill({ body: 'Lab' }));
+  await context.route('https://kangdaejong.com/work/lab/', route => route.fulfill({ body: 'Lab' }));
   await page.goto('/system/');
   await more(page).click();
   await menu(page).getByRole('link', { name: /^실험실/ }).click();
-  await expect(page).toHaveURL('https://work.kangdaejong.com/lab/');
+  await expect(page).toHaveURL('https://kangdaejong.com/work/lab/');
 });
 
 test("protein remains reachable from the shared menu and opens the dedicated subdomain", async ({ page, context }) => {

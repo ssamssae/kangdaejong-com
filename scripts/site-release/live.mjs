@@ -3,6 +3,8 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {chromium} from '@playwright/test';
 import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage} from './contract.mjs';
+import {sitemapLocations} from '../../workshop-router/index.mjs';
+import {workSitemapUrls} from './work-sitemap.mjs';
 
 const args=process.argv.slice(2);
 const value=(flag,fallback)=>args.includes(flag)?args[args.indexOf(flag)+1]:fallback;
@@ -16,9 +18,18 @@ const hash=b=>createHash('sha256').update(b).digest('hex');
 const cache=new Map();
 async function get(url){
   if(!cache.has(url))cache.set(url,(async()=>{
+    if(candidate&&url===ORIGIN+'/sitemap.xml'){
+      const company=sitemapLocations(fs.readFileSync('dist/sitemap.xml','utf8'),ORIGIN+'/');
+      // After cutover, the old origin redirects its sitemap to the unified map.
+      // Validate all URLs, then select work pages so later PRs remain verifiable.
+      const work=workSitemapUrls((await get(ORIGIN+'/work/sitemap.xml')).text);
+      const text='<urlset>'+[...new Set([...company,...work])].map(loc=>`<url><loc>${loc}</loc></url>`).join('')+'</urlset>';
+      return {bytes:Buffer.from(text),text,url,status:200};
+    }
     let r;
     for(let attempt=0;attempt<3;attempt++){
-      r=await fetch(url,{signal:AbortSignal.timeout(25000),headers:{'Cache-Control':'no-cache'}});
+      const target=candidate&&url.startsWith(ORIGIN+'/work/')?url.replace(ORIGIN,'https://work.kangdaejong.com'):url;
+      r=await fetch(target,{signal:AbortSignal.timeout(25000),headers:{'Cache-Control':'no-cache'}});
       if(![429,502,503,504].includes(r.status)||attempt===2)break;
       await r.arrayBuffer();await new Promise(resolve=>setTimeout(resolve,1500*(attempt+1)));
     }
@@ -36,7 +47,7 @@ async function sitemap(url,site,visited=new Set()){
   if(!locations.length)throw Error('empty/invalid sitemap');
   for(const location of locations){
     if(new URL(location).host!==new URL(site.url).host)throw Error(`foreign sitemap URL ${location}`);
-    if(/<sitemapindex\b/.test(text))await sitemap(location,site,visited);else add(location,site);
+    if(/<sitemapindex\b/.test(text))await sitemap(location,site,visited);else add(location,registered(location,inventory.sites)||site);
   }
 }
 const discovery=json(process.env.SITE_DISCOVERY||'docs/site-discovery.json');
@@ -52,7 +63,7 @@ if(!candidate){
   }catch(e){results.push({url,status:'unverified',errors:[e.message]});}
 }
 if(process.env.EXPECTED_WORK_COMMIT){
-  const url='https://work.kangdaejong.com/brand-consumer.json';
+  const url=ORIGIN+'/work/brand-consumer.json';
   try{
     const actual=JSON.parse((await get(url)).text);
     const errors=actual.commit===process.env.EXPECTED_WORK_COMMIT?[]:['deployed work commit differs'];
@@ -125,7 +136,9 @@ if(screens){
         if(candidate)await context.route(ORIGIN+'/**',async route=>{
           const u=new URL(route.request().url());let file=path.join('dist',u.pathname);
           if(u.pathname.endsWith('/'))file=path.join(file,'index.html');
-          if(fs.existsSync(file)&&fs.statSync(file).isFile())await route.fulfill({path:file});else await route.continue();
+          if(fs.existsSync(file)&&fs.statSync(file).isFile())await route.fulfill({path:file});
+          else if(u.pathname.startsWith('/work/'))await route.fulfill({response:await route.fetch({url:'https://work.kangdaejong.com'+u.pathname+u.search})});
+          else await route.continue();
         });
         if(candidate&&site.id==='protein')await context.route('https://protein.kangdaejong.com/**',async route=>{
           const u=new URL(route.request().url());let file=path.join('dist-protein',u.pathname);
@@ -148,7 +161,7 @@ if(screens){
           await img.evaluate(e=>{e.loading='eager';});await img.evaluate(e=>e.decode());
           if(!await img.evaluate(e=>e.naturalWidth>0))errors.push('broken product icon');
         }
-        if(site.id==='work'&&route==='/products/'){
+        if(site.id==='work'&&route==='/work/products/'){
           await page.locator('[data-catalog-search]').fill('Jarvis');
           if(await page.locator('[data-catalog-item]:visible').count()!==1)errors.push('product search failed');
           await page.locator('[data-catalog-search]').fill('');
@@ -164,7 +177,7 @@ if(screens){
 }
 const summary=summarize(results);
 const counts={registeredSurfaces:inventory.sites.length,webPages:pageSet.size,screens:results.filter(r=>r.viewport).length,sharedAssets:candidate?0:assets.length};
-const report={schema:1,observedAt:new Date().toISOString(),phase:candidate?'candidate':'production',revision:release.revision,sourceCommit:release.commit,inventoryObservedAt:discovery.observedAt,counts,...summary,results};
+const report={schema:1,observedAt:new Date().toISOString(),phase:candidate?'candidate':'production',workTransport:candidate?'GitHub Pages /work artifact':'public canonical URL',revision:release.revision,sourceCommit:release.commit,inventoryObservedAt:discovery.observedAt,counts,...summary,results};
 fs.writeFileSync(path.join(out,'report.json'),JSON.stringify(report,null,2)+'\n');
 const lines=[`# Site release: ${report.complete?'PASS':'INCOMPLETE'}`,``, `Phase: ${report.phase}; revision: ${report.revision}`,`Targets ${report.targets} / verified ${report.verified} / explicit exceptions ${report.exceptions} / unverified ${report.unverified.length}`,``, `Telegram preview: not verified (web deployment does not prove messenger cache refresh).`,``,...report.unverified.map(r=>`- ${r.url}: ${(r.errors||[]).join('; ')}`)];
 fs.writeFileSync(path.join(out,'report.md'),lines.join('\n')+'\n');

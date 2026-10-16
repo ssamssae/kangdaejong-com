@@ -36,7 +36,8 @@
       ],
       "deployments": [
         "cloudflare-pages:kangdaejong-com",
-        "cloudflare-route:logo-kureomi"
+        "cloudflare-route:logo-kureomi",
+        "cloudflare-route:workshop-router"
       ],
       "headerExceptions": {
         "/tools/text/": "Standalone local text tool uses a static studio header and restrictive CSP.",
@@ -48,33 +49,37 @@
     },
     {
       "id": "work",
-      "url": "https://work.kangdaejong.com/",
+      "url": "https://kangdaejong.com/work/",
       "mode": "shared",
       "checks": [
         "tokens"
       ],
       "sitemaps": [
-        "https://work.kangdaejong.com/sitemap-index.xml"
+        "https://kangdaejong.com/sitemap.xml"
       ],
       "pages": [
-        "/",
-        "/products/",
-        "/privacy-miniexpense.html"
+        "/work/",
+        "/work/products/",
+        "/work/privacy-miniexpense.html"
       ],
       "socialPages": [
-        "/",
-        "/products/",
-        "/privacy-miniexpense.html"
+        "/work/",
+        "/work/products/",
+        "/work/privacy-miniexpense.html"
       ],
       "productPages": [
-        "/products/"
+        "/work/products/"
       ],
       "screens": [
-        "/products/",
-        "/privacy-miniexpense.html"
+        "/work/products/",
+        "/work/privacy-miniexpense.html"
       ],
       "deployments": [
-        "github-pages:daejong-page"
+        "github-pages:daejong-page",
+        "cloudflare-route:workshop-router"
+      ],
+      "aliases": [
+        "https://work.kangdaejong.com/"
       ]
     },
     {

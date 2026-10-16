@@ -50,7 +50,7 @@ test("system remains local and offers an explicit deep-document link", async ({ 
   expect(new URL(page.url()).pathname).toBe("/system/");
   await expect(page.getByRole("heading", { level: 1, name: "작게 만들고, 확인하고, 오래 돌봅니다." })).toBeVisible();
   await expect(page.getByRole("link", { name: "초소 둘러보기" })).toHaveAttribute("href", "https://choso.kangdaejong.com/guest");
-  await expect(page.getByRole("link", { name: "운영 시스템 자세히 보기" })).toHaveAttribute("href", "https://work.kangdaejong.com/system/");
+  await expect(page.getByRole("link", { name: "운영 시스템 자세히 보기" })).toHaveAttribute("href", "https://kangdaejong.com/work/system/");
   await expect(page.locator('meta[http-equiv="refresh"]')).toHaveCount(0);
 });
 

@@ -1,5 +1,15 @@
 # 사이트 변경 누락 방지 — T-261013-046
 
+## 작업장 주소 이전 — T-261017-004
+
+작업장은 `https://kangdaejong.com/work/`를 사용한다. `workshop-router/`가 GitHub Pages의 `/work/` 산출물을 읽는다. 회사 Pages 사이트맵과 작업장 사이트맵을 합쳐 `/sitemap.xml` 하나로 제공한다. 원본 하나라도 실패하면 부분 사이트맵 대신 502를 반환한다. 기존 호스트는 새 경로로 301 이동한다. query를 유지한다. `/workshop`처럼 인접한 회사 경로는 회사 원본으로 전달한다.
+
+배포 순서는 작업장 PR의 기존 GitHub Pages 자동 배포 → 뉴스레터 수집기의 회사 Origin 허용(운영 바인딩 보존) → 이 저장소 PR 머지 → `npm run deploy:work-route` → 새 공개 경로 검증 → 기존 `npm run deploy:site` → 옛 작업장 DNS 프록시 활성화다. CNAME 대상은 바꾸지 않는다. 두 저장소의 main 자동 배포 효과는 서로 다르다. 작업장 main은 GitHub Pages에 자동 반영한다. 회사 main은 기존 수동 배포 경로를 사용한다.
+
+`global_fetch_private_origin`은 같은 zone의 작업장 원본 요청이 다시 Worker로 들어가는 것을 막는다. 이 설정 없이 옛 호스트 리디렉션을 활성화하지 않는다. 배포 전 DNS·Worker 라우트를 백업한다. 되돌릴 때는 옛 DNS 프록시와 이 Worker 라우트를 원복한 뒤 회사 메뉴를 되돌린다. 다른 Worker 라우트는 보존한다.
+
+`test:work-route`는 301·query·HTTP·404·HEAD·조건부 요청·인접 경로·원본 실패를 검사한다. 회사 Cookie와 Authorization은 GitHub 원본으로 보내지 않는다. candidate 검사는 배포 전 `/work/` 산출물과 전환 후 통합 사이트맵을 모두 지원한다. 통합 사이트맵의 각 URL은 가장 구체적인 사이트 경로에 귀속한다. 최종 공개 검사는 실제 canonical URL을 사용한다.
+
 사이트 변경은 `public/brand/sites.json`의 소비 대상 전체에 대해 검증한다. 회사홈, 작업장, 대표소개, 제품 설명서, 단백질, 종료 안내, 초소 방문객 화면을 포함한다. 자체 제품 브랜드, 내부 서비스, 메일 DNS, 별도 데모는 사유가 있는 명시적 예외다. 예외를 검증 성공 수에 합치지 않는다.
 
 ## 대상 발견과 검사 경로

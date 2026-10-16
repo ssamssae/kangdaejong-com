@@ -3,13 +3,13 @@ import { readFileSync } from "node:fs";
 const source = readFileSync(new URL("../public/mb-components.js", import.meta.url), "utf8");
 const checks = [
   ["brand keeps the company-home destination", /const BRAND_HREF = 'https:\/\/kangdaejong\.com\/';/.test(source)],
-  ["primary navigation follows the product visitor flow", ["products", "tools"].every((key) => new RegExp(`key: '${key}'`).test(source)) && /work\.kangdaejong\.com\/products\//.test(source) && /work\.kangdaejong\.com\/products\/\?category=tool#catalog/.test(source)],
+  ["primary navigation follows the product visitor flow", ["products", "tools"].every((key) => new RegExp(`key: '${key}'`).test(source)) && /kangdaejong\.com\/work\/products\//.test(source) && /kangdaejong\.com\/work\/products\/\?category=tool#catalog/.test(source)],
   ["company, system, choso, work, worklog, newsletter, and founder remain reachable", ["organization", "system", "choso", "workshop", "worklog", "newsletter", "founder"].every((key) => new RegExp(`key: '${key}'`).test(source))],
   ["choso guest destination stays public", /key: 'choso'/.test(source) && /https:\/\/choso\.kangdaejong\.com\/guest/.test(source)],
   ["grouped menu keeps workshop, system and lab directly reachable", /const NAV_GROUPS/.test(source) && ["workshop", "work-system", "lab"].every(key => new RegExp(`key: '${key}'`).test(source)) && !/submenu-panel/.test(source)],
   // T-261013-003: 전자책은 10/4 오프보딩(T-261003-019)으로 없다 — 둘러보기 「책·템플릿」이 다시 들어오면 막는다.
   ["retired book menu stays absent", !/key: 'books'/.test(source) && !/kangdaejong\.com\/#books/.test(source)],
-  ["dead cost page stays absent", !/key: 'cost'/.test(source) && !/work\.kangdaejong\.com\/cost/.test(source)],
+  ["dead cost page stays absent", !/key: 'cost'/.test(source) && !/kangdaejong\.com\/work\/cost/.test(source)],
   ["menu state supports click, outside click, and Escape", /aria-expanded="false"/.test(source) && /document\.addEventListener\('click'/.test(source) && /event\.key === 'Escape'/.test(source) && /closeMenu\(true\)/.test(source)],
   ["open shadow navigation has visible keyboard focus", /:where\(a,button\):focus-visible/.test(source)],
   ["mobile navigation retains compact responsive sizing", /@media\(max-width:380px\)/.test(source) && /width:calc\(100% - 40px\)/.test(source)],
