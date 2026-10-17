@@ -1,4 +1,9 @@
 import { test, expect } from "@playwright/test";
+import {fileURLToPath} from 'node:url';
+
+test.beforeEach(async({page})=>{
+  await page.route('https://kangdaejong.com/mb-components.js',route=>route.fulfill({path:fileURLToPath(new URL('../public/mb-components.js',import.meta.url)),contentType:'text/javascript'}));
+});
 
 const more = page => page.getByRole('button', { name: '둘러보기', exact: true });
 const menu = page => page.getByRole('navigation', { name: '스튜디오 둘러보기' });
@@ -6,12 +11,13 @@ const menu = page => page.getByRole('navigation', { name: '스튜디오 둘러�
 test('all secondary destinations are reachable in one panel', async ({ page }) => {
   await page.goto('/system/');
   await more(page).click();
-  await expect(menu(page).getByRole('link')).toHaveCount(14);
+  await expect(menu(page).getByRole('link')).toHaveCount(15);
   // T-261013-003: 오프보딩한 전자책 메뉴는 없다.
   await expect(menu(page).getByRole('link', { name: /^책·템플릿/ })).toHaveCount(0);
   for (const [label, href] of [
     ['스튜디오 소개', 'https://kangdaejong.com/organization/'],
     ['작업장', 'https://kangdaejong.com/work/'],
+    ['제품 사용 안내', 'https://kangdaejong.com/product/'],
     ['개발·운영 시스템', 'https://kangdaejong.com/work/system/'],
     ['실험실', 'https://kangdaejong.com/work/lab/'],
     ['초소', 'https://choso.kangdaejong.com/guest'],
@@ -79,12 +85,12 @@ test('lab is a direct destination without a hover flyout', async ({ page, contex
   await expect(page).toHaveURL('https://kangdaejong.com/work/lab/');
 });
 
-test("protein remains reachable from the shared menu and opens the dedicated subdomain", async ({ page, context }) => {
-  await context.route('https://protein.kangdaejong.com/', route => route.fulfill({ body: 'Protein atlas' }));
+test("protein remains reachable from the shared menu and opens the company path", async ({ page, context }) => {
+  await context.route('https://kangdaejong.com/protein/', route => route.fulfill({ body: 'Protein atlas' }));
   await page.goto('/system/');
   const links = page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link');
   await expect(links).toHaveText(['프로젝트', '앱', '연락']);
   await more(page).click();
   await menu(page).getByRole('link', { name: '단백질', exact: true }).click();
-  await expect(page).toHaveURL('https://protein.kangdaejong.com/');
+  await expect(page).toHaveURL('https://kangdaejong.com/protein/');
 });

@@ -27,7 +27,7 @@
     "test:logo-ui": "playwright test tests/logo-studio.spec.mjs --workers=2",
     "brand:render": "node scripts/render-studio-brand.mjs && node scripts/render-share-card.mjs",
     "test:site-release": "bash tests/test_site_release.sh && npm run test:work-route",
-    "test:work-route": "node --test workshop-router/route.test.mjs",
+    "test:work-route": "node --test workshop-router/*.test.mjs",
     "deploy:work-route": "wrangler deploy --config workshop-router/wrangler.jsonc",
     "verify:site-release": "node scripts/site-release/check.mjs --dist dist",
     "verify:live-sites": "node scripts/site-release/live.mjs",

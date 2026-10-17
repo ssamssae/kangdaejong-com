@@ -1,0 +1,5 @@
+---
+import PaidServicePage from '../components/PaidServicePage.astro';
+import {paidServices} from '../data/paid-services.mjs';
+---
+<PaidServicePage service={paidServices.find(service=>service.slug==='tojeong')} />

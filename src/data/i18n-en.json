@@ -202,5 +202,20 @@
  "__title": "Daejong Kang — Small tools I build myself — Minus Beta Studio",
  "__description": "Daejong Kang's projects, all in one place: Telegram Bridge, 입타 voice typing, the 자비스 (Jarvis) voice assistant, everyday apps, and notes on what he learned while building them.",
  "언어 선택": "Language",
- "Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지": "Claude, Codex, Grok and Cursor — four open-source Telegram bridges"
+ "Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지": "Claude, Codex, Grok and Cursor — four open-source Telegram bridges",
+ "앱 안내·지원": "App guide and support",
+ "앱 안내·지원 ↗": "App guide and support ↗",
+ "제품 사용 안내": "Product guides",
+ "웹 버전": "Web version",
+ "기존 웹 버전을 쓰셨다면 같은 브라우저에서 열어 주세요.": "If you have used the web version before, open it in the same browser.",
+ "웹 버전 열기 ↗": "Open web version ↗",
+ "개인정보처리방침 보기": "Read the privacy policy",
+ "Android 개인정보처리방침": "Android privacy policy",
+ "iOS 개인정보처리방침 ↗": "iOS privacy policy ↗",
+ "사용 문의": "Get help",
+ "앱 이름, 사용하는 기기와 문제가 생긴 순서를 알려주세요.": "Tell us the app name, your device and the steps that led to the problem.",
+ "이메일로 문의하기 ↗": "Contact us by email ↗",
+ "다른 앱 보기 ↗": "Browse other apps ↗",
+ "개인정보처리방침 보기 ↗": "Read the privacy policy ↗",
+ "Android 개인정보처리방침 ↗": "Android privacy policy ↗"
 }

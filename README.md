@@ -44,10 +44,19 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ## 단백질 도감
 
-`https://protein.kangdaejong.com/`은 같은 저장소의 별도 Astro 빌드입니다.
-`npm run build:protein`은 `dist-protein/`을 만들고, `npm run test:protein`으로 도감을 검증합니다.
-Cloudflare Pages 프로젝트는 `protein-kangdaejong`입니다. 회사 홈페이지는 기존 `npm run build` / `kangdaejong-com`을 사용합니다.
-공통 헤더를 수정하면 두 빌드를 검증하고 각각 배포합니다. 기존 회사 홈페이지 `/protein/`은 전용 주소로 이동합니다.
+`https://kangdaejong.com/protein/`이 도감의 정본입니다. 회사 Astro 빌드에 실제 도감을 포함합니다.
+`npm run test:protein`은 회사 경로에서 검색·필터·3D 보기를 검사합니다.
+기존 단백질 루트는 새 경로로 301 이동합니다. 기존 자산 주소는 유지합니다.
+`npm run build:protein`과 Pages `protein-kangdaejong`은 기존 자산 호환을 위해 함께 유지합니다.
+
+## 공개 주소 통합 — T-261017-028
+
+제품 안내와 4종 브릿지 설명서는 `/product/`, 앱 지원은 `/apps/dutchpay/`·`/apps/memoyo/`·`/apps/yakmukja/`입니다.
+첫이름·한장상호·천원 토정비결의 회사 안내는 `/cheotireum/`·`/sangho/`·`/tojeong/`입니다.
+결제·입력·주문 조회와 기존 Flutter 앱은 데이터·등록 주소를 보존하도록 기존 origin에서 실행합니다.
+이 주소는 회사 정적 페이지·작업장·대표 소개와 같은 `/sitemap.xml`에 포함됩니다.
+제품 프록시는 `workshop-router/product-guides.mjs`, 이전 제품 호스트의 301은 claude-automations의 `workers/product-docs/`가 담당합니다.
+검증: `npm run test:site-release`, `npx playwright test --config playwright.public-paths.config.mjs`, `npm run test:protein`.
 
 ## 기능 확인
 

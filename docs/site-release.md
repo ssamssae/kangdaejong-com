@@ -63,3 +63,17 @@ npm run deploy:site
 옛 founder 루트와 index.html만 `/founder/`로 301 이동한다. 옛 sitemap·robots는 회사 정본으로 이동한다. 나머지 요청은 기존 GitHub 원본 응답을 보존한다. 앱 지원 경로·app-ads.txt·기존 자산을 새 경로로 강제 이동하지 않는다. 새 `/founder/` 아래에는 대표 소개와 명시된 자산만 제공한다. 지원 페이지의 중복 사본과 알 수 없는 경로는 404/noindex다.
 
 후속 자산을 추가할 때 `FOUNDER_ASSETS`에 대표 소개 자산을 명시한다. `test:work-route`와 `tests/site-release/work-sitemap.test.mjs`는 대표 소개·기존 작업장·기존 제품 경로와 원본 실패를 함께 검사한다. candidate 검사는 전환 전후 founder 원본과 통합 사이트맵을 모두 지원한다.
+
+## 제품·단백질·지원·서비스 안내 경로 — T-261017-028
+
+`/product/`와 4개 `<engine>-telegram-bridge/` 설명서는 기존 founder GitHub Pages 원본을 읽는다. 공용 Worker의 private-origin fetch로 읽고 가이드끼리의 링크·canonical·og:url만 회사 경로로 바꾼다. query와 anchor, JS/CSS/README 상대 경로는 유지한다. 옛 product Custom Domain은 별도 `product-bridge-docs` Worker의 301 전용 버전으로 갱신한다. 새 프록시가 옛 product Worker를 원본으로 읽지 않으므로 순환하지 않는다. 옛 founder의 네 가이드 경로도 새 회사 경로로 이동한다.
+
+`/protein/`은 실제 회사 빌드다. 옛 protein 루트와 index는 query를 보존해 301 이동한다. sitemap·robots는 회사 정본으로 이동한다. 기존 protein 자산은 원래 Pages에서 읽는다. `deploy:site`의 기존 두 Pages 배포 계약은 유지한다.
+
+앱 지원 3개는 `/apps/dutchpay/`, `/apps/memoyo/`, `/apps/yakmukja/`다. 기존 founder 아래의 Flutter 앱은 이동하지 않는다. 메모의 localStorage와 약 복용 기록의 IndexedDB가 기존 origin에 있기 때문이다. 지원 페이지는 현재 스토어와 기존 개인정보 정본을 연결한다. 메모요 iOS의 GitHub 개인정보처리방침도 별도로 유지한다.
+
+첫이름·한장상호·천원 토정비결은 `/cheotireum/`, `/sangho/`, `/tojeong/`에서 공개 안내를 제공한다. 입력·결제·callback·로그인·기존 주문 조회는 기존 서비스 origin에 남긴다. 새 안내 페이지는 거래 API를 호출하거나 저장소를 만들지 않는다. 이전 루트의 fragment가 앱 진입점이므로 이 세 호스트에 일괄 301을 걸지 않는다. 첫이름은 10월 14일 복구된 운영 상태를 유지한다. 토정비결의 테스트 결제와 별도 PG 심사 T-261013-008은 변경하지 않는다. 밥먹자·한장궁합·한장택일은 410 종료 상태를 유지한다. 초소는 변경하지 않는다.
+
+배포 순서: 두 PR 검증·검토·머지 → 독립 배포 목록 조회와 기존 Worker/Pages/라우트 백업 → 회사 `deploy:site`의 사전 검사·두 Pages 업로드 → 회사 router 갱신과 `kangdaejong.com/product*`, `protein.kangdaejong.com/*` 라우트 추가 → 새 페이지/가이드 확인 → product-bridge-docs 301 버전 배포 → 기존 `live.mjs` 공개 검사. 최초 전환에서는 새 라우트가 생기기 전의 전체 공개 검사가 실패할 수 있으므로 업로드와 공개 확인을 구분한다. 같은 산출물을 재업로드하지 말고 전환 후 공개 검사를 다시 실행한다. 기존 /work·/founder 라우트·DNS·GitHub Pages는 변경하지 않는다. 토큰 권한을 바꾸지 않는다.
+
+새 페이지의 자동 sitemap 7개(단백질·지원3·서비스3)와 router의 제품5개를 기존 통합 목록에 더한다. canonical query/hash는 제외한다. 실측 수는 배포 보고서에 기록한다. 원본 sitemap 실패 시 502 계약은 유지한다. 배포 뒤 기존 Flutter 실행파일·서비스 상태·거래 진입 링크를 기준선과 비교한다. 실제 결제·OTP·주문 생성은 검증에 포함하지 않는다.

@@ -24,7 +24,10 @@
         "/logo/privacy/",
         "/logo/terms/",
         "/photo/",
-        "/logo/"
+        "/logo/",
+        "/apps/dutchpay/",
+        "/apps/memoyo/",
+        "/apps/yakmukja/"
       ],
       "productPages": [
         "/"
@@ -32,7 +35,10 @@
       "screens": [
         "/",
         "/tools/text/",
-        "/photo/"
+        "/photo/",
+        "/apps/dutchpay/",
+        "/apps/memoyo/",
+        "/apps/yakmukja/"
       ],
       "deployments": [
         "cloudflare-pages:kangdaejong-com",
@@ -84,69 +90,89 @@
     },
     {
       "id": "claude-telegram-bridge",
-      "url": "https://product.kangdaejong.com/claude-telegram-bridge/",
+      "url": "https://kangdaejong.com/product/claude-telegram-bridge/",
       "mode": "shared",
       "checks": [
         "tokens",
         "social"
       ],
       "aliases": [
+        "https://product.kangdaejong.com/claude-telegram-bridge/",
         "https://founder.kangdaejong.com/claude-telegram-bridge/"
       ],
       "deployments": [
-        "github-pages:claude-telegram-bridge"
+        "github-pages:claude-telegram-bridge",
+        "cloudflare-route:workshop-router"
+      ],
+      "screens": [
+        "/product/claude-telegram-bridge/"
       ]
     },
     {
       "id": "codex-telegram-bridge",
-      "url": "https://product.kangdaejong.com/codex-telegram-bridge/",
+      "url": "https://kangdaejong.com/product/codex-telegram-bridge/",
       "mode": "shared",
       "checks": [
         "tokens",
         "social"
       ],
       "aliases": [
+        "https://product.kangdaejong.com/codex-telegram-bridge/",
         "https://founder.kangdaejong.com/codex-telegram-bridge/"
       ],
       "deployments": [
-        "github-pages:codex-telegram-bridge"
+        "github-pages:codex-telegram-bridge",
+        "cloudflare-route:workshop-router"
+      ],
+      "screens": [
+        "/product/codex-telegram-bridge/"
       ]
     },
     {
       "id": "cursor-telegram-bridge",
-      "url": "https://product.kangdaejong.com/cursor-telegram-bridge/",
+      "url": "https://kangdaejong.com/product/cursor-telegram-bridge/",
       "mode": "shared",
       "checks": [
         "tokens",
         "social"
       ],
       "aliases": [
+        "https://product.kangdaejong.com/cursor-telegram-bridge/",
         "https://founder.kangdaejong.com/cursor-telegram-bridge/"
       ],
       "deployments": [
-        "github-pages:cursor-telegram-bridge"
+        "github-pages:cursor-telegram-bridge",
+        "cloudflare-route:workshop-router"
+      ],
+      "screens": [
+        "/product/cursor-telegram-bridge/"
       ]
     },
     {
       "id": "grok-telegram-bridge",
-      "url": "https://product.kangdaejong.com/grok-telegram-bridge/",
+      "url": "https://kangdaejong.com/product/grok-telegram-bridge/",
       "mode": "shared",
       "checks": [
         "tokens",
         "social"
       ],
       "aliases": [
+        "https://product.kangdaejong.com/grok-telegram-bridge/",
         "https://founder.kangdaejong.com/grok-telegram-bridge/"
       ],
       "deployments": [
-        "github-pages:grok-telegram-bridge"
+        "github-pages:grok-telegram-bridge",
+        "cloudflare-route:workshop-router"
+      ],
+      "screens": [
+        "/product/grok-telegram-bridge/"
       ]
     },
     {
       "id": "dutch_pay_calculator-legacy",
       "url": "https://founder.kangdaejong.com/dutch_pay_calculator/",
       "mode": "exception",
-      "reason": "Legacy app support/privacy site with its own product identity; not the corporate visual theme. Keep accessible.",
+      "reason": "Existing Flutter web app: preserve its original origin and browser-saved data. Company app support pages link here; this is not a static support/privacy page.",
       "deployments": [
         "github-pages:dutch_pay_calculator"
       ]
@@ -155,7 +181,7 @@
       "id": "simple-memo-app-legacy",
       "url": "https://founder.kangdaejong.com/simple-memo-app/",
       "mode": "exception",
-      "reason": "Legacy app support/privacy site with its own product identity; not the corporate visual theme. Keep accessible.",
+      "reason": "Existing Flutter web app: preserve its original origin and browser-saved data. Company app support pages link here; this is not a static support/privacy page.",
       "deployments": [
         "github-pages:simple-memo-app"
       ]
@@ -164,7 +190,7 @@
       "id": "yakmukja-legacy",
       "url": "https://founder.kangdaejong.com/yakmukja/",
       "mode": "exception",
-      "reason": "Legacy app support/privacy site with its own product identity; not the corporate visual theme. Keep accessible.",
+      "reason": "Existing Flutter web app: preserve its original origin and browser-saved data. Company app support pages link here; this is not a static support/privacy page.",
       "deployments": [
         "github-pages:yakmukja"
       ]
@@ -197,25 +223,29 @@
     },
     {
       "id": "product",
-      "url": "https://product.kangdaejong.com/",
+      "url": "https://kangdaejong.com/product/",
       "mode": "shared",
       "checks": [
         "tokens",
         "social"
       ],
       "pages": [
-        "/"
+        "/product/"
       ],
       "screens": [
-        "/"
+        "/product/"
       ],
       "deployments": [
-        "cloudflare-worker:product-bridge-docs"
+        "cloudflare-worker:product-bridge-docs",
+        "cloudflare-route:workshop-router"
+      ],
+      "aliases": [
+        "https://product.kangdaejong.com/"
       ]
     },
     {
       "id": "protein",
-      "url": "https://protein.kangdaejong.com/",
+      "url": "https://kangdaejong.com/protein/",
       "mode": "shared",
       "checks": [
         "tokens",
@@ -223,16 +253,19 @@
         "header"
       ],
       "aliases": [
+        "https://protein.kangdaejong.com/",
         "https://protein-kangdaejong.pages.dev/"
       ],
       "pages": [
-        "/"
+        "/protein/"
       ],
       "screens": [
-        "/"
+        "/protein/"
       ],
       "deployments": [
-        "cloudflare-pages:protein-kangdaejong"
+        "cloudflare-pages:protein-kangdaejong",
+        "cloudflare-pages:kangdaejong-com",
+        "cloudflare-route:workshop-router"
       ]
     },
     {
@@ -319,10 +352,10 @@
       ]
     },
     {
-      "id": "sangho",
+      "id": "sangho-transactions",
       "url": "https://sangho.kangdaejong.com/",
       "mode": "exception",
-      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "reason": "Transaction app keeps its registered payment origin, browser order records, login and callbacks. Public introduction is https://kangdaejong.com/sangho/. No whole-root redirect because application entry can use a fragment.",
       "deployments": [
         "cloudflare-worker:hanjang-sangho-worker"
       ]
@@ -337,17 +370,17 @@
       ]
     },
     {
-      "id": "tojeong",
+      "id": "tojeong-transactions",
       "url": "https://tojeong.kangdaejong.com/",
       "mode": "exception",
-      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "reason": "Transaction app keeps its registered payment origin, browser order records, login and callbacks. Public introduction is https://kangdaejong.com/tojeong/. No whole-root redirect because application entry can use a fragment.",
       "deployments": []
     },
     {
-      "id": "cheotireum",
+      "id": "cheotireum-transactions",
       "url": "https://cheotireum.kangdaejong.com/",
       "mode": "exception",
-      "reason": "Standalone product identity; corporate shared theme does not replace the product design.",
+      "reason": "Transaction app keeps its registered payment origin, browser order records, login and callbacks. Public introduction is https://kangdaejong.com/cheotireum/. No whole-root redirect because application entry can use a fragment.",
       "aliases": [
         "https://cheotireum.pages.dev/"
       ],
@@ -443,6 +476,63 @@
       "reason": "Separate demo/product deployment without corporate shared theme; retain its current purpose.",
       "deployments": [
         "cloudflare-pages:emoji-gate-runner"
+      ]
+    },
+    {
+      "id": "cheotireum",
+      "url": "https://kangdaejong.com/cheotireum/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social",
+        "header"
+      ],
+      "pages": [
+        "/cheotireum/"
+      ],
+      "screens": [
+        "/cheotireum/"
+      ],
+      "deployments": [
+        "cloudflare-pages:kangdaejong-com"
+      ]
+    },
+    {
+      "id": "sangho",
+      "url": "https://kangdaejong.com/sangho/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social",
+        "header"
+      ],
+      "pages": [
+        "/sangho/"
+      ],
+      "screens": [
+        "/sangho/"
+      ],
+      "deployments": [
+        "cloudflare-pages:kangdaejong-com"
+      ]
+    },
+    {
+      "id": "tojeong",
+      "url": "https://kangdaejong.com/tojeong/",
+      "mode": "shared",
+      "checks": [
+        "tokens",
+        "social",
+        "header"
+      ],
+      "pages": [
+        "/tojeong/"
+      ],
+      "screens": [
+        "/tojeong/"
+      ],
+      "deployments": [
+        "cloudflare-pages:kangdaejong-com"
       ]
     }
   ]

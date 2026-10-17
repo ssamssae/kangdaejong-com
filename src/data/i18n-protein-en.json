@@ -318,5 +318,6 @@
   "그림을 불러오지 못했습니다. 아래 원본 링크를 이용해주세요.": "Could not load the image. Please use the original link below.",
   "3D 구조를 불러오는 중입니다…": "Loading the 3D structure…",
   "드래그해서 돌려보세요.": "Drag to rotate.",
-  "3D 보기를 열지 못했습니다. 다시 시도하거나 정적인 그림을 확인해주세요.": "Could not open the 3D view. Try again or check the static image."
+  "3D 보기를 열지 못했습니다. 다시 시도하거나 정적인 그림을 확인해주세요.": "Could not open the 3D view. Try again or check the static image.",
+  "제품 사용 안내": "Product guides"
 }

@@ -187,3 +187,10 @@
 ## 대표 소개 주소 통일 — T-261017-024
 
 회사 메뉴의 대표 소개는 `/founder/`로 연결한다. 작업장 메뉴에서 대표 소개로 이동해도 같은 정본을 연다. 390/1440px에서 한국어·EN 전환과 앵커 이동을 확인한다. 공개 배포 뒤 새 canonical·자산·통합 사이트맵·옛 root/index 301·기존 제품 지원 주소를 실측한다. 세부 배포와 회귀 경로는 [site-release.md](site-release.md)의 대표 소개 절을 따른다.
+
+## 공개 경로 통합 — T-261017-028
+
+- 진입점: 공통 둘러보기 → 제품 사용 안내(`/product/`) 또는 단백질(`/protein/`). 홈 앱 카드 → 앱 안내·지원(`/apps/dutchpay/`, `/apps/memoyo/`, `/apps/yakmukja/`). 제품 사용 안내 → 첫이름(`/cheotireum/`), 한장상호(`/sangho/`), 천원 토정비결(`/tojeong/`). 로그인 없이 확인한다.
+- 조작: 가이드 한국어/English 선택 → 새로고침 → 다른 브릿지 링크. 단백질 검색·필터·3D 열기/닫기. 앱 지원 EN 선택 → 새로고침 → 한국어 복귀 → 웹 버전·개인정보 링크 확인. 서비스 안내에서 예시·입력 버튼과 기존 내역 링크 확인. 거래 진입은 목적지 확인까지만 진행한다.
+- 기대: 가이드·단백질·앱 지원·서비스 안내가 회사 canonical과 통합 sitemap을 쓴다. 가이드 자산과 언어 선택이 유지된다. 이전 product·protein 루트는 query를 보존해 301 이동한다. 앱 웹 버전은 기존 founder origin을 쓴다. 거래 화면은 기존 origin을 쓴다. 토정비결의 실제 판매는 활성화하지 않는다. 종료 서비스는 410을 유지한다.
+- 자동 근거: `workshop-router/*.test.mjs`, `workers/product-docs/worker.test.mjs`(claude-automations), `tests/public-paths.spec.mjs`, `tests/header-navigation.spec.mjs`, `tests/protein.spec.mjs`, 필수 전체 candidate 화면 검사. 최종 실행 결과·커밋·배포 readback은 T-261017-028 체크포인트와 PR에 기록한다. 실제 결제·OTP·주문 생성·검색엔진 재색인은 확인하지 않는다.
