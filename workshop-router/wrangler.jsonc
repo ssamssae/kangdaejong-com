@@ -11,6 +11,8 @@
   "routes": [
     {"pattern": "kangdaejong.com/work*", "zone_name": "kangdaejong.com"},
     {"pattern": "kangdaejong.com/sitemap.xml*", "zone_name": "kangdaejong.com"},
-    {"pattern": "work.kangdaejong.com/*", "zone_name": "kangdaejong.com"}
+    {"pattern": "work.kangdaejong.com/*", "zone_name": "kangdaejong.com"},
+    {"pattern": "kangdaejong.com/founder*", "zone_name": "kangdaejong.com"},
+    {"pattern": "founder.kangdaejong.com/*", "zone_name": "kangdaejong.com"}
   ]
 }

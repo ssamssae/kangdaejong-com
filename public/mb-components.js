@@ -17,7 +17,7 @@
     ] },
     { label: '회사 소개', items: [
       { key: 'organization', label: '스튜디오 소개', description: '누가 만들고 책임지는지', href: 'https://kangdaejong.com/organization/' },
-      { key: 'founder', label: '대표 소개', description: '만드는 사람, 강대종', href: 'https://founder.kangdaejong.com/' },
+      { key: 'founder', label: '대표 소개', description: '만드는 사람, 강대종', href: 'https://kangdaejong.com/founder/' },
       { key: 'system', label: '만드는 방식', description: '기획부터 출시까지의 원칙', href: 'https://kangdaejong.com/system/' },
     ] },
     { label: '작업과 기록', items: [
