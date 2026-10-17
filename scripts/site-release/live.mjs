@@ -4,7 +4,7 @@ import {createHash} from 'node:crypto';
 import {chromium} from '@playwright/test';
 import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage} from './contract.mjs';
 import {sitemapLocations} from '../../workshop-router/index.mjs';
-import {workSitemapUrls} from './work-sitemap.mjs';
+import {workSitemapUrls,mountedSitemapUrls} from './work-sitemap.mjs';
 
 const args=process.argv.slice(2);
 const value=(flag,fallback)=>args.includes(flag)?args[args.indexOf(flag)+1]:fallback;
@@ -23,12 +23,14 @@ async function get(url){
       // After cutover, the old origin redirects its sitemap to the unified map.
       // Validate all URLs, then select work pages so later PRs remain verifiable.
       const work=workSitemapUrls((await get(ORIGIN+'/work/sitemap.xml')).text);
-      const text='<urlset>'+[...new Set([...company,...work])].map(loc=>`<url><loc>${loc}</loc></url>`).join('')+'</urlset>';
+      const founder=mountedSitemapUrls((await get('https://founder.kangdaejong.com/sitemap.xml')).text,'/founder/');
+      const text='<urlset>'+[...new Set([...company,...work,...founder])].map(loc=>`<url><loc>${loc}</loc></url>`).join('')+'</urlset>';
       return {bytes:Buffer.from(text),text,url,status:200};
     }
     let r;
     for(let attempt=0;attempt<3;attempt++){
-      const target=candidate&&url.startsWith(ORIGIN+'/work/')?url.replace(ORIGIN,'https://work.kangdaejong.com'):url;
+      const target=candidate&&url.startsWith(ORIGIN+'/work/')?url.replace(ORIGIN,'https://work.kangdaejong.com'):
+        candidate&&url.startsWith(ORIGIN+'/founder/')?url.replace(ORIGIN+'/founder','https://founder.kangdaejong.com'):url;
       r=await fetch(target,{signal:AbortSignal.timeout(25000),headers:{'Cache-Control':'no-cache'}});
       if(![429,502,503,504].includes(r.status)||attempt===2)break;
       await r.arrayBuffer();await new Promise(resolve=>setTimeout(resolve,1500*(attempt+1)));
@@ -138,6 +140,7 @@ if(screens){
           if(u.pathname.endsWith('/'))file=path.join(file,'index.html');
           if(fs.existsSync(file)&&fs.statSync(file).isFile())await route.fulfill({path:file});
           else if(u.pathname.startsWith('/work/'))await route.fulfill({response:await route.fetch({url:'https://work.kangdaejong.com'+u.pathname+u.search})});
+          else if(u.pathname.startsWith('/founder/'))await route.fulfill({response:await route.fetch({url:'https://founder.kangdaejong.com'+u.pathname.slice('/founder'.length)+u.search})});
           else await route.continue();
         });
         if(candidate&&site.id==='protein')await context.route('https://protein.kangdaejong.com/**',async route=>{

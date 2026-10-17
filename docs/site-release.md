@@ -2,7 +2,7 @@
 
 ## 작업장 주소 이전 — T-261017-004
 
-작업장은 `https://kangdaejong.com/work/`를 사용한다. `workshop-router/`가 GitHub Pages의 `/work/` 산출물을 읽는다. 회사 Pages 사이트맵과 작업장 사이트맵을 합쳐 `/sitemap.xml` 하나로 제공한다. 원본 하나라도 실패하면 부분 사이트맵 대신 502를 반환한다. 기존 호스트는 새 경로로 301 이동한다. query를 유지한다. `/workshop`처럼 인접한 회사 경로는 회사 원본으로 전달한다.
+작업장은 `https://kangdaejong.com/work/`를 사용한다. `workshop-router/`가 GitHub Pages의 `/work/` 산출물을 읽는다. 회사 Pages·작업장·대표 소개의 사이트맵을 합쳐 `/sitemap.xml` 하나로 제공한다. 원본 하나라도 실패하면 부분 사이트맵 대신 502를 반환한다. 기존 호스트는 새 경로로 301 이동한다. query를 유지한다. `/workshop`처럼 인접한 회사 경로는 회사 원본으로 전달한다.
 
 배포 순서는 작업장 PR의 기존 GitHub Pages 자동 배포 → 뉴스레터 수집기의 회사 Origin 허용(운영 바인딩 보존) → 이 저장소 PR 머지 → `npm run deploy:work-route` → 새 공개 경로 검증 → 기존 `npm run deploy:site` → 옛 작업장 DNS 프록시 활성화다. CNAME 대상은 바꾸지 않는다. 두 저장소의 main 자동 배포 효과는 서로 다르다. 작업장 main은 GitHub Pages에 자동 반영한다. 회사 main은 기존 수동 배포 경로를 사용한다.
 
@@ -53,3 +53,13 @@ npm run deploy:site
 배포와 Telegram 미리보기는 별도 상태다. `telegramPreview=not_verified`는 메신저 캐시를 확인하지 않았다는 뜻이다. 이 검사기는 메시지를 보내거나 미리보기를 갱신하지 않는다. 전체 웹 검사가 통과해도 Telegram 갱신 완료라고 보고하지 않는다.
 
 재발 회귀: `bash tests/test_site_release.sh`는 실제 독립 발견 기록에서 work 항목을 삭제한 경우, 구버전 아이콘/누락 아이콘/미등록 카드, 오래된 공유 카드, 미확인을 완료로 합산하는 경우를 검증한다. 작업장 `bash tests/test_product_icon_contract.sh`는 실제 postbuild 검사 함수에 같은 결함을 넣어 실패를 확인한다.
+
+## 대표 소개 경로 — T-261017-024
+
+대표 소개는 `https://kangdaejong.com/founder/`를 쓴다. 같은 라우터가 founder GitHub Pages 원본의 루트와 허용한 정적 자산을 읽는다. `/founder`와 `/founder/index.html`은 슬래시 정본으로 이동한다. 원본의 `/sitemap.xml`은 회사 통합 사이트맵에 합친다. 원본 하나가 실패하면 부분 목록을 성공으로 제공하지 않는다.
+
+최초 배포 순서: ssamssae.github.io PR 검증·머지와 기존 자동 Pages 배포 → 원본 새 canonical·sitemap 확인 → 회사 PR 검증·머지 → 기존 Worker 코드 갱신 → 기존 관리 화면에서 `kangdaejong.com/founder*`와 `founder.kangdaejong.com/*` 두 라우트 추가 → 회사 `deploy:site` → founder CNAME 대상 유지·프록시 활성화 → 공개 검사. 기존 작업장 라우트와 DNS는 유지한다. 라우트 API가 권한 오류를 반환하면 기존 Cloudflare 로그인 관리 화면의 허용된 편집을 사용한다. 토큰·권한은 변경하지 않는다.
+
+옛 founder 루트와 index.html만 `/founder/`로 301 이동한다. 옛 sitemap·robots는 회사 정본으로 이동한다. 나머지 요청은 기존 GitHub 원본 응답을 보존한다. 앱 지원 경로·app-ads.txt·기존 자산을 새 경로로 강제 이동하지 않는다. 새 `/founder/` 아래에는 대표 소개와 명시된 자산만 제공한다. 지원 페이지의 중복 사본과 알 수 없는 경로는 404/noindex다.
+
+후속 자산을 추가할 때 `FOUNDER_ASSETS`에 대표 소개 자산을 명시한다. `test:work-route`와 `tests/site-release/work-sitemap.test.mjs`는 대표 소개·기존 작업장·기존 제품 경로와 원본 실패를 함께 검사한다. candidate 검사는 전환 전후 founder 원본과 통합 사이트맵을 모두 지원한다.

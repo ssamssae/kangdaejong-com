@@ -171,7 +171,7 @@
     },
     {
       "id": "founder",
-      "url": "https://founder.kangdaejong.com/",
+      "url": "https://kangdaejong.com/founder/",
       "mode": "shared",
       "checks": [
         "tokens",
@@ -179,13 +179,20 @@
         "header"
       ],
       "pages": [
-        "/"
+        "/founder/"
       ],
       "screens": [
-        "/"
+        "/founder/"
       ],
       "deployments": [
-        "github-pages:ssamssae.github.io"
+        "github-pages:ssamssae.github.io",
+        "cloudflare-route:workshop-router"
+      ],
+      "aliases": [
+        "https://founder.kangdaejong.com/"
+      ],
+      "sitemaps": [
+        "https://kangdaejong.com/sitemap.xml"
       ]
     },
     {

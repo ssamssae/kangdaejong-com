@@ -1,8 +1,22 @@
 export const COMPANY = 'https://kangdaejong.com';
 export const ORIGIN = 'https://work.kangdaejong.com';
 export const BASE = '/work';
+export const FOUNDER_ORIGIN = 'https://founder.kangdaejong.com';
+export const FOUNDER_BASE = '/founder';
 const SITEMAP = COMPANY + '/sitemap.xml';
 const MAP_PATH = /^\/(?:work\/)?sitemap(?:-index|-\d+)?\.xml$/;
+// Only the representative page moves. GitHub project sites and app-ads.txt on
+// the old hostname retain their existing public URLs and origin responses.
+const FOUNDER_ASSETS = new Set(['renewal.css','i18n-en.js','lang-toggle.js','favicon.ico','favicon.svg','apple-touch-icon.png','badge_appstore_kr.svg','badge_googleplay_kr.svg','minusbeta-badge.svg']);
+
+export function founderLocation(value) {
+  const url = new URL(value);
+  if (url.hostname !== new URL(FOUNDER_ORIGIN).hostname) return null;
+  if (url.pathname === '/sitemap.xml') return SITEMAP;
+  if (url.pathname === '/robots.txt') return COMPANY + '/robots.txt';
+  if (!['/','/index.html'].includes(url.pathname)) return null;
+  return COMPANY + FOUNDER_BASE + '/' + url.search + url.hash;
+}
 
 export function canonicalLocation(value) {
   const url = new URL(value);
@@ -34,14 +48,14 @@ export function sitemapLocations(xml, prefix) {
 async function unifiedSitemap(fetcher, method) {
   // Private-origin fetch is explicitly configured: the work hostname remains the
   // GitHub Pages origin even after its public route becomes a permanent redirect.
-  const sources=[['https://kangdaejong-com.pages.dev/sitemap.xml',COMPANY+'/'],[ORIGIN+'/work/sitemap.xml',COMPANY+'/work/']];
+  const sources=[['https://kangdaejong-com.pages.dev/sitemap.xml',COMPANY+'/'],[ORIGIN+'/work/sitemap.xml',COMPANY+'/work/'],[FOUNDER_ORIGIN+'/sitemap.xml',COMPANY+FOUNDER_BASE+'/']];
   const responses=await Promise.all(sources.map(async([url,prefix])=>{
     const response=await fetcher(url,{redirect:'manual',headers:{'Cache-Control':'no-cache'}});
     if(response.status!==200)throw Error('A sitemap origin is unavailable');
     return sitemapLocations(await response.text(),prefix);
   }));
   const urls=[...new Set(responses.flat())].sort();
-  if(!urls.includes(COMPANY+'/') || !urls.includes(COMPANY+'/work/') || urls.length>50000)throw Error('Incomplete unified sitemap');
+  if(!urls.includes(COMPANY+'/') || !urls.includes(COMPANY+'/work/') || !urls.includes(COMPANY+FOUNDER_BASE+'/') || urls.length>50000)throw Error('Incomplete unified sitemap');
   const xml='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+urls.map(url=>`<url><loc>${xmlEscape(url)}</loc></url>`).join('\n')+'\n</urlset>\n';
   return new Response(method==='HEAD'?null:xml,{headers:{'Content-Type':'application/xml; charset=utf-8','Cache-Control':'public, max-age=300','X-Workshop-Route':'v1'}});
 }
@@ -49,21 +63,30 @@ async function unifiedSitemap(fetcher, method) {
 export async function handle(request, fetcher=fetch) {
   const url=new URL(request.url);
   if(url.hostname===new URL(ORIGIN).hostname)return redirect(canonicalLocation(url.href),request.method);
+  if(url.hostname===new URL(FOUNDER_ORIGIN).hostname){
+    const location=founderLocation(url.href);
+    return location?redirect(location,request.method):fetcher(request);
+  }
   if(url.hostname===new URL(COMPANY).hostname&&url.protocol==='http:'){
     url.protocol='https:';return redirect(url.href,request.method);
   }
   if(url.origin!==COMPANY)return new Response('Not found',{status:404});
   // Route suffix wildcards also match queries. Adjacent company paths still
   // belong to the company origin (private-origin fetch avoids this Worker).
-  if(url.pathname!==BASE&&!url.pathname.startsWith(BASE+'/')&&url.pathname!=='/sitemap.xml')return fetcher(request);
+  const isFounder=url.pathname===FOUNDER_BASE||url.pathname.startsWith(FOUNDER_BASE+'/');
+  if(url.pathname!==BASE&&!url.pathname.startsWith(BASE+'/')&&!isFounder&&url.pathname!=='/sitemap.xml')return fetcher(request);
   if(url.pathname===BASE)return redirect(COMPANY+BASE+'/'+url.search,request.method);
+  if(url.pathname===FOUNDER_BASE||url.pathname===FOUNDER_BASE+'/index.html')return redirect(COMPANY+FOUNDER_BASE+'/'+url.search,request.method);
   if(!['GET','HEAD'].includes(request.method))return new Response('Method not allowed',{status:405,headers:{Allow:'GET, HEAD'}});
   try{
     if(url.pathname==='/sitemap.xml')return await unifiedSitemap(fetcher,request.method);
-    if(!url.pathname.startsWith(BASE+'/'))return new Response('Not found',{status:404});
+    const founderPath=isFounder?url.pathname.slice(FOUNDER_BASE.length):null;
+    if(isFounder&&['/sitemap.xml','/robots.txt'].includes(founderPath))return redirect(COMPANY+founderPath);
+    if(isFounder&&founderPath!=='/'&&!FOUNDER_ASSETS.has(founderPath.slice(1)))return new Response('Not found',{status:404,headers:{'X-Robots-Tag':'noindex','Cache-Control':'public, max-age=60'}});
+    if(!isFounder&&!url.pathname.startsWith(BASE+'/'))return new Response('Not found',{status:404});
     if(MAP_PATH.test(url.pathname))return redirect(SITEMAP);
-    const upstream=new URL(ORIGIN);
-    upstream.pathname=url.pathname;upstream.search=url.search;
+    const upstream=new URL(isFounder?FOUNDER_ORIGIN:ORIGIN);
+    upstream.pathname=isFounder?founderPath:url.pathname;upstream.search=url.search;
     const headers=new Headers();
     // Never forward company cookies, authentication, or arbitrary client headers
     // to the public GitHub Pages backing host.
@@ -74,15 +97,22 @@ export async function handle(request, fetcher=fetch) {
     const outputHeaders=new Headers(response.headers);
     outputHeaders.delete('Set-Cookie');outputHeaders.set('X-Workshop-Route','v1');
     const location=outputHeaders.get('Location');
-    if(location)outputHeaders.set('Location',canonicalLocation(new URL(location,upstream).href));
+    if(location){
+      const absolute=new URL(location,upstream).href;
+      outputHeaders.set('Location',isFounder?(founderLocation(absolute)||absolute):canonicalLocation(absolute));
+    }
     if(response.status===404){
+      if(isFounder){
+        outputHeaders.set('X-Robots-Tag','noindex');
+        return new Response(request.method==='HEAD'?null:response.body,{status:404,headers:outputHeaders});
+      }
       const missing=await fetcher(ORIGIN+'/work/404.html',{method:request.method,redirect:'manual'});
       return new Response(request.method==='HEAD'?null:missing.body,{status:404,headers:{'Content-Type':'text/html; charset=utf-8','X-Robots-Tag':'noindex','Cache-Control':'public, max-age=60','X-Workshop-Route':'v1'}});
     }
     return new Response(request.method==='HEAD'?null:response.body,{status:response.status,statusText:response.statusText,headers:outputHeaders});
   }catch{
     // A partial sitemap or a transport error must never look like a healthy page.
-    return new Response('Workshop origin temporarily unavailable',{status:502,headers:{'Cache-Control':'no-store','X-Robots-Tag':'noindex'}});
+    return new Response('Public page origin temporarily unavailable',{status:502,headers:{'Cache-Control':'no-store','X-Robots-Tag':'noindex'}});
   }
 }
 
