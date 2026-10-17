@@ -7,6 +7,8 @@ const never=()=>{throw Error('Unexpected origin fetch');};
 
 test('configured routes catch query strings and preserve neighbouring company pages',async()=>{
   const config=fs.readFileSync(new URL('./wrangler.jsonc',import.meta.url),'utf8');
+  const compatibilityDate=config.match(/"compatibility_date":\s*"([^"]+)"/)[1];
+  assert.ok(compatibilityDate<=new Date().toISOString().slice(0,10),'Cloudflare rejects compatibility dates after the current UTC date');
   const patterns=[...config.matchAll(/"pattern":\s*"([^"]+)"/g)].map(m=>new RegExp('^'+m[1].replaceAll('.','\\.').replaceAll('*','.*')+'$'));
   for(const value of ['kangdaejong.com/work?utm_source=test','kangdaejong.com/work/?x=1','kangdaejong.com/sitemap.xml?x=1'])assert.ok(patterns.some(p=>p.test(value)),value);
   for(const pathname of ['/workshop','/sitemap.xml.backup']){
