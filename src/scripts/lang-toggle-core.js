@@ -153,14 +153,18 @@ export function startLangToggle(dict) {
   });
 
   async function init() {
-    let saved = null;
-    try { saved = localStorage.getItem(STORAGE_KEY); } catch { /* ignore */ }
     if (window.customElements && !customElements.get('mb-header')) {
       await Promise.race([customElements.whenDefined('mb-header'), new Promise((resolve) => setTimeout(resolve, 3000))]);
     }
+    // The header can be clicked before this module loads. Its explicit lang
+    // records the latest choice; read it after waiting for the custom element.
+    const selected = document.querySelector('mb-header[lang-toggle]')?.getAttribute('lang');
+    let saved = null;
+    try { saved = localStorage.getItem(STORAGE_KEY); } catch { /* ignore */ }
     document.addEventListener('mb-lang-change', (event) => setLang(event.detail && event.detail.lang));
     for (const root of roots()) observer.observe(root, { subtree: true, childList: true, characterData: true, attributes: true, attributeFilter: ATTRS });
-    if (saved === 'en') setLang('en', { persist: false });
+    if (selected === 'ko' || selected === 'en') setLang(selected);
+    else if (saved === 'en') setLang('en', { persist: false });
     else for (const host of document.querySelectorAll('mb-header')) host.setAttribute('lang', 'ko');
   }
 
