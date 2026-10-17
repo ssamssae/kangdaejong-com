@@ -13,7 +13,8 @@
     { label: '제품과 도구', items: [
       { key: 'catalog', label: '전체 제품', href: 'https://kangdaejong.com/work/products/' },
       { key: 'tools', label: '공개 도구', href: 'https://kangdaejong.com/work/products/?category=tool#catalog' },
-      { key: 'protein', label: '단백질', href: 'https://protein.kangdaejong.com/' },
+      { key: 'guides', label: '제품 사용 안내', href: 'https://kangdaejong.com/product/' },
+      { key: 'protein', label: '단백질', href: 'https://kangdaejong.com/protein/' },
     ] },
     { label: '회사 소개', items: [
       { key: 'organization', label: '스튜디오 소개', description: '누가 만들고 책임지는지', href: 'https://kangdaejong.com/organization/' },

@@ -10,8 +10,8 @@ test('configured routes catch query strings and preserve neighbouring company pa
   const compatibilityDate=config.match(/"compatibility_date":\s*"([^"]+)"/)[1];
   assert.ok(compatibilityDate<=new Date().toISOString().slice(0,10),'Cloudflare rejects compatibility dates after the current UTC date');
   const patterns=[...config.matchAll(/"pattern":\s*"([^"]+)"/g)].map(m=>new RegExp('^'+m[1].replaceAll('.','\\.').replaceAll('*','.*')+'$'));
-  for(const value of ['kangdaejong.com/work?utm_source=test','kangdaejong.com/work/?x=1','kangdaejong.com/sitemap.xml?x=1','kangdaejong.com/founder?x=1','kangdaejong.com/founder/?x=1','founder.kangdaejong.com/?x=1'])assert.ok(patterns.some(p=>p.test(value)),value);
-  for(const pathname of ['/workshop','/founders','/sitemap.xml.backup']){
+  for(const value of ['kangdaejong.com/work?utm_source=test','kangdaejong.com/work/?x=1','kangdaejong.com/sitemap.xml?x=1','kangdaejong.com/founder?x=1','kangdaejong.com/founder/?x=1','founder.kangdaejong.com/?x=1','kangdaejong.com/product?lang=ko','protein.kangdaejong.com/?x=1'])assert.ok(patterns.some(p=>p.test(value)),value);
+  for(const pathname of ['/workshop','/founders','/products','/sitemap.xml.backup']){
     const request=new Request('https://kangdaejong.com'+pathname);
     const response=await handle(request,async actual=>{assert.equal(actual,request);return new Response('company origin');});
     assert.equal(await response.text(),'company origin');
@@ -50,22 +50,37 @@ test('missing pages remain 404/noindex and unsupported writes never reach the or
 });
 test('one complete sitemap combines three origins and excludes old-host URLs',async()=>{
   const r=await handle(new Request('https://kangdaejong.com/sitemap.xml'),async url=>new Response(xml(url.includes('pages.dev')?['https://kangdaejong.com/']:url.includes('founder.kangdaejong')?['https://kangdaejong.com/founder/']:['https://kangdaejong.com/work/','https://kangdaejong.com/work/worklog/'])));
-  assert.equal(r.status,200);const body=await r.text();assert.equal(sitemapLocations(body,'https://kangdaejong.com/').length,4);assert.doesNotMatch(body,/(work|founder)\.kangdaejong/);
+  assert.equal(r.status,200);const body=await r.text();assert.equal(sitemapLocations(body,'https://kangdaejong.com/').length,9);assert.doesNotMatch(body,/(work|founder|product|protein)\.kangdaejong/);
+  for(const name of ['claude','codex','cursor','grok'])assert.ok(body.includes(`https://kangdaejong.com/product/${name}-telegram-bridge/`));
   assert.equal((await handle(new Request('https://kangdaejong.com/work/sitemap.xml'),never)).headers.get('Location'),'https://kangdaejong.com/sitemap.xml');
 });
 
-test('representative root and index aliases redirect once while product paths stay on their old origin',async()=>{
+test('representative root and index aliases redirect once while Flutter apps retain their storage origin',async()=>{
   for(const origin of ['http://founder.kangdaejong.com','https://founder.kangdaejong.com'])for(const pathname of ['/','/index.html']){
     const r=await handle(new Request(origin+pathname+'?from=profile'),never);
     assert.equal(r.status,301);assert.equal(r.headers.get('Location'),'https://kangdaejong.com/founder/?from=profile');
   }
-  for(const pathname of ['/dutch_pay_calculator/','/simple-memo-app/privacy.html','/yakmukja/','/codex-telegram-bridge/','/app-ads.txt','/renewal.css']){
+  for(const pathname of ['/dutch_pay_calculator/','/simple-memo-app/','/simple-memo-app/flutter_service_worker.js','/yakmukja/','/yakmukja/main.dart.js','/app-ads.txt','/renewal.css']){
     const request=new Request('https://founder.kangdaejong.com'+pathname);
     const r=await handle(request,async actual=>{assert.equal(actual,request);return new Response('unchanged product');});
     assert.equal(r.status,200);assert.equal(await r.text(),'unchanged product');
   }
   assert.equal(founderLocation('https://founder.kangdaejong.com/sitemap.xml'),'https://kangdaejong.com/sitemap.xml');
   assert.equal(founderLocation('https://founder.kangdaejong.com/robots.txt'),'https://kangdaejong.com/robots.txt');
+});
+
+test('legacy bridge guides and protein roots use company paths while protein assets stay available',async()=>{
+  for(const engine of ['claude','codex','cursor','grok']){
+    const r=await handle(new Request(`https://founder.kangdaejong.com/${engine}-telegram-bridge/?lang=ko`),never);
+    assert.equal(r.status,301);assert.equal(r.headers.get('Location'),`https://kangdaejong.com/product/${engine}-telegram-bridge/?lang=ko`);
+  }
+  for(const scheme of ['http','https'])for(const path of ['/','/index.html']){
+    const r=await handle(new Request(`${scheme}://protein.kangdaejong.com${path}?from=old`),never);
+    assert.equal(r.status,301);assert.equal(r.headers.get('Location'),'https://kangdaejong.com/protein/?from=old');
+  }
+  const asset=new Request('https://protein.kangdaejong.com/protein/tryptophan.png');
+  const r=await handle(asset,async req=>{assert.equal(req,asset);return new Response('original asset');});
+  assert.equal(await r.text(),'original asset');
 });
 
 test('mounted representative page and assets strip the prefix without leaking company credentials',async()=>{

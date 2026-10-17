@@ -5,6 +5,7 @@ import {chromium} from '@playwright/test';
 import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage} from './contract.mjs';
 import {sitemapLocations} from '../../workshop-router/index.mjs';
 import {workSitemapUrls,mountedSitemapUrls} from './work-sitemap.mjs';
+import {handleProductRequest,PRODUCT_PAGES} from '../../workshop-router/product-guides.mjs';
 
 const args=process.argv.slice(2);
 const value=(flag,fallback)=>args.includes(flag)?args[args.indexOf(flag)+1]:fallback;
@@ -18,14 +19,42 @@ const hash=b=>createHash('sha256').update(b).digest('hex');
 const cache=new Map();
 async function get(url){
   if(!cache.has(url))cache.set(url,(async()=>{
+    if(candidate){
+      const legacy=new URL(url);
+      if(legacy.hostname==='product.kangdaejong.com')return get(ORIGIN+'/product'+legacy.pathname+legacy.search);
+      if(['protein.kangdaejong.com','protein-kangdaejong.pages.dev'].includes(legacy.hostname)&&legacy.pathname==='/')return get(ORIGIN+'/protein/'+legacy.search);
+      if(legacy.hostname==='founder.kangdaejong.com'&&/^\/(claude|codex|cursor|grok)-telegram-bridge\//.test(legacy.pathname))return get(ORIGIN+'/product'+legacy.pathname+legacy.search);
+    }
     if(candidate&&url===ORIGIN+'/sitemap.xml'){
       const company=sitemapLocations(fs.readFileSync('dist/sitemap.xml','utf8'),ORIGIN+'/');
       // After cutover, the old origin redirects its sitemap to the unified map.
       // Validate all URLs, then select work pages so later PRs remain verifiable.
       const work=workSitemapUrls((await get(ORIGIN+'/work/sitemap.xml')).text);
       const founder=mountedSitemapUrls((await get('https://founder.kangdaejong.com/sitemap.xml')).text,'/founder/');
-      const text='<urlset>'+[...new Set([...company,...work,...founder])].map(loc=>`<url><loc>${loc}</loc></url>`).join('')+'</urlset>';
+      const text='<urlset>'+[...new Set([...company,...work,...founder,...PRODUCT_PAGES])].map(loc=>`<url><loc>${loc}</loc></url>`).join('')+'</urlset>';
       return {bytes:Buffer.from(text),text,url,status:200};
+    }
+    if(candidate&&new URL(url).origin===ORIGIN){
+      const u=new URL(url);let file=path.join('dist',u.pathname);
+      if(u.pathname.endsWith('/'))file=path.join(file,'index.html');
+      if(fs.existsSync(file)&&fs.statSync(file).isFile()){
+        const bytes=fs.readFileSync(file);return {bytes,text:bytes.toString(),url,status:200};
+      }
+      if(u.pathname==='/product'||u.pathname.startsWith('/product/')){
+        const response=await handleProductRequest(new Request(url),async(source,init)=>{
+          const result=await fetch(source,{...init,signal:AbortSignal.timeout(25000)});
+          // After migration, public founder URLs redirect to this company path.
+          // Only follow the exact corresponding canonical path in the candidate transport.
+          const location=result.headers.get('location');
+          const target=location?new URL(location,source):null;
+          if(target?.origin===ORIGIN&&target.pathname==='/product'+new URL(source).pathname){
+            await result.arrayBuffer();return fetch(target,{signal:AbortSignal.timeout(25000)});
+          }
+          return result;
+        });
+        const bytes=Buffer.from(await response.arrayBuffer());
+        return {bytes,text:bytes.toString(),url,status:response.status,contentType:response.headers.get('content-type')};
+      }
     }
     let r;
     for(let attempt=0;attempt<3;attempt++){
@@ -91,12 +120,9 @@ if(!candidate)await pool(assets,async([file,expected])=>{
 // Every sitemap page is inspected. Special redirect/retirement/privacy pages are explicit seeds.
 await pool([...pageSet],async([url,site])=>{
   try{
-    let text;
-    if(candidate&&['home','protein'].includes(site.id)){
-      const route=new URL(url).pathname;const file=path.join(site.id==='protein'?'dist-protein':'dist',route,route.endsWith('/')?'index.html':'');
-      if(fs.existsSync(file)&&fs.statSync(file).isFile())text=fs.readFileSync(file,'utf8');
-    }
-    if(text===undefined)text=(await get(url)).text;
+    const fetched=await get(url);
+    if(![200,410].includes(fetched.status))throw Error(`HTTP ${fetched.status}`);
+    const text=fetched.text;
     const route=new URL(url).pathname, checks=checksForPage(site,route);
     // Explicit redirects have no rendered page. Their destination remains a separate target.
     if(/http-equiv=["']refresh/i.test(text)){
@@ -139,6 +165,10 @@ if(screens){
           const u=new URL(route.request().url());let file=path.join('dist',u.pathname);
           if(u.pathname.endsWith('/'))file=path.join(file,'index.html');
           if(fs.existsSync(file)&&fs.statSync(file).isFile())await route.fulfill({path:file});
+          else if(u.pathname==='/product'||u.pathname.startsWith('/product/')){
+            const result=await get(u.href);
+            await route.fulfill({status:result.status,body:result.bytes,contentType:result.contentType});
+          }
           else if(u.pathname.startsWith('/work/'))await route.fulfill({response:await route.fetch({url:'https://work.kangdaejong.com'+u.pathname+u.search})});
           else if(u.pathname.startsWith('/founder/'))await route.fulfill({response:await route.fetch({url:'https://founder.kangdaejong.com'+u.pathname.slice('/founder'.length)+u.search})});
           else await route.continue();

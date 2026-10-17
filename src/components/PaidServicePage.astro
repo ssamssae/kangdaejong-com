@@ -1,0 +1,36 @@
+---
+import SiteLayout from '../layouts/SiteLayout.astro';
+import '../styles/renewal.css';
+const {service}=Astro.props;
+const canonical=`https://kangdaejong.com/${service.slug}/`;
+---
+<SiteLayout title={service.name} description={service.description} canonical={canonical} active="guides" bodyClass="renewal" theme="auto">
+  <main id="main-content" class="service-page">
+    <p class="r-kicker">{service.kicker}</p>
+    <h1>{service.name}</h1>
+    <p class="lead">{service.description}</p>
+    <section aria-labelledby="contents-title">
+      <h2 id="contents-title">어떤 내용을 받나요?</h2>
+      <ul>{service.details.map(detail=><li>{detail}</li>)}</ul>
+    </section>
+    <section aria-labelledby="start-title">
+      <h2 id="start-title">이용하기</h2>
+      <p>{service.notice}</p>
+      <div class="actions">
+        <a class="r-button" href={service.start} data-service-start>{service.action} ↗</a>
+        {service.sample&&<a class="r-button secondary" href={service.sample} data-service-sample>{service.sampleLabel} ↗</a>}
+      </div>
+      <p class="service-note">입력과 결제는 {service.name} 서비스 화면에서 이어집니다.</p>
+    </section>
+    <section aria-labelledby="saved-title">
+      <h2 id="saved-title">기존 이용 내역</h2>
+      <p>{service.saved}</p>
+      {service.history&&<a href={service.history} data-service-history>{service.historyLabel} ↗</a>}
+    </section>
+    {service.policies.length>0&&<nav class="policies" aria-label="이용 안내">{service.policies.map(([label,path])=><a href={new URL(path,service.start).href}>{label} ↗</a>)}</nav>}
+    <p><a href="/product/">제품 안내로 돌아가기</a></p>
+  </main>
+</SiteLayout>
+<style>
+  .service-page{max-width:900px;padding:64px 24px;margin:auto;color:var(--fg)}h1{font-size:clamp(36px,6vw,64px);letter-spacing:-.05em;margin:12px 0 24px}.lead{font-size:22px;max-width:34em;line-height:1.8;margin-bottom:40px}section{border-top:1px solid var(--border);padding:28px 0}h2{font-size:24px;margin:0 0 18px}p,li{line-height:1.85;word-break:keep-all}ul{padding-left:24px}li+li{margin-top:10px}.actions,.policies{display:flex;flex-wrap:wrap;gap:16px}.service-note{font-size:15px;color:var(--fg-dim)}.policies{padding:24px 0;border-top:1px solid var(--border)}a:not(.r-button){color:var(--accent);text-underline-offset:4px}@media(max-width:650px){.service-page{padding:32px 20px}.lead{font-size:19px}}
+</style>

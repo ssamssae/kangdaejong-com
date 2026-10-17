@@ -6,12 +6,13 @@ import { fileURLToPath } from 'node:url';
 const tokensFile = fileURLToPath(new URL('../public/brand/current/tokens.css', import.meta.url));
 test.beforeEach(async ({ page }) => {
   await page.route('https://kangdaejong.com/brand/current/tokens.css', (route) => route.fulfill({ path: tokensFile, contentType: 'text/css' }));
+  await page.route('https://kangdaejong.com/mb-components.js',route=>route.fulfill({path:fileURLToPath(new URL('../public/mb-components.js',import.meta.url)),contentType:'text/javascript'}));
 });
 
 test('protein gallery has twenty loaded structures and accessible header navigation', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/protein/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('20가지');
-  await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', 'https://protein.kangdaejong.com/');
+  await expect(page.locator('link[rel=canonical]')).toHaveAttribute('href', 'https://kangdaejong.com/protein/');
   await page.getByRole('button', { name: /둘러보기/ }).click();
   await expect(page.getByRole('link', { name: /^단백질(?: 현재 위치)?$/ })).toHaveAttribute('aria-current', 'page');
   await expect(page.locator('.amino-card')).toHaveCount(20);
@@ -23,7 +24,7 @@ test('protein gallery has twenty loaded structures and accessible header navigat
 });
 
 test('search, category filters and empty results work together', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/protein/');
   const search = page.getByRole('searchbox');
   await search.fill('트립토판');
   await expect(page.locator('.amino-card:visible')).toHaveCount(1);
@@ -41,7 +42,7 @@ test('search, category filters and empty results work together', async ({ page }
 for (const width of [360, 800, 1440]) {
   test(`protein layout fits ${width}px viewport`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    await page.goto('/');
+    await page.goto('/protein/');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await page.getByRole('button', { name: /둘러보기/ }).click();
     await expect(page.getByRole('link', { name: /^단백질(?: 현재 위치)?$/ })).toBeVisible();
@@ -52,7 +53,7 @@ test('all twenty molecules open with one reusable 3D canvas and lazy loading', a
   test.setTimeout(90000);
   const requests = [];
   page.on('request', r => requests.push(r.url()));
-  await page.goto('/');
+  await page.goto('/protein/');
   expect(requests.some(url => url.includes('3Dmol-min.js'))).toBe(false);
   const buttons = page.getByRole('button', { name: /3D로 보기$/ });
   await expect(buttons).toHaveCount(20);
@@ -70,7 +71,7 @@ test('all twenty molecules open with one reusable 3D canvas and lazy loading', a
 test('mouse drag, wheel, buttons and reset change the visible molecular view', async ({ browser, baseURL }) => {
   const page = await browser.newPage({ viewport: { width: 1200, height: 900 }, baseURL });
   try {
-    await page.goto('/');
+    await page.goto('/protein/');
     await page.getByRole('button', { name: '트립토판 3D로 보기', exact: true }).click();
     await expect(page.locator('#molecule-status')).toHaveText('드래그해서 돌려보세요.');
     const canvas = page.locator('#molecule-stage canvas');
@@ -95,7 +96,7 @@ test('mouse drag, wheel, buttons and reset change the visible molecular view', a
 });
 
 test('failed structure download offers retry and never shows the previous molecule', async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/protein/');
   await page.route('**/protein/structures/alanine.sdf', r => r.fulfill({ status: 503, body: '' }));
   await page.getByRole('button', { name: '알라닌 3D로 보기', exact: true }).click();
   await expect(page.getByRole('button', { name: '다시 시도' })).toBeVisible();
@@ -108,7 +109,7 @@ test('failed structure download offers retry and never shows the previous molecu
 
 test('mobile touch rotation and pinch zoom work without overflowing the dialog', async ({ page, context }) => {
   await page.setViewportSize({ width: 360, height: 800 });
-  await page.goto('/');
+  await page.goto('/protein/');
   await page.getByRole('button', { name: '알라닌 3D로 보기', exact: true }).click();
   await expect(page.locator('#molecule-status')).toHaveText('드래그해서 돌려보세요.');
   const canvas = page.locator('#molecule-stage canvas');
@@ -136,7 +137,7 @@ test('closing during loading does not replace a subsequently opened molecule', a
   let release;
   const pending = new Promise(resolve => { release = resolve; });
   await page.route('**/protein/structures/alanine.sdf', async route => { await pending; await route.continue().catch(() => {}); });
-  await page.goto('/');
+  await page.goto('/protein/');
   await page.getByRole('button', { name: '알라닌 3D로 보기', exact: true }).click();
   await page.getByRole('button', { name: '3D 보기 닫기' }).click();
   await page.getByRole('button', { name: '트립토판 3D로 보기', exact: true }).click();
@@ -149,7 +150,7 @@ test('closing during loading does not replace a subsequently opened molecule', a
 // T-261012-024: 기기 설정이 다크면 회사홈·작업장과 같은 다크 팔레트, 그림은 다크 바탕판(lighten 합성), 확대도 다크판.
 test('dark scheme uses the company dark palette and dark molecule images', async ({ page }) => {
   await page.emulateMedia({ colorScheme: 'dark' });
-  await page.goto('/');
+  await page.goto('/protein/');
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'auto');
   await expect(page.locator('body')).toHaveCSS('background-color', rgb('dark','--bg'));
   const first = page.locator('.amino-card .structure-link img').first();
@@ -167,7 +168,7 @@ test('dark scheme uses the company dark palette and dark molecule images', async
 test('the header toggle switches the protein atlas to English and back', async ({ browser, baseURL }) => {
   const page = await browser.newPage({ viewport: { width: 1440, height: 900 }, baseURL });
   try {
-    await page.goto('/');
+    await page.goto('/protein/');
     const toggle = (lang) => page.locator(`mb-header .lang-button[data-lang="${lang}"]`);
     await expect(toggle('ko')).toHaveAttribute('aria-pressed', 'true');
     const korean = await page.locator('main').innerText();

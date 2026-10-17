@@ -1,0 +1,56 @@
+---
+import SiteLayout from '../../../layouts/SiteLayout.astro';
+import {apps} from '../../../data/home';
+import {appSupport} from '../../../data/app-support.mjs';
+import '../../../styles/renewal.css';
+
+export function getStaticPaths() {
+  return Object.entries(appSupport).map(([id,support])=>({
+    params:{app:support.slug},props:{app:apps.find(app=>app.id===id),support},
+  }));
+}
+const {app,support}=Astro.props;
+const canonical=`https://kangdaejong.com/apps/${support.slug}/`;
+---
+<SiteLayout title={`${app.name} — 앱 안내와 지원`} description={`${app.description} 다운로드, 웹 버전, 개인정보처리방침과 문의 방법을 확인하세요.`} canonical={canonical} active="products" bodyClass="renewal" theme="auto" langToggle>
+  <main id="main-content" class="support-page" data-app-name={app.name}>
+    <header>
+      <img src={app.icon} srcset={`${app.icon2x} 2x`} width="80" height="80" alt="" />
+      <p class="r-kicker">APP / SUPPORT</p>
+      <h1>{app.name}</h1><p class="lead">{app.description}</p>
+      <div class="downloads">
+        <a class="r-button" href={`https://apps.apple.com/kr/app/id${app.appId}`}>App Store ↗</a>
+        <a class="r-button secondary" href={`https://play.google.com/store/apps/details?id=${app.package}`}>Google Play ↗</a>
+      </div>
+    </header>
+    <section aria-labelledby="web-title">
+      <h2 id="web-title">웹 버전</h2>
+      <p>기존 웹 버전을 쓰셨다면 같은 브라우저에서 열어 주세요.</p>
+      <a href={support.web} data-app-web>웹 버전 열기 ↗</a>
+    </section>
+    <section aria-labelledby="privacy-title">
+      <h2 id="privacy-title">개인정보처리방침</h2>
+      <p><a href={support.privacy} data-app-privacy>{support.iosPrivacy?'Android 개인정보처리방침':'개인정보처리방침 보기'} ↗</a></p>
+      {support.iosPrivacy&&<p><a href={support.iosPrivacy}>iOS 개인정보처리방침 ↗</a></p>}
+    </section>
+    <section aria-labelledby="help-title">
+      <h2 id="help-title">사용 문의</h2>
+      <p>앱 이름, 사용하는 기기와 문제가 생긴 순서를 알려주세요.</p>
+      <a href={`mailto:minusbetastudio@gmail.com?subject=${encodeURIComponent(app.name+' 사용 문의')}`}>이메일로 문의하기 ↗</a>
+    </section>
+    <p class="all-apps"><a href="/#products">다른 앱 보기 ↗</a></p>
+  </main>
+  <script>
+    import dict from '../../../data/i18n-en.json';
+    import {startLangToggle} from '../../../scripts/lang-toggle-core.js';
+    const name=document.querySelector('[data-app-name]')?.getAttribute('data-app-name')||'';
+    const englishName=dict[name as keyof typeof dict]||name;
+    startLangToggle({...dict,__title:`${englishName} — App guide and support — Minus Beta Studio`,__description:`Downloads, web version, privacy policies and support for ${englishName}.`});
+  </script>
+</SiteLayout>
+<style>
+  .support-page{max-width:900px;margin:auto;padding:64px 24px;color:var(--fg)}
+  header{padding:12px 0 40px}header img{border-radius:20px;margin-bottom:20px}h1{font-size:clamp(36px,6vw,64px);margin:12px 0 20px;letter-spacing:-.05em}.lead{font-size:20px;line-height:1.8}
+  .downloads{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}section{border-top:1px solid var(--border);padding:28px 0}h2{font-size:24px;margin:0 0 14px}p{line-height:1.8;word-break:keep-all}
+  a:not(.r-button){color:var(--accent);text-underline-offset:4px}.all-apps{padding-top:20px;border-top:1px solid var(--border)}@media(max-width:650px){.support-page{padding:32px 20px}.lead{font-size:18px}}
+</style>

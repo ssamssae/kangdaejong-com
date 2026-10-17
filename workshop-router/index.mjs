@@ -1,8 +1,11 @@
+import {handleProductRequest, publicGuideLink, PRODUCT_PAGES} from './product-guides.mjs';
+
 export const COMPANY = 'https://kangdaejong.com';
 export const ORIGIN = 'https://work.kangdaejong.com';
 export const BASE = '/work';
 export const FOUNDER_ORIGIN = 'https://founder.kangdaejong.com';
 export const FOUNDER_BASE = '/founder';
+export const PROTEIN_ORIGIN = 'https://protein.kangdaejong.com';
 const SITEMAP = COMPANY + '/sitemap.xml';
 const MAP_PATH = /^\/(?:work\/)?sitemap(?:-index|-\d+)?\.xml$/;
 // Only the representative page moves. GitHub project sites and app-ads.txt on
@@ -14,6 +17,8 @@ export function founderLocation(value) {
   if (url.hostname !== new URL(FOUNDER_ORIGIN).hostname) return null;
   if (url.pathname === '/sitemap.xml') return SITEMAP;
   if (url.pathname === '/robots.txt') return COMPANY + '/robots.txt';
+  const guide = publicGuideLink(url);
+  if (guide) return guide;
   if (!['/','/index.html'].includes(url.pathname)) return null;
   return COMPANY + FOUNDER_BASE + '/' + url.search + url.hash;
 }
@@ -54,7 +59,7 @@ async function unifiedSitemap(fetcher, method) {
     if(response.status!==200)throw Error('A sitemap origin is unavailable');
     return sitemapLocations(await response.text(),prefix);
   }));
-  const urls=[...new Set(responses.flat())].sort();
+  const urls=[...new Set([...responses.flat(),...PRODUCT_PAGES])].sort();
   if(!urls.includes(COMPANY+'/') || !urls.includes(COMPANY+'/work/') || !urls.includes(COMPANY+FOUNDER_BASE+'/') || urls.length>50000)throw Error('Incomplete unified sitemap');
   const xml='<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'+urls.map(url=>`<url><loc>${xmlEscape(url)}</loc></url>`).join('\n')+'\n</urlset>\n';
   return new Response(method==='HEAD'?null:xml,{headers:{'Content-Type':'application/xml; charset=utf-8','Cache-Control':'public, max-age=300','X-Workshop-Route':'v1'}});
@@ -62,6 +67,11 @@ async function unifiedSitemap(fetcher, method) {
 
 export async function handle(request, fetcher=fetch) {
   const url=new URL(request.url);
+  if(url.origin===PROTEIN_ORIGIN||url.hostname===new URL(PROTEIN_ORIGIN).hostname){
+    if(['/', '/index.html'].includes(url.pathname))return redirect(COMPANY+'/protein/'+url.search,request.method);
+    if(['/sitemap.xml','/robots.txt'].includes(url.pathname))return redirect(COMPANY+url.pathname,request.method);
+    return fetcher(request);
+  }
   if(url.hostname===new URL(ORIGIN).hostname)return redirect(canonicalLocation(url.href),request.method);
   if(url.hostname===new URL(FOUNDER_ORIGIN).hostname){
     const location=founderLocation(url.href);
@@ -71,6 +81,7 @@ export async function handle(request, fetcher=fetch) {
     url.protocol='https:';return redirect(url.href,request.method);
   }
   if(url.origin!==COMPANY)return new Response('Not found',{status:404});
+  if(url.pathname==='/product'||url.pathname.startsWith('/product/'))return handleProductRequest(request,fetcher);
   // Route suffix wildcards also match queries. Adjacent company paths still
   // belong to the company origin (private-origin fetch avoids this Worker).
   const isFounder=url.pathname===FOUNDER_BASE||url.pathname.startsWith(FOUNDER_BASE+'/');
