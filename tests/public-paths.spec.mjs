@@ -27,6 +27,42 @@ for(const [id,support] of Object.entries(appSupport))test(`${id}: home entry, pr
   await expect(page).toHaveURL(support.web);
 });
 
+for(const [id,choice,saved,storageBlocked] of [
+  ['dutchpay','en','ko',false],
+  ['memoyo','ko','en',false],
+  ['yakmeokja','en',null,true],
+])test(`${id}: first language choice survives a delayed translation module`,async({page})=>{
+  const support=appSupport[id];
+  await page.goto('/');
+  if(saved)await page.evaluate(value=>localStorage.setItem('mb-lang',value),saved);
+  if(storageBlocked)await page.addInitScript(()=>Object.defineProperty(window,'localStorage',{get(){throw new DOMException('Storage unavailable','SecurityError');}}));
+  let release;
+  let moduleRequested=false;
+  const held=new Promise(resolve=>{release=resolve;});
+  await page.route('**/lang-toggle-core.*.js',async route=>{
+    moduleRequested=true;
+    await held;
+    await route.continue();
+  });
+  try{
+    await page.locator(`[data-product-id="${id}"] a[href="/apps/${support.slug}/"]`).click({noWaitAfter:true});
+    await expect(page).toHaveURL(new RegExp(`/apps/${support.slug}/$`));
+    await expect.poll(()=>moduleRequested).toBe(true);
+    if(choice==='ko')await page.getByRole('button',{name:'EN',exact:true}).click();
+    await page.getByRole('button',{name:choice==='en'?'EN':'한국어',exact:true}).click();
+    await expect(page.locator('mb-header')).toHaveAttribute('lang',choice);
+  }finally{release();}
+  await page.waitForLoadState('load');
+  await expect(page.locator('html')).toHaveAttribute('lang',choice);
+  if(choice==='en')await expect(page).toHaveTitle(/App guide and support/);
+  else await expect(page).toHaveTitle(/앱 안내와 지원/);
+  if(!storageBlocked){
+    await expect.poll(()=>page.evaluate(()=>localStorage.getItem('mb-lang'))).toBe(choice);
+    await page.reload();
+    await expect(page.locator('html')).toHaveAttribute('lang',choice);
+  }
+});
+
 for(const service of paidServices)test(`${service.slug}: public introduction keeps transactions and history on the original origin`,async({page,context,request})=>{
   const apiRequests=[];
   page.on('request',r=>{if(r.method()!=='GET'||new URL(r.url()).pathname.startsWith('/api/'))apiRequests.push(r.url());});

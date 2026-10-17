@@ -194,3 +194,4 @@
 - 조작: 가이드 한국어/English 선택 → 새로고침 → 다른 브릿지 링크. 단백질 검색·필터·3D 열기/닫기. 앱 지원 EN 선택 → 새로고침 → 한국어 복귀 → 웹 버전·개인정보 링크 확인. 서비스 안내에서 예시·입력 버튼과 기존 내역 링크 확인. 거래 진입은 목적지 확인까지만 진행한다.
 - 기대: 가이드·단백질·앱 지원·서비스 안내가 회사 canonical과 통합 sitemap을 쓴다. 가이드 자산과 언어 선택이 유지된다. 이전 product·protein 루트는 query를 보존해 301 이동한다. 앱 웹 버전은 기존 founder origin을 쓴다. 거래 화면은 기존 origin을 쓴다. 토정비결의 실제 판매는 활성화하지 않는다. 종료 서비스는 410을 유지한다.
 - 자동 근거: `workshop-router/*.test.mjs`, `workers/product-docs/worker.test.mjs`(claude-automations), `tests/public-paths.spec.mjs`, `tests/header-navigation.spec.mjs`, `tests/protein.spec.mjs`, 필수 전체 candidate 화면 검사. 최종 실행 결과·커밋·배포 readback은 T-261017-028 체크포인트와 PR에 기록한다. 실제 결제·OTP·주문 생성·검색엔진 재색인은 확인하지 않는다.
+- 초기 언어 선택 회귀: 홈 앱 카드로 진입한 뒤 번역 모듈 로드를 지연하고 첫 EN 클릭을 확인한다. 저장 KO보다 초기 EN, 저장 EN보다 초기 EN→KO의 마지막 선택이 우선한다. 저장소를 사용할 수 없어도 현재 페이지의 첫 선택은 반영한다. `tests/public-paths.spec.mjs`의 `first language choice` 3개가 이 순서를 검사한다. 대표소개 core 사본에도 같은 초기화 변경을 적용한다.
