@@ -5,7 +5,7 @@ export const books = [
     name: "1인회사 AI자동화",
     price: "전자책 · 무료 공개",
     file: "/books/solo-company-ai-automation.pdf",
-    pages: 70,
+    pages: 69,
     description: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했습니다.",
   },
   {
@@ -13,7 +13,7 @@ export const books = [
     name: "혼자서 AI팀",
     price: "전자책 · 무료 공개",
     file: "/books/solo-ai-team.pdf",
-    pages: 78,
+    pages: 72,
     description: "혼자 일하면서 여러 AI 역할을 팀처럼 구성하고 운영하는 방법을 정리했습니다.",
   },
   {

@@ -146,10 +146,10 @@
 ## 전자책 3권 무료 공개 — T-261018-011
 
 - 승인: 2026-10-18 사용자 텔레그램 「3 무료공개로하자」(홈 「만들며 배운 것」의 판매 종료 표시를 무료 읽기로). 크몽 판매중지·`/digital-products/` 종료 안내는 그대로.
-- 진입: 대표 홈페이지 `/#books`. 행 3개가 `/books/solo-company-ai-automation.pdf`(70쪽)·`/books/solo-ai-team.pdf`(78쪽)·`/books/phone-controls-my-computer-ai.pdf`(44쪽)로 새 탭에서 열린다. 원본 = 크몽 등록본(1권)·`ai-team-ebook/build/ebook-v2.pdf`(2권)·`ebook-bridge` 9/26 빌드(3권).
+- 진입: 대표 홈페이지 `/#books`. 행 3개가 `/books/solo-company-ai-automation.pdf`(69쪽)·`/books/solo-ai-team.pdf`(72쪽)·`/books/phone-controls-my-computer-ai.pdf`(44쪽)로 새 탭에서 열린다. 원본 = 크몽 등록본(1권)·`ai-team-ebook/build/ebook-v2.pdf`(2권)·`ebook-bridge` 9/26 빌드(3권).
 - 기대: 「판매 종료」 문구 없음, 구매 링크·가격 없음, 종료 제품 링크 없음. EN 전환 시 「Read free ↗ · PDF, N pages」.
 - 검증: `npm run build`, `npm run verify:homepage-renewal`, `npx playwright test tests/digital-products.spec.mjs tests/books-anchor.spec.mjs`, 배포 뒤 PDF 3개 HTTP 200·content-type pdf.
-- 교정(T-261018-012, 2026-10-18 대종님 「PDF 고친 다음에 올려」): 1권 자리에 3권(「폰에서 내 컴퓨터 AI 쓰기」 37쪽)이 잘못 올라가 있어 9/7 크몽 최종 판매본(release-r2 1권 「1인 사업자의 AI 업무 자동화」 70쪽) 원고로 다시 빌드해 교체. 2권은 발행 전 검수본(75쪽) → 판매본 원고(78쪽, 9/26 수정 반영)로 다시 빌드. 두 권 모두 암호·쪽마다 「구매본·재배포 금지」 꼬리글·구매자 이용 범위·크몽 문구를 빼고 「무료 공개판 안내」로 바꿈. 빌드 기록 = 아테나 `~/reports/T-261018-012/`.
+- 교정(T-261018-012, 2026-10-18 대종님 「PDF 고친 다음에 올려」): 1권 자리에 3권(「폰에서 내 컴퓨터 AI 쓰기」 37쪽)이 잘못 올라가 있어 9/7 크몽 최종 판매본(release-r2 1권 「1인 사업자의 AI 업무 자동화」) 원고로 다시 빌드해 교체(69쪽). 2권은 발행 전 검수본(75쪽) → 판매본 원고(9/26 수정 반영)로 다시 빌드하고, 대종님 「실습은 다 없애자」에 따라 실습 묶음(zip·예제 프로그램·명령 실행)을 빼고 7~11장을 작업표 중심 운영법으로 다시 씀(72쪽). 1권 템플릿 QR 10개(종료 페이지로 가던 것) 제거, 내부 용어·판매 시절 문구 정리, 판매본의 안 보이던 그림 글자 수정. 두 권 모두 암호·쪽마다 「구매본·재배포 금지」 꼬리글·구매자 이용 범위·크몽 문구를 빼고 「무료 공개판 안내」로 바꿈. 빌드 기록 = 아테나 `~/reports/T-261018-012/`.
 
 ## 무료 실습 양식 제공 종료 — T-261004-002
 
