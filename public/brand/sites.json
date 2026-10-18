@@ -290,21 +290,9 @@
     {
       "id": "choso-guest",
       "url": "https://choso.kangdaejong.com/guest",
-      "mode": "shared",
-      "checks": [
-        "tokens",
-        "social"
-      ],
-      "pages": [
-        "/guest"
-      ],
-      "screens": [
-        "/guest"
-      ],
-      "deployments": [],
-      "identityIconExceptions": {
-        "https://choso.kangdaejong.com/static/favicon.svg": "Choso keeps its application favicon. The public guest page shares corporate colors and social card, not the application identity."
-      }
+      "mode": "exception",
+      "reason": "Choso (operator outpost) was retired on 2026-10-18 with the Mac mini M6 migration cleanup (T-261018-002); the origin answers HTTP 530. Re-register as shared if the service returns.",
+      "deployments": []
     },
     {
       "id": "choso-internal",
