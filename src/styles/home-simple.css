@@ -79,6 +79,8 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:28px}
 .simple-home .book-row strong{font-size:14px;font-weight:550}
 .simple-home .book-row>span:nth-child(2)>span{display:block;font-size:12px;color:var(--fg-mute);margin-top:4px;word-break:keep-all}
 .simple-home .book-action{font-size:11px;color:var(--fg-mute);margin-left:auto;white-space:nowrap}
+.simple-home .section-note{font-size:12px;color:var(--fg-mute);white-space:nowrap}
+.simple-home a.book-row{color:inherit;text-decoration:none}.simple-home a.book-row .book-action{color:var(--accent)}.simple-home a.book-row:hover strong,.simple-home a.book-row:focus-visible strong{text-decoration:underline}
 .simple-home .template-link{display:inline-flex;align-items:center;min-height:44px;font-size:12px;color:var(--accent);margin-top:12px}
 .simple-home .contact-section{padding-bottom:28px}
 .simple-home .contact-heading{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-bottom:19px}

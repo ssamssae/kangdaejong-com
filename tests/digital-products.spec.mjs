@@ -1,13 +1,15 @@
 import {test,expect} from '@playwright/test';
-test('home shows ebook closure and no purchase links',async({page})=>{
+test('home offers the three ebooks as free PDFs and no purchase links',async({page})=>{
  await page.goto('/');
  await expect(page.locator('a[href="/ai-setup/"]')).toHaveCount(0);
  await expect(page.locator('main')).not.toContainText('99,000');
- await page.getByRole('link',{name:'전자책 판매 종료 안내'}).click();
- await expect(page).toHaveURL(/digital-products/);
- await expect(page.locator('h1')).toContainText('판매를 종료했습니다');
+ await expect(page.locator('#books a.book-row[href^="/books/"][href$=".pdf"]')).toHaveCount(3);
+ await expect(page.locator('#books')).not.toContainText('판매 종료');
  await expect(page.locator('a[href*="kmong.com/gig"]')).toHaveCount(0);
  await expect(page.locator('main')).not.toContainText('10,000');
+ for(const href of ['/books/solo-company-ai-automation.pdf','/books/solo-ai-team.pdf','/books/phone-controls-my-computer-ai.pdf']){
+  const res=await page.request.get(href);expect(res.status()).toBe(200);expect(res.headers()['content-type']).toContain('pdf');
+ }
 });
 test('old installation URL closes intake and leads to replacement',async({page})=>{
  await page.goto('/ai-setup/');

@@ -143,6 +143,13 @@
 - 기대: 판매 종료 안내, 신규 구매 링크 및 가격 없음. 공개 무료 양식 링크 정상.
 - 검증: 양쪽 빌드, 기존 전자책 화면 회귀 및 뉴스레터 구매 hop 제거 검사. 공개 반영·크몽 실측 근거는 `/Users/user/reports/T-261003-019/`에 기록.
 
+## 전자책 3권 무료 공개 — T-261018-011
+
+- 승인: 2026-10-18 사용자 텔레그램 「3 무료공개로하자」(홈 「만들며 배운 것」의 판매 종료 표시를 무료 읽기로). 크몽 판매중지·`/digital-products/` 종료 안내는 그대로.
+- 진입: 대표 홈페이지 `/#books`. 행 3개가 `/books/solo-company-ai-automation.pdf`(37쪽)·`/books/solo-ai-team.pdf`(75쪽)·`/books/phone-controls-my-computer-ai.pdf`(44쪽)로 새 탭에서 열린다. 원본 = 크몽 등록본(1권)·`ai-team-ebook/build/ebook-v2.pdf`(2권)·`ebook-bridge` 9/26 빌드(3권).
+- 기대: 「판매 종료」 문구 없음, 구매 링크·가격 없음, 종료 제품 링크 없음. EN 전환 시 「Read free ↗ · PDF, N pages」.
+- 검증: `npm run build`, `npm run verify:homepage-renewal`, `npx playwright test tests/digital-products.spec.mjs tests/books-anchor.spec.mjs`, 배포 뒤 PDF 3개 HTTP 200·content-type pdf.
+
 ## 무료 실습 양식 제공 종료 — T-261004-002
 
 - `/digital-products/`는 흰 배경·파란 강조색과 구분선 목록으로 전자책 판매 종료 및 2026-10-04 양식 제공 종료를 안내한다.
