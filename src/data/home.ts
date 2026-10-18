@@ -21,7 +21,7 @@ export const books = [
     name: "폰으로 내 컴퓨터 AI 부리기",
     price: "전자책 · 무료 공개",
     file: "/books/phone-controls-my-computer-ai.pdf",
-    pages: 44,
+    pages: 39,
     description: "텔레그램에 내 컴퓨터의 AI 도구를 연결하는 과정을 비개발자 눈높이로 정리한 안내서입니다.",
   },
 ];
