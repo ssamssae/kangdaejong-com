@@ -73,8 +73,12 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:28px}
 .simple-home .store-links{display:flex;justify-content:flex-start;gap:17px;margin-top:4px;font-size:11px;color:var(--accent)}
 .simple-home .store-links a{display:flex;align-items:center;min-height:44px}
 .simple-home .app-status{display:flex;align-items:center;min-height:44px;color:var(--fg-mute)}
-.simple-home .book-row{display:flex;align-items:center;gap:22px;border-bottom:1px solid var(--line-soft);padding:19px 0}
-.simple-home .book-row:last-child{border:0}
+.simple-home .book-item{display:flex;align-items:center;gap:16px;border-bottom:1px solid var(--line-soft)}
+.simple-home .book-item:last-child{border:0}
+.simple-home .book-row{display:flex;flex:1 1 auto;min-width:0;align-items:center;gap:22px;padding:19px 0}
+/* T-261019-023: 읽기 링크 옆 내려받기 버튼 — 색·테두리는 공용 토큰(--accent·--accent-line·--accent-bg), 44px 탭 높이는 모바일 규칙에서 */
+.simple-home .book-download{flex:none;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:0 14px;border:1px solid var(--accent-line);border-radius:999px;background:var(--accent-bg);color:var(--accent);font-size:12px;font-weight:550;white-space:nowrap;text-decoration:none}
+.simple-home .book-download:hover,.simple-home .book-download:focus-visible{border-color:var(--accent);color:var(--accent-hover)}
 .simple-home .book-number{font-size:11px;color:var(--text-3);font-variant-numeric:tabular-nums}
 .simple-home .book-row strong{font-size:14px;font-weight:550}
 .simple-home .book-row>span:nth-child(2)>span{display:block;font-size:12px;color:var(--fg-mute);margin-top:4px;word-break:keep-all}
@@ -102,7 +106,7 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:28px}
 .simple-home .project-grid{grid-template-columns:1fr;gap:10px}.simple-home .project-card.featured{flex-direction:column;align-items:flex-start;gap:14px}.simple-home .project-visual{width:100%;max-width:260px;height:auto;flex:none}.simple-home .project-card{padding:19px 20px}.simple-home .project-top{margin-bottom:12px}.simple-home :is(.project-card,.project-body)>p{margin-top:5px}.simple-home :is(.project-card,.project-body)>a{padding-top:15px}.simple-home .project-note{font-size:11px}.simple-home .project-card h3{font-size:18px}
 .simple-home .bridge-details>summary{gap:8px;font-size:12px}.simple-home .bridge-details>summary span{display:none}.simple-home .bridge-links{grid-template-columns:1fr;gap:0}.simple-home .service-row>span:first-child{gap:12px;align-items:flex-start;flex-direction:column}.simple-home .service-row>span:first-child>span{font-size:11px}.simple-home .service-row{padding-block:12px}.simple-home .service-note{font-size:10px;max-width:115px;text-align:right}.simple-home .service-row>span:first-child{gap:1px}
 .simple-home .app-grid{grid-template-columns:1fr}.simple-home .app-row{padding:17px 0}.simple-home .app-row:nth-last-child(2){border-bottom:1px solid var(--line-soft)}.simple-home .app-row>div{min-width:0}
-.simple-home .book-row{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px 14px;align-items:start}.simple-home .book-number{padding-top:4px}.simple-home .book-action{grid-column:2;margin-left:0;color:var(--fg-dim)}.simple-home .contact-heading{display:block}.simple-home .contact-email{margin-top:10px}.simple-home .contact-heading p{font-size:12px}
+.simple-home .book-row{display:grid;grid-template-columns:24px minmax(0,1fr);gap:8px 14px;align-items:start}.simple-home .book-number{padding-top:4px}.simple-home .book-action{grid-column:2;margin-left:0;color:var(--fg-dim)}.simple-home .book-item{flex-direction:column;align-items:stretch;gap:0;padding-bottom:16px}.simple-home .book-item .book-row{padding-bottom:10px}.simple-home .book-download{min-height:44px;align-self:flex-start;margin-left:38px}.simple-home .contact-heading{display:block}.simple-home .contact-email{margin-top:10px}.simple-home .contact-heading p{font-size:12px}
 }
 @media(max-width:360px){.simple-home h1{font-size:30px}.simple-home .home-header nav{gap:13px}.simple-home .home-brand img{width:25px;height:25px}}
 @media(max-width:650px){.simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px 16px}.simple-home .text-tool-card>a{grid-column:2;padding-top:0;gap:16px}.simple-home .text-tool-card .project-mark{align-self:start}}
