@@ -3,7 +3,7 @@
   const BADGE = 'https://kangdaejong.com/brand/current/logo.svg';
   const BRAND_HREF = 'https://kangdaejong.com/';
 
-  // active = home|projects|products|contact|catalog|tools|protein|organization|founder|system|workshop|worklog|newsletter|timeline|work-system|lab|choso|ontology
+  // active = home|projects|products|contact|catalog|tools|protein|organization|founder|system|workshop|worklog|newsletter|timeline|work-system|lab
   const NAV_PRIMARY = [
     { key: 'projects', label: '프로젝트', href: 'https://kangdaejong.com/#projects' },
     { key: 'products', label: '앱', href: 'https://kangdaejong.com/#products' },
@@ -30,8 +30,6 @@
     { label: '시스템과 실험', items: [
       { key: 'work-system', label: '개발·운영 시스템', description: '작업을 지탱하는 도구와 구조', href: 'https://kangdaejong.com/work/system/' },
       { key: 'lab', label: '실험실', description: '시험해 본 것과 배운 점', href: 'https://kangdaejong.com/work/lab/' },
-      { key: 'choso', label: '초소', description: '공개된 운영 현황 둘러보기', href: 'https://choso.kangdaejong.com/guest' },
-      { key: 'ontology', label: '운영 정의', description: '초소 로그인 후 종류·관계·규칙 읽기', href: 'https://choso.kangdaejong.com/ontology' },
     ] },
   ];
 

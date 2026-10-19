@@ -203,3 +203,10 @@
 - 기대: 가이드·단백질·앱 지원·서비스 안내가 회사 canonical과 통합 sitemap을 쓴다. 가이드 자산과 언어 선택이 유지된다. 이전 product·protein 루트는 query를 보존해 301 이동한다. 앱 웹 버전은 기존 founder origin을 쓴다. 거래 화면은 기존 origin을 쓴다. 토정비결의 실제 판매는 활성화하지 않는다. 종료 서비스는 410을 유지한다.
 - 자동 근거: `workshop-router/*.test.mjs`, `workers/product-docs/worker.test.mjs`(claude-automations), `tests/public-paths.spec.mjs`, `tests/header-navigation.spec.mjs`, `tests/protein.spec.mjs`, 필수 전체 candidate 화면 검사. 최종 실행 결과·커밋·배포 readback은 T-261017-028 체크포인트와 PR에 기록한다. 실제 결제·OTP·주문 생성·검색엔진 재색인은 확인하지 않는다.
 - 초기 언어 선택 회귀: 홈 앱 카드로 진입한 뒤 번역 모듈 로드를 지연하고 첫 EN 클릭을 확인한다. 저장 KO보다 초기 EN, 저장 EN보다 초기 EN→KO의 마지막 선택이 우선한다. 저장소를 사용할 수 없어도 현재 페이지의 첫 선택은 반영한다. `tests/public-paths.spec.mjs`의 `first language choice` 3개가 이 순서를 검사한다. 대표소개 core 사본에도 같은 초기화 변경을 적용한다.
+
+## 초소 링크 정리 — T-261019-026
+
+- 초소는 2026-10-18 볼칸 정리(T-261018-002)로 닫혔다. `choso.kangdaejong.com`·`queue.kangdaejong.com`은 530을 돌려준다. 서비스를 다시 켜지 않는다.
+- 홈 공개 채널 배너(`SocialBanner`)의 초소 카드, 공통 둘러보기(`public/mb-components.js`)의 「초소」·「운영 정의」, `/system/`의 「초소 둘러보기」·「운영 정의 읽기」 링크를 제거했다. 공통 헤더를 쓰는 작업장·founder 화면도 배포 뒤 같이 바뀐다. 쓰지 않게 된 EN 사전 항목도 지웠다.
+- 확인: 홈 배너 11개 채널, 둘러보기 13개 링크, `/system/` 본문에 초소 링크 없음. `npm run verify:shared-header`의 「retired choso menu stays absent」와 `tests/header-navigation.spec.mjs`·`tests/social-banner.spec.mjs`·`tests/site-renewal.spec.mjs`가 재유입을 막는다.
+- 남긴 것: 옛 `/#choso` 주소용 앵커 별칭, `public/brand/sites.json`의 초소 exception 기록, 작업장 글 속 초소 언급(링크 아님).
