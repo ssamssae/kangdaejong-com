@@ -11,16 +11,17 @@ const menu = page => page.getByRole('navigation', { name: '스튜디오 둘러�
 test('all secondary destinations are reachable in one panel', async ({ page }) => {
   await page.goto('/system/');
   await more(page).click();
-  await expect(menu(page).getByRole('link')).toHaveCount(15);
+  await expect(menu(page).getByRole('link')).toHaveCount(13);
   // T-261013-003: 오프보딩한 전자책 메뉴는 없다.
   await expect(menu(page).getByRole('link', { name: /^책·템플릿/ })).toHaveCount(0);
+  // T-261019-026: 10/18 닫은 초소의 「초소」·「운영 정의」 메뉴는 없다.
+  await expect(menu(page).getByRole('link', { name: /^(초소|운영 정의)/ })).toHaveCount(0);
   for (const [label, href] of [
     ['스튜디오 소개', 'https://kangdaejong.com/organization/'],
     ['작업장', 'https://kangdaejong.com/work/'],
     ['제품 사용 안내', 'https://kangdaejong.com/product/'],
     ['개발·운영 시스템', 'https://kangdaejong.com/work/system/'],
     ['실험실', 'https://kangdaejong.com/work/lab/'],
-    ['초소', 'https://choso.kangdaejong.com/guest'],
   ]) {
     const link = menu(page).getByRole('link', { name: new RegExp('^' + label) });
     await expect(link).toBeVisible();

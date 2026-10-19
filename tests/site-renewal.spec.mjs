@@ -32,7 +32,8 @@ test("home presents apps, books and all four bridges", async ({ page }) => {
     await expect(page.locator(`#open-tools a[href="https://github.com/ssamssae/${name}-telegram-bridge"]`)).toBeVisible();
     await expect(page.locator(`#open-tools a[href="https://github.com/ssamssae/${name}-telegram-bridge/releases"]`)).toBeVisible();
   }
-  await expect(page.locator('.social-grid a[href="https://choso.kangdaejong.com/guest"]')).toBeVisible();
+  // T-261019-026: 10/18 닫은 초소 카드는 없다.
+  await expect(page.locator('.social-grid a[href*="choso.kangdaejong.com"]')).toHaveCount(0);
 });
 
 test("organization explains public responsibility without publishing the internal roster", async ({ page }) => {
@@ -49,7 +50,7 @@ test("system remains local and offers an explicit deep-document link", async ({ 
   await page.waitForTimeout(250);
   expect(new URL(page.url()).pathname).toBe("/system/");
   await expect(page.getByRole("heading", { level: 1, name: "작게 만들고, 확인하고, 오래 돌봅니다." })).toBeVisible();
-  await expect(page.getByRole("link", { name: "초소 둘러보기" })).toHaveAttribute("href", "https://choso.kangdaejong.com/guest");
+  await expect(page.locator('main a[href*="choso.kangdaejong.com"]')).toHaveCount(0);
   await expect(page.getByRole("link", { name: "운영 시스템 자세히 보기" })).toHaveAttribute("href", "https://kangdaejong.com/work/system/");
   await expect(page.locator('meta[http-equiv="refresh"]')).toHaveCount(0);
 });

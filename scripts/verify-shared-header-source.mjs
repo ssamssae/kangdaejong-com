@@ -4,8 +4,9 @@ const source = readFileSync(new URL("../public/mb-components.js", import.meta.ur
 const checks = [
   ["brand keeps the company-home destination", /const BRAND_HREF = 'https:\/\/kangdaejong\.com\/';/.test(source)],
   ["primary navigation follows the product visitor flow", ["products", "tools"].every((key) => new RegExp(`key: '${key}'`).test(source)) && /kangdaejong\.com\/work\/products\//.test(source) && /kangdaejong\.com\/work\/products\/\?category=tool#catalog/.test(source)],
-  ["company, system, choso, work, worklog, newsletter, and founder remain reachable", ["organization", "system", "choso", "workshop", "worklog", "newsletter", "founder"].every((key) => new RegExp(`key: '${key}'`).test(source))],
-  ["choso guest destination stays public", /key: 'choso'/.test(source) && /https:\/\/choso\.kangdaejong\.com\/guest/.test(source)],
+  ["company, system, work, worklog, newsletter, and founder remain reachable", ["organization", "system", "workshop", "worklog", "newsletter", "founder"].every((key) => new RegExp(`key: '${key}'`).test(source))],
+  // T-261019-026: 초소는 10/18 은퇴(T-261018-002)로 닫혔다 — 둘러보기 「초소」·「운영 정의」가 다시 들어오면 막는다.
+  ["retired choso menu stays absent", !/key: 'choso'/.test(source) && !/key: 'ontology'/.test(source) && !/choso\.kangdaejong\.com/.test(source)],
   ["grouped menu keeps workshop, system and lab directly reachable", /const NAV_GROUPS/.test(source) && ["workshop", "work-system", "lab"].every(key => new RegExp(`key: '${key}'`).test(source)) && !/submenu-panel/.test(source)],
   // T-261013-003: 전자책은 10/4 오프보딩(T-261003-019)으로 없다 — 둘러보기 「책·템플릿」이 다시 들어오면 막는다.
   ["retired book menu stays absent", !/key: 'books'/.test(source) && !/kangdaejong\.com\/#books/.test(source)],

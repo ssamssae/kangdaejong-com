@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const names = ['GitHub', 'Instagram', 'Threads', 'X', 'YouTube', 'LinkedIn', 'Facebook', '네이버 블로그', 'Substack', '작업실', '전체 제품', '초소'];
+const names = ['GitHub', 'Instagram', 'Threads', 'X', 'YouTube', 'LinkedIn', 'Facebook', '네이버 블로그', 'Substack', '작업실', '전체 제품'];
 for (const width of [360, 768, 1440]) {
   test(`public channels are visible, readable and safe at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
