@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 
 const apps = [
-  { name: '살아있음', text: '서로의 안부', links: [['살아있음 App Store', 'https://apps.apple.com/kr/app/id6812609143'], ['살아있음 Google Play', 'https://play.google.com/store/apps/details?id=com.daejongkang.stillhere']] },
-  { name: '우리 사이', text: '둘만의 일상', links: [['우리 사이 App Store', 'https://apps.apple.com/kr/app/id6816725770']] },
+  { name: '살아있음', text: '서로의 안부', links: [['살아있음 App Store', 'https://apps.apple.com/kr/app/id6812609143'], ['살아있음 Google Play', 'https://play.google.com/store/apps/details?id=com.daejongkang.stillhere'], ['살아있음 앱 안내와 지원', '/support-stillhere/']] },
+  { name: '우리 사이', text: '둘만의 일상', note: 'iPhone · Android 준비 중', links: [['우리 사이 App Store', 'https://apps.apple.com/kr/app/id6816725770'], ['우리 사이 앱 안내와 지원', '/our-sai/']] },
 ];
 
 for (const width of [390, 1440]) {
@@ -13,6 +13,7 @@ for (const width of [390, 1440]) {
       const row = page.locator('#products .app-row').filter({ has: page.getByRole('heading', { name: app.name, exact: true }) });
       await expect(row).toHaveCount(1);
       await expect(row).toContainText(app.text);
+      if (app.note) await expect(row.locator('.app-status')).toHaveText(app.note);
       await expect(row.locator('a')).toHaveCount(app.links.length);
       for (const [name, href] of app.links) await expect(row.getByRole('link', { name })).toHaveAttribute('href', href);
       const image = row.locator('img');

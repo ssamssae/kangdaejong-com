@@ -93,32 +93,39 @@ export const apps = [
     ...productIcon('gagyebu'),
     "description": "수입과 지출을 가볍게 기록합니다.",
     "appId": "6769037337",
-    "package": "com.ssamssae.mini_expense"
+    "package": "com.ssamssae.mini_expense",
+    "support": "/support-gagyebu/"
   },
   {
     "name": "계산기알람",
     ...productIcon('calcalarm'),
     "description": "계산 문제를 풀며 잠에서 깹니다.",
     "appId": "6811111727",
-    "package": "com.daejongkang.ireonayo"
+    "package": "com.daejongkang.ireonayo",
+    "support": "/support-calcalarm/"
   },
   {
     "name": "살아있음",
     ...productIcon('stillhere'),
     "description": "두 사람이 하루 한 번 서로의 안부를 나눕니다.",
     "appId": "6812609143",
-    "package": "com.daejongkang.stillhere"
+    "package": "com.daejongkang.stillhere",
+    "support": "/support-stillhere/"
   },
   {
     "name": "우리 사이",
     ...productIcon('oursai'),
     "description": "사진과 일기, 기념일로 둘만의 일상을 남깁니다.",
-    "appId": "6816725770"
+    "appId": "6816725770",
+    "support": "/our-sai/",
+    "storeNote": "iPhone · Android 준비 중"
   },
   {
     "name": "노래찾기",
     ...productIcon('noraechatgi'),
     "description": "버튼 한 번으로 주변 음악의 제목과 가수를 찾습니다.",
-    "appId": "6820080312"
+    "appId": "6820080312",
+    "support": "/support-noraechatgi/",
+    "storeNote": "iPhone"
   }
 ];

@@ -7,8 +7,9 @@ for (const width of [390, 1440]) {
     const row = page.locator('.app-row').filter({ has: page.getByRole('heading', { name: '노래찾기', exact: true }) });
     await expect(row).toHaveCount(1);
     await expect(row).toContainText('주변 음악의 제목과 가수');
-    await expect(row.locator('.app-status')).toHaveCount(0);
-    await expect(row.locator('a')).toHaveCount(1);
+    await expect(row.locator('.app-status')).toHaveText('iPhone');
+    await expect(row.locator('a')).toHaveCount(2);
+    await expect(row.getByRole('link', { name: '노래찾기 앱 안내와 지원' })).toHaveAttribute('href', '/support-noraechatgi/');
     const link = row.getByRole('link', { name: '노래찾기 App Store' });
     await expect(link).toHaveAttribute('href', 'https://apps.apple.com/kr/app/id6820080312');
     const [headingBox, linkBox] = await Promise.all([row.getByRole('heading', { name: '노래찾기', exact: true }).boundingBox(), link.boundingBox()]);
