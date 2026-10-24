@@ -13,6 +13,9 @@ const candidate=args.includes('--candidate'),screens=!args.includes('--no-screen
 const out=value('--output','site-release-report');fs.mkdirSync(out,{recursive:true});
 const json=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const inventory=json('public/brand/sites.json'),catalog=json('public/brand/products/catalog.json');
+// T-261024-030: 회사 루트 별칭(www·pages.dev)은 회사 주소와 같은 배포다. 후보 검사에서 라이브로 읽으면 공유 카드를 바꾼 PR 이
+// 배포 전이라 늘 「옛 카드」로 실패한다 → 후보 검사에서만 회사 주소 경로(후보 빌드)로 읽는다. 배포 뒤 검사는 별칭을 라이브로 그대로 본다.
+const HOME_ALIAS_ORIGINS=new Set((inventory.sites.find(s=>s.id==='home')?.aliases||[]).map(a=>new URL(a).origin));
 const release=json('public/brand/release.json');
 const results=[], pageSet=new Map(), assets=Object.entries(release.files);
 const hash=b=>createHash('sha256').update(b).digest('hex');
@@ -21,6 +24,7 @@ async function get(url){
   if(!cache.has(url))cache.set(url,(async()=>{
     if(candidate){
       const legacy=new URL(url);
+      if(HOME_ALIAS_ORIGINS.has(legacy.origin))return get(ORIGIN+legacy.pathname+legacy.search);
       if(legacy.hostname==='product.kangdaejong.com')return get(ORIGIN+'/product'+legacy.pathname+legacy.search);
       if(['protein.kangdaejong.com','protein-kangdaejong.pages.dev'].includes(legacy.hostname)&&legacy.pathname==='/')return get(ORIGIN+'/protein/'+legacy.search);
       if(legacy.hostname==='founder.kangdaejong.com'&&/^\/(claude|codex|cursor|grok)-telegram-bridge\//.test(legacy.pathname))return get(ORIGIN+'/product'+legacy.pathname+legacy.search);
