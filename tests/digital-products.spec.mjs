@@ -13,7 +13,7 @@ test('home offers the three ebooks as free PDFs and no purchase links',async({pa
 });
 test('old installation URL closes intake and leads to replacement',async({page})=>{
  await page.goto('/ai-setup/');
- await expect(page.locator('h1')).toContainText('종료했습니다');
+ await expect(page.locator('h1')).toContainText('종료했어요');
  await expect(page.locator('main').locator('form, select, textarea, a[href^="mailto:"]')).toHaveCount(0);
  await expect(page.locator('main')).not.toContainText('99,000');
  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content','noindex,follow');
@@ -22,7 +22,7 @@ test('old installation URL closes intake and leads to replacement',async({page})
 });
 test('free sample works without purchase; written support does not promise calls',async({page})=>{
  await page.goto('/digital-products/');
- await expect(page.locator('main')).toContainText('판매를 종료했습니다');
+ await expect(page.locator('main')).toContainText('판매를 종료했어요');
  await expect(page.locator('main a[href^="tel:"]')).toHaveCount(0);
  await expect(page.locator('form')).toHaveCount(0);
  await page.getByRole('link',{name:'반복 업무 정리 양식'}).click();

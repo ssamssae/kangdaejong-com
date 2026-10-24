@@ -1,13 +1,13 @@
 ---
 import sources from "../data/product-screen-sources.json";
 const examples = [
-  { slug: "hanjul", name: "한줄일기", action: "오늘의 한 줄을 적고, 지난 기록을 다시 봅니다.", href: "https://apps.apple.com/kr/app/id6764308678" },
-  { slug: "memo", name: "메모요", action: "떠오른 생각을 적고, 목록에서 바로 찾습니다.", href: "https://apps.apple.com/kr/app/id6762068073" },
-  { slug: "cheotireum", name: "첫이름", action: "이름 후보를 살펴보고, 한자와 풀이를 확인합니다.", href: "https://cheotireum.kangdaejong.com/" },
+  { slug: "hanjul", name: "한줄일기", action: "오늘의 한 줄을 적고, 지난 기록을 다시 봐요.", href: "https://apps.apple.com/kr/app/id6764308678" },
+  { slug: "memo", name: "메모요", action: "떠오른 생각을 적고, 목록에서 바로 찾아요.", href: "https://apps.apple.com/kr/app/id6762068073" },
+  { slug: "cheotireum", name: "첫이름", action: "이름 후보를 살펴보고, 한자와 풀이를 확인해요.", href: "https://cheotireum.kangdaejong.com/" },
 ];
 ---
 <section data-product-examples class="product-examples" aria-labelledby="product-examples-title">
-  <div class="examples-heading"><p>INSIDE THE PRODUCTS</p><h2 id="product-examples-title">이렇게 사용합니다.</h2><p>공식 App Store에 공개한 실제 앱 화면입니다.</p></div>
+  <div class="examples-heading"><p>실제 화면</p><h2 id="product-examples-title">이렇게 사용해요.</h2><p>공식 App Store에 공개한 실제 앱 화면이에요.</p></div>
   <div class="examples-grid">{examples.map(item => <article>
     <a class="example-screen" data-screen-zoom href={sources.find(source => source.slug === item.slug)!.fullPath} aria-label={`${item.name} 화면 확대 보기`}><img src={sources.find(source => source.slug === item.slug)!.path} width="221" height="480" loading="lazy" alt={`${item.name} 실제 앱 화면`} /><span class="screen-zoom-hint" aria-hidden="true">크게 보기 ↗</span></a>
     <h3>{item.name}</h3><p>{item.action}</p><a href={item.href}>{item.name === "첫이름" ? "웹에서 시작하기" : "App Store에서 보기"} ↗</a>
@@ -27,7 +27,7 @@ const examples = [
     const original = section.querySelector<HTMLAnchorElement>('[data-screen-original]')!;
     const loading = section.querySelector<HTMLElement>('[data-screen-loading]')!;
     image.addEventListener('load', () => { image.hidden = false; loading.hidden = true; });
-    image.addEventListener('error', () => { loading.textContent = '이미지를 불러오지 못했습니다. 아래 원본 링크로 열어주세요.'; });
+    image.addEventListener('error', () => { loading.textContent = '이미지를 불러오지 못했어요. 아래 원본 링크로 열어주세요.'; });
     let overflow = '';
     section.querySelectorAll<HTMLAnchorElement>('[data-screen-zoom]').forEach(trigger => {
       trigger.addEventListener('click', event => {

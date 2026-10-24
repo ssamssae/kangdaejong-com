@@ -77,14 +77,14 @@ export const apps = [
   {
     "name": "더치페이 계산기",
     ...productIcon('dutchpay'),
-    "description": "모임의 비용을 간편하게 나눕니다.",
+    "description": "모임의 비용을 간편하게 나눠요.",
     "appId": "6762072499",
     "package": "com.daejongkang.dutchpay"
   },
   {
     "name": "약먹자",
     ...productIcon('yakmeokja'),
-    "description": "약 먹을 시간을 알려드립니다.",
+    "description": "약 먹을 시간을 알려드려요.",
     "appId": "6762100639",
     "package": "com.daejongkang.yakmukja"
   },
@@ -99,7 +99,7 @@ export const apps = [
   {
     "name": "계산기알람",
     ...productIcon('calcalarm'),
-    "description": "계산 문제를 풀며 잠에서 깹니다.",
+    "description": "계산 문제를 풀며 잠에서 깨요.",
     "appId": "6811111727",
     "package": "com.daejongkang.ireonayo",
     "support": "/support-calcalarm/"
@@ -107,7 +107,7 @@ export const apps = [
   {
     "name": "살아있음",
     ...productIcon('stillhere'),
-    "description": "두 사람이 하루 한 번 서로의 안부를 나눕니다.",
+    "description": "두 사람이 하루 한 번 서로의 안부를 나눠요.",
     "appId": "6812609143",
     "package": "com.daejongkang.stillhere",
     "support": "/support-stillhere/"
@@ -115,7 +115,7 @@ export const apps = [
   {
     "name": "우리 사이",
     ...productIcon('oursai'),
-    "description": "사진과 일기, 기념일로 둘만의 일상을 남깁니다.",
+    "description": "사진과 일기, 기념일로 둘만의 일상을 남겨요.",
     "appId": "6816725770",
     "support": "/our-sai/",
     "storeNote": "iPhone · Android 준비 중"

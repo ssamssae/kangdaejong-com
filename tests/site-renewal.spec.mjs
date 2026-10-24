@@ -38,7 +38,7 @@ test("home presents apps, books and all four bridges", async ({ page }) => {
 
 test("organization explains public responsibility without publishing the internal roster", async ({ page }) => {
   await page.goto("/organization/");
-  await expect(page.locator('h1')).toContainText('강대종입니다.');
+  await expect(page.locator('h1')).toContainText('강대종이에요.');
   await expect(page.locator('dl')).toContainText('2026년 5월 4일');
   await expect(page.locator('footer')).toContainText('사업자등록번호 878-21-02478');
   await expect(page.locator('main')).not.toContainText('법적 대표');
@@ -49,7 +49,7 @@ test("system remains local and offers an explicit deep-document link", async ({ 
   expect(response?.status()).toBe(200);
   await page.waitForTimeout(250);
   expect(new URL(page.url()).pathname).toBe("/system/");
-  await expect(page.getByRole("heading", { level: 1, name: "작게 만들고, 확인하고, 오래 돌봅니다." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "작게 만들고, 확인하고, 오래 돌봐요." })).toBeVisible();
   await expect(page.locator('main a[href*="choso.kangdaejong.com"]')).toHaveCount(0);
   await expect(page.getByRole("link", { name: "운영 시스템 자세히 보기" })).toHaveAttribute("href", "https://kangdaejong.com/work/system/");
   await expect(page.locator('meta[http-equiv="refresh"]')).toHaveCount(0);

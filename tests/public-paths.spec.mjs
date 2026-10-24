@@ -72,7 +72,7 @@ for(const service of paidServices)test(`${service.slug}: public introduction kee
   await expect(page.locator('[data-service-start]')).toHaveAttribute('href',service.start);
   if(service.sample)await expect(page.locator('[data-service-sample]')).toHaveAttribute('href',service.sample);
   if(service.history)await expect(page.locator('[data-service-history]')).toHaveAttribute('href',service.history);
-  if(service.slug==='tojeong')await expect(page.locator('main')).toContainText('현재 테스트 결제를 제공합니다. 실제 판매는 준비 중입니다.');
+  if(service.slug==='tojeong')await expect(page.locator('main')).toContainText('현재 테스트 결제를 제공해요. 실제 판매는 준비 중이에요.');
   expect(await page.locator('form,input,iframe').count()).toBe(0);
   expect(apiRequests).toEqual([]);
   expect(await (await request.get('/sitemap.xml')).text()).toContain(`https://kangdaejong.com/${service.slug}/`);
