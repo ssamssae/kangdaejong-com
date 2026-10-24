@@ -25,6 +25,17 @@ test('old icon, missing icon and an unregistered product fail', () => {
   assert.match(auditProductHtml(card('unknown'),catalog).join(''),/unknown/);
   assert.match(auditProductHtml('<article class="catalog-card"><img src="/old.png"></article>',catalog).join(''),/product id/);
 });
+test('approved web-service letter marks pass without images and invalid exceptions fail', () => {
+  const exception = {status:'approved-placeholder',reason:'Web service card uses approved letter-mark fallback.',fallback:'letter-mark',approvedAt:'2026-10-24'};
+  const product = {id:'cheotireum',icon:null,icon2x:null,source:null,files:null,exception};
+  const card = '<article class="project-card web-service-card" data-product-id="cheotireum"><span class="project-mark" aria-hidden="true">첫</span></article>';
+  assert.deepEqual(auditProductHtml(card,{products:[product]}),[]);
+  assert.match(auditProductHtml(card.replace('</article>','<img src="/unapproved.webp"></article>'),{products:[product]}).join(''),/invalid icon exception/);
+  for (const invalid of [true, 1, {}, {...exception,status:'pending'}, {...exception,reason:' '}, {...exception,fallback:'image'}, {...exception,approvedAt:''}]) {
+    assert.match(auditProductHtml(card,{products:[{...product,exception:invalid}]}).join(''),/invalid icon exception/);
+  }
+  assert.match(auditProductHtml(card,{products:[{...product,icon:'/unapproved.webp'}]}).join(''),/invalid icon exception/);
+});
 test('old shared card query and missing shared stylesheet fail', () => {
   assert.deepEqual(auditHtml(html,site,{socialHash:'abcdef'},catalog),[]);
   assert.match(auditHtml(html.replace('social.png','social.png?v=old'),site,{socialHash:'abcdef'},catalog).join(''),/social/);

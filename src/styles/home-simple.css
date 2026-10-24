@@ -40,6 +40,8 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--tone-h
 .simple-home .text-tool-card .project-body{flex:1;align-self:center}
 .simple-home .text-tool-card .project-note{margin-bottom:var(--tone-space-1)}
 .simple-home .text-tool-card>a{margin-top:0;padding-top:0;white-space:nowrap}
+.simple-home .service-sublinks{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:var(--tone-caption-size)}
+.simple-home .service-sublinks a{display:inline-flex;align-items:center;gap:4px;min-height:36px;color:var(--accent-hover)}
 /* 접는 설치 안내(첫이름 landing .faq-item): 회색 둥근 면, 56px 제목 줄, 오른쪽 꺾쇠. */
 .simple-home details>summary{cursor:pointer;list-style:none}
 .simple-home details>summary::-webkit-details-marker{display:none}
@@ -117,4 +119,5 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--tone-h
 .simple-home .contact-email{display:flex;width:100%;margin-top:var(--tone-space-3)}
 }
 @media(max-width:360px){.simple-home .project-visual{max-width:100%}.simple-home .store-links a{padding:0 var(--tone-space-1)}}
+@media(max-width:720px){.simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--tone-space-2) var(--tone-space-3)}.simple-home .text-tool-card>a{grid-column:2;padding-top:0;gap:var(--tone-space-3)}.simple-home .text-tool-card .project-mark{align-self:start}.simple-home .service-sublinks a{min-height:44px}}
 @media(prefers-reduced-motion:reduce){html:has(.simple-home){scroll-behavior:auto}.simple-home *{scroll-behavior:auto!important}}

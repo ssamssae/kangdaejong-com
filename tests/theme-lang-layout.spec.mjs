@@ -3,7 +3,7 @@
 import {test, expect} from '@playwright/test';
 import {brand, rgb} from './brand-colors.mjs';
 import {fileURLToPath} from 'node:url';
-import icons from '../src/data/product-icon-sources.json' with {type:'json'};
+import catalog from '../public/brand/products/catalog.json' with {type:'json'};
 const components=fileURLToPath(new URL('../public/mb-components.js',import.meta.url));
 test.beforeEach(async({page})=>{ await page.route('https://kangdaejong.com/mb-components.js',route=>route.fulfill({path:components,contentType:'application/javascript'})); });
 const header=page=>page.locator('mb-header');
@@ -62,9 +62,10 @@ test('the header toggle switches the whole page to English and back without relo
  await expect(page.locator('html')).toHaveAttribute('lang','en');
  await expect(page.locator('h1')).toContainText('Daejong Kang');
  await expect(page.locator('#projects-title')).toHaveText('Tools I build');
- await expect(page.locator('.text-tool-card h3')).toHaveText('복붙 정리기 · Text Cleaner');
- await expect(page.locator('.text-tool-card > a')).toHaveText('Clean up text→');
- await expect(page.locator('.book-action').first()).toHaveText('No longer on sale');
+ await expect(page.locator('.text-tool-card:not(.web-service-card) h3')).toHaveText('복붙 정리기 · Text Cleaner');
+ await expect(page.locator('.text-tool-card:not(.web-service-card) > a')).toHaveText('Clean up text→');
+ await expect(page.locator('.web-service-card h3')).toHaveText('Cheotireum (First Name)');
+ await expect(page.locator('.book-action').first()).toHaveText('Read free ↗ · PDF, 69 pages');
  expect(await header(page).evaluate(e=>[...e.shadowRoot.querySelectorAll('.links a .link-title')].map(a=>a.textContent.trim()))).toEqual(['Projects','Apps','Contact']);
  await expect(page).toHaveTitle(/Daejong Kang/);
  await page.reload();
@@ -76,25 +77,32 @@ test('the header toggle switches the whole page to English and back without relo
  await toggle('ko').click();
  await expect(page.locator('html')).toHaveAttribute('lang','ko');
  await expect(page.locator('h1')).toHaveText('안녕하세요.만드는 사람 강대종이에요.');
- await expect(page.locator('.text-tool-card h3')).toHaveText('복붙 정리기');
+ await expect(page.locator('.text-tool-card:not(.web-service-card) h3')).toHaveText('복붙 정리기');
+ await expect(page.locator('.web-service-card h3')).toHaveText('첫이름');
  await expect(page.locator('.mood-quote')).toContainText(/[가-힣]/);
  expect(await page.evaluate(()=>localStorage.getItem('mb-lang'))).toBe('ko');
 });
 
-test('product icons are small WebP files with 2x sources and valid JSON-LD is present',async({page})=>{
+test('product icons use catalog WebP aliases with 2x sources and valid JSON-LD is present',async({page})=>{
  await page.setViewportSize({width:1440,height:900}); await page.goto('/');
  const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(11);
  for(const image of await images.all()) {
-  await expect(image).toHaveAttribute('src',/-96\.webp$/); await expect(image).toHaveAttribute('srcset',/-192\.webp 2x$/);
+  const id=await image.evaluate(el=>el.closest('[data-product-id]').dataset.productId);
+  const entry=catalog.products.find(product=>product.id===id);
+  expect(entry,`catalog entry for ${id}`).toBeDefined();
+  await expect(image).toHaveAttribute('src',entry.icon); await expect(image).toHaveAttribute('srcset',`${entry.icon}, ${entry.icon2x} 2x`);
   await image.scrollIntoViewIfNeeded(); await expect.poll(()=>image.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
  }
- for(const entry of icons.icons.filter(i=>i.icon2x)) expect(entry.icon).toMatch(/-96\.webp$/);
+ for(const entry of catalog.products.filter(i=>i.icon2x)) {
+  expect(entry.files.icon.source).toMatch(/-96\.webp$/);
+  expect(entry.files.icon2x.source).toMatch(/-192\.webp$/);
+ }
  // T-261011-068 후속: 그록봇이 만든 브릿지 4칸 카드·자비스 아이콘·브릿지 타일 4개.
  const bridge=page.locator('#projects .project-card').filter({has:page.getByRole('heading',{name:'텔레그램 브릿지',exact:true})});
  await expect(bridge.locator('.project-visual')).toHaveAttribute('alt','Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지');
  await expect(bridge.locator('.project-mark')).toHaveCount(0);
  const jarvis=page.locator('#projects .project-card').filter({has:page.getByRole('heading',{name:'자비스',exact:true})});
- await expect(jarvis.locator('.project-icon')).toHaveAttribute('src',icons.icons.find(i=>i.name==='자비스').icon);
+ await expect(jarvis.locator('.project-icon')).toHaveAttribute('src',catalog.products.find(i=>i.id==='jarvis').icon);
  await page.locator('#open-tools summary').click();
  const tiles=page.locator('.bridge-links .bridge-tile'); await expect(tiles).toHaveCount(4);
  for(const tile of await tiles.all()) { await expect.poll(()=>tile.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true); }

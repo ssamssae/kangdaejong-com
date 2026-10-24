@@ -24,6 +24,16 @@ export function auditInventory(inventory,discovery) {
 export function attributes(tag){
   return Object.fromEntries([...tag.matchAll(/([\w:-]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g)].map(m=>[m[1].toLowerCase(),m[2]??m[3]]));
 }
+export function hasValidProductException(product){
+  const exception=product.exception;
+  if(product.icon||product.icon2x)return false;
+  if(typeof exception==='string')return Boolean(exception.trim());
+  return Boolean(exception&&typeof exception==='object'&&!Array.isArray(exception)
+    &&exception.status==='approved-placeholder'&&exception.fallback==='letter-mark'
+    &&typeof exception.reason==='string'&&exception.reason.trim()
+    &&typeof exception.approvedAt==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(exception.approvedAt)
+    &&!product.source&&!product.files);
+}
 export function auditProductHtml(html,catalog){
   const errors=[];
   const entries=new Map(catalog.products.map(p=>[p.id,p]));
@@ -36,7 +46,7 @@ export function auditProductHtml(html,catalog){
     const entry=entries.get(id);
     if(!entry){errors.push(`unknown product: ${id}`);continue;}
     const imgs=[...match[3].matchAll(/<img\b[^>]*>/gi)].map(([t])=>attributes(t));
-    if(entry.exception){if(!entry.exception.trim()||imgs.length)errors.push(`${id}: invalid icon exception`);continue;}
+    if(entry.exception){if(!hasValidProductException(entry)||imgs.length)errors.push(`${id}: invalid icon exception`);continue;}
     if(!imgs.some(i=>i.src===entry.icon))errors.push(`${id}: missing or stale icon (expected ${entry.icon})`);
     for(const img of imgs)if(img.src?.includes('product-icons/') || (img.srcset&&img.srcset.split(',').some(s=>![entry.icon,entry.icon2x].includes(s.trim().split(/\s/)[0]))))errors.push(`${id}: stale icon srcset/source`);
   }
