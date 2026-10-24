@@ -11,8 +11,8 @@ const {
   active = "",
   robots,
   bodyClass = "",
-  theme = "", // T-261013-004: 다크는 공용 tokens.css 가 기기 설정을 따라 기본으로 켠다. "light" = 이 페이지만 라이트 고정.
-  //   <html data-theme="auto"> 는 기본으로 계속 내보낸다 — 단백질 그림 합성 등 그 표시에 기대는 다크 규칙이 그대로 동작한다.
+  theme = "light", // T-261024-050: 회사 홈은 다크를 풀었다(대종님 「다크도 풀자」) — 기본이 <html data-theme="light"> 라 공용 tokens.css 의 다크 블록이 이 사이트에서는 적용되지 않는다.
+  //   "auto" 는 단백질 도감(ProteinAtlas)만 명시적으로 넘긴다 — 별도 사이트(protein.kangdaejong.com)이고 다크용 분자 그림·lighten 합성이 그 표시에 기댄다(T-261012-024).
   langToggle = false, // true = 공용 헤더에 한국어/EN 전환 버튼을 띄운다. 페이지가 자기 사전으로 lang-toggle-core 를 시작해야 한다. (T-261012-029)
   fonts = "mono", // Google Fonts 요청 범위: "mono"(JetBrains Mono) | "mono-serif"(+Noto Serif KR) | "none". (T-261011-068)
   jsonLd = null, // schema.org 객체. 있으면 JSON-LD 로 넣는다. (T-261011-068)
@@ -22,7 +22,7 @@ const {
 
 const company = "마이너스베타스튜디오";
 const documentTitle = title ? `${title} — ${company}` : company;
-const lightOnly = theme === "light";
+const lightOnly = theme !== "auto";
 // T-261013-004: 색·폭의 단 하나의 원본. 회사홈은 같은 사이트 경로, 같은 저장소의 다른 사이트(단백질)는 회사홈 주소를 읽는다 —
 // 그래야 색을 바꿀 때 회사홈만 배포하면 된다.
 // 회사홈 빌드(astro.config.mjs)는 site 가 없고, 단백질 빌드는 site = protein.kangdaejong.com 이다.
@@ -76,7 +76,7 @@ const jsonLdText = jsonLd ? JSON.stringify(jsonLd).replace(/</g, "\\u003c") : nu
         <link href={googleFonts} rel="stylesheet" />
       </>
     )}
-    <link rel="stylesheet" href="/studio-page.css?v=20261011" />
+    <link rel="stylesheet" href="/studio-page.css?v=20261024" />
     <title>{documentTitle}</title>
     {jsonLdText && <script type="application/ld+json" set:html={jsonLdText} />}
     <script is:inline src="https://kangdaejong.com/mb-components.js" defer></script>
