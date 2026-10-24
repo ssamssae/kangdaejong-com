@@ -104,7 +104,7 @@ test('product icons use catalog WebP aliases with 2x sources and valid JSON-LD i
  const jarvis=page.locator('#projects .project-card').filter({has:page.getByRole('heading',{name:'자비스',exact:true})});
  await expect(jarvis.locator('.project-icon')).toHaveAttribute('src',catalog.products.find(i=>i.id==='jarvis').icon);
  await page.locator('#open-tools summary').click();
- const tiles=page.locator('.bridge-links .bridge-tile'); await expect(tiles).toHaveCount(4);
+ const tiles=page.locator('.bridge-links .bridge-tile'); await expect(tiles).toHaveCount(5);
  for(const tile of await tiles.all()) { await expect.poll(()=>tile.evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true); }
  expect(await bridge.locator('.project-visual').evaluate(i=>i.complete&&i.naturalWidth>0)).toBe(true);
  const ld=await page.locator('script[type="application/ld+json"]').textContent(); const graph=JSON.parse(ld)['@graph'];
