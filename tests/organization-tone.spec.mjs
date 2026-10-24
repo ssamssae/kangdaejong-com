@@ -9,9 +9,9 @@ async function visitOrganization(page) {
 
   const response = await page.goto("/organization/");
   expect(response?.status()).toBe(200);
-  await expect(page.locator('h1')).toContainText('강대종입니다.');
+  await expect(page.locator('h1')).toContainText('강대종이에요.');
   await expect(page.locator('dl')).toContainText('878-21-02478');
-  await expect(page.getByRole('heading', {name:'작은 도구를 만들어 운영하고 있습니다.'})).toBeVisible();
+  await expect(page.getByRole('heading', {name:'작은 도구를 만들어 운영하고 있어요.'})).toBeVisible();
   await expect(page.getByRole('link', {name:'프로젝트 보기'})).toHaveAttribute('href','/#projects');
   await expect(page.getByRole('link', {name:'앱 보기'})).toHaveAttribute('href','/#products');
   await expect(page.locator('main')).not.toContainText('새로운 서비스를 준비하고 있습니다');

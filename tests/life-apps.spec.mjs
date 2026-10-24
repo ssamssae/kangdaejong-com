@@ -43,5 +43,5 @@ test('우리 사이 intro note links to the App Store and says Android is in pre
   const note = page.locator('.note');
   await expect(note).not.toContainText('정식 다운로드는 아직');
   await expect(note.getByRole('link', { name: 'App Store' })).toHaveAttribute('href', 'https://apps.apple.com/kr/app/id6816725770');
-  await expect(note).toContainText('Android 버전은 준비하고 있습니다');
+  await expect(note).toContainText('Android 버전은 준비하고 있어요');
 });
