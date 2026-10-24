@@ -36,3 +36,18 @@ body.studio-page a.r-button,body.studio-page a.r-button:hover,body.studio-page a
 mb-header,mb-footer{--mb-max:var(--page-max,1000px)}
 mb-header:not(:defined){display:block;min-height:95px}
 @media(max-width:650px){mb-header:not(:defined){min-height:77px}}
+
+/* T-261024-028: 공용 톤 파일(--tone-*)에 연결 — 회사 홈 하위 페이지와 작업장(이 파일을 함께 읽는다)이 첫이름(토스 톤)과
+   같은 글꼴·제목 굵기·라벨·카드·버튼 모양을 쓴다. 숫자는 공용 톤 파일에만 둔다. */
+body.studio-page{font-family:var(--tone-font)}
+body.studio-page :is(h1,h2,h3),body.studio-page main#main-content :is(h1,h2,h3){font-weight:var(--tone-weight-bold)}
+body.studio-page h1,body.studio-page main#main-content h1{letter-spacing:-.05em}
+body.studio-page :is(h2,h3),body.studio-page main#main-content :is(h2,h3){letter-spacing:var(--tone-tracking-title)}
+body.studio-page :is(.studio-label,.eyebrow,.r-kicker){font-family:var(--tone-font);font-size:var(--tone-caption-size);line-height:var(--tone-caption-line);font-weight:var(--tone-weight-bold);letter-spacing:0}
+.studio-page .studio-section{border-top:0}
+.studio-page .studio-card{border:0;border-radius:var(--tone-radius-card);padding:var(--tone-card-padding)}
+.studio-page .studio-card p{font-size:var(--tone-label-size);line-height:var(--tone-label-line)}
+.studio-page .studio-link{font-weight:var(--tone-weight-bold);color:var(--accent-hover)}
+body.studio-page .our-sai .note{border-radius:var(--tone-radius-card)}
+body.studio-page a.r-button{min-height:var(--tone-control-height);padding:0 22px;gap:8px;justify-content:center;border-radius:var(--tone-radius-control);font:var(--tone-weight-bold) var(--tone-body-size)/var(--tone-body-line) var(--tone-font)}
+body.studio-page a.r-button:hover{background:var(--accent-hover)}
