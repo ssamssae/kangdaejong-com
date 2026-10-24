@@ -62,7 +62,7 @@
 
 ## 다크 모드·PC 넓은 레이아웃·한국어/EN 전환·가벼운 아이콘 — T-261011-068
 
-- 다크 모드: 기기 설정(prefers-color-scheme)을 따르고 토글은 없다. `SiteLayout`의 `theme="auto"`가 `<html data-theme="auto">`를 켜고, `src/styles/tokens.css`의 다크 블록이 토큰을 덮는다(초소와 같은 파란 계열: 바탕 #121519, 강조 #7aa2ff). 라이트는 `var(--토큰, 원래색)` 대체값으로 픽셀 그대로. 공용 헤더·푸터는 호스트의 `--mb-host-*` 변수를 상속해 같이 어두워지고, 변수를 정의하지 않는 founder 는 라이트 그대로다. 로고·사진·단백질·전자책 템플릿 페이지는 켜지 않았다.
+- 다크 모드(이력): 기기 설정(prefers-color-scheme)을 따르고 토글은 없었다. `SiteLayout`의 `theme="auto"`가 `<html data-theme="auto">`를 켜고 공용 tokens.css 의 다크 블록이 토큰을 덮었다. **T-261024-050(2026-10-24, 대종님 「다크도 풀자」)부터 회사 홈은 라이트 고정이다** — `SiteLayout` 기본 `theme="light"`, `<meta name="color-scheme" content="light">`, 복붙 정리기·종료 안내 화면도 같다. 단백질 도감만 `theme="auto"`(별도 사이트, 다크 그림 세트). 공용 헤더·푸터는 호스트의 `--mb-host-*`·`--tone-*` 를 상속하므로 작업장·대표소개에서는 그 사이트 설정대로다. 상세는 `docs/company-brand.md` 「회사 홈은 라이트 고정」.
 - PC 넓은 레이아웃: `tokens.css`의 `--page-max`가 1000px → 1440px. 홈 본문(`.home-width`)·하위 페이지(`.studio-width`)·푸터·공용 헤더(`--mb-max`)가 같은 값을 쓴다. 1100px 이상에서 앱 목록은 3열. 모바일(650px 이하)은 그대로.
 - 한국어/EN 전환: 홈 헤더의 `한국어 | EN` 버튼(`<mb-header lang-toggle>`) → `mb-lang-change` 이벤트 → `src/scripts/lang-toggle.js`가 본문·헤더·푸터(shadow DOM)·aria-label 류 속성을 `src/data/i18n-en.json`(한국어 문자열 → 영어)으로 바꾼다. 새로고침 없이 즉시 바뀌고 `localStorage['mb-lang']`에 기억한다. 영어 문구를 고치려면 JSON 값만 고친다. 한국어 문구를 바꾸면 같은 키를 JSON에도 맞춘다(없는 키는 한국어 그대로 남는다).
 - 아이콘: `public/product-icons/*-96.webp`(+`-192.webp` 2x). 1024px PNG 원본 4장(3.4MB)과 512px JPG 4장을 지우고 `product-icon-sources.json`의 `icon`/`icon2x`/`derivedFrom`으로 가리킨다. 원본 출처(`source`, `sha256`)는 그대로 둔다.

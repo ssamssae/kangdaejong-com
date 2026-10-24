@@ -1,13 +1,13 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 ---
-<SiteLayout theme="auto" title="페이지를 찾을 수 없어요" description="주소가 잘못되었거나 페이지가 이동했어요. 홈페이지에서 필요한 정보를 찾아보세요." robots="noindex,follow">
+<SiteLayout title="페이지를 찾을 수 없어요" description="주소가 잘못되었거나 페이지가 이동했어요. 홈페이지에서 필요한 정보를 찾아보세요." robots="noindex,follow">
   <main id="main-content" class="not-found" tabindex="-1">
-    <p class="code">404</p><h1>페이지를 찾을 수 없어요.</h1>
+    <p class="code mb-eyebrow">404</p><h1>페이지를 찾을 수 없어요.</h1>
     <p>주소가 잘못되었거나 페이지가 이동했어요.<br/>홈페이지에서 필요한 정보를 찾아보세요.</p>
     <a class="mb-btn mb-btn--primary" href="/">홈으로 돌아가기</a>
   </main>
 </SiteLayout>
 <style>
-.not-found{max-width:760px;margin:0 auto;padding:80px 24px;min-height:60vh}.code{color:var(--fg-dim);font-size:14px}.not-found h1{font-size:clamp(28px,5vw,42px);line-height:1.4;word-break:keep-all}.not-found p{line-height:1.9}.not-found a{margin-top:20px}
+/* T-261024-050: 첫이름 article 페이지 폭·첫 화면 여백 — 숫자는 공용 톤 값만. */body.studio-page .not-found{width:min(calc(100% - var(--tone-gutter) * 2),var(--tone-prose-max));margin:0 auto;padding:var(--tone-hero-top) 0 var(--tone-section-gap);min-height:60vh}.not-found h1{margin:0 0 var(--tone-space-3)}.not-found p{margin:0;color:var(--fg-dim);line-height:var(--tone-body-line)}.not-found a{margin-top:var(--tone-space-4)}
 </style>

@@ -1,7 +1,7 @@
 ---
 import SiteLayout from '../layouts/SiteLayout.astro';
 ---
-<SiteLayout theme="auto" title="강대종" description="프로젝트와 생활 앱, 책을 한 페이지에 모았어요." canonical="https://kangdaejong.com/" minimal robots="noindex, follow">
-  <main id="main-content" style="max-width:640px;margin:80px auto;padding:24px"><h1>한곳에 모았어요.</h1><p>프로젝트와 앱, 책을 홈에서 볼 수 있어요.</p><a href="/#projects">홈으로 이동</a></main>
+<SiteLayout title="강대종" description="프로젝트와 생활 앱, 책을 한 페이지에 모았어요." canonical="https://kangdaejong.com/" minimal robots="noindex, follow">
+  <main id="main-content" class="mb-prose" style="padding-block:var(--tone-section-gap)"><h1>한곳에 모았어요.</h1><p>프로젝트와 앱, 책을 홈에서 볼 수 있어요.</p><a href="/#projects">홈으로 이동</a></main>
   <script is:inline>window.location.replace('/' + window.location.search + (window.location.hash || '#projects'));</script>
 </SiteLayout>

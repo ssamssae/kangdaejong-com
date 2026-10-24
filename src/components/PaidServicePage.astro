@@ -4,7 +4,7 @@ import '../styles/renewal.css';
 const {service}=Astro.props;
 const canonical=`https://kangdaejong.com/${service.slug}/`;
 ---
-<SiteLayout title={service.name} description={service.description} canonical={canonical} active="guides" bodyClass="renewal" theme="auto">
+<SiteLayout title={service.name} description={service.description} canonical={canonical} active="guides" bodyClass="renewal">
   <main id="main-content" class="service-page">
     <p class="r-kicker">{service.kicker}</p>
     <h1>{service.name}</h1>
@@ -32,5 +32,6 @@ const canonical=`https://kangdaejong.com/${service.slug}/`;
   </main>
 </SiteLayout>
 <style>
-  .service-page{max-width:900px;padding:64px 24px;margin:auto;color:var(--fg)}h1{font-size:clamp(36px,6vw,64px);letter-spacing:-.05em;margin:12px 0 24px}.lead{font-size:22px;max-width:34em;line-height:1.8;margin-bottom:40px}section{border-top:1px solid var(--border);padding:28px 0}h2{font-size:24px;margin:0 0 18px}p,li{line-height:1.85;word-break:keep-all}ul{padding-left:24px}li+li{margin-top:10px}.actions,.policies{display:flex;flex-wrap:wrap;gap:16px}.service-note{font-size:15px;color:var(--fg-dim)}.policies{padding:24px 0;border-top:1px solid var(--border)}a:not(.r-button){color:var(--accent);text-underline-offset:4px}@media(max-width:650px){.service-page{padding:32px 20px}.lead{font-size:19px}}
+  /* T-261024-050: 첫이름 service 페이지(.hero → .block)와 같은 값 — 숫자는 공용 톤 값만. */
+  body.studio-page .service-page{width:min(calc(100% - var(--tone-gutter) * 2),var(--tone-prose-max));margin:0 auto;padding:var(--tone-hero-top) 0 var(--tone-section-gap);color:var(--fg)}h1{margin:0 0 var(--tone-space-3)}.lead{margin:0 0 var(--tone-section-gap);color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line)}section{border-top:1px solid var(--border);padding:var(--tone-section-gap) 0}h2{margin:0 0 var(--tone-space-2)}p,li{color:var(--fg-dim);line-height:var(--tone-body-line);word-break:keep-all}p{margin:0 0 var(--tone-space-3)}ul{margin:0 0 var(--tone-space-3);padding-left:var(--tone-space-4)}li{margin-bottom:var(--tone-space-1)}.actions,.policies{display:flex;flex-wrap:wrap;gap:var(--tone-space-1) var(--tone-space-3);margin-top:var(--tone-space-3)}.actions{gap:var(--tone-space-1)}.service-note{margin:var(--tone-space-3) 0 0;color:var(--fg-dim);font-size:var(--tone-caption-size);line-height:var(--tone-caption-line)}.policies{padding:var(--tone-space-4) 0;border-top:1px solid var(--border)}a:not(.r-button){display:inline-flex;align-items:center;min-height:var(--tone-tap-height);color:var(--accent);font-weight:var(--tone-weight-bold);text-underline-offset:var(--tone-underline-offset)}@media(max-width:760px){section{padding:var(--tone-space-6) 0}.actions{flex-direction:column}.actions a{display:flex}}
 </style>
