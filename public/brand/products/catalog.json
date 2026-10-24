@@ -282,6 +282,19 @@
       "id": "bridge-local",
       "name": "Local Telegram Bridge",
       "exception": "No approved image was supplied. Preserve the existing >_ glyph; no inferred substitute."
+    },
+    {
+      "id": "bridge-grokbot",
+      "name": "Grok Bot Telegram Bridge",
+      "source": "https://github.com/ssamssae/kangdaejong-com/blob/main/public/product-icons/bridge-grokbot-aeed2c96-96.webp",
+      "sourceNote": "2026-10-24 tile drawn to match the four bridge tiles (solid color, Arial Bold), T-261024-056",
+      "files": {
+        "icon": {
+          "source": "/product-icons/bridge-grokbot-aeed2c96-96.webp",
+          "sha256": "7ab6ee9d8eb55389d00027e97309564bde83055d6278c168b921130fa6d11bab"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/bridge-grokbot.webp"
     }
   ]
 }

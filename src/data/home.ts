@@ -56,6 +56,15 @@ export const tools = [
     repo: "https://github.com/ssamssae/cursor-telegram-bridge",
     release: "https://github.com/ssamssae/cursor-telegram-bridge/releases",
   },
+  // T-261024-056: 웹 설명서(/product/…) 가 없어 설치 안내는 GitHub 설명서로 보낸다.
+  {
+    name: "Grok Bot Telegram Bridge",
+    ...productIcon('bridge-grokbot'),
+    description: "텔레그램으로 그록봇 앱의 봇 하나와 대화하는 공개 브릿지.",
+    repo: "https://github.com/ssamssae/grokbot-telegram-bridge",
+    release: "https://github.com/ssamssae/grokbot-telegram-bridge/releases",
+    guide: "https://github.com/ssamssae/grokbot-telegram-bridge/blob/main/README.ko.md",
+  },
 ];
 
 
