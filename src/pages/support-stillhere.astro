@@ -1,7 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
-<SiteLayout theme="auto" title="살아있음 지원 안내" description="살아있음 지원 안내 · 마이너스베타스튜디오" canonical="https://kangdaejong.com/support-stillhere/">
+<SiteLayout title="살아있음 지원 안내" description="살아있음 지원 안내 · 마이너스베타스튜디오" canonical="https://kangdaejong.com/support-stillhere/">
 <main id="main-content"><h1>살아있음 지원 안내</h1>
 <p>지원 연락처: <a href="mailto:minusbetastudio@gmail.com">minusbetastudio@gmail.com</a><br />운영자: 마이너스베타스튜디오 (대표 강대종)<br />대상 버전: 1.0.6 · 기존 1.0.5 연결 안내 포함</p>
 <p>살아있음 StillHere는 하루 한 번의 체크인과 짧은 소식으로 두 사람이 서로 안부를 나누는 앱이에요. 내 체크인과 상대의 마지막 수신을 별도로 확인할 수 있어요.</p>
@@ -18,4 +18,4 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 <p>앱 버전, 운영체제 버전, 문제가 발생한 시각과 재현 순서를 알려 주세요. 초대·응답 문구, 확인 코드, 로그인 정보와 실제 가족 정보가 보이는 화면은 가려 주세요.</p>
 <p>살아있음은 긴급 구조·응급 출동·실시간 감시·안전 보장 서비스가 아니에요. 위급하면 지역 응급 서비스에 직접 연락하세요.</p>
 <nav aria-label="살아있음 안내"><a href="/privacy-stillhere/">개인정보 처리 안내</a> · <a href="/support-stillhere/">지원 안내</a></nav></main></SiteLayout>
-<style>main{max-width:760px;margin:48px auto;padding:0 24px 64px}h1{font-size:clamp(26px,5vw,38px)}h2{margin-top:36px;font-size:23px}p{line-height:1.85;overflow-wrap:anywhere}a{text-decoration:underline;text-underline-offset:3px}nav{margin-top:40px;line-height:2}</style>
+<style>/* T-261024-050: 첫이름 .article-page 와 같은 값(680px 폭·제목 위 가는 줄·회색 본문) — 숫자는 공용 톤 값만. */body.studio-page main#main-content{width:min(calc(100% - var(--tone-gutter) * 2),var(--tone-prose-max));margin:0 auto;padding:var(--tone-space-5) 0 var(--tone-section-gap)}h1{margin:0 0 var(--tone-space-3)}h2{margin:var(--tone-space-6) 0 var(--tone-space-2);padding-top:var(--tone-space-3);border-top:1px solid var(--border)}p{margin:0 0 var(--tone-space-3);color:var(--fg-dim);line-height:var(--tone-body-line);overflow-wrap:anywhere}a{font-weight:var(--tone-weight-bold);text-decoration:underline;text-underline-offset:var(--tone-underline-offset)}nav{display:flex;flex-wrap:wrap;gap:var(--tone-space-1) var(--tone-space-3);margin-top:var(--tone-section-gap);padding-top:var(--tone-space-4);border-top:1px solid var(--border);line-height:var(--tone-body-line)}nav a{display:inline-flex;align-items:center;min-height:var(--tone-tap-height)}</style>

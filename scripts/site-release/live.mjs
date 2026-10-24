@@ -3,7 +3,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {chromium} from '@playwright/test';
-import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage} from './contract.mjs';
+import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage,auditScreen} from './contract.mjs';
 import {sitemapLocations} from '../../workshop-router/index.mjs';
 import {workSitemapUrls,mountedSitemapUrls} from './work-sitemap.mjs';
 import {handleProductRequest,PRODUCT_PAGES} from '../../workshop-router/product-guides.mjs';
@@ -188,13 +188,9 @@ if(screens){
         });
         const response=await page.goto(url,{waitUntil:'networkidle',timeout:45000});
         if(![200,410].includes(response.status()))throw Error(`HTTP ${response.status()}`);
-        const root=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,theme:getComputedStyle(document.documentElement).colorScheme,bg:getComputedStyle(document.body).backgroundColor,cards:[...document.querySelectorAll('.catalog-card,.project-card,.app-row,.text-panel')].map(e=>getComputedStyle(e).backgroundColor)}));
-        if(root.overflow)errors.push('horizontal overflow');
-        if(!root.theme.includes(colorScheme))errors.push(`theme mismatch ${root.theme}`);
-        if(colorScheme==='dark')for(const color of [root.bg,...root.cards]){
-          const values=color.match(/[\d.]+/g)?.map(Number)||[];
-          if(values.length>=3&&values[3]!==0&&(values[0]+values[1]+values[2])/3>180)errors.push(`light surface in dark mode: ${color}`);
-        }
+        const root=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,declared:document.documentElement.dataset.theme||'',theme:getComputedStyle(document.documentElement).colorScheme,bg:getComputedStyle(document.body).backgroundColor,cards:[...document.querySelectorAll('.catalog-card,.project-card,.app-row,.text-panel')].map(e=>getComputedStyle(e).backgroundColor)}));
+        // T-261024-050: 라이트 고정 화면(회사 홈)은 다크 기기에서도 라이트가 맞다 — 판정은 contract.mjs auditScreen.
+        errors.push(...auditScreen(root,site,colorScheme));
         const images=page.locator('[data-product-id] img, [data-catalog-item] img');
         for(let i=0;i<await images.count();i++){
           const img=images.nth(i);

@@ -156,7 +156,9 @@ test('the tool follows the homepage palette, typography and width in both system
       expect(await page.evaluate(() => document.fonts.check('600 16px "Pretendard Variable"'))).toBe(true);
       await page.screenshot({ path: test.info().outputPath(`text-tone-${colorScheme}-${width}.png`), fullPage: true });
     }
-    expect(homepage.light.background).not.toBe(homepage.dark.background);
+    // T-261024-050: 회사 홈은 다크를 풀었다 — 기기 설정이 달라도 같은 라이트 값이다.
+    expect(homepage.light.background).toBe(homepage.dark.background);
+    expect(await page.evaluate(() => document.documentElement.dataset.theme)).toBe('light');
   }
   expect(errors).toEqual([]);
 });

@@ -1,7 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 ---
-<SiteLayout theme="auto" title="심플 가계부 지원 안내" description="심플 가계부 지원 안내 · 마이너스베타스튜디오" canonical="https://kangdaejong.com/support-gagyebu/">
+<SiteLayout title="심플 가계부 지원 안내" description="심플 가계부 지원 안내 · 마이너스베타스튜디오" canonical="https://kangdaejong.com/support-gagyebu/">
 <main id="main-content"><h1>심플 가계부 지원 안내</h1>
 <p>심플 가계부는 수입과 지출을 가볍게 기록하는 앱이에요. iPhone과 Android에서 받을 수 있어요.</p>
 <h2>받기</h2>
@@ -11,4 +11,4 @@ import SiteLayout from "../layouts/SiteLayout.astro";
 <h2>문의</h2>
 <p>앱 버전, 기기와 문제가 생긴 순서를 <a href="mailto:minusbetastudio@gmail.com">minusbetastudio@gmail.com</a>으로 알려 주세요.</p>
 <nav aria-label="심플 가계부 안내"><a href="/work/privacy-mini-expense.html">개인정보 처리 안내</a> · <a href="/support-gagyebu/">지원 안내</a></nav></main></SiteLayout>
-<style>main{max-width:760px;margin:48px auto;padding:0 24px 64px}h1{font-size:clamp(26px,5vw,38px)}h2{margin-top:36px;font-size:23px}p{line-height:1.85;overflow-wrap:anywhere}a{text-decoration:underline;text-underline-offset:3px}nav{margin-top:40px;line-height:2}</style>
+<style>/* T-261024-050: 첫이름 .article-page 와 같은 값(680px 폭·제목 위 가는 줄·회색 본문) — 숫자는 공용 톤 값만. */body.studio-page main#main-content{width:min(calc(100% - var(--tone-gutter) * 2),var(--tone-prose-max));margin:0 auto;padding:var(--tone-space-5) 0 var(--tone-section-gap)}h1{margin:0 0 var(--tone-space-3)}h2{margin:var(--tone-space-6) 0 var(--tone-space-2);padding-top:var(--tone-space-3);border-top:1px solid var(--border)}p{margin:0 0 var(--tone-space-3);color:var(--fg-dim);line-height:var(--tone-body-line);overflow-wrap:anywhere}a{font-weight:var(--tone-weight-bold);text-decoration:underline;text-underline-offset:var(--tone-underline-offset)}nav{display:flex;flex-wrap:wrap;gap:var(--tone-space-1) var(--tone-space-3);margin-top:var(--tone-section-gap);padding-top:var(--tone-space-4);border-top:1px solid var(--border);line-height:var(--tone-body-line)}nav a{display:inline-flex;align-items:center;min-height:var(--tone-tap-height)}</style>

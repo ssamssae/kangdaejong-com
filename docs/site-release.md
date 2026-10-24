@@ -17,7 +17,7 @@
 - `docs/site-discovery.json`은 Cloudflare Pages, Worker 도메인·라우트, DNS, GitHub Pages API에서 독립적으로 수집한 기록이다. `sites.json`에서 사이트를 지우거나 새 배포가 등록되지 않으면 실패한다. 단순히 목록을 순회하는 검사와 다르다.
 - PR의 필수 `site-release-contract`는 회귀 검사, 전체 빌드, 공통 소스 검사, 현재 공개 GitHub Pages 목록, 공용 메뉴 링크, 사이트맵 페이지, 대표 화면을 검사한다. Cloudflare 인증은 PR에 복사하지 않는다. DNS·Worker 전체 목록은 **인증된 배포 직전에 다시 조회**한다. 계정 API가 실패하면 배포를 진행하지 않는다.
 - 공개 페이지는 사이트맵에서 수집한다. 도구·정적 개인정보·종료 안내처럼 사이트맵 밖에 있을 수 있는 경로는 `pages`에 명시한다. 독립된 정적 헤더는 `headerExceptions`에 구체적 이유를 기록한다.
-- `screens`에 있는 각 대표 경로는 390/1440px × light/dark에서 렌더링한다. 가로 넘침, 다크 모드의 흰 카드, 아이콘 로드, 제품 검색, JavaScript 오류를 검사하고 PNG를 저장한다.
+- `screens`에 있는 각 대표 경로는 390/1440px × light/dark에서 렌더링한다. 가로 넘침, 다크 모드의 흰 카드, 아이콘 로드, 제품 검색, JavaScript 오류를 검사하고 PNG를 저장한다. 라이트 고정 화면(`<html data-theme="light">`, T-261024-050 부터 회사 홈 전부)은 다크 기기에서도 라이트가 맞다고 보고, 등록부의 `theme: "light"`(회사홈·첫이름/상호/토정 안내)는 그 사이트 대표 화면이 전부 라이트 고정이어야 한다는 못이다. 판정은 `contract.mjs`의 `auditScreen`.
 - 단일 출처 공용 CSS·헤더·로고·OG·제품 아이콘의 전체 SHA-256 집합이 `brand/release.json`의 revision이다. 생성물은 git에 별도 복사하지 않는다. 배포 후 실제 바이트와 source commit을 확인한다. `live.mjs`는 시작할 때 `prepare.mjs`로 이 기대값을 지금 코드에서 다시 만든다. 빌드 없이 검사만 다시 돌려도 이 PC에 남은 옛 기대값을 쓰지 않는다(T-261024-038).
 
 ## 제품 아이콘
