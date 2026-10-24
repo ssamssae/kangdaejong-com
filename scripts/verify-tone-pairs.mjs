@@ -14,7 +14,7 @@ const checks = [
  ['focus and reduced-motion styles remain', css.includes(':focus-visible') && css.includes('prefers-reduced-motion:reduce')],
  // T-261024-026: 공용 톤 파일 — 토스 톤(첫이름) 값과 공용 부품이 원본에 있고, 홈은 숫자를 다시 적지 않고 그 값·부품을 쓴다.
  ['shared tone file holds the Toss tone values', toneValue('radius-control', '14px') && toneValue('radius-card', '20px') && toneValue('control-height', '56px') && toneValue('body-size', '17px')],
- ['shared tone file holds the shared parts', ['.mb-btn {', '.mb-btn--primary', '.mb-btn--secondary', '.mb-card {', '.mb-chip {', '.mb-eyebrow {'].every((part) => shared.includes(part))],
+ ['shared tone file holds the shared parts', ['.mb-btn {', '.mb-btn.mb-btn--primary {', '.mb-btn.mb-btn--secondary {', '.mb-card {', '.mb-chip.mb-chip {', '.mb-eyebrow.mb-eyebrow {'].every((part) => shared.includes(part))],
  ['home buttons and chips use the shared parts', home.includes('mb-btn mb-btn--primary') && home.includes('mb-btn mb-btn--secondary') && home.includes('mb-chip') && banner.includes('mb-btn mb-btn--primary')],
  ['home keeps no local copies of tone values', ![css, banner].some((text) => /border-radius:\s*(14|20)px|min-height:\s*5[26]px/.test(text))],
  ['generic home link hover skips shared buttons', css.includes('.simple-home a:not(.mb-btn):hover')],

@@ -158,7 +158,8 @@ mb-footer {
   --mb-max: var(--page-max);
 }
 
-/* ③ 공용 부품 (T-261024-026) — class 를 붙인 곳에만 적용된다. 값은 위 ①색·②톤 이름만 쓴다. */
+/* ③ 공용 부품 (T-261024-026) — class 를 붙인 곳에만 적용된다. 값은 위 ①색·②톤 이름만 쓴다.
+   색 규칙은 .mb-btn.mb-btn--primary 처럼 class 를 두 번 써서, 사이트 공용 초기화(.studio-page a { color: inherit })보다 앞선다. */
 .mb-btn {
   display: inline-flex;
   align-items: center;
@@ -175,11 +176,11 @@ mb-footer {
   transition: transform 100ms linear, background-color 100ms linear;
 }
 .mb-btn:active { transform: scale(var(--tone-press-scale)); }
-.mb-btn--primary { background: var(--cta-bg); color: var(--cta-fg); }
-.mb-btn--primary:hover, .mb-btn--primary:focus-visible { background: var(--accent-hover); color: var(--cta-fg); }
-.mb-btn--secondary { background: var(--bg-elev); color: var(--fg); }
-.mb-btn--secondary:hover, .mb-btn--secondary:focus-visible { background: var(--bg-elev2); color: var(--fg); }
-.mb-btn:disabled, .mb-btn[aria-disabled="true"] { background: var(--bg-elev2); color: var(--fg-mute); cursor: default; transform: none; }
+.mb-btn.mb-btn--primary { background: var(--cta-bg); color: var(--cta-fg); }
+.mb-btn.mb-btn--primary:hover, .mb-btn.mb-btn--primary:focus-visible { background: var(--accent-hover); color: var(--cta-fg); }
+.mb-btn.mb-btn--secondary { background: var(--bg-elev); color: var(--fg); }
+.mb-btn.mb-btn--secondary:hover, .mb-btn.mb-btn--secondary:focus-visible { background: var(--bg-elev2); color: var(--fg); }
+.mb-btn.mb-btn:disabled, .mb-btn.mb-btn[aria-disabled="true"] { background: var(--bg-elev2); color: var(--fg-mute); cursor: default; transform: none; }
 .mb-btn--block { display: flex; width: 100%; }
 .mb-card {
   box-sizing: border-box;
@@ -189,7 +190,7 @@ mb-footer {
   border-radius: var(--tone-radius-card);
   padding: var(--tone-card-padding);
 }
-.mb-chip {
+.mb-chip.mb-chip {
   display: inline-flex;
   align-items: center;
   min-height: 24px;
@@ -199,7 +200,7 @@ mb-footer {
   color: var(--fg-dim);
   font: var(--tone-weight-bold) 12px/16px var(--tone-font);
 }
-.mb-eyebrow {
+.mb-eyebrow.mb-eyebrow {
   margin: 0 0 8px;
   color: var(--fg-dim);
   font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font);
