@@ -6,7 +6,7 @@ export const books = [
     price: "전자책 · 무료 공개",
     file: "/books/solo-company-ai-automation.pdf",
     pages: 69,
-    description: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했습니다.",
+    description: "1인 비즈니스의 구조화부터 콘텐츠, 자동화, 판매까지 실제 작업 흐름을 정리했어요.",
   },
   {
     number: "02",
@@ -14,7 +14,7 @@ export const books = [
     price: "전자책 · 무료 공개",
     file: "/books/solo-ai-team.pdf",
     pages: 72,
-    description: "혼자 일하면서 여러 AI 역할을 팀처럼 구성하고 운영하는 방법을 정리했습니다.",
+    description: "혼자 일하면서 여러 AI 역할을 팀처럼 구성하고 운영하는 방법을 정리했어요.",
   },
   {
     number: "03",
@@ -22,7 +22,7 @@ export const books = [
     price: "전자책 · 무료 공개",
     file: "/books/phone-controls-my-computer-ai.pdf",
     pages: 39,
-    description: "텔레그램에 내 컴퓨터의 AI 도구를 연결하는 과정을 비개발자 눈높이로 정리한 안내서입니다.",
+    description: "텔레그램에 내 컴퓨터의 AI 도구를 연결하는 과정을 비개발자 눈높이로 정리한 안내서예요.",
   },
 ];
 
@@ -91,7 +91,7 @@ export const apps = [
   {
     "name": "심플 가계부",
     ...productIcon('gagyebu'),
-    "description": "수입과 지출을 가볍게 기록합니다.",
+    "description": "수입과 지출을 가볍게 기록해요.",
     "appId": "6769037337",
     "package": "com.ssamssae.mini_expense",
     "support": "/support-gagyebu/"
@@ -123,7 +123,7 @@ export const apps = [
   {
     "name": "노래찾기",
     ...productIcon('noraechatgi'),
-    "description": "버튼 한 번으로 주변 음악의 제목과 가수를 찾습니다.",
+    "description": "버튼 한 번으로 주변 음악의 제목과 가수를 찾아요.",
     "appId": "6820080312",
     "support": "/support-noraechatgi/",
     "storeNote": "iPhone"
