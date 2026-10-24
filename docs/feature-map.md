@@ -1,5 +1,12 @@
 # 기능 확인 경로
 
+## 말해줘 개인정보 처리 안내 — T-261021-018
+
+- 진입점: `/privacy-malhaejwo/` (App Store·Google Play 제출용 개인정보처리방침 URL). 홈 앱 목록 반영은 심사 통과 뒤 별도 단계라 이번에는 페이지만 더한다.
+- 기대 결과: h1 「말해줘 개인정보 처리 안내」, 수집 없음·기기 안 저장(읽기 설정·저장 문구·최근 20개·광고 제거 여부)·받아쓰기는 운영체제 음성 인식(Apple·Google)·AdMob 배너(Android 광고 ID, iPhone 추적 허용 요청 없음)·인앱 결제는 스토어 처리·마이크 권한은 첫 탭에서만·문의 메일, canonical `https://kangdaejong.com/privacy-malhaejwo/`. 내용은 `ssamssae/malhaejwo` main(Task 8~11)과 PR #12(Task 13 광고·광고 제거)의 선언과 같다.
+- 검증: `tests/malhaejwo.spec.mjs`. 공개 배포(`npm run deploy:site`)는 대종님 승인 카드 뒤에 하고, 라이브 응답은 배포 뒤 여러 번 받아 200 을 확인한다.
+- 사이트맵: canonical 이 경로와 같아 `dist/sitemap.xml` 에 자동으로 들어간다.
+
 ## 작업장과 사이트맵 통합 — T-261017-004
 
 - 진입점: 공통 메뉴 「작업장」 → `https://kangdaejong.com/work/`. 로그인 없이 확인한다.
