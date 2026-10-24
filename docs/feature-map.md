@@ -141,6 +141,10 @@
 
 단백질 도감(protein.kangdaejong.com)도 홈과 같은 톤: `ProteinAtlas` 가 `SiteLayout theme="auto"` 를 켜고, 본문 폭은 `--page-max`(1440px). 분자 그림은 다크용 `public/protein/dark/<slug>.webp`(바탕 #121519, `npm run render:protein-dark` — 저장소의 SDF·고정 3Dmol 로 원본과 같은 구도, manifest 의 pixelBounds ±2px 확인 후에만 저장)를 `<picture media="(prefers-color-scheme: dark)">` 로 쓰고 다크에선 `mix-blend-mode:lighten` 으로 카드에 녹인다(라이트의 multiply 는 다크에서 분자를 검게 묻는다). 확대 창·3D 뷰어 정적 그림 링크는 `data-dark-href`, 3D 뷰어 바탕은 다크 #191d23. protein.spec.mjs 에 다크 검사 1개.
 
+## T-261024-058 · 다크 해제·전부 라이트 + 생김새 원본 한 곳
+
+대종님 결정(2026-10-24 「응 다크를풀고 전부 라이트」「하나를 고치면 모든 사이트 고쳐질 수 있도록」). 공용 `tokens.css` 에서 다크 블록을 지워 회사 홈·작업장·대표소개·단백질·종료 안내·제품 안내가 기기 설정과 무관하게 같은 라이트 값으로 그려진다. `SiteLayout` 은 `theme` 분기 없이 `data-theme="light"` 고정, 단백질 도감의 다크 그림 전환(`data-dark-href`·`<source media=dark>`·lighten 합성·`render:protein-dark`)은 걷어내고 그림은 `public/protein/<slug>.png` 한 벌만 쓴다(옛 `public/protein/dark/*.webp` 파일은 남겨 두었지만 아무 페이지도 읽지 않는다). 단백질 도감 본문 CSS 는 `--tone-*`·`.mb-btn`·`.mb-card`·`.mb-chip`·`.mb-eyebrow`·`.mb-link`·`.mb-input` 으로 바꿔 직접 숫자 0(그림 폭·3D 무대 최소 높이만 `tone:fixed`). 확인 경로: `/protein/` 을 기기 다크 설정으로 열어도 흰 바탕·검은 글자, 카드 그림은 `.png`, 3D 보기·닫기·초기화 버튼은 공용 버튼 모양(56px·14px 모서리), 분류 칩은 알약, 검색칸은 회색 입력칸. 검사: `tests/protein.spec.mjs`(다크 에뮬 → 라이트 값·png 그림), `scripts/verify-dark-cards.mjs`(모든 HTML light), `scripts/verify-tone-copies.mjs`(원본 밖 다크 규칙·직접 숫자 래칫), `scripts/site-release/contract.mjs auditScreen`(라이브 전 사이트 다크 에뮬 바탕 밝음).
+
 ## T-261003-018 · 사이트 디자인 통일
 
 공통 톤: 홈·system·organization·ipta·digital-products·전자책 양식·our-sai와 단백질 도감을 390/1440px로 열어 흰 배경, 제목 34/51px, 1000px 본문 폭과 가로 넘침을 확인. protein.spec.mjs는 메뉴 열기·20개 구조·검색/필터·3D·확대 조작 검사. site-renewal.spec.mjs의 전체 링크·모바일 검사도 유지.

@@ -71,24 +71,20 @@ export function auditHtml(html,site,{socialHash},catalog){
   if(checks.includes('products'))errors.push(...auditProductHtml(html,catalog));
   return errors;
 }
-// T-261024-050: 대표 화면의 모드 검사. 라이트 고정 화면(<html data-theme="light">)은 기기 설정이 다크여도 라이트가 맞고,
-// 기기 설정을 따르는 화면은 요청한 모드와 같아야 하며 다크에서 흰 면(바탕·카드)이 없어야 한다.
-// 등록부의 theme:"light" 는 그 사이트 대표 화면이 전부 라이트 고정이어야 한다는 못(회사 홈·안내 페이지, 대종님 「다크도 풀자」).
-// 종료 안내 Worker(logo)는 재배포 시점이 회사 홈과 달라 못을 박지 않고 화면이 스스로 밝히는 대로 검사한다.
+// T-261024-058: 대표 화면의 모드 검사 — 공개 사이트는 전부 라이트다(대종님 「다크를 풀고 전부 라이트」, 2026-10-24).
+// 기기 설정이 다크여도(colorScheme='dark' 에뮬레이션) 바탕이 밝아야 하고, 화면이 다크를 다시 켜는 선언(data-theme="auto"|"dark")을 하면 안 된다.
+// 원본(공용 tokens.css)에 다크 블록이 없으므로 data-theme 를 안 적은 화면(제품 안내 Worker 등)도 라이트로 그려진다 — 선언은 "light" 또는 없음이면 된다.
+// (T-261024-050 까지는 등록부 theme:"light" 가 회사 홈만 못 박고, 다른 화면은 다크에서 흰 면이 없어야 했다. 그 분기는 걷어냈다.)
+export const isLightSurface=(color)=>{
+  const values=color.match(/[\d.]+/g)?.map(Number)||[];
+  return values.length<3||(values.length>=4&&values[3]===0)||(values[0]+values[1]+values[2])/3>180;
+};
 export function auditScreen(root,site,colorScheme){
   const errors=[];
-  const lightOnly=root.declared==='light';
-  if(site.theme==='light'&&!lightOnly)errors.push('expected light-only page (data-theme="light")');
   if(root.overflow)errors.push('horizontal overflow');
-  if(lightOnly){
-    if(!root.theme.includes('light'))errors.push(`theme mismatch ${root.theme} (light-only page)`);
-  }else{
-    if(!root.theme.includes(colorScheme))errors.push(`theme mismatch ${root.theme}`);
-    if(colorScheme==='dark')for(const color of [root.bg,...root.cards]){
-      const values=color.match(/[\d.]+/g)?.map(Number)||[];
-      if(values.length>=3&&values[3]!==0&&(values[0]+values[1]+values[2])/3>180)errors.push(`light surface in dark mode: ${color}`);
-    }
-  }
+  if(['auto','dark'].includes(root.declared))errors.push(`page still opts into dark mode (data-theme="${root.declared}")`);
+  if(!root.theme.includes('light'))errors.push(`theme mismatch ${root.theme} (every page is light, T-261024-058)`);
+  if(!isLightSurface(root.bg))errors.push(`dark surface in ${colorScheme} emulation: ${root.bg}`);
   return errors;
 }
 export function checksForPage(site,route){
