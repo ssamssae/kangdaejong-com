@@ -1,6 +1,6 @@
 /* 회사 홈(index·organization) 전용 배치. 색은 공용 tokens.css, 모양·글자·간격은 공용 톤 값(--tone-*)·공용 부품(.mb-btn·.mb-chip)만 쓴다 —
    첫이름 web/landing.css(첫 화면)·studio.css(스펙 v3)와 같은 값이다. 여기에는 배치만 두고 숫자를 다시 적지 않는다 (T-261024-020·026·050). */
-html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--tone-header-height) + var(--tone-space-4))}
+html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-header-block,var(--tone-header-height)) + var(--tone-space-4))}
 .simple-home{background:var(--bg);color:var(--fg);font-family:var(--tone-font);font-size:var(--tone-body-size);line-height:var(--tone-body-line);letter-spacing:normal}
 .simple-home h1,.simple-home h2,.simple-home h3,.simple-home p{margin:0}
 .simple-home h1{font-size:var(--tone-display-size);line-height:var(--tone-display-line);font-weight:var(--tone-weight-bold);letter-spacing:var(--tone-tracking-title);word-break:keep-all}

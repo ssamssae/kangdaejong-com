@@ -70,10 +70,17 @@
       const localHome = location.pathname === '/' && location.hostname !== 'work.kangdaejong.com' && (location.hostname === 'kangdaejong.com' || location.hostname === '127.0.0.1' || location.hostname === 'localhost');
       const makeLink = (item) => `<a href="${localHome && item.href.startsWith(BRAND_HREF + '#') ? item.href.slice(BRAND_HREF.length) : item.href}"${item.newWindow ? ' target="_blank" rel="noopener noreferrer"' : ''}${item.key === active ? ' class="active" aria-current="page"' : ''}><span class="link-title">${item.label}${item.newWindow ? '<span class="external-arrow" aria-hidden="true">↗</span>' : ''}${item.key === active ? '<span class="current">현재 위치</span>' : ''}</span>${item.description ? `<small>${item.description}</small>` : ''}</a>`;
       const moreActive = NAV_GROUPS.some(group => group.items.some(item => item.key === active));
+      // T-261024-062: 실제 헤더 높이를 문서 변수 --mb-header-block 으로 알린다 — 고정 헤더 아래로 앵커·초점이 숨지 않게 호스트 문서(studio-page.css 등)가 scroll-padding 에 쓴다.
+      //   휴대전화 두 줄 헤더·언어 버튼처럼 폭에 따라 높이가 달라져도 CSS 식 대신 실측값이 들어간다(ResizeObserver 가 첫 관측부터 알린다).
+      const publishHeight = () => document.documentElement.style.setProperty('--mb-header-block', `${this.offsetHeight}px`);
+      if (typeof ResizeObserver === 'function') new ResizeObserver(publishHeight).observe(this); else requestAnimationFrame(publishHeight);
       const root = this.attachShadow({ mode: 'open' });
       root.innerHTML = `
         <style>
-          :host { ${hostPalette(this)} display:block; line-height:1.5; letter-spacing:normal; }
+          /* T-261024-062: 대종님 「헤더가 아래로 내려가면 안보이는데 틀고정 효과로 헤더가 항상 위로 보이게」 — 호스트를 sticky 로 화면 위에 붙인다.
+             4면(회사 홈·작업장·대표소개·단백질)이 이 파일을 실행 시점에 읽으므로 여기 한 곳이면 된다. 둘러보기 판은 .header 기준 absolute 라 같이 따라온다.
+             앵커 이동이 헤더에 가려지지 않게 studio-page.css 가 html scroll-padding-top 을 헤더 높이로 둔다. */
+          :host { ${hostPalette(this)} display:block; position:sticky; top:0; z-index:70; line-height:1.5; letter-spacing:normal; }
           * { box-sizing:border-box; }
           /* T-261024-050: 첫이름(토스 톤) 헤더 — 높이·글자·간격·모서리는 호스트 문서가 읽는 공용 톤 파일(--tone-*)의 이름만 쓴다. 숫자를 여기 다시 적지 않는다. */
           .header { position:relative; z-index:70; border-bottom:1px solid var(--mb-border); background:var(--mb-bg); font-family:var(--tone-font); }
