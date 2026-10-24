@@ -1,6 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 import {chromium} from '@playwright/test';
 import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage} from './contract.mjs';
 import {sitemapLocations} from '../../workshop-router/index.mjs';
@@ -16,6 +17,9 @@ const inventory=json('public/brand/sites.json'),catalog=json('public/brand/produ
 // T-261024-030: 회사 루트 별칭(www·pages.dev)은 회사 주소와 같은 배포다. 후보 검사에서 라이브로 읽으면 공유 카드를 바꾼 PR 이
 // 배포 전이라 늘 「옛 카드」로 실패한다 → 후보 검사에서만 회사 주소 경로(후보 빌드)로 읽는다. 배포 뒤 검사는 별칭을 라이브로 그대로 본다.
 const HOME_ALIAS_ORIGINS=new Set((inventory.sites.find(s=>s.id==='home')?.aliases||[]).map(a=>new URL(a).origin));
+// T-261024-038: release.json 은 빌드가 만드는 기대값이라 저장소에 없다. 빌드 없이 이 검사만 다시 돌리면 이 PC에 남은 옛 빌드의
+// 기대값으로 실제 사이트를 재서, 멀쩡한 사이트를 「옛 카드·다른 커밋」으로 판정한다 → 지금 코드로 기대값을 다시 만든 뒤 읽는다.
+execFileSync(process.execPath,['scripts/site-release/prepare.mjs'],{stdio:'inherit'});
 const release=json('public/brand/release.json');
 const results=[], pageSet=new Map(), assets=Object.entries(release.files);
 const hash=b=>createHash('sha256').update(b).digest('hex');
