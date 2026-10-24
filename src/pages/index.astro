@@ -42,24 +42,24 @@ const jsonLd = {
       <p class="intro-label">만들고, 써 보고, 다듬어요.</p>
       <h1 id="intro-title">안녕하세요.<br/>만드는 사람 <span>강대종</span>이에요.</h1>
       <p class="intro-description">일할 때 필요한 도구부터 일상의 작은 앱까지.<br class="desktop-break"/> 직접 만들어 쓰는 것들을 이곳에 모았어요.</p>
-      <div class="intro-links"><a href="#projects">프로젝트 둘러보기 <span aria-hidden="true">↓</span></a><a href="https://github.com/ssamssae" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
+      <div class="intro-links"><a class="mb-btn mb-btn--primary" href="#projects">프로젝트 둘러보기 <span aria-hidden="true">↓</span></a><a class="mb-btn mb-btn--secondary" href="https://github.com/ssamssae" target="_blank" rel="noopener noreferrer">GitHub <span aria-hidden="true">↗</span></a></div>
     </section>
     <section id="projects" class="home-section" aria-labelledby="projects-title">
       <div class="section-title"><h2 id="projects-title">만드는 도구</h2><span>일하는 방식을 조금 더 편하게</span></div>
       <div class="project-grid">{projects.map(project => project.visual ? <article class="project-card featured">
         <img class="project-visual" src={project.visual.src} srcset={project.visual.srcset} sizes="(max-width: 650px) 260px, 220px" width="1024" height="1024" alt={project.visual.alt} decoding="async"/>
         <div class="project-body">
-          <div class="project-top"><span class="project-note">{project.note}</span></div>
+          <div class="project-top"><span class="project-note mb-chip">{project.note}</span></div>
           <h3>{project.name}</h3><p>{project.description}</p><a href={project.href}>{project.action}<span aria-hidden="true">↗</span></a>
         </div>
       </article> : <article class="project-card" data-product-id={project.id}>
-        <div class="project-top">{project.icon ? <img class="project-icon" src={project.icon} srcset={srcsetFor(project)} width="40" height="40" alt="" decoding="async"/> : <span class="project-mark" aria-hidden="true">{project.mark}</span>}<span class="project-note">{project.note}</span></div>
+        <div class="project-top">{project.icon ? <img class="project-icon" src={project.icon} srcset={srcsetFor(project)} width="40" height="40" alt="" decoding="async"/> : <span class="project-mark" aria-hidden="true">{project.mark}</span>}<span class="project-note mb-chip">{project.note}</span></div>
         <h3>{project.name}</h3><p>{project.description}</p><a href={project.href}>{project.action}<span aria-hidden="true">↗</span></a>
       </article>)}
         <article class="project-card text-tool-card">
           <span class="project-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 6h14M5 12h9M5 18h14"/></svg></span>
           <div class="project-body">
-            <span class="project-note">설치 없이 · PC/휴대전화</span>
+            <span class="project-note mb-chip">설치 없이 · PC/휴대전화</span>
             <h3>복붙 정리기</h3>
             <p>복사한 글의 불필요한 공백과 줄바꿈을 정리해요.</p>
           </div>
@@ -83,7 +83,7 @@ const jsonLd = {
     </section>
     <section id="contact" class="home-section contact-section" aria-labelledby="contact-title">
       <span id="company" class="anchor-alias"></span><span id="choso" class="anchor-alias"></span>
-      <div class="contact-heading"><div><h2 id="contact-title">이야기를 나눠요.</h2><p>궁금한 점이나 하고 싶은 이야기가 있다면.</p></div><a class="contact-email" href="mailto:minusbetastudio@gmail.com">이메일 보내기 ↗</a></div>
+      <div class="contact-heading"><div><h2 id="contact-title">이야기를 나눠요.</h2><p>궁금한 점이나 하고 싶은 이야기가 있다면.</p></div><a class="contact-email mb-btn mb-btn--primary" href="mailto:minusbetastudio@gmail.com">이메일 보내기 ↗</a></div>
       <SocialBanner compact />
       <details class="pause-details"><summary>잠깐 쉬어가기 <span aria-hidden="true">＋</span></summary><MoodCorner /></details>
     </section>

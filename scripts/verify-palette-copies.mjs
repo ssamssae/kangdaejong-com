@@ -26,6 +26,8 @@ for (const file of files) {
     if (line.includes('tokens:fixed')) return;
     // 자기 자신을 가리키는 정의(--border: var(--border))는 값이 비어 색이 사라진다(T-261013-004 실사고).
     for (const m of line.matchAll(/(--[\w-]+)\s*:\s*var\(\s*(--[\w-]+)\s*\)/g)) if (m[1] === m[2]) hits.push(`${file}:${i + 1}: ${m[0]} (자기 참조)  ${line.trim().slice(0, 80)}`);
+    // T-261024-026: 톤 값(--tone-*)도 원본에서만 정의한다 — 사이트 스타일은 var(--tone-이름) 으로만 쓴다.
+    for (const m of line.matchAll(/(--tone-[\w-]+)\s*:/g)) hits.push(`${file}:${i + 1}: ${m[1]} (톤 값 복사)  ${line.trim().slice(0, 80)}`);
     for (const m of line.matchAll(pattern)) {
       if (longs.has(asLong(m[0]))) hits.push(`${file}:${i + 1}: ${m[0]}  ${line.trim().slice(0, 100)}`);
     }
@@ -36,7 +38,7 @@ for (const file of files) {
 }
 if (hits.length) {
   console.error(hits.slice(0, 40).join('\n'));
-  console.error(`palette copies: ${hits.length} 곳 — 색 값 대신 var(--이름) 을 쓰거나, 테마와 무관한 색이면 그 줄에 tokens:fixed`);
+  console.error(`palette copies: ${hits.length} 곳 — 색·톤 값 대신 var(--이름) 을 쓰거나, 테마와 무관한 색이면 그 줄에 tokens:fixed`);
   process.exit(1);
 }
 console.log(`palette copies: 0 — ${files.length} files, ${longs.size} palette colors (원본 public/brand/current/tokens.css)`);
