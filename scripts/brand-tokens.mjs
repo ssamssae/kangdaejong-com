@@ -46,12 +46,12 @@ export function readBrandTokens(css = readFileSync(TOKENS_CSS, 'utf8')) {
   return { light, dark, palette };
 }
 
-// 공유 카드(social.png)는 다크 값으로 그린 그림이다. 그린 때의 색 지문(social.tokens)이 지금 원본과 다르면
+// 공유 카드(social.png)는 라이트 값으로 그린 그림이다(T-261024-030, 전에는 다크). 그린 때의 색 지문(social.tokens)이 지금 원본과 다르면
 // 원본 색만 바뀌고 카드는 옛 색이라는 뜻 → 빌드를 멈추고 `npm run brand:render` 를 안내한다.
 const SHARE_CARD_NAMES = ['--bg', '--fg', '--fg-dim', '--fg-mute', '--accent', '--border'];
 export const SHARE_CARD_STAMP = path.join(ROOT, 'public/brand/current/social.tokens');
 export function shareCardStamp(tokens = readBrandTokens()) {
-  return SHARE_CARD_NAMES.map((name) => `${name}=${tokens.dark[name]}`).join(';');
+  return SHARE_CARD_NAMES.map((name) => `${name}=${tokens.light[name]}`).join(';');
 }
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === path.resolve(process.argv[1])) {
