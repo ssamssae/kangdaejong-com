@@ -193,7 +193,8 @@ test("home text colors meet WCAG AA contrast", async ({ page }) => {
     const body = getComputedStyle(document.body);
     const muted = getComputedStyle(document.querySelector(".intro-description"));
     const accent = getComputedStyle(document.querySelector(".intro-links a"));
-    return { background: body.backgroundColor, foreground: body.color, muted: muted.color, accent: accent.color };
+    // T-261024-020: 첫 링크는 파란 버튼(흰 글자)이라 버튼 바탕과 비교한다.
+    return { background: body.backgroundColor, foreground: body.color, muted: muted.color, accent: accent.color, accentBackground: accent.backgroundColor };
   });
   const rgb = (value) => value.match(/[\d.]+/g).slice(0, 3).map(Number);
   const luminance = (value) => {
@@ -206,7 +207,7 @@ test("home text colors meet WCAG AA contrast", async ({ page }) => {
   };
   expect(contrast(colors.foreground, colors.background)).toBeGreaterThanOrEqual(4.5);
   expect(contrast(colors.muted, colors.background)).toBeGreaterThanOrEqual(4.5);
-  expect(contrast(colors.accent, colors.background)).toBeGreaterThanOrEqual(4.5);
+  expect(contrast(colors.accent, colors.accentBackground)).toBeGreaterThanOrEqual(4.5);
 });
 
 test("shared menu closes with Escape and keeps button state in sync", async ({ page }) => {
