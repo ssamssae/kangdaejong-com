@@ -96,3 +96,19 @@ test("protein remains reachable from the shared menu and opens the company path"
   await menu(page).getByRole('link', { name: /^단백질(?: 현재 위치)? 아미노산 구조를 살펴보는 실험$/ }).click();
   await expect(page).toHaveURL('https://kangdaejong.com/protein/');
 });
+
+// T-261024-062: 대종님 「헤더가 아래로 내려가면 안보이는데 틀고정 효과로 헤더가 항상 위로 보이게」 — 공용 헤더는 스크롤해도 화면 위에 붙고,
+// #앵커 이동은 헤더 높이만큼 비워 둔 scroll-padding 덕에 헤더 아래로 숨지 않는다(휴대전화 두 줄 헤더도 같다).
+for (const width of [390, 1440]) test(`shared header stays pinned to the top while scrolling at ${width}px`, async ({ page }) => {
+  await page.setViewportSize({ width, height: 800 });
+  await page.goto('/');
+  const header = page.locator('mb-header');
+  await expect(header).toBeVisible();
+  expect(await header.evaluate((el) => getComputedStyle(el).position)).toBe('sticky');
+  await page.evaluate(() => window.scrollTo(0, 1500));
+  await expect.poll(() => page.evaluate(() => scrollY)).toBeGreaterThan(1000);
+  expect((await header.boundingBox()).y).toBe(0);
+  const headerHeight = (await header.boundingBox()).height;
+  const padding = await page.evaluate(() => parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop));
+  expect(padding).toBeGreaterThanOrEqual(Math.floor(headerHeight));
+});

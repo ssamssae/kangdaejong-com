@@ -5,7 +5,7 @@
 html {
   background: var(--bg);
   scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--tone-header-height) + var(--tone-space-4));
+  scroll-padding-top: calc(var(--mb-header-block, var(--tone-header-height)) + var(--tone-space-4)); /* T-261024-062: 고정 헤더 실측 높이 */
 }
 
 body {

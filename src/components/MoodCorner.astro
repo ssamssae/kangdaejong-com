@@ -100,7 +100,7 @@ const moods = [
     border: 0;
     border-radius: var(--tone-radius-card);
     background: var(--bg-elev);
-    scroll-margin-top: calc(var(--tone-header-height) + var(--tone-space-4));
+    scroll-margin-top: calc(var(--mb-header-block, var(--tone-header-height)) + var(--tone-space-4));
   }
   .mood-corner[data-mood="calm"] {
     --mood-sky: #dce8e7;

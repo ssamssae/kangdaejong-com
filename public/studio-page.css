@@ -43,4 +43,8 @@ body.studio-page :is(.studio-label,.eyebrow,.r-kicker){font-family:var(--tone-fo
 mb-header,mb-footer{--mb-max:var(--page-max)}
 mb-header:not(:defined){display:block;min-height:calc(var(--tone-header-height) + 1px)}
 @media(max-width:650px){mb-header:not(:defined){min-height:calc(var(--tone-tap-height) * 2 + var(--tone-space-3) + 1px)}}
+/* T-261024-062: 공용 헤더가 화면 위에 고정(sticky)되므로 #앵커 이동·초점 이동이 헤더 아래로 숨지 않게 헤더 높이만큼 비워 둔다.
+   값 = 헤더가 알리는 실측 높이 --mb-header-block(mb-components.js), 정의 전에는 위 자리 잡기 식. 사이트가 여백을 더 주려면 이 변수에 더한다. */
+html{scroll-padding-top:var(--mb-header-block,calc(var(--tone-header-height) + 1px))}
+@media(max-width:650px){html{scroll-padding-top:var(--mb-header-block,calc(var(--tone-tap-height) * 2 + var(--tone-space-3) + 1px))}}
 @media(prefers-reduced-motion:reduce){body.studio-page a.r-button{transition:none}body.studio-page a.r-button:active{transform:none}}
