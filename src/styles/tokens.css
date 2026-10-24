@@ -1,20 +1,19 @@
 /* 회사홈 글꼴·크기·간격 값. 색(라이트·다크)과 PC 폭(--page-max)은 T-261013-004 부터
-   공용 원본 public/brand/current/tokens.css 에 있다 — SiteLayout 이 그 파일을 읽는다. 여기에 색을 다시 적지 않는다. */
+   공용 원본 public/brand/current/tokens.css 에 있다 — SiteLayout 이 그 파일을 읽는다. 여기에 색을 다시 적지 않는다.
+   T-261024-028: 글꼴·모서리·본문 크기는 같은 공용 원본의 톤 값(--tone-*)에 연결한다 — 숫자를 여기 다시 적지 않는다. */
 :root {
   --page-gutter: 24px;
   --header-h: 88px;
   --pad-head-bottom: 48px;
-  --radius-pill: 9999px;
+  --radius-pill: var(--tone-radius-pill);
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
-  --sans:
-    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-    sans-serif;
+  --sans: var(--tone-font);
   --serif: "Noto Serif KR", Georgia, "Times New Roman", serif;
   --text-h1: clamp(38px, 5.5vw, 68px);
   --text-h2: clamp(25px, 3vw, 36px);
   --text-h3: 21px;
   --text-lead: 18px;
-  --text-body: 16px;
+  --text-body: var(--tone-body-size);
   --text-desc: 14px;
   --text-meta: 12px;
   --text-badge: 11px;
@@ -24,8 +23,8 @@
   --leading-h1: 1.15;
   --leading-desc: 1.65;
   --measure: 62ch;
-  --radius-card: 16px;
-  --radius-btn: 8px;
+  --radius-card: var(--tone-radius-card);
+  --radius-btn: var(--tone-radius-control);
   --gap-card: 24px;
   --pad-section: 80px;
   --pad-section-sm: 48px;

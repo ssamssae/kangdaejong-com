@@ -4,6 +4,9 @@ const css = read('src/styles/home-simple.css');
 const shared = read('public/brand/current/tokens.css');
 const home = read('src/pages/index.astro');
 const banner = read('src/components/InsightBanner.astro');
+// T-261024-028: 사이트 자기 값·하위 페이지 공용 스타일도 공용 톤 파일에 연결돼 있어야 한다.
+const siteTokens = read('src/styles/tokens.css');
+const studio = read('public/studio-page.css');
 // T-261024-026: 공용 톤 값 이름은 문자열로 만든다 — 이 파일 자체가 톤 값 복사본으로 잡히지 않게.
 const toneValue = (name, value) => new RegExp(`--tone-${name}\\s*:\\s*${value}`).test(shared);
 const checks = [
@@ -18,6 +21,8 @@ const checks = [
  ['home buttons and chips use the shared parts', home.includes('mb-btn mb-btn--primary') && home.includes('mb-btn mb-btn--secondary') && home.includes('mb-chip') && banner.includes('mb-btn mb-btn--primary')],
  ['home keeps no local copies of tone values', ![css, banner].some((text) => /border-radius:\s*(14|20)px|min-height:\s*5[26]px/.test(text))],
  ['generic home link hover skips shared buttons', css.includes('.simple-home a:not(.mb-btn):hover')],
+ ['site tokens connect to the shared tone file', ['--sans: var(--tone-font)', '--radius-card: var(--tone-radius-card)', '--radius-btn: var(--tone-radius-control)', '--radius-pill: var(--tone-radius-pill)', '--text-body: var(--tone-body-size)'].every((link) => siteTokens.includes(link))],
+ ['shared subpage styles connect to the shared tone file', ['body.studio-page{font-family:var(--tone-font)}', '.studio-card{border:0;border-radius:var(--tone-radius-card)', 'a.r-button{min-height:var(--tone-control-height)'].every((link) => studio.includes(link))],
  ['home avoids chapter and legacy photographic layout', !/ProjectVersions|sales-hero|hero-desk/.test(home)],
 ];
 const failed = checks.filter(([,ok]) => !ok);
