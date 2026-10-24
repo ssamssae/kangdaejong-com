@@ -1,10 +1,12 @@
-/* 마이너스베타스튜디오 공용 톤 파일 — 색(라이트·다크)·모양·글자·공용 부품의 단 하나의 원본 (T-261013-004 색, T-261024-026 톤).
+/* 마이너스베타스튜디오 공용 톤 파일 — 색(라이트·다크)·모양·글자·공용 부품의 단 하나의 원본 (T-261013-004 색, T-261024-026 톤, T-261024-050 부품 확장).
    회사의 모든 사이트가 https://kangdaejong.com/brand/current/tokens.css 를 페이지 머리말에서 읽는다(파일 이름은 그대로 둔다 — 이미 모든 사이트가 이 주소를 읽는다).
    세 부분으로 되어 있다.
-     ① 색: --bg·--fg·--accent … 라이트 값은 첫이름(토스 톤)과 같다(T-261024-020). 다크는 기기 설정을 따라 기본으로 켜진다. 라이트로 고정할 페이지만 <html data-theme="light">.
-     ② 톤: --tone-* (모양·글자·크기). 첫이름(토스 톤) 값이고 다크에서도 같다. 사이트 자기 값(--radius-card 등)과 이름이 겹치지 않게 --tone- 을 붙였다.
-        사이트는 자기 값을 var(--tone-*) 로 바꿔 연결한다(검토 없이 다른 사이트 모양이 바뀌지 않게).
-     ③ 공용 부품: .mb-btn(.mb-btn--primary·--secondary·--block)·.mb-card·.mb-chip·.mb-eyebrow. class 를 붙인 곳에만 적용된다.
+     ① 색: --bg·--fg·--accent … 라이트 값은 첫이름(토스 톤)과 같다(T-261024-020). 다크는 기기 설정을 따라 기본으로 켜진다. 라이트로 고정할 페이지만 <html data-theme="light">
+        — 회사 홈(kangdaejong.com)은 T-261024-050 부터 모든 페이지가 라이트 고정이다(첫이름과 같은 흰 바탕·파란 강조 하나). 다크 블록은 작업장·대표소개·단백질이 계속 쓴다.
+     ② 톤: --tone-* (모양·글자·크기·간격). 첫이름(토스 톤, web/studio.css 스펙 v3 + landing.css) 값이고 다크에서도 같다. 사이트 자기 값(--radius-card 등)과 이름이 겹치지 않게 --tone- 을 붙였다.
+        사이트는 자기 값을 var(--tone-*) 로 바꿔 연결한다(검토 없이 다른 사이트 모양이 바뀌지 않게). 900px 이상에서 바뀌는 값(여백·카드 안쪽·첫 제목)은 아래 @media 블록이 첫이름과 같은 기준으로 바꾼다.
+     ③ 공용 부품: .mb-shell·.mb-btn(.mb-btn--primary·--secondary·--block)·.mb-card·.mb-chip·.mb-eyebrow·.mb-link·.mb-field(.mb-label·.mb-input·.mb-textarea·.mb-select·.mb-help·.mb-error)·
+        .mb-option·.mb-table·.mb-faq·.mb-row. class 를 붙인 곳에만 적용된다.
    색·톤을 바꾸려면 이 파일만 고치고 회사홈(kangdaejong-com)만 배포한다. 다른 곳에 색 값이나 --tone-* 정의를 복사하지 않는다 —
    각 저장소의 palette-copies 검사가 막는다. 그림 생성기는 같은 원본에서 빌드 때 만든 tokens.json 을 읽는다. */
 :root {
@@ -15,7 +17,7 @@
   --tone-weight: 400;
   --tone-weight-bold: 700;
   --tone-tracking-title: -0.02em;
-  --tone-display-size: 30px; /* 첫 화면 큰 제목(휴대전화 기준) */
+  --tone-display-size: 30px; /* 첫 화면 큰 제목(휴대전화 기준, 900px 이상 44px) */
   --tone-display-line: 40px;
   --tone-title-size: 24px; /* 구역 제목 */
   --tone-title-line: 32px;
@@ -31,10 +33,31 @@
   --tone-radius-card: 20px; /* 카드 */
   --tone-radius-sheet: 24px; /* 큰 판·시트 */
   --tone-radius-pill: 999px; /* 칩 */
-  --tone-control-height: 56px; /* 버튼 높이 */
-  --tone-card-padding: 20px;
-  --tone-gutter: 20px; /* 휴대전화 화면 좌우 여백 */
+  --tone-control-height: 56px; /* 버튼·입력칸 높이 */
+  --tone-control-padding: 16px; /* 버튼·입력칸 좌우 안쪽 (T-261024-050) */
+  --tone-input-border: 2px; /* 입력칸·선택칸 테두리 두께(평소 투명, 초점·선택 때 파랑) */
+  --tone-textarea-min: 96px; /* 여러 줄 입력칸 최소 높이 */
+  --tone-tap-height: 44px; /* 링크·작은 버튼이 손가락으로 눌리는 최소 높이 */
+  --tone-chip-height: 26px; /* 칩·태그 높이 */
+  --tone-header-height: 64px; /* 공용 헤더 높이 */
+  --tone-card-padding: 20px; /* 카드 안쪽(900px 이상 24px) */
+  --tone-gutter: 20px; /* 화면 좌우 여백(900px 이상 32px) */
+  --tone-page-max: 1080px; /* PC 본문 최대 폭(첫이름 .shell) — 사이트는 자기 --page-max 를 이 값에 연결해 쓴다 */
+  --tone-prose-max: 680px; /* 긴 글·안내문 최대 폭(첫이름 .prose·.article) */
+  --tone-flow-max: 480px; /* 한 줄 흐름(결제·양식) 최대 폭(첫이름 .flow) */
+  --tone-hero-top: 40px; /* 첫 화면 위 여백(900px 이상 56px) */
+  --tone-section-gap: 56px; /* 구역 사이 간격 */
+  --tone-space-1: 8px; /* 간격 눈금 — 첫이름이 쓰는 값만 */
+  --tone-space-2: 12px;
+  --tone-space-3: 16px;
+  --tone-space-4: 24px;
+  --tone-space-5: 32px;
+  --tone-space-6: 40px;
+  --tone-focus-width: 2px; /* 키보드 초점 테두리 */
+  --tone-focus-offset: 3px;
+  --tone-underline-offset: 4px; /* 글 링크 밑줄 간격 */
   --tone-press-scale: 0.98; /* 누를 때 살짝 작아짐 */
+  --tone-press-ms: 100ms; /* 누름·색 전환 시간 */
   --bg: #ffffff;
   --bg-elev: #f5f6f8;
   --bg-elev2: #eceef1;
@@ -50,6 +73,7 @@
   --accent-dim: #2459c4;
   --accent-tint: #eaf1fe;
   --accent-bg: #eaf1fe;
+  --accent-disabled: #c9d9fa; /* 비활성 파란 버튼 바탕(첫이름 primaryDisabled, T-261024-050). 다크 값은 아직 없다 — 다크 블록은 그대로 두었고, 다크에서 비활성 버튼을 쓰는 사이트가 생기면 그때 더한다. */
   --accent-cta: #2f6feb;
   --cta-bg: #2f6feb;
   --cta-fg: #ffffff;
@@ -96,6 +120,17 @@
   --mb-host-accent: var(--accent);
   --mb-host-cta-bg: var(--accent-cta);
   --mb-host-shadow: #24293026;
+}
+
+/* ② 톤 — 900px 이상에서 첫이름(studio.css @media (min-width: 900px))과 같은 기준으로 바뀌는 값. 사이트는 var() 만 쓰면 같이 바뀐다. */
+@media (min-width: 900px) {
+  :root {
+    --tone-gutter: 32px;
+    --tone-card-padding: 24px;
+    --tone-display-size: 44px;
+    --tone-display-line: 56px;
+    --tone-hero-top: 56px;
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -158,30 +193,46 @@ mb-footer {
   --mb-max: var(--page-max);
 }
 
-/* ③ 공용 부품 (T-261024-026) — class 를 붙인 곳에만 적용된다. 값은 위 ①색·②톤 이름만 쓴다.
+/* ③ 공용 부품 (T-261024-026, T-261024-050 확장) — class 를 붙인 곳에만 적용된다. 값은 위 ①색·②톤 이름만 쓴다.
+   첫이름 web/studio.css(스펙 v3)·landing.css 의 .shell·.btn-primary·.btn-secondary·.card·.tags span·.eyebrow·.text-link·.field·.option·table·.faq-item·.row 와 같은 값이다.
    색 규칙은 .mb-btn.mb-btn--primary 처럼 class 를 두 번 써서, 사이트 공용 초기화(.studio-page a { color: inherit })보다 앞선다. */
+.mb-shell {
+  box-sizing: border-box;
+  width: min(calc(100% - var(--tone-gutter) * 2), var(--tone-page-max));
+  margin-inline: auto;
+}
+.mb-prose {
+  box-sizing: border-box;
+  width: min(calc(100% - var(--tone-gutter) * 2), var(--tone-prose-max));
+  margin-inline: auto;
+}
 .mb-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: var(--tone-space-1);
   box-sizing: border-box;
+  height: var(--tone-control-height);
   min-height: var(--tone-control-height);
-  padding: 0 20px;
+  padding: 0 var(--tone-control-padding);
   border: 0;
   border-radius: var(--tone-radius-control);
   font: var(--tone-weight-bold) var(--tone-body-size)/var(--tone-body-line) var(--tone-font);
+  letter-spacing: normal;
   text-decoration: none;
   cursor: pointer;
-  transition: transform 100ms linear, background-color 100ms linear;
+  transition: transform var(--tone-press-ms) linear, background-color var(--tone-press-ms) linear;
 }
 .mb-btn:active { transform: scale(var(--tone-press-scale)); }
-.mb-btn.mb-btn--primary { background: var(--cta-bg); color: var(--cta-fg); }
-.mb-btn.mb-btn--primary:hover, .mb-btn.mb-btn--primary:focus-visible { background: var(--accent-hover); color: var(--cta-fg); }
-.mb-btn.mb-btn--secondary { background: var(--bg-elev); color: var(--fg); }
-.mb-btn.mb-btn--secondary:hover, .mb-btn.mb-btn--secondary:focus-visible { background: var(--bg-elev2); color: var(--fg); }
-.mb-btn.mb-btn:disabled, .mb-btn.mb-btn[aria-disabled="true"] { background: var(--bg-elev2); color: var(--fg-mute); cursor: default; transform: none; }
+/* 첫이름처럼 올려도 색은 그대로이고, 누르는 동안만 눌린 파랑으로 바뀐다. */
+.mb-btn.mb-btn--primary, .mb-btn.mb-btn--primary:hover, .mb-btn.mb-btn--primary:focus-visible { background: var(--cta-bg); color: var(--cta-fg); }
+.mb-btn.mb-btn--primary:active { background: var(--accent-hover); }
+.mb-btn.mb-btn--secondary, .mb-btn.mb-btn--secondary:hover, .mb-btn.mb-btn--secondary:focus-visible { background: var(--bg-elev); color: var(--fg); }
+.mb-btn.mb-btn--primary:disabled, .mb-btn.mb-btn--primary[aria-disabled="true"] { background: var(--accent-disabled); color: var(--fg-dim); cursor: default; transform: none; }
+.mb-btn.mb-btn--secondary:disabled, .mb-btn.mb-btn--secondary[aria-disabled="true"] { background: var(--bg-elev2); color: var(--fg-mute); cursor: default; transform: none; }
 .mb-btn--block { display: flex; width: 100%; }
+/* 회색 카드 위에서는 회색 버튼이 흰 바탕이다(첫이름이 회색 카드 위 고르는 칸에 흰 바탕을 쓰는 것과 같은 규칙). */
+.mb-card .mb-btn.mb-btn--secondary, .mb-card .mb-btn.mb-btn--secondary:hover, .mb-card .mb-btn.mb-btn--secondary:focus-visible { background: var(--bg); }
 .mb-card {
   box-sizing: border-box;
   background: var(--bg-elev);
@@ -190,18 +241,132 @@ mb-footer {
   border-radius: var(--tone-radius-card);
   padding: var(--tone-card-padding);
 }
+.mb-card > h3, .mb-card .mb-card-title { margin: 0 0 var(--tone-space-1); font: var(--tone-weight-bold) var(--tone-subtitle-size)/var(--tone-subtitle-line) var(--tone-font); letter-spacing: var(--tone-tracking-title); }
+.mb-card > p, .mb-card .mb-card-text { margin: 0; color: var(--fg-dim); font-size: var(--tone-body-size); line-height: var(--tone-body-line); }
+.mb-card > p + p { margin-top: var(--tone-space-2); }
 .mb-chip.mb-chip {
   display: inline-flex;
   align-items: center;
-  min-height: 24px;
+  box-sizing: border-box;
+  min-height: var(--tone-chip-height);
   padding: 0 10px;
   border-radius: var(--tone-radius-pill);
   background: var(--bg);
   color: var(--fg-dim);
-  font: var(--tone-weight-bold) 12px/16px var(--tone-font);
+  font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font);
+  letter-spacing: normal;
+  text-decoration: none;
 }
 .mb-eyebrow.mb-eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 var(--tone-space-1);
   color: var(--fg-dim);
   font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font);
+  letter-spacing: normal;
+  text-transform: none;
 }
+/* 글 링크(첫이름 .text-link): 파란 굵은 글자에 밑줄, 손가락 높이 44px. 회색 카드 위에서는 눌린 파랑(4.5:1). */
+.mb-link.mb-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  min-height: var(--tone-tap-height);
+  color: var(--accent);
+  font: var(--tone-weight-bold) var(--tone-label-size)/var(--tone-body-line) var(--tone-font);
+  letter-spacing: normal;
+  text-decoration: underline;
+  text-underline-offset: var(--tone-underline-offset);
+}
+.mb-link.mb-link:hover, .mb-link.mb-link:focus-visible { color: var(--accent-hover); }
+.mb-card .mb-link.mb-link { color: var(--accent-hover); }
+/* 입력(첫이름 .field): 라벨 15/22 굵게, 칸 56px 회색 면·투명 2px 테두리, 초점이면 파란 테두리. */
+.mb-field { display: flex; flex-direction: column; gap: var(--tone-space-1); margin: 0 0 var(--tone-space-3); }
+.mb-label.mb-label { margin: 0; color: var(--fg); font: var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); }
+.mb-input.mb-input, .mb-textarea.mb-textarea, .mb-select.mb-select {
+  box-sizing: border-box;
+  width: 100%;
+  height: var(--tone-control-height);
+  margin: 0;
+  padding: 0 var(--tone-control-padding);
+  border: var(--tone-input-border) solid transparent;
+  border-radius: var(--tone-radius-control);
+  background: var(--bg-elev);
+  color: var(--fg);
+  font: var(--tone-weight) var(--tone-body-size)/var(--tone-body-line) var(--tone-font);
+  letter-spacing: normal;
+}
+.mb-textarea.mb-textarea { height: auto; min-height: var(--tone-textarea-min); padding: var(--tone-control-padding); resize: vertical; }
+.mb-input.mb-input::placeholder, .mb-textarea.mb-textarea::placeholder { color: var(--fg-mute); opacity: 1; }
+.mb-input.mb-input:focus, .mb-textarea.mb-textarea:focus, .mb-select.mb-select:focus { outline: none; border-color: var(--accent); }
+.mb-help.mb-help { margin: 0; color: var(--fg-dim); font: var(--tone-weight) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); }
+.mb-error.mb-error { display: none; margin: 0; color: var(--danger); font: var(--tone-weight) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); }
+.mb-field.is-error .mb-input, .mb-field.is-error .mb-textarea, .mb-field.is-error .mb-select { border-color: var(--danger); }
+.mb-field.is-error .mb-error { display: block; }
+/* 고르는 칸(첫이름 .option·.method): 56px 줄, 고르면 연한 파란 바탕에 파란 테두리. 회색 카드 위에서는 흰 바탕(.mb-card .mb-option). */
+.mb-option.mb-option {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--tone-space-2);
+  box-sizing: border-box;
+  min-height: var(--tone-control-height);
+  padding: var(--tone-space-2) var(--tone-control-padding);
+  border: var(--tone-input-border) solid transparent;
+  border-radius: var(--tone-radius-control);
+  background: var(--bg-elev);
+  color: var(--fg);
+  font: var(--tone-weight-bold) var(--tone-body-size)/var(--tone-body-line) var(--tone-font);
+  letter-spacing: normal;
+  text-align: left;
+  cursor: pointer;
+}
+.mb-option--block { display: flex; width: 100%; }
+.mb-card .mb-option.mb-option { background: var(--bg); }
+.mb-option.mb-option[aria-pressed="true"], .mb-option.mb-option.is-selected, .mb-card .mb-option.mb-option[aria-pressed="true"], .mb-card .mb-option.mb-option.is-selected { background: var(--accent-tint); border-color: var(--accent); }
+.mb-option.mb-option[aria-pressed="true"]::after, .mb-option.mb-option.is-selected::after {
+  content: "";
+  box-sizing: border-box;
+  width: 7px;
+  height: 12px;
+  flex: none;
+  margin-bottom: 3px;
+  border-right: var(--tone-input-border) solid var(--accent);
+  border-bottom: var(--tone-input-border) solid var(--accent);
+  transform: rotate(45deg);
+}
+/* 표(첫이름 table): 15/22, 칸 12px, 아래 가는 줄만. */
+.mb-table.mb-table { width: 100%; margin-block: var(--tone-space-3); border-collapse: collapse; font: var(--tone-weight) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); }
+.mb-table.mb-table th, .mb-table.mb-table td { padding: var(--tone-space-2); border: 0; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.mb-table.mb-table th { color: var(--fg-dim); font-weight: var(--tone-weight-bold); background: transparent; }
+/* 접는 항목(첫이름 landing .faq-item): 회색 둥근 면, 56px 제목 줄, 오른쪽 꺾쇠. */
+.mb-faq.mb-faq { box-sizing: border-box; margin-top: var(--tone-space-1); padding: 4px var(--tone-card-padding); border: 0; border-radius: var(--tone-radius-card); background: var(--bg-elev); color: var(--fg); }
+.mb-faq.mb-faq > summary {
+  display: flex;
+  align-items: center;
+  gap: var(--tone-space-2);
+  position: relative;
+  min-height: var(--tone-control-height);
+  padding: var(--tone-space-3) var(--tone-space-5) var(--tone-space-3) 0;
+  list-style: none;
+  cursor: pointer;
+  color: var(--fg);
+  font: var(--tone-weight-bold) var(--tone-body-size)/var(--tone-body-line) var(--tone-font);
+  letter-spacing: normal;
+}
+.mb-faq.mb-faq > summary::-webkit-details-marker { display: none; }
+.mb-faq.mb-faq > summary::after {
+  content: "";
+  position: absolute;
+  right: 4px;
+  top: 22px;
+  width: 10px;
+  height: 10px;
+  border-right: var(--tone-input-border) solid var(--fg-dim);
+  border-bottom: var(--tone-input-border) solid var(--fg-dim);
+  transform: rotate(45deg);
+}
+.mb-faq.mb-faq[open] > summary::after { transform: rotate(225deg); top: 26px; }
+.mb-faq.mb-faq > p { margin: 0; padding-bottom: var(--tone-space-1); color: var(--fg-dim); font-size: var(--tone-body-size); line-height: var(--tone-body-line); max-width: var(--tone-prose-max); }
+/* 이름·값 한 줄(첫이름 .row): 위 가는 줄, 왼쪽 회색 이름, 오른쪽 굵은 값. */
+.mb-row.mb-row { display: flex; justify-content: space-between; gap: var(--tone-space-3); padding-block: var(--tone-space-3); border-top: 1px solid var(--border); color: var(--fg); font-size: var(--tone-label-size); }
+.mb-row.mb-row > span:first-child, .mb-row.mb-row > dt { color: var(--fg-dim); flex-shrink: 0; }
+.mb-row.mb-row > b, .mb-row.mb-row > dd { margin: 0; text-align: right; font-weight: var(--tone-weight-bold); }
