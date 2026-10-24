@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { auditInventory, auditProductHtml, auditHtml, summarize } from '../../scripts/site-release/contract.mjs';
+import { auditInventory, auditProductHtml, auditHtml, auditScreen, summarize } from '../../scripts/site-release/contract.mjs';
 
 const catalog = { products: [{id:'memo',icon:'https://kangdaejong.com/brand/products/memo.webp'}, {id:'local',exception:'No approved image; retain glyph'}] };
 const site = {id:'work',url:'https://work.kangdaejong.com/',checks:['tokens','social'],productPages:['/products/']};
@@ -42,4 +42,17 @@ test('real independent snapshot protects the work site registry entry', () => {
   assert.deepEqual(auditInventory(inventory,discovered),[]);
   inventory.sites=inventory.sites.filter(s=>s.id!=='work');
   assert.match(auditInventory(inventory,discovered).join('\n'),/unregistered.*work.kangdaejong.com/);
+});
+
+// T-261024-050: 라이트 고정 화면은 다크 기기에서도 라이트, 기기 설정을 따르는 화면은 요청한 모드와 같고 다크에 흰 면이 없어야 한다.
+test('screen audit accepts light-only pages in dark mode and still catches light surfaces on device-following pages', () => {
+  const lightOnly={overflow:false,declared:'light',theme:'light',bg:'rgb(255, 255, 255)',cards:['rgb(245, 246, 248)']};
+  assert.deepEqual(auditScreen(lightOnly,{theme:'light'},'dark'),[]);
+  assert.deepEqual(auditScreen(lightOnly,{},'light'),[]);
+  const follows={overflow:false,declared:'auto',theme:'dark',bg:'rgb(18, 21, 25)',cards:['rgb(25, 29, 35)']};
+  assert.deepEqual(auditScreen(follows,{},'dark'),[]);
+  assert.match(auditScreen({...follows,bg:'rgb(255, 255, 255)'},{},'dark').join('\n'),/light surface in dark mode/);
+  assert.match(auditScreen({...follows,theme:'light'},{},'dark').join('\n'),/theme mismatch light/);
+  assert.match(auditScreen(follows,{theme:'light'},'dark').join('\n'),/expected light-only page/);
+  assert.match(auditScreen({...lightOnly,overflow:true},{theme:'light'},'light').join('\n'),/horizontal overflow/);
 });

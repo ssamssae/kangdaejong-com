@@ -51,7 +51,8 @@
         "/logo/privacy/": "Retired service policy notice uses the same compact company link.",
         "/logo/terms/": "Retired service policy notice uses the same compact company link.",
         "/photo/": "Retired service notice has a compact company link."
-      }
+      },
+      "theme": "light"
     },
     {
       "id": "work",
@@ -483,7 +484,8 @@
       ],
       "deployments": [
         "cloudflare-pages:kangdaejong-com"
-      ]
+      ],
+      "theme": "light"
     },
     {
       "id": "sangho",
@@ -502,7 +504,8 @@
       ],
       "deployments": [
         "cloudflare-pages:kangdaejong-com"
-      ]
+      ],
+      "theme": "light"
     },
     {
       "id": "tojeong",
@@ -521,7 +524,8 @@
       ],
       "deployments": [
         "cloudflare-pages:kangdaejong-com"
-      ]
+      ],
+      "theme": "light"
     }
   ]
 }
