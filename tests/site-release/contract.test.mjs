@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { auditInventory, auditProductHtml, auditHtml, auditScreen, summarize } from '../../scripts/site-release/contract.mjs';
+import { rgb } from '../brand-colors.mjs';
 
 const catalog = { products: [{id:'memo',icon:'https://kangdaejong.com/brand/products/memo.webp'}, {id:'local',exception:'No approved image; retain glyph'}] };
 const site = {id:'work',url:'https://work.kangdaejong.com/',checks:['tokens','social'],productPages:['/products/']};
@@ -46,12 +47,13 @@ test('real independent snapshot protects the work site registry entry', () => {
 
 // T-261024-050: 라이트 고정 화면은 다크 기기에서도 라이트, 기기 설정을 따르는 화면은 요청한 모드와 같고 다크에 흰 면이 없어야 한다.
 test('screen audit accepts light-only pages in dark mode and still catches light surfaces on device-following pages', () => {
-  const lightOnly={overflow:false,declared:'light',theme:'light',bg:'rgb(255, 255, 255)',cards:['rgb(245, 246, 248)']};
+  // 색은 공용 원본에서 계산한다(T-261013-004 — 테스트에 색 값을 다시 적지 않는다).
+  const lightOnly={overflow:false,declared:'light',theme:'light',bg:rgb('light','--bg'),cards:[rgb('light','--bg-elev')]};
   assert.deepEqual(auditScreen(lightOnly,{theme:'light'},'dark'),[]);
   assert.deepEqual(auditScreen(lightOnly,{},'light'),[]);
-  const follows={overflow:false,declared:'auto',theme:'dark',bg:'rgb(18, 21, 25)',cards:['rgb(25, 29, 35)']};
+  const follows={overflow:false,declared:'auto',theme:'dark',bg:rgb('dark','--bg'),cards:[rgb('dark','--bg-elev')]};
   assert.deepEqual(auditScreen(follows,{},'dark'),[]);
-  assert.match(auditScreen({...follows,bg:'rgb(255, 255, 255)'},{},'dark').join('\n'),/light surface in dark mode/);
+  assert.match(auditScreen({...follows,bg:rgb('light','--bg')},{},'dark').join('\n'),/light surface in dark mode/);
   assert.match(auditScreen({...follows,theme:'light'},{},'dark').join('\n'),/theme mismatch light/);
   assert.match(auditScreen(follows,{theme:'light'},'dark').join('\n'),/expected light-only page/);
   assert.match(auditScreen({...lightOnly,overflow:true},{theme:'light'},'light').join('\n'),/horizontal overflow/);
