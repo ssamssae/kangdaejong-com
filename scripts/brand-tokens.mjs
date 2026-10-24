@@ -1,7 +1,8 @@
 // T-261013-004: 공용 디자인 값 원본(public/brand/current/tokens.css)을 읽는 모듈 + tokens.json 생성기.
-// readBrandTokens() → { light: {이름: 값}, dark: {이름: 값}, palette: [#색, …] }
-//   light = :root 블록, dark = light 위에 다크 블록을 덮은 값. var(--x) 는 같은 모드 값으로 풀어 둔다.
-//   palette = 두 모드에 나오는 모든 #색(소문자, 긴 형식) — 다른 저장소의 복사본 검사가 이 목록을 쓴다.
+// readBrandTokens() → { light: {이름: 값}, palette: [#색, …] }
+//   light = :root 블록. var(--x) 는 풀어 둔다. 다크 모드는 없다(T-261024-058, 대종님 「다크를 풀고 전부 라이트」) —
+//   원본에 다크 블록이 다시 들어오면 여기서 멈춘다(그림 생성기·검사가 모르는 모드를 만들지 않게).
+//   palette = 라이트에 나오는 모든 #색(소문자, 긴 형식) — 다른 저장소의 복사본 검사가 이 목록을 쓴다.
 // node scripts/brand-tokens.mjs → public/brand/current/tokens.json 을 쓴다(빌드 첫 단계, 저장소에는 안 올림).
 import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
@@ -36,14 +37,14 @@ function resolve(map) {
   return out;
 }
 export function readBrandTokens(css = readFileSync(TOKENS_CSS, 'utf8')) {
-  const lightRaw = decls(block(css, ':root {'));
-  const darkRaw = { ...lightRaw, ...decls(block(block(css, '@media (prefers-color-scheme: dark)'), ':root:not([data-theme="light"])')) };
-  const light = resolve(lightRaw);
-  const dark = resolve(darkRaw);
-  const palette = [...new Set([...Object.values(light), ...Object.values(dark)]
+  if (/prefers-color-scheme\s*:\s*dark|\[data-theme/.test(css.replace(/\/\*[\s\S]*?\*\//g, ''))) {
+    throw new Error('tokens.css: 다크 규칙이 다시 들어왔다 — 공개 사이트는 전부 라이트다(T-261024-058). 다크 블록·[data-theme] 선택자를 지운다.');
+  }
+  const light = resolve(decls(block(css, ':root {')));
+  const palette = [...new Set(Object.values(light)
     .flatMap((v) => v.match(/#[0-9a-fA-F]{6}(?:[0-9a-fA-F]{2})?\b/g) || [])
     .map((h) => h.toLowerCase()))].sort();
-  return { light, dark, palette };
+  return { light, palette };
 }
 
 // 공유 카드(social.png)는 라이트 값으로 그린 그림이다(T-261024-030, 전에는 다크). 그린 때의 색 지문(social.tokens)이 지금 원본과 다르면

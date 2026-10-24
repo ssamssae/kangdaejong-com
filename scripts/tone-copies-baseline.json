@@ -1,0 +1,16 @@
+{
+  "public/mb-components.js": 11,
+  "public/studio-page.css": 3,
+  "public/tools/text/style.css": 19,
+  "src/components/EbookTemplatePage.astro": 50,
+  "src/components/MoodCorner.astro": 2,
+  "src/components/ProductExamples.astro": 35,
+  "src/components/ProductFacts.astro": 4,
+  "src/components/ProjectVersions.astro": 11,
+  "src/components/SocialBanner.astro": 2,
+  "src/pages/index.astro": 3,
+  "src/styles/home-simple.css": 14,
+  "src/styles/home-tone.css": 154,
+  "src/styles/renewal.css": 194,
+  "src/styles/site.css": 150
+}

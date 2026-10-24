@@ -1,8 +1,9 @@
-/* 마이너스베타스튜디오 공용 톤 파일 — 색(라이트·다크)·모양·글자·공용 부품의 단 하나의 원본 (T-261013-004 색, T-261024-026 톤, T-261024-050 부품 확장).
+/* 마이너스베타스튜디오 공용 톤 파일 — 색(라이트 하나)·모양·글자·공용 부품의 단 하나의 원본 (T-261013-004 색, T-261024-026 톤, T-261024-050 부품 확장, T-261024-058 다크 해제).
    회사의 모든 사이트가 https://kangdaejong.com/brand/current/tokens.css 를 페이지 머리말에서 읽는다(파일 이름은 그대로 둔다 — 이미 모든 사이트가 이 주소를 읽는다).
    세 부분으로 되어 있다.
-     ① 색: --bg·--fg·--accent … 라이트 값은 첫이름(토스 톤)과 같다(T-261024-020). 다크는 기기 설정을 따라 기본으로 켜진다. 라이트로 고정할 페이지만 <html data-theme="light">
-        — 회사 홈(kangdaejong.com)은 T-261024-050 부터 모든 페이지가 라이트 고정이다(첫이름과 같은 흰 바탕·파란 강조 하나). 다크 블록은 작업장·대표소개·단백질이 계속 쓴다.
+     ① 색: --bg·--fg·--accent … 라이트 값은 첫이름(토스 톤)과 같다(T-261024-020). 다크 모드는 없다 — 2026-10-24 대종님 「다크를 풀고 전부 라이트」(T-261024-058):
+        회사 홈·작업장·대표소개·단백질 모두 기기 설정과 무관하게 이 라이트 값 하나로 그린다. 다크 블록을 다시 넣지 않는다(각 저장소 verify-tone-copies 가 원본 밖 다크 규칙을 막고,
+        site-release 계약이 라이브 전 화면을 다크 기기 에뮬레이션으로도 밝은지 검사한다). 회사 홈은 T-261024-050 부터 라이트 고정이었고, 이제 전부가 그렇다.
      ② 톤: --tone-* (모양·글자·크기·간격). 첫이름(토스 톤, web/studio.css 스펙 v3 + landing.css) 값이고 다크에서도 같다. 사이트 자기 값(--radius-card 등)과 이름이 겹치지 않게 --tone- 을 붙였다.
         사이트는 자기 값을 var(--tone-*) 로 바꿔 연결한다(검토 없이 다른 사이트 모양이 바뀌지 않게). 900px 이상에서 바뀌는 값(여백·카드 안쪽·첫 제목)은 아래 @media 블록이 첫이름과 같은 기준으로 바꾼다.
      ③ 공용 부품: .mb-shell·.mb-btn(.mb-btn--primary·--secondary·--block)·.mb-card·.mb-chip·.mb-eyebrow·.mb-link·.mb-field(.mb-label·.mb-input·.mb-textarea·.mb-select·.mb-help·.mb-error)·
@@ -73,7 +74,7 @@
   --accent-dim: #2459c4;
   --accent-tint: #eaf1fe;
   --accent-bg: #eaf1fe;
-  --accent-disabled: #c9d9fa; /* 비활성 파란 버튼 바탕(첫이름 primaryDisabled, T-261024-050). 다크 값은 아직 없다 — 다크 블록은 그대로 두었고, 다크에서 비활성 버튼을 쓰는 사이트가 생기면 그때 더한다. */
+  --accent-disabled: #c9d9fa; /* 비활성 파란 버튼 바탕(첫이름 primaryDisabled, T-261024-050). */
   --accent-cta: #2f6feb;
   --cta-bg: #2f6feb;
   --cta-fg: #ffffff;
@@ -95,7 +96,7 @@
   --text-2: var(--fg-dim);
   --text-3: var(--fg-mute);
   --text-4: #98a4b5;
-  --surface: #ffffff; /* 카드·패널 바탕(라이트 = 흰 바탕, 다크 = 한 단 밝게) */
+  --surface: #ffffff; /* 카드·패널 바탕 */
   --surface-2: #f5f6f8;
   --surface-3: #eceef1;
   --line-soft: #f0f1f4;
@@ -130,60 +131,6 @@
     --tone-display-size: 44px;
     --tone-display-line: 56px;
     --tone-hero-top: 56px;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    color-scheme: dark;
-    --bg: #121519;
-    --bg-elev: #191d23;
-    --bg-elev2: #1f242b;
-    --bg-tint: #1a2130;
-    --fg: #e3e7ed;
-    --fg-dim: #bfc7d2;
-    --fg-mute: #a0aab7;
-    --fg-faint: #8b95a3;
-    --border: #2c333c;
-    --border-soft: #272e37;
-    --accent: #7aa2ff;
-    --accent-hover: #9ab8ff;
-    --accent-dim: #9ab8ff;
-    --accent-tint: #1d2a44;
-    --accent-bg: #1d2a44;
-    --accent-cta: #2f63d6;
-    --cta-bg: #2f63d6;
-    --cta-fg: #ffffff;
-    --accent-2: #8fb59a;
-    --cyan: #7aa2ff;
-    --magenta: #8fb59a;
-    --code-bg: #1f242b;
-    --danger: #ff9d8f;
-    --danger-bg: #3d1f1c;
-    --success: #8ad47f;
-    --warn: #f2b46a;
-    --invert-bg: #e3e7ed;
-    --invert-fg: #121519;
-    --invert-dim: #4a5360;
-    --invert-border: #bfc7d2;
-    --shadow: 0 6px 24px #00000059;
-    --shadow-pop: 0 16px 40px #000000a6;
-    --text-4: #8b95a3;
-    --surface: #191d23;
-    --surface-2: #1f242b;
-    --surface-3: #272e37;
-    --line-soft: #242a32;
-    --line-strong: #3a424d;
-    --accent-line: #2a3a5e;
-    --accent-line-2: #3d5487;
-    --accent-text: #dfe8ff;
-    --accent-text-2: #aec2f2;
-    --accent-text-3: #b9c6e0;
-    --mood-fg: #cdd5e0;
-    --mood-hover: #232a33;
-    --mood-hover-line: #4f5967;
-    --social-fg: #cdd5e0;
-    --mb-host-shadow: #000000a6;
   }
 }
 
