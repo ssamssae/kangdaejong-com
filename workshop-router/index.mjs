@@ -96,8 +96,11 @@ export async function handle(request, fetcher=fetch) {
     if(isFounder&&founderPath!=='/'&&!FOUNDER_ASSETS.has(founderPath.slice(1)))return new Response('Not found',{status:404,headers:{'X-Robots-Tag':'noindex','Cache-Control':'public, max-age=60'}});
     if(!isFounder&&!url.pathname.startsWith(BASE+'/'))return new Response('Not found',{status:404});
     if(MAP_PATH.test(url.pathname))return redirect(SITEMAP);
+    // The workshop file is timeline.html. Serve it at /work/timeline/ so the menu
+    // does not advertise the .html/ address. The old address keeps working.
+    if(!isFounder&&url.pathname==='/work/timeline')return redirect(COMPANY+'/work/timeline/'+url.search,request.method);
     const upstream=new URL(isFounder?FOUNDER_ORIGIN:ORIGIN);
-    upstream.pathname=isFounder?founderPath:url.pathname;upstream.search=url.search;
+    upstream.pathname=isFounder?founderPath:(url.pathname==='/work/timeline/'?'/work/timeline.html/':url.pathname);upstream.search=url.search;
     const headers=new Headers();
     // Never forward company cookies, authentication, or arbitrary client headers
     // to the public GitHub Pages backing host.

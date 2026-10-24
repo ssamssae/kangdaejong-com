@@ -8,6 +8,7 @@ const checks = [
   // T-261019-026: 초소는 10/18 은퇴(T-261018-002)로 닫혔다 — 둘러보기 「초소」·「운영 정의」가 다시 들어오면 막는다.
   ["retired choso menu stays absent", !/key: 'choso'/.test(source) && !/key: 'ontology'/.test(source) && !/choso\.kangdaejong\.com/.test(source)],
   ["grouped menu keeps workshop, system and lab directly reachable", /const NAV_GROUPS/.test(source) && ["workshop", "work-system", "lab"].every(key => new RegExp(`key: '${key}'`).test(source)) && !/submenu-panel/.test(source)],
+  ["protein stays with experiments and the timeline link has no .html suffix", (() => { const products = source.slice(source.indexOf("제품과 도구"), source.indexOf("회사 소개")); const lab = source.slice(source.indexOf("시스템과 실험"), source.indexOf("];", source.indexOf("시스템과 실험"))); return !products.includes("key: 'protein'") && lab.includes("key: 'protein'") && source.includes("https://kangdaejong.com/work/timeline/'") && !source.includes("timeline.html"); })()],
   // T-261013-003: 전자책은 10/4 오프보딩(T-261003-019)으로 없다 — 둘러보기 「책·템플릿」이 다시 들어오면 막는다.
   ["retired book menu stays absent", !/key: 'books'/.test(source) && !/kangdaejong\.com\/#books/.test(source)],
   ["dead cost page stays absent", !/key: 'cost'/.test(source) && !/kangdaejong\.com\/work\/cost/.test(source)],

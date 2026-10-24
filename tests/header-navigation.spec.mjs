@@ -22,6 +22,7 @@ test('all secondary destinations are reachable in one panel', async ({ page }) =
     ['제품 사용 안내', 'https://kangdaejong.com/product/'],
     ['개발·운영 시스템', 'https://kangdaejong.com/work/system/'],
     ['실험실', 'https://kangdaejong.com/work/lab/'],
+    ['타임라인', 'https://kangdaejong.com/work/timeline/'],
   ]) {
     const link = menu(page).getByRole('link', { name: new RegExp('^' + label) });
     await expect(link).toBeVisible();
@@ -92,6 +93,6 @@ test("protein remains reachable from the shared menu and opens the company path"
   const links = page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link');
   await expect(links).toHaveText(['프로젝트', '앱', '연락']);
   await more(page).click();
-  await menu(page).getByRole('link', { name: '단백질', exact: true }).click();
+  await menu(page).getByRole('link', { name: /^단백질(?: 현재 위치)? 아미노산 구조를 살펴보는 실험$/ }).click();
   await expect(page).toHaveURL('https://kangdaejong.com/protein/');
 });

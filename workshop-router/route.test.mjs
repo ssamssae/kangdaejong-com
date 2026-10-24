@@ -131,6 +131,20 @@ test('a failed, malformed or foreign sitemap is a 502, never a partial successfu
     assert.equal(r.status,502);assert.equal(r.headers.get('Cache-Control'),'no-store');
   }
 });
+test('the timeline menu path serves timeline.html without advertising the .html address',async()=>{
+  const bare=await handle(new Request('https://kangdaejong.com/work/timeline?from=menu'),never);
+  assert.equal(bare.status,301);assert.equal(bare.headers.get('Location'),'https://kangdaejong.com/work/timeline/?from=menu');
+  const page=await handle(new Request('https://kangdaejong.com/work/timeline/'),async url=>{
+    assert.equal(url,'https://work.kangdaejong.com/work/timeline.html/');
+    return new Response('timeline',{status:200,headers:{'Content-Type':'text/html'}});
+  });
+  assert.equal(page.status,200);assert.equal(await page.text(),'timeline');
+  const legacy=await handle(new Request('https://kangdaejong.com/work/timeline.html/'),async url=>{
+    assert.equal(url,'https://work.kangdaejong.com/work/timeline.html/');
+    return new Response('legacy',{status:200});
+  });
+  assert.equal(legacy.status,200);
+});
 test('HEAD and conditional responses keep HTTP semantics',async()=>{
   const r=await handle(new Request('https://kangdaejong.com/work/x',{method:'HEAD'}),async(_,options)=>{assert.equal(options.method,'HEAD');return new Response(null,{headers:{'Content-Length':'900'}});});
   assert.equal(await r.text(),'');assert.equal(r.headers.get('Content-Length'),'900');

@@ -26,6 +26,16 @@ for (const width of [320, 390, 768, 1440]) {
   });
 }
 
+test('skip link stays clipped until keyboard focus', async ({ page }) => {
+  await page.goto('/');
+  const skip = page.locator('.skip-link');
+  const hidden = await skip.evaluate(el => { const r = el.getBoundingClientRect(); return r.width < 2 && r.height < 2; });
+  expect(hidden).toBe(true);
+  await skip.focus();
+  const shown = await skip.evaluate(el => { const r = el.getBoundingClientRect(); return r.width > 40 && r.height > 20 && r.top >= 0 && r.top < 80 && r.left < 40; });
+  expect(shown).toBe(true);
+});
+
 test('old chapter links keep anchors and open bridge details', async ({ page }) => {
   await page.goto('/archive/?from=old#open-tools');
   await expect(page).toHaveURL(/\/\?from=old#open-tools$/);

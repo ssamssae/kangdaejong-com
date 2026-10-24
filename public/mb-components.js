@@ -14,7 +14,6 @@
       { key: 'catalog', label: '전체 제품', href: 'https://kangdaejong.com/work/products/' },
       { key: 'tools', label: '공개 도구', href: 'https://kangdaejong.com/work/products/?category=tool#catalog' },
       { key: 'guides', label: '제품 사용 안내', href: 'https://kangdaejong.com/product/' },
-      { key: 'protein', label: '단백질', href: 'https://kangdaejong.com/protein/' },
     ] },
     { label: '회사 소개', items: [
       { key: 'organization', label: '스튜디오 소개', description: '누가 만들고 책임지는지', href: 'https://kangdaejong.com/organization/' },
@@ -25,11 +24,12 @@
       { key: 'workshop', label: '작업장', description: '최근 작업과 이야기 한눈에', href: 'https://kangdaejong.com/work/' },
       { key: 'worklog', label: '작업일지', description: '날마다 만든 것과 고친 것', href: 'https://kangdaejong.com/work/worklog/' },
       { key: 'newsletter', label: '뉴스레터', description: '과정에서 건진 이야기', href: 'https://kangdaejong.com/work/newsletter/' },
-      { key: 'timeline', label: '타임라인', description: '처음부터 지금까지의 변화', href: 'https://kangdaejong.com/work/timeline.html/' },
+      { key: 'timeline', label: '타임라인', description: '처음부터 지금까지의 변화', href: 'https://kangdaejong.com/work/timeline/' },
     ] },
     { label: '시스템과 실험', items: [
       { key: 'work-system', label: '개발·운영 시스템', description: '작업을 지탱하는 도구와 구조', href: 'https://kangdaejong.com/work/system/' },
       { key: 'lab', label: '실험실', description: '시험해 본 것과 배운 점', href: 'https://kangdaejong.com/work/lab/' },
+      { key: 'protein', label: '단백질', description: '아미노산 구조를 살펴보는 실험', href: 'https://kangdaejong.com/protein/' },
     ] },
   ];
 
