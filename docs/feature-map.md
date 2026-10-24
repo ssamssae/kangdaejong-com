@@ -83,7 +83,7 @@
 ## 헤더·톤·앱 로고·움직임 — T-261003-017
 
 - 홈·소개·상세 페이지와 작업장은 동일 `mb-header`를 쓴다. 프로젝트·앱·연락은 홈의 해당 구역, 둘러보기는 기존 상세 목적지를 제공한다. 키보드 ArrowDown/Escape, 외부 클릭, 320~1440px에서 메뉴 위치를 검사한다.
-- 흰 배경, 파란 강조색 #2458cc, Pretendard, 최대 본문 1000px을 기준으로 맞춘다. 공유 이미지는 현재 승인 로고로 렌더링하며 manifest hash가 포함된 이미지 주소를 쓴다.
+- 흰 배경, 파란 강조색 #2f6feb(첫이름과 같은 값, T-261024-020), Pretendard, 최대 본문 1000px을 기준으로 맞춘다. 공유 이미지는 현재 승인 로고로 렌더링하며 manifest hash가 포함된 이미지 주소를 쓴다.
 - 세 앱 아이콘은 각 저장소 main의 iOS 1024px 원본을 복사했다. `product-icon-sources.json`의 revision·sha256으로 재확인할 수 있다. App Store 배포 버전과는 구분한다.
 - `/#mood` → 잠깐 쉬기 → 움직임 멈추기/켜기: 정지 시 좌표 고정, 재개 1.8초 후 이동거리 3 CSS px 초과. OS 동작 줄이기와 숨겨진 문서는 정지한다.
 - 검증: `tests/home-corrections.spec.mjs`, `header-navigation.spec.mjs`, `mood-corner.spec.mjs`, `one-page.spec.mjs`, `site-renewal.spec.mjs`. 로컬·배포 근거는 T-261003-017 체크포인트에 구분한다.

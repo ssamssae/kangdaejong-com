@@ -163,3 +163,5 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:28px}
 .simple-home .book-item{padding:4px 18px 16px}
 .simple-home .contact-email{justify-content:center;width:100%}
 }
+/* T-261024-020: 회색 카드 위 작은 링크는 #2f6feb 대비가 4.23 이라 눌린 파랑(--accent-hover)으로 4.5 이상 확보. */
+.simple-home :is(.project-card,.project-body)>a,.simple-home .text-tool-card>a,.simple-home .bridge-links a{color:var(--accent-hover)}

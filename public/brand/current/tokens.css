@@ -2,32 +2,33 @@
    회사의 모든 사이트가 https://kangdaejong.com/brand/current/tokens.css 를 페이지 머리말에서 읽는다.
    색을 바꾸려면 이 파일만 고치고 회사홈(kangdaejong-com)만 배포한다. 다른 곳에 색 값을 복사하지 않는다 —
    각 저장소의 palette-copies 검사가 막는다. 그림 생성기는 같은 원본에서 빌드 때 만든 tokens.json 을 읽는다.
+   라이트 값은 첫이름(토스 톤)과 같은 값이다 (T-261024-020, 대종님 10/24 「모든사이트 같은톤」).
    다크는 기기 설정을 따라 기본으로 켜진다. 라이트로 고정할 페이지만 <html data-theme="light">. */
 :root {
   color-scheme: light;
   --page-max: 1440px;
   --bg: #ffffff;
-  --bg-elev: #f7f8fa;
-  --bg-elev2: #eef1f5;
+  --bg-elev: #f5f6f8;
+  --bg-elev2: #eceef1;
   --bg-tint: #f0efe9;
-  --fg: #242930;
-  --fg-dim: #626b78;
+  --fg: #191c21;
+  --fg-dim: #4e5561;
   --fg-mute: #69717d;
   --fg-faint: #69717d;
-  --border: #e6e8ed;
+  --border: #e6e8eb;
   --border-soft: #eceef2;
-  --accent: #2458cc;
-  --accent-hover: #19449f;
-  --accent-dim: #19449f;
-  --accent-tint: #eef3ff;
-  --accent-bg: #eef3ff;
-  --accent-cta: #2458cc;
-  --cta-bg: #2458cc;
+  --accent: #2f6feb;
+  --accent-hover: #2459c4;
+  --accent-dim: #2459c4;
+  --accent-tint: #eaf1fe;
+  --accent-bg: #eaf1fe;
+  --accent-cta: #2f6feb;
+  --cta-bg: #2f6feb;
   --cta-fg: #ffffff;
   --accent-2: #466448;
-  --cyan: #2458cc;
+  --cyan: #2f6feb;
   --magenta: #466448;
-  --code-bg: #f7f8fa;
+  --code-bg: #f5f6f8;
   --danger: #b02f29;
   --danger-bg: #faeae6;
   --success: #3c664b;
@@ -43,8 +44,8 @@
   --text-3: var(--fg-mute);
   --text-4: #98a4b5;
   --surface: #ffffff; /* 카드·패널 바탕(라이트 = 흰 바탕, 다크 = 한 단 밝게) */
-  --surface-2: #f7f8fa;
-  --surface-3: #eef1f5;
+  --surface-2: #f5f6f8;
+  --surface-3: #eceef1;
   --line-soft: #f0f1f4;
   --line-strong: #c6d0da;
   --accent-line: #dce4f4;
