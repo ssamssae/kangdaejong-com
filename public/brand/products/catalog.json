@@ -2,6 +2,25 @@
   "schema": 1,
   "products": [
     {
+      "id": "cheotireum",
+      "name": "첫이름",
+      "category": "saas",
+      "surfaces": [
+        "home",
+        "workshop"
+      ],
+      "icon": null,
+      "icon2x": null,
+      "source": null,
+      "files": null,
+      "exception": {
+        "status": "approved-placeholder",
+        "reason": "Web service card uses approved letter-mark fallback.",
+        "fallback": "letter-mark",
+        "approvedAt": "2026-10-24"
+      }
+    },
+    {
       "id": "hanjul",
       "name": "한줄일기",
       "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e1/ad/b7/e1adb7a4-9704-0369-d058-e4e48dcb9ffa/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",

@@ -1,10 +1,10 @@
 import { test, expect } from "@playwright/test";
 import { brand, rgb } from './brand-colors.mjs';
+import { readFileSync } from 'node:fs';
+import { PRODUCT_PAGES } from '../workshop-router/product-guides.mjs';
 
-const routes = [
-  "/",
-  "/organization/",
-  "/system/",
+const routes = ["/", "/organization/", "/system/", "/cheotireum/"];
+const retiredTemplateRoutes = [
   "/ai-team-ebook/vol2/templates/t01-task-queue/",
   "/ai-team-ebook/vol2/templates/t02-distribution-rules/",
   "/ai-team-ebook/vol2/templates/t03-approval-gate/",
@@ -29,7 +29,7 @@ test("home presents apps, books and all four bridges", async ({ page }) => {
   await page.locator("#open-tools > summary").click();
   await expect(page.locator(".bridge-links > div")).toHaveCount(4);
   for (const name of ['codex', 'claude', 'cursor', 'grok']) {
-    await expect(page.locator(`#open-tools a[href="https://github.com/ssamssae/${name}-telegram-bridge"]`)).toBeVisible();
+    await expect(page.locator(`#open-tools a[href="/product/${name}-telegram-bridge/"]`)).toBeVisible();
     await expect(page.locator(`#open-tools a[href="https://github.com/ssamssae/${name}-telegram-bridge/releases"]`)).toBeVisible();
   }
   // T-261019-026: 10/18 닫은 초소 카드는 없다.
@@ -55,81 +55,21 @@ test("system remains local and offers an explicit deep-document link", async ({ 
   await expect(page.locator('meta[http-equiv="refresh"]')).toHaveCount(0);
 });
 
-test("template pages expose working copy and download actions near the title", async ({ context, page }) => {
-  await context.grantPermissions(["clipboard-read", "clipboard-write"], { origin: "http://127.0.0.1:4321" });
-  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
-  const copy = page.getByRole("button", { name: "Markdown 전체 복사" });
-  const download = page.getByRole("link", { name: "Markdown 다운로드" });
-  await expect(copy).toBeVisible();
-  await expect(download).toHaveAttribute("download", "t03-ai-assistant-role-card.md");
-  const downloadEvent = page.waitForEvent("download");
-  await download.click();
-  expect((await downloadEvent).suggestedFilename()).toBe("t03-ai-assistant-role-card.md");
-  await copy.click();
-  await expect(page.getByRole("status")).toHaveText("복사했습니다.");
-  await expect(copy).toBeFocused();
-  expect(await page.evaluate(() => navigator.clipboard.readText())).toContain("AI 비서 역할 카드");
-});
-
-test("offscreen template source stays out of the keyboard tab order", async ({ page }) => {
-  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
-  const source = page.locator("#template-source");
-
-  await expect(source).toHaveAttribute("aria-hidden", "true");
-  await expect(source).toHaveAttribute("tabindex", "-1");
-
-  const focusedIds = [];
-  for (let step = 0; step < 20; step += 1) {
-    await page.keyboard.press("Tab");
-    focusedIds.push(await page.evaluate(() => {
-      let active = document.activeElement;
-      while (active?.shadowRoot?.activeElement) active = active.shadowRoot.activeElement;
-      return active?.id || active?.getAttribute?.("data-copy-template") || active?.tagName || "";
-    }));
+test("retired templates stay unpublished and retain the existing edge redirects", async ({ page, request }) => {
+  const redirects = readFileSync(new URL('../public/_redirects', import.meta.url), 'utf8');
+  for (const prefix of ['/ebook-automation-workshop/vol1/templates/', '/ai-team-ebook/vol2/templates/']) {
+    expect(redirects).toContain(`${prefix}* https://kangdaejong.com/work/products/#retired-products 301`);
   }
-  expect(focusedIds).not.toContain("template-source");
-});
-
-test("copy fallback reports failure when execCommand returns false", async ({ page }) => {
-  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
-  await page.evaluate(() => {
-    Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });
-    document.execCommand = () => false;
-  });
-
-  const copy = page.getByRole("button", { name: "Markdown 전체 복사" });
-  await copy.click();
-  await expect(page.getByRole("status")).toHaveText("복사하지 못했습니다. 원본 파일을 열어 복사해 주세요.");
-  await expect(page.locator("#template-source")).toHaveAttribute("aria-hidden", "true");
-  await expect(copy).toBeFocused();
-});
-
-test("copy fallback restores its hidden buffer when execCommand throws", async ({ page }) => {
-  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
-  await page.evaluate(() => {
-    Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });
-    document.execCommand = () => { throw new Error("copy unavailable"); };
-  });
-
-  const copy = page.getByRole("button", { name: "Markdown 전체 복사" });
-  await copy.click();
-  await expect(page.getByRole("status")).toHaveText("복사하지 못했습니다. 원본 파일을 열어 복사해 주세요.");
-  await expect(page.locator("#template-source")).toHaveAttribute("aria-hidden", "true");
-  await expect(copy).toBeFocused();
-});
-
-test("copy fallback restores visible focus when execCommand returns true", async ({ page }) => {
-  await page.goto("/ebook-automation-workshop/vol1/templates/t03-ai-assistant-role-card/");
-  await page.evaluate(() => {
-    Object.defineProperty(navigator, "clipboard", { value: undefined, configurable: true });
-    document.execCommand = () => true;
-  });
-
-  const copy = page.getByRole("button", { name: "Markdown 전체 복사" });
-  await copy.click();
-  await expect(page.getByRole("status")).toHaveText("복사했습니다.");
-  await expect(page.locator("#template-source")).toHaveAttribute("aria-hidden", "true");
-  await expect(copy).toBeFocused();
+  // Astro preview does not apply Cloudflare's _redirects; retired files stay absent locally.
+  for (const route of retiredTemplateRoutes) {
+    expect((await request.get(route)).status(), route).toBe(404);
+    expect((await request.get(route.replace(/\/$/, '.md'))).status(), route).toBe(404);
+  }
+  await page.goto(retiredTemplateRoutes[0]);
+  await expect(page.getByRole('heading', { name: '페이지를 찾을 수 없어요.' })).toBeVisible();
+  await expect(page.locator('#template-source, [data-copy-template], a[download]')).toHaveCount(0);
+  await page.getByRole('link', { name: '홈으로 돌아가기' }).click();
+  await expect(page.locator('[data-product-id="cheotireum"]')).toBeVisible();
 });
 
 test("shared components use the homepage palette for every consumer", async ({ page }) => {
@@ -154,7 +94,7 @@ test("shared components use the homepage palette for every consumer", async ({ p
   });
 });
 
-test("local links, anchors, and images resolve on every public route", async ({ page, request }) => {
+test("static links, anchors, and images resolve on current home and service routes", async ({ page, request }) => {
   const imageFailures = [];
   page.on("response", (response) => {
     if (response.request().resourceType() === "image" && response.status() >= 400) {
@@ -176,6 +116,8 @@ test("local links, anchors, and images resolve on every public route", async ({ 
   }
 
   for (const href of internalLinks) {
+    // These exact guide routes are served by the Worker, covered by test:work-route.
+    if (PRODUCT_PAGES.includes(new URL(href, 'https://kangdaejong.com').href)) continue;
     const response = await request.get(href);
     expect(response.status(), href).toBeLessThan(400);
   }

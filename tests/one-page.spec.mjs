@@ -8,10 +8,11 @@ for (const width of [320, 390, 768, 1440]) {
     await page.goto('/');
     await expect(page.locator('h1')).toContainText('강대종');
     await expect(page.locator('.project-versions, .edition, .chapters')).toHaveCount(0);
-    await expect(page.locator('#projects .project-card')).toHaveCount(4);
+    await expect(page.locator('#projects .project-card')).toHaveCount(5);
     await expect(page.locator('#products .app-row')).toHaveCount(9);
     await expect(page.locator('#books .book-row')).toHaveCount(3);
-    await expect(page.locator('main')).not.toContainText(/단어요|한컵|포모도로|첫이름|한장궁합|한장택일/);
+    await expect(page.locator('main')).not.toContainText(/단어요|한컵|포모도로|한장궁합|한장택일/);
+    await expect(page.locator('main')).toContainText('첫이름');
     await expect(page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link')).toHaveCount(3);
     await page.getByRole('navigation', { name: '주요 메뉴' }).getByRole('link', { name: '앱' }).click();
     await expect(page).toHaveURL(/#products$/);
@@ -64,6 +65,7 @@ test('without JavaScript primary content and links remain usable', async ({ brow
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4321/');
   await expect(page.locator('#products .app-row')).toHaveCount(9);
+  await expect(page.locator('[data-product-id="cheotireum"] > a')).toHaveAttribute('href', 'https://cheotireum.kangdaejong.com/');
   await page.locator('#open-tools summary').click();
   await expect(page.locator('#open-tools a[href*="codex-telegram-bridge"]').first()).toBeVisible();
   await context.close();

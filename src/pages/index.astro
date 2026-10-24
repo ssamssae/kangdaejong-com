@@ -65,6 +65,20 @@ const jsonLd = {
           </div>
           <a href="/tools/text/">글 정리하기<span aria-hidden="true">→</span></a>
         </article>
+        <article class="project-card text-tool-card web-service-card" data-product-id="cheotireum">
+          <span class="project-mark" aria-hidden="true">첫</span>
+          <div class="project-body">
+            <span class="project-note mb-chip">웹 서비스 · 작명서 1,000원</span>
+            <h3>첫이름</h3>
+            <p>사주와 부족한 오행, 한자 뜻풀이와 발음·획수를 함께 살펴 아기 이름 작명서를 만들어요.</p>
+            <div class="service-sublinks">
+              <a href="https://cheotireum.kangdaejong.com/sample-report">무료 샘플<span aria-hidden="true">↗</span></a>
+              <a href="https://cheotireum.kangdaejong.com/hanja-check">한자 확인<span aria-hidden="true">↗</span></a>
+              <a href="/cheotireum/">서비스 안내<span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+          <a href="https://cheotireum.kangdaejong.com/">웹에서 시작하기<span aria-hidden="true">↗</span></a>
+        </article>
       </div>
       <details id="open-tools" class="bridge-details"><summary>텔레그램 브릿지 설치·시연 <span>Codex · Cursor · Claude · Grok</span></summary>
         <div class="bridge-links">{tools.map(tool => <div data-product-id={tool.id}>{tool.icon && <img class="bridge-tile" src={tool.icon} srcset={tool.icon2x ? `${tool.icon}, ${tool.icon2x} 2x` : undefined} width="24" height="24" alt="" loading="lazy" decoding="async"/>}<strong>{tool.name.replace(' Telegram Bridge','')}</strong><a href={`/product/${tool.name.toLowerCase().replaceAll(" ","-")}/`}>설치 안내 ↗</a><a href={tool.release}>릴리스 ↗</a></div>)}</div>
