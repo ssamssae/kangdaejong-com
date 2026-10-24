@@ -12,7 +12,7 @@ export function getStaticPaths() {
 const {app,support}=Astro.props;
 const canonical=`https://kangdaejong.com/apps/${support.slug}/`;
 ---
-<SiteLayout title={`${app.name} — 앱 안내와 지원`} description={`${app.description} 다운로드, 웹 버전, 개인정보처리방침과 문의 방법을 확인하세요.`} canonical={canonical} active="products" bodyClass="renewal" theme="auto" langToggle>
+<SiteLayout title={`${app.name} — 앱 안내와 지원`} description={`${app.description} 다운로드, 웹 버전, 개인정보처리방침과 문의 방법을 확인하세요.`} canonical={canonical} active="products" bodyClass="renewal" langToggle>
   <main id="main-content" class="support-page" data-app-name={app.name}>
     <header>
       <img src={app.icon} srcset={`${app.icon2x} 2x`} width="80" height="80" alt="" />
@@ -49,8 +49,9 @@ const canonical=`https://kangdaejong.com/apps/${support.slug}/`;
   </script>
 </SiteLayout>
 <style>
-  .support-page{max-width:900px;margin:auto;padding:64px 24px;color:var(--fg)}
-  header{padding:12px 0 40px}header img{border-radius:20px;margin-bottom:20px}h1{font-size:clamp(36px,6vw,64px);margin:12px 0 20px;letter-spacing:-.05em}.lead{font-size:20px;line-height:1.8}
-  .downloads{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}section{border-top:1px solid var(--border);padding:28px 0}h2{font-size:24px;margin:0 0 14px}p{line-height:1.8;word-break:keep-all}
-  a:not(.r-button){color:var(--accent);text-underline-offset:4px}.all-apps{padding-top:20px;border-top:1px solid var(--border)}@media(max-width:650px){.support-page{padding:32px 20px}.lead{font-size:18px}}
+  /* T-261024-050: 첫이름 service 페이지(.hero → .block)와 같은 값 — 숫자는 공용 톤 값만. */
+  body.studio-page .support-page{width:min(calc(100% - var(--tone-gutter) * 2),var(--tone-prose-max));margin:0 auto;padding:var(--tone-hero-top) 0 var(--tone-section-gap);color:var(--fg)}
+  header{padding:0 0 var(--tone-section-gap)}header img{border-radius:var(--tone-radius-card);margin-bottom:var(--tone-space-4)}h1{margin:0 0 var(--tone-space-3)}.lead{margin:0;color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line)}
+  .downloads{display:flex;flex-wrap:wrap;gap:var(--tone-space-1);margin-top:var(--tone-space-4)}section{border-top:1px solid var(--border);padding:var(--tone-section-gap) 0}h2{margin:0 0 var(--tone-space-2)}p{margin:0 0 var(--tone-space-3);color:var(--fg-dim);line-height:var(--tone-body-line);word-break:keep-all}
+  a:not(.r-button){display:inline-flex;align-items:center;min-height:var(--tone-tap-height);color:var(--accent);font-weight:var(--tone-weight-bold);text-underline-offset:var(--tone-underline-offset)}.all-apps{margin:0;padding-top:var(--tone-space-4);border-top:1px solid var(--border)}@media(max-width:760px){section{padding:var(--tone-space-6) 0}.downloads{flex-direction:column}.downloads a{display:flex}}
 </style>

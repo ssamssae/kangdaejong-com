@@ -90,16 +90,17 @@ const moods = [
     --mood-front: #526f58;
     --mood-ink: #414b35;
     --mood-speed: 5s;
+    /* T-261024-050: 바깥은 첫이름 .card(회색 둥근 면, 안쪽 20/24px), 고르는 칸은 .method(2px 테두리·고르면 연한 파랑). 숫자는 공용 톤 값만. */
     display: grid;
     grid-template-columns: 1fr 1.1fr;
     align-items: center;
-    gap: 40px;
-    padding: 32px;
-    margin-top: 40px;
-    border: 1px solid var(--border);
-    border-radius: 20px;
+    gap: var(--tone-space-4);
+    padding: var(--tone-card-padding);
+    margin-top: var(--tone-space-4);
+    border: 0;
+    border-radius: var(--tone-radius-card);
     background: var(--bg-elev);
-    scroll-margin-top: 110px;
+    scroll-margin-top: calc(var(--tone-header-height) + var(--tone-space-4));
   }
   .mood-corner[data-mood="calm"] {
     --mood-sky: #dce8e7;
@@ -128,27 +129,27 @@ const moods = [
     --mood-ink: #ede4d2;
     --mood-speed: 6s;
   }
-  .mood-kicker { display: flex; align-items: center; gap: 9px; margin: 0; color: var(--fg-dim); font-size: 10px; font-weight: 650; letter-spacing: .15em; }
-  .mood-kicker span { color: var(--accent); font-size: 24px; line-height: 1; }
-  .mood-corner h2 { font-size: clamp(26px, 3vw, 34px); margin: 18px 0 12px; }
-  .mood-intro { color: var(--fg-dim); font-size: 14px; line-height: 1.9; margin: 0 0 24px; }
+  .mood-kicker { display: flex; align-items: center; gap: var(--tone-space-1); margin: 0 0 var(--tone-space-1); color: var(--fg-dim); font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); letter-spacing: normal; }
+  .mood-kicker span { color: var(--accent); font-size: var(--tone-subtitle-size); line-height: 1; }
+  .mood-corner h2 { margin: 0 0 var(--tone-space-2); }
+  .mood-intro { color: var(--fg-dim); font-size: var(--tone-body-size); line-height: var(--tone-body-line); margin: 0 0 var(--tone-space-4); }
   .mood-controls[hidden] { display: none; }
-  .mood-options { display: flex; flex-wrap: wrap; gap: 8px; }
-  .mood-options button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 44px; padding: 10px 13px; border: 1px solid var(--border); border-radius: var(--tone-radius-pill); background: transparent; color: var(--mood-fg); font: inherit; font-size: 12px; cursor: pointer; }
-  .mood-options button:hover { background: var(--mood-hover); border-color: var(--mood-hover-line); }
-  .mood-options button[aria-pressed="true"] { background: var(--accent-tint); border-color: var(--accent); color: var(--accent-hover); box-shadow: inset 0 0 0 1px var(--accent); }
+  .mood-options { display: flex; flex-wrap: wrap; gap: var(--tone-space-1); }
+  .mood-options button { display: inline-flex; align-items: center; justify-content: center; gap: var(--tone-space-1); min-height: var(--tone-tap-height); padding: 0 var(--tone-space-2); border: var(--tone-input-border) solid transparent; border-radius: var(--tone-radius-control); background: var(--bg); color: var(--fg); font: var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); cursor: pointer; }
+  .mood-options button:hover { color: var(--accent-hover); }
+  .mood-options button[aria-pressed="true"] { background: var(--accent-tint); border-color: var(--accent); color: var(--fg); }
   .mood-dot { width: 7px; height: 7px; flex: 0 0 7px; border-radius: 50%; }
   .mood-dot-clear { background: #bc7c30; }
   .mood-dot-calm { background: #487d83; }
   .mood-dot-spark { background: #ab6274; }
   .mood-dot-rest { background: #455572; }
-  .mood-motion { display: block; margin-top: 8px; min-height: 44px; padding: 8px 0; border: 0; background: transparent; color: var(--fg-dim); font: inherit; font-size: 11px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
-  .mood-motion:disabled { cursor: default; text-decoration: none; }
-  .mood-corner button:focus-visible { outline: 3px solid var(--accent-2); outline-offset: 4px; }
+  .mood-motion { display: inline-flex; align-items: center; margin-top: var(--tone-space-1); min-height: var(--tone-tap-height); padding: 0; border: 0; background: transparent; color: var(--accent-hover); font: var(--tone-weight-bold) var(--tone-label-size)/var(--tone-body-line) var(--tone-font); text-decoration: underline; text-underline-offset: var(--tone-underline-offset); cursor: pointer; }
+  .mood-motion:disabled { cursor: default; text-decoration: none; color: var(--fg-dim); }
+  .mood-corner button:focus-visible { outline: var(--tone-focus-width) solid var(--accent); outline-offset: var(--tone-focus-offset); }
   .mood-window { min-width: 0; }
   .mood-scene { position: relative; height: 250px; overflow: hidden; border-radius: var(--tone-radius-card); background: var(--mood-sky); color: var(--mood-ink); transition: background-color 700ms, color 700ms; }
   .mood-scene svg { display: block; width: 100%; height: 100%; }
-  .mood-scene-label { position: absolute; top: 20px; left: 22px; font-size: 11px; letter-spacing: .04em; }
+  .mood-scene-label { position: absolute; top: var(--tone-space-3); left: var(--tone-space-3); font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); }
   .mood-signature { position: absolute; right: 20px; bottom: 17px; font-family: Georgia, serif; font-style: italic; font-size: 12px; color: #fffdf6; }
   .mood-orb { animation: mood-drift var(--mood-speed) ease-in-out infinite alternate; }
   .mood-halo { fill: var(--mood-orb); opacity: .12; }
@@ -160,20 +161,18 @@ const moods = [
   .mood-wave { fill: var(--mood-wave); animation: mood-water var(--mood-speed) ease-in-out infinite alternate; }
   .mood-front { fill: var(--mood-front); }
   .mood-scene circle, .mood-scene path, .mood-stars { transition: fill 700ms, opacity 700ms; }
-  .mood-quote { min-height: 2.8em; margin: 14px 4px 0; color: var(--fg-dim); font-size: 13px; line-height: 1.6; text-align: center; }
-  .mood-fallback { color: var(--fg-dim); font-size: 12px; }
+  .mood-quote { min-height: calc(var(--tone-label-line) * 2); margin: var(--tone-space-2) 0 0; color: var(--fg-dim); font-size: var(--tone-label-size); line-height: var(--tone-label-line); text-align: center; }
+  .mood-fallback { color: var(--fg-dim); font-size: var(--tone-caption-size); line-height: var(--tone-caption-line); }
   [data-paused="true"] .mood-orb, [data-paused="true"] .mood-wave { animation-play-state: paused; }
   @keyframes mood-drift { from { transform: translate(-8px, 8px); } to { transform: translate(16px, -24px); } }
   @keyframes mood-water { from { transform: translateX(-36px); } to { transform: translateX(36px); } }
   @media (max-width: 900px) {
-    .mood-corner { gap: 24px; padding: 26px; }
     .mood-options { max-width: 260px; }
   }
   @media (max-width: 620px) {
-    .mood-corner { grid-template-columns: 1fr; padding: 24px 20px 18px; gap: 16px; margin-top: 28px; }
-    .mood-intro { margin-bottom: 18px; }
+    .mood-corner { grid-template-columns: 1fr; gap: var(--tone-space-3); }
+    .mood-intro { margin-bottom: var(--tone-space-3); }
     .mood-options { max-width: none; }
-    .mood-options button { padding: 10px 12px; }
     .mood-scene { height: 220px; }
   }
   @media (prefers-reduced-motion: reduce) {
