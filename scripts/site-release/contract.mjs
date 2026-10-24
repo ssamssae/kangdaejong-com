@@ -72,8 +72,10 @@ export function auditHtml(html,site,{socialHash},catalog){
   return errors;
 }
 // T-261024-058: 대표 화면의 모드 검사 — 공개 사이트는 전부 라이트다(대종님 「다크를 풀고 전부 라이트」, 2026-10-24).
-// 기기 설정이 다크여도(colorScheme='dark' 에뮬레이션) 바탕이 밝아야 하고, 화면이 다크를 다시 켜는 선언(data-theme="auto"|"dark")을 하면 안 된다.
-// 원본(공용 tokens.css)에 다크 블록이 없으므로 data-theme 를 안 적은 화면(제품 안내 Worker 등)도 라이트로 그려진다 — 선언은 "light" 또는 없음이면 된다.
+// 판정은 그려진 결과로 한다: 기기 설정이 다크여도(colorScheme='dark' 에뮬레이션) 계산된 color-scheme 이 light 이고 바탕이 밝아야 한다.
+// 원본(공용 tokens.css)에 다크 블록이 없으므로 data-theme 를 안 적은 화면(제품 안내 Worker)도, 옛 "auto" 선언이 남은 화면도 라이트로 그려진다 —
+// 선언 문자열은 여기서 보지 않는다(각 저장소의 verify-tone-copies·light-coverage 가 선언을 잡고, 다크 블록이 다시 생기면 brand-tokens.mjs 가 빌드를 멈춘다).
+// 그래서 회사 홈 PR 의 후보 검사가 아직 안 바뀐 다른 저장소 라이브 때문에 막히지 않는다.
 // (T-261024-050 까지는 등록부 theme:"light" 가 회사 홈만 못 박고, 다른 화면은 다크에서 흰 면이 없어야 했다. 그 분기는 걷어냈다.)
 export const isLightSurface=(color)=>{
   const values=color.match(/[\d.]+/g)?.map(Number)||[];
@@ -82,7 +84,6 @@ export const isLightSurface=(color)=>{
 export function auditScreen(root,site,colorScheme){
   const errors=[];
   if(root.overflow)errors.push('horizontal overflow');
-  if(['auto','dark'].includes(root.declared))errors.push(`page still opts into dark mode (data-theme="${root.declared}")`);
   if(!root.theme.includes('light'))errors.push(`theme mismatch ${root.theme} (every page is light, T-261024-058)`);
   if(!isLightSurface(root.bg))errors.push(`dark surface in ${colorScheme} emulation: ${root.bg}`);
   return errors;
