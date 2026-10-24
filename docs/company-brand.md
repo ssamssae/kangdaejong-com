@@ -33,7 +33,7 @@ T-261012-041: 소비 사이트(작업장·대표소개)는 공용 카드를 버�
 
 T-261012-040: 같은 계약을 따라 종료 안내 화면(`logo-worker/closed.mjs`·`photo-app/closed.mjs` — Worker 와 이 사이트 빌드가 같이 씀), 작업장 이동 껍데기(`src/components/RedirectStub.astro`, `src/lib/og-image.mjs` 의 `SHARED_OG_IMAGE`)·`public/privacy-miniexpense.html`, 초소 방문객 페이지, 제품 안내 사이트(product.kangdaejong.com 첫 화면·브릿지 설명서 4개)도 고정 주소를 쓴다. `src/pages/protein.astro`(이동 껍데기)는 SiteLayout 처럼 manifest 에서 `?v=` 를 붙인다. 이 저장소 `scripts/verify-dark-cards.mjs`(`tests/test_dark_cards.sh`)가 빌드 결과(dist·dist-protein)의 모든 HTML 이 공용 카드(고정 주소 또는 manifest 버전)와 다크 모드를 갖는지 검사한다.
 
-## 공용 디자인 값 — 색·폭은 한 파일 (T-261013-004)
+## 공용 톤 파일 — 색·톤·공용 부품은 한 파일 (T-261013-004 색, T-261024-026 톤)
 
 색(라이트·다크)과 PC 폭(`--page-max`)의 원본은 `public/brand/current/tokens.css` 하나다. 공개 주소 `https://kangdaejong.com/brand/current/tokens.css`(고정, `/brand/*` 캐시 = 매번 재확인). 회사의 모든 사이트가 페이지 머리말에서 이 파일을 읽고, 사이트 스타일에는 `var(--이름)` 만 쓴다(대체값 없음). 다크는 기기 설정을 따라 기본으로 켜지고, 라이트로 고정할 페이지만 `<html data-theme="light">`.
 
@@ -42,4 +42,8 @@ T-261012-040: 같은 계약을 따라 종료 안내 화면(`logo-worker/closed.m
 2. 다크 값이 바뀌었으면 `npm run brand:render` 로 공유 카드를 다시 그린다 — 안 그리면 `npm run build` 가 「공유 카드가 옛 색」으로 멈춘다(`public/brand/current/social.tokens` 지문). 단백질 분자 그림은 `scripts/render-amino-acids*.mjs` 가 같은 원본을 읽는다.
 3. 회사홈만 배포한다. 다른 사이트는 다시 배포하지 않아도 다음 방문부터 새 색이다.
 
-**막는 검사** — `scripts/verify-palette-copies.mjs`(`tests/test_palette_copies.sh`): 회사 팔레트 색 값이 원본 밖에 복사되면 실패(테마와 무관한 색은 그 줄에 `tokens:fixed`). `scripts/verify-dark-cards.mjs`: 빌드 결과의 모든 HTML 이 공용 tokens.css 를 읽는지. 그림 생성기·테스트는 `scripts/brand-tokens.mjs`(빌드 첫 단계가 만드는 `tokens.json`)로 같은 원본을 읽는다.
+**톤(모양·글자·크기) — T-261024-026** — 같은 파일에 첫이름(토스 톤) 값을 `--tone-*` 이름으로 둔다: 글꼴 `--tone-font`, 글자 `--tone-{display,title,subtitle,body,label,caption}-{size,line}`(30/40·24/32·20/28·17/26·15/22·13/18), 굵기 `--tone-weight-bold`(700), 모서리 `--tone-radius-{control,card,sheet,pill}`(14·20·24·999), 버튼 높이 `--tone-control-height`(56), 카드 안쪽 `--tone-card-padding`(20), 화면 좌우 `--tone-gutter`(20). 다크에서도 같다. 사이트 자기 값(`--radius-card` 등)과 겹치지 않게 `--tone-` 을 붙였다 — 사이트는 검토한 뒤 자기 값을 `var(--tone-*)` 로 바꿔 연결한다.
+
+**공용 부품 — T-261024-026** — class 를 붙인 곳에만 적용된다: `.mb-btn` + `.mb-btn--primary`(파란 버튼)·`.mb-btn--secondary`(회색 버튼)·`.mb-btn--block`(가로 꽉), `.mb-card`(회색 면 카드), `.mb-chip`(작은 알약 표시), `.mb-eyebrow`(구역 위 작은 라벨). 색 규칙은 class 를 두 번 써서(`.mb-btn.mb-btn--primary`) 사이트 공용 초기화(`.studio-page a { color: inherit }`)에 지지 않는다. 회사 홈(`src/pages/index.astro`·`InsightBanner`)이 첫 사용처다.
+
+**막는 검사** — `scripts/verify-palette-copies.mjs`(`tests/test_palette_copies.sh`): 회사 팔레트 색 값이나 `--tone-*` 정의가 원본 밖에 복사되면 실패(테마와 무관한 색은 그 줄에 `tokens:fixed`). `scripts/verify-tone-pairs.mjs`: 원본에 토스 톤 값·공용 부품이 있고 홈이 숫자를 다시 적지 않고 그 값·부품을 쓰는지(CI·배포에서 실행). `scripts/verify-dark-cards.mjs`: 빌드 결과의 모든 HTML 이 공용 tokens.css 를 읽는지. 그림 생성기·테스트는 `scripts/brand-tokens.mjs`(빌드 첫 단계가 만드는 `tokens.json`)로 같은 원본을 읽는다.

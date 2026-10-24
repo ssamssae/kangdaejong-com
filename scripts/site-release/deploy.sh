@@ -12,6 +12,7 @@ npm run verify:shared-header
 npm run verify:shared-footer
 npm run verify:dark-cards
 npm run verify:palette-copies
+npm run verify:tone-pairs
 npx wrangler pages deploy dist --project-name=kangdaejong-com --branch=main
 npx wrangler pages deploy dist-protein --project-name=protein-kangdaejong --branch=main
 # Upload success is not completion. Nonzero readback keeps the release incomplete.

@@ -19,7 +19,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
       - run: npm run build
       - run: npm run build:protein
-      - run: npm run verify:shared-header && npm run verify:shared-footer && npm run verify:dark-cards && npm run verify:palette-copies
+      - run: npm run verify:shared-header && npm run verify:shared-footer && npm run verify:dark-cards && npm run verify:palette-copies && npm run verify:tone-pairs
       - run: npx playwright install --with-deps chromium
       - name: Homepage icon consumer regression
         run: npx playwright test tests/home-corrections.spec.mjs --grep 'home corrections' --workers=1

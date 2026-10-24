@@ -7,7 +7,7 @@ for (const width of [360, 390, 768, 1440]) {
     page.on('pageerror', error => errors.push(error.message));
     await page.goto('/');
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('안녕하세요.만드는 사람 강대종입니다.');
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('안녕하세요.만드는 사람 강대종이에요.'); // T-261024-020: 공개 문구 = 해요체
     await expect(page.locator('#menu-picker')).toHaveCount(0);
     await expect(page.getByRole('heading', { name: '만드는 도구' })).toBeVisible();
     await expect(page.locator('#projects h3')).toHaveText(['텔레그램 브릿지', '입타', '자비스', '복붙 정리기']);
