@@ -69,7 +69,7 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--tone-h
 .simple-home .app-row>div{min-width:0}
 .simple-home .app-row h3{margin:0 0 var(--tone-space-1)}
 .simple-home .app-row p{color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line);word-break:keep-all}
-.simple-home .store-links{display:flex;flex-wrap:wrap;gap:var(--tone-space-1);margin-top:var(--tone-space-2)}
+.simple-home .store-links{display:flex;flex-wrap:wrap;justify-content:flex-start;gap:var(--tone-space-1);margin-top:var(--tone-space-2)}
 .simple-home .store-links a{display:inline-flex;align-items:center;min-height:var(--tone-tap-height);padding:0 var(--tone-space-2);border-radius:var(--tone-radius-control);background:var(--bg);color:var(--fg);font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font)}
 .simple-home .store-links a:hover{color:var(--accent-hover)}
 .simple-home .app-status{display:inline-flex;align-items:center;min-height:var(--tone-tap-height);color:var(--fg-dim);font-size:var(--tone-caption-size)}
