@@ -7,7 +7,7 @@
      ② 톤: --tone-* (모양·글자·크기·간격). 첫이름(토스 톤, web/studio.css 스펙 v3 + landing.css) 값이고 다크에서도 같다. 사이트 자기 값(--radius-card 등)과 이름이 겹치지 않게 --tone- 을 붙였다.
         사이트는 자기 값을 var(--tone-*) 로 바꿔 연결한다(검토 없이 다른 사이트 모양이 바뀌지 않게). 900px 이상에서 바뀌는 값(여백·카드 안쪽·첫 제목)은 아래 @media 블록이 첫이름과 같은 기준으로 바꾼다.
      ③ 공용 부품: .mb-shell·.mb-btn(.mb-btn--primary·--secondary·--block)·.mb-card·.mb-chip·.mb-eyebrow·.mb-link·.mb-field(.mb-label·.mb-input·.mb-textarea·.mb-select·.mb-help·.mb-error)·
-        .mb-option·.mb-table·.mb-faq·.mb-row. class 를 붙인 곳에만 적용된다.
+        .mb-option·.mb-table·.mb-faq·.mb-row·.mb-press-card·.mb-toast·[data-mb-reveal]. class(표시)를 붙인 곳에만 적용된다.
    색·톤을 바꾸려면 이 파일만 고치고 회사홈(kangdaejong-com)만 배포한다. 다른 곳에 색 값이나 --tone-* 정의를 복사하지 않는다 —
    각 저장소의 palette-copies 검사가 막는다. 그림 생성기는 같은 원본에서 빌드 때 만든 tokens.json 을 읽는다. */
 :root {
@@ -59,6 +59,8 @@
   --tone-underline-offset: 4px; /* 글 링크 밑줄 간격 */
   --tone-press-scale: 0.98; /* 누를 때 살짝 작아짐 */
   --tone-press-ms: 100ms; /* 누름·색 전환 시간 */
+  --tone-reveal-ms: 400ms; /* 카드가 아래에서 올라오며 나타나는 시간·토스트가 뜨고 지는 시간 (T-261025-009) */
+  --tone-reveal-step: 80ms; /* 함께 들어온 카드끼리의 시간차(스태거) */
   --bg: #ffffff;
   --bg-elev: #f5f6f8;
   --bg-elev2: #eceef1;
@@ -225,6 +227,8 @@ mb-footer {
 }
 .mb-link.mb-link:hover, .mb-link.mb-link:focus-visible { color: var(--accent-hover); }
 .mb-card .mb-link.mb-link { color: var(--accent-hover); }
+/* 글 링크 모양의 버튼(예: 「주소 복사」) — 버튼 기본 바탕·테두리를 지운다. */
+button.mb-link.mb-link { padding: 0; border: 0; background: none; cursor: pointer; }
 /* 입력(첫이름 .field): 라벨 15/22 굵게, 칸 56px 회색 면·투명 2px 테두리, 초점이면 파란 테두리. */
 .mb-field { display: flex; flex-direction: column; gap: var(--tone-space-1); margin: 0 0 var(--tone-space-3); }
 .mb-label.mb-label { margin: 0; color: var(--fg); font: var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); }
@@ -317,3 +321,49 @@ mb-footer {
 .mb-row.mb-row { display: flex; justify-content: space-between; gap: var(--tone-space-3); padding-block: var(--tone-space-3); border-top: 1px solid var(--border); color: var(--fg); font-size: var(--tone-label-size); }
 .mb-row.mb-row > span:first-child, .mb-row.mb-row > dt { color: var(--fg-dim); flex-shrink: 0; }
 .mb-row.mb-row > b, .mb-row.mb-row > dd { margin: 0; text-align: right; font-weight: var(--tone-weight-bold); }
+/* 누르는 카드(T-261025-009, 인사이트 「UI 용어 24가지」의 호버 이펙트·마이크로 인터랙션): 링크가 하나뿐인 카드 전체를 누르는 곳으로 만든다.
+   카드에 .mb-press-card, 그 하나뿐인 링크에 .mb-press-target 을 단다 — 링크의 ::after 가 카드 전체를 덮어서 카드 어디를 눌러도 그 링크로 간다.
+   올리면 회색이 한 단계 진해지고(--bg-elev2), 누르는 동안 버튼처럼 0.98 로 작아진다. 키보드 초점은 카드 테두리 전체에 그린다. 동작 줄이기면 크기는 그대로다.
+   링크가 여러 개인 카드에는 달지 않는다(덮개가 다른 링크를 가린다). */
+.mb-press-card { position: relative; transition: transform var(--tone-press-ms) linear, background-color var(--tone-press-ms) linear; }
+.mb-press-card .mb-press-target::after { content: ""; position: absolute; inset: 0; border-radius: var(--tone-radius-card); }
+.mb-press-card .mb-press-target:focus-visible { outline: none; }
+.mb-press-card .mb-press-target:focus-visible::after { outline: var(--tone-focus-width) solid var(--accent); outline-offset: var(--tone-focus-offset); }
+@media (hover: hover) { .mb-press-card.mb-press-card:hover { background: var(--bg-elev2); } }
+.mb-press-card.mb-press-card:active { transform: scale(var(--tone-press-scale)); }
+/* 토스트(T-261025-009): 화면 아래 가운데에 3초 떴다가 사라지는 알림. mb-components.js 가 만들고 글을 넣는다(role="status" 라 화면 읽기에도 들린다). */
+.mb-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--tone-space-5) + env(safe-area-inset-bottom, 0px));
+  z-index: 90;
+  box-sizing: border-box;
+  width: max-content;
+  max-width: calc(100% - var(--tone-gutter) * 2);
+  padding: var(--tone-space-2) var(--tone-control-padding);
+  border-radius: var(--tone-radius-control);
+  background: var(--fg);
+  color: var(--bg);
+  font: var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font);
+  letter-spacing: normal;
+  text-align: center;
+  word-break: keep-all;
+  box-shadow: var(--shadow-pop);
+  transform: translateX(-50%);
+  transition: opacity var(--tone-reveal-ms) ease-out, transform var(--tone-reveal-ms) ease-out;
+}
+.mb-toast[hidden] { display: none; }
+.mb-toast.is-leaving { opacity: 0; transform: translate(-50%, var(--tone-space-2)); }
+/* 스크롤 리빌 + 스태거(T-261025-009): data-mb-reveal 을 단 묶음의 카드가 화면에 들어올 때 아래에서 살짝 올라오며 나타나고,
+   한 번에 들어온 카드끼리는 --tone-reveal-step 간격으로 차례로 나온다. 숨기는 일은 mb-components.js 가 html 에 mb-reveal-on 을 붙인 뒤에만 한다 —
+   스크립트가 없거나, 동작 줄이기 설정이거나, 자동화 브라우저(배포 검사·화면 캡처)면 처음부터 다 보인다. 첫 화면에 이미 보이던 카드(.is-static)는 숨기지 않는다. */
+@keyframes mb-reveal { from { opacity: 0; transform: translateY(var(--tone-space-2)); } }
+@media (prefers-reduced-motion: no-preference) {
+  .mb-reveal-on [data-mb-reveal] > :not(.is-revealed, .is-static) { opacity: 0; }
+  .mb-reveal-on [data-mb-reveal] > .is-revealed { animation: mb-reveal var(--tone-reveal-ms) ease-out backwards; animation-delay: calc(var(--mb-reveal-index, 0) * var(--tone-reveal-step)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mb-press-card.mb-press-card { transition: none; }
+  .mb-press-card.mb-press-card:active { transform: none; }
+  .mb-toast { transition: none; }
+}

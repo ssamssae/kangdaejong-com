@@ -224,3 +224,15 @@
 - 홈 공개 채널 배너(`SocialBanner`)의 초소 카드, 공통 둘러보기(`public/mb-components.js`)의 「초소」·「운영 정의」, `/system/`의 「초소 둘러보기」·「운영 정의 읽기」 링크를 제거했다. 공통 헤더를 쓰는 작업장·founder 화면도 배포 뒤 같이 바뀐다. 쓰지 않게 된 EN 사전 항목도 지웠다.
 - 확인: 홈 배너 11개 채널, 둘러보기 13개 링크, `/system/` 본문에 초소 링크 없음. `npm run verify:shared-header`의 「retired choso menu stays absent」와 `tests/header-navigation.spec.mjs`·`tests/social-banner.spec.mjs`·`tests/site-renewal.spec.mjs`가 재유입을 막는다.
 - 남긴 것: 옛 `/#choso` 주소용 앵커 별칭, `public/brand/sites.json`의 초소 exception 기록, 작업장 글 속 초소 언급(링크 아님).
+
+## 누르는 카드·메일 주소 복사·스크롤 리빌 — T-261025-009
+
+- 출발: 인사이트 「바이브코더 필수 UI 용어 24가지」(2026-10-25)에서 고른 추천 1~3(대종님 「추천1~4 진행해줘」). 모양은 공용 톤 파일 `public/brand/current/tokens.css`(`.mb-press-card`·`.mb-toast`·`[data-mb-reveal]`, 시간 `--tone-reveal-ms` 400ms·`--tone-reveal-step` 80ms), 동작은 공용 머리글 파일 `public/mb-components.js`(`data-mb-copy-email`·`data-mb-reveal`)다. 회사 홈 배포 한 번으로 4면이 같은 부품을 쓸 수 있다.
+- 진입점: `https://kangdaejong.com/` 로그인 없이.
+- 조작·기대
+  1. 「만드는 도구」에서 링크가 하나뿐인 카드(텔레그램 브릿지·입타·자비스·복붙 정리기)의 아무 곳이나 누른다 → 그 카드의 링크로 간다. PC 에서 올리면 회색이 한 단계 진해지고(`--bg-elev2`), 누르는 동안 0.98 로 작아진다. 키보드 초점은 카드 테두리 전체에 그린다. 링크가 여러 개인 첫이름·앱 카드는 그대로다(대표 링크를 정하면 같은 부품을 달 수 있다).
+  2. 「이야기를 나눠요」의 「주소 복사」를 누른다 → 클립보드에 `minusbetastudio@gmail.com`, 화면 아래 토스트 「메일 주소를 복사했어요」가 3초 뒤 사라진다. 영어 화면은 「Copy address」·「Email address copied」. 복사가 막히면 「복사하지 못했어요. 이메일 보내기를 눌러 주세요」. Cloudflare 가 가린 mailto(`/cdn-cgi/l/email-protection#…`)도 풀어서 복사한다.
+  3. 휴대전화에서 아래로 내린다 → 화면 밖에 있던 카드(도구·앱·전자책)가 들어올 때 아래에서 살짝 올라오며 나타나고, 함께 들어온 카드는 0.08초 간격으로 차례로 나온다. 첫 화면에 이미 보이던 카드는 그대로다.
+- 효과·승인 경계: 읽기 전용(복사는 방문자 클립보드에만 쓴다). 동작 줄이기 설정·자동화 브라우저(`navigator.webdriver`)에서는 리빌을 하지 않는다 — 배포 뒤 화면 검사·전체 화면 캡처가 화면 밖 카드를 빈 칸으로 찍지 않게. 리빌을 시험할 때만 `navigator.webdriver` 를 끈다.
+- 자동 근거: `tests/home-ui-interactions.spec.mjs`(12개). 2026-10-25 제우스 로컬 실측(Playwright 내장 크로미움 1228) — 전체 브라우저 시험 127개 중 123개 통과, 실패 4개(`digital-products` 2개, `one-page`·`site-renewal` 의 「브릿지 4개」 기대)는 origin/main 1e8e1ef 에서도 똑같이 실패하는 기존 실패다. `npm run verify:shared-header`·`verify:shared-footer`·`verify:dark-cards`·`verify:palette-copies`(직접 숫자 652 ≤ 기준선 652)·`verify:tone-pairs`·`test:site-release`·`live.mjs --candidate`(대상 1,075·미확인 0) 통과. 대표소개(ssamssae.github.io)도 같은 `data-mb-copy-email` 을 쓴다.
+- 미확인·갱신 조건: 공개 배포 뒤 실제 화면·클립보드는 배포 뒤 다시 확인한다.

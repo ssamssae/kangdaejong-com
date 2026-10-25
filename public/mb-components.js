@@ -1,4 +1,5 @@
-/* 마이너스베타스튜디오 공통 헤더/푸터 — 회사 홈과 founder가 함께 쓰는 정본. */
+/* 마이너스베타스튜디오 공통 헤더/푸터 — 회사 홈과 founder가 함께 쓰는 정본.
+   T-261025-009: 4면이 같이 쓰는 작은 동작 두 가지(메일 주소 복사 + 토스트, 스크롤 리빌)도 여기 둔다 — 모양은 tokens.css 의 .mb-toast·[data-mb-reveal]. */
 (function () {
   const BADGE = 'https://kangdaejong.com/brand/current/logo.svg';
   const BRAND_HREF = 'https://kangdaejong.com/';
@@ -241,4 +242,90 @@
 
   if (!customElements.get('mb-header')) customElements.define('mb-header', MbHeader);
   if (!customElements.get('mb-footer')) customElements.define('mb-footer', MbFooter);
+
+  // T-261025-009 ① 메일 주소 복사 + 토스트 — 페이지는 <button data-mb-copy-email="메일 링크 선택자"> 만 단다.
+  //   주소는 그 링크의 href 에서 읽는다. Cloudflare 가 공개 페이지의 mailto 를 /cdn-cgi/l/email-protection#… 으로 가리면 같은 규칙(첫 바이트와 XOR)으로 푼다.
+  //   토스트 글은 한국어로 넣는다 — 영어 화면에서는 각 사이트의 언어 전환(lang-toggle)이 새로 생긴 글을 사전으로 바꾼다.
+  const COPY_DONE = '메일 주소를 복사했어요';
+  const COPY_FAILED = '복사하지 못했어요. 이메일 보내기를 눌러 주세요';
+  const TOAST_MS = 3000;
+  const emailFromHref = (href) => {
+    if (href.startsWith('mailto:')) return decodeURIComponent(href.slice('mailto:'.length).split('?')[0]);
+    const hex = href.split('/cdn-cgi/l/email-protection#')[1] || '';
+    if (!/^(?:[0-9a-f]{2}){2,}$/i.test(hex)) return '';
+    const key = parseInt(hex.slice(0, 2), 16);
+    let email = '';
+    for (let i = 2; i < hex.length; i += 2) email += String.fromCharCode(parseInt(hex.slice(i, i + 2), 16) ^ key);
+    return email;
+  };
+  const copyText = async (text) => {
+    try { await navigator.clipboard.writeText(text); return true; } catch { /* 권한이 없거나 http 면 옛 방식으로 */ }
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    document.body.append(area);
+    area.select();
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch { copied = false; }
+    area.remove();
+    return copied;
+  };
+  let toast = null;
+  let toastTimer = 0;
+  const toneMs = (name) => parseFloat(getComputedStyle(document.documentElement).getPropertyValue(name)) || 0;
+  const showToast = (message) => {
+    if (!toast) {
+      toast = document.createElement('div');
+      toast.className = 'mb-toast';
+      toast.setAttribute('role', 'status');
+      toast.setAttribute('aria-live', 'polite');
+      toast.hidden = true;
+      document.body.append(toast);
+    }
+    clearTimeout(toastTimer);
+    toast.classList.add('is-leaving');
+    toast.hidden = false;
+    toast.textContent = message;
+    void toast.offsetWidth; // 숨김 → 보임 사이에 한 번 그려야 올라오는 전환이 보인다.
+    toast.classList.remove('is-leaving');
+    toastTimer = setTimeout(() => {
+      toast.classList.add('is-leaving');
+      toastTimer = setTimeout(() => { toast.hidden = true; }, toneMs('--tone-reveal-ms'));
+    }, TOAST_MS);
+  };
+  document.addEventListener('click', async (event) => {
+    const button = event.target instanceof Element ? event.target.closest('[data-mb-copy-email]') : null;
+    if (!button) return;
+    let email = '';
+    try { email = emailFromHref(document.querySelector(button.getAttribute('data-mb-copy-email'))?.getAttribute('href') || ''); } catch { email = ''; }
+    showToast(email && await copyText(email) ? COPY_DONE : COPY_FAILED);
+  });
+
+  // T-261025-009 ② 스크롤 리빌 + 스태거 — 묶음에 data-mb-reveal 을 달면 그 안의 카드가 화면에 들어올 때 차례로 나타난다.
+  //   첫 화면에 이미 보이는 카드는 그대로 둔다(.is-static). 동작 줄이기 설정·IntersectionObserver 가 없는 브라우저·
+  //   자동화 브라우저(navigator.webdriver — 배포 뒤 화면 검사·전체 화면 캡처가 화면 밖 카드를 빈 칸으로 찍지 않게)에서는 아무것도 숨기지 않는다.
+  const REVEAL_STEPS = 5; // 한 번에 들어온 카드가 많아도 마지막 카드가 너무 늦게 나오지 않게 시간차는 다섯 칸까지.
+  const startReveal = () => {
+    try {
+      const groups = document.querySelectorAll('[data-mb-reveal]');
+      if (!groups.length || navigator.webdriver || typeof IntersectionObserver !== 'function' || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const observer = new IntersectionObserver((entries) => {
+        entries.filter((entry) => entry.isIntersecting).map((entry) => entry.target)
+          .sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1))
+          .forEach((item, index) => {
+            item.style.setProperty('--mb-reveal-index', String(Math.min(index, REVEAL_STEPS)));
+            item.classList.add('is-revealed');
+            observer.unobserve(item);
+          });
+      }, { rootMargin: '0px 0px -8% 0px' });
+      for (const group of groups) for (const item of group.children) {
+        if (item.getBoundingClientRect().top < innerHeight) item.classList.add('is-static');
+        else observer.observe(item);
+      }
+      document.documentElement.classList.add('mb-reveal-on');
+    } catch { /* 리빌이 실패해도 카드는 그대로 보인다 — 숨기는 class(mb-reveal-on)는 마지막에 붙는다. */ }
+  };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', startReveal, { once: true });
+  else startReveal();
 })();
