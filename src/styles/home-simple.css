@@ -30,29 +30,29 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .project-visual{display:block;width:220px;height:220px;flex:0 0 220px;border-radius:var(--tone-radius-control);background:var(--bg-elev2)}
 .simple-home .project-body{display:flex;flex-direction:column;align-items:flex-start;align-self:stretch;min-width:0}
 .simple-home .project-top{display:flex;align-items:center;justify-content:space-between;width:100%;gap:var(--tone-space-1);margin-bottom:var(--tone-space-2)}
-.simple-home .project-mark{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:var(--tone-radius-control);background:var(--bg);font-size:27px;font-family:system-ui;color:var(--accent)}
+.simple-home .project-mark{width:40px;height:40px;display:grid;place-items:center;border:0;border-radius:var(--tone-radius-control);background:var(--bg);font-size:27px;font-family:system-ui;color:var(--accent)} /* tone:fixed: 프로젝트 표식 글자 크기(그림 의장) */
 .simple-home .project-icon{border-radius:var(--tone-radius-control)}
 .simple-home :is(.project-card,.project-body)>h3{margin:0 0 var(--tone-space-1)}
 .simple-home :is(.project-card,.project-body)>p{color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line);word-break:keep-all;max-width:var(--tone-prose-max)}
-.simple-home :is(.project-card,.project-body)>a,.simple-home .text-tool-card>a,.simple-home .bridge-links a,.simple-home .book-action{display:inline-flex;align-items:center;gap:4px;min-height:var(--tone-tap-height);margin-top:auto;padding-top:var(--tone-space-2);color:var(--accent-hover);font:var(--tone-weight-bold) var(--tone-label-size)/var(--tone-body-line) var(--tone-font);text-decoration:underline;text-underline-offset:var(--tone-underline-offset)}
+.simple-home :is(.project-card,.project-body)>a,.simple-home .text-tool-card>a,.simple-home .bridge-links a,.simple-home .book-action{display:inline-flex;align-items:center;gap:4px;min-height:var(--tone-tap-height);margin-top:auto;padding-top:var(--tone-space-2);color:var(--accent-hover);font:var(--tone-weight-bold) var(--tone-label-size)/var(--tone-body-line) var(--tone-font);text-decoration:underline;text-underline-offset:var(--tone-underline-offset)} /* tone:fixed: 글자·화살표 미세 간격 4px(의장) */
 .simple-home .text-tool-card{grid-column:1 / -1;flex-direction:row;align-items:center;gap:var(--tone-space-3)}
 .simple-home .text-tool-card .project-mark{flex:0 0 40px}
 .simple-home .text-tool-card .project-body{flex:1;align-self:center}
 .simple-home .text-tool-card .project-note{margin-bottom:var(--tone-space-1)}
 .simple-home .text-tool-card>a{margin-top:0;padding-top:0;white-space:nowrap}
-.simple-home .service-sublinks{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:var(--tone-caption-size)}
-.simple-home .service-sublinks a{display:inline-flex;align-items:center;gap:4px;min-height:36px;color:var(--accent-hover)}
+.simple-home .service-sublinks{display:flex;flex-wrap:wrap;gap:var(--tone-space-1) var(--tone-space-3);margin-top:var(--tone-space-1);font-size:var(--tone-caption-size)}
+.simple-home .service-sublinks a{display:inline-flex;align-items:center;gap:4px;min-height:var(--tone-tap-height);color:var(--accent-hover)} /* tone:fixed: 글자·화살표 미세 간격 4px(의장) */
 /* 접는 설치 안내(첫이름 landing .faq-item): 회색 둥근 면, 56px 제목 줄, 오른쪽 꺾쇠. */
 .simple-home details>summary{cursor:pointer;list-style:none}
 .simple-home details>summary::-webkit-details-marker{display:none}
-.simple-home .bridge-details{margin-top:var(--tone-space-3);padding:4px var(--tone-card-padding);border:0;border-radius:var(--tone-radius-card);background:var(--bg-elev);font-size:var(--tone-body-size)}
+.simple-home .bridge-details{margin-top:var(--tone-space-3);padding:4px var(--tone-card-padding);border:0;border-radius:var(--tone-radius-card);background:var(--bg-elev);font-size:var(--tone-body-size)} /* tone:fixed: 접는 상자 위아래 미세 안쪽 4px(의장) */
 .simple-home .bridge-details>summary,.simple-home .pause-details>summary{display:flex;align-items:center;gap:var(--tone-space-2);flex-wrap:wrap;position:relative;min-height:var(--tone-control-height);padding:var(--tone-space-3) var(--tone-space-5) var(--tone-space-3) 0;font:var(--tone-weight-bold) var(--tone-body-size)/var(--tone-body-line) var(--tone-font)}
 .simple-home .bridge-details>summary::after,.simple-home .pause-details>summary::after{content:"";position:absolute;right:4px;top:22px;width:10px;height:10px;border-right:var(--tone-input-border) solid var(--fg-dim);border-bottom:var(--tone-input-border) solid var(--fg-dim);transform:rotate(45deg)}
 .simple-home .bridge-details[open]>summary::after,.simple-home .pause-details[open]>summary::after{transform:rotate(225deg);top:26px}
 .simple-home .bridge-details>summary span{margin-left:auto;color:var(--fg-dim);font:var(--tone-weight) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font)}
 .simple-home .bridge-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--tone-space-1) var(--tone-space-4);padding:var(--tone-space-2) 0 var(--tone-space-4);border-top:1px solid var(--border)}
 .simple-home .bridge-links>div{display:flex;align-items:center;gap:var(--tone-space-2);min-height:var(--tone-tap-height);font-size:var(--tone-label-size)}
-.simple-home .bridge-tile{width:24px;height:24px;border-radius:6px;flex:0 0 24px}
+.simple-home .bridge-tile{width:24px;height:24px;border-radius:6px;flex:0 0 24px} /* tone:fixed: 작은 아이콘 타일 모서리(그림 의장) */
 .simple-home .bridge-links strong{margin-right:auto}
 .simple-home .bridge-links a{margin-top:0;padding-top:0}
 .simple-home .bridge-details video{display:block;max-width:100%;height:auto;max-height:380px;margin:auto;border-radius:var(--tone-radius-control);background:var(--bg-elev2)}
@@ -91,7 +91,7 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 /* T-261025-009: 「이메일 보내기」 옆 「주소 복사」(누르면 토스트). PC 는 나란히, 650px 이하는 위아래로 꽉 차게. */
 .simple-home .contact-actions{display:flex;flex:none;gap:var(--tone-space-1)}
 .simple-home .contact-email,.simple-home .contact-copy{white-space:nowrap;flex:none}
-.simple-home .pause-details{margin-top:var(--tone-space-4);padding:4px var(--tone-card-padding);border:0;border-radius:var(--tone-radius-card);background:var(--bg-elev)}
+.simple-home .pause-details{margin-top:var(--tone-space-4);padding:4px var(--tone-card-padding);border:0;border-radius:var(--tone-radius-card);background:var(--bg-elev)} /* tone:fixed: 접는 상자 위아래 미세 안쪽 4px(의장) */
 .simple-home .pause-details>summary{justify-content:space-between}
 .simple-home .anchor-alias{display:block;scroll-margin-top:var(--tone-space-4)}
 @media(min-width:900px){
@@ -104,17 +104,17 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .desktop-break{display:none}
 .simple-home .project-grid{grid-template-columns:1fr}
 .simple-home .project-card.featured{flex-direction:column;align-items:flex-start;gap:var(--tone-space-3)}
-.simple-home .project-visual{width:100%;max-width:260px;height:auto;flex:none}
+.simple-home .project-visual{width:100%;max-width:260px;height:auto;flex:none} /* tone:fixed: 프로젝트 그림 최대 폭(그림) */
 .simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--tone-space-2) var(--tone-space-3)}
 .simple-home .text-tool-card>a{grid-column:2;white-space:normal}
 .simple-home .text-tool-card .project-mark{align-self:start}
 .simple-home .bridge-details>summary span{display:none}
 .simple-home .bridge-links{grid-template-columns:1fr}
-.simple-home .service-row>span:first-child{flex-direction:column;align-items:flex-start;gap:2px}
+.simple-home .service-row>span:first-child{flex-direction:column;align-items:flex-start;gap:2px} /* tone:fixed: 두 줄 글자 미세 간격 2px(의장) */
 .simple-home .app-grid{grid-template-columns:1fr}
 .simple-home .book-item{flex-direction:column;align-items:stretch}
 .simple-home .book-row{display:grid;grid-template-columns:auto minmax(0,1fr);gap:var(--tone-space-1) var(--tone-space-2);align-items:start}
-.simple-home .book-number{padding-top:4px}
+.simple-home .book-number{padding-top:4px} /* tone:fixed: 숫자 광학 정렬 미세 안쪽 4px(의장) */
 .simple-home .book-action{grid-column:2;margin-left:0}
 .simple-home .book-download{width:100%}
 .simple-home .contact-heading{display:block}
@@ -122,5 +122,5 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .contact-actions .mb-btn{display:flex;width:100%}
 }
 @media(max-width:360px){.simple-home .project-visual{max-width:100%}.simple-home .store-links a{padding:0 var(--tone-space-1)}}
-@media(max-width:720px){.simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--tone-space-2) var(--tone-space-3)}.simple-home .text-tool-card>a{grid-column:2;padding-top:0;gap:var(--tone-space-3)}.simple-home .text-tool-card .project-mark{align-self:start}.simple-home .service-sublinks a{min-height:44px}}
+@media(max-width:720px){.simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--tone-space-2) var(--tone-space-3)}.simple-home .text-tool-card>a{grid-column:2;padding-top:0;gap:var(--tone-space-3)}.simple-home .text-tool-card .project-mark{align-self:start}.simple-home .service-sublinks a{min-height:var(--tone-tap-height)}}
 @media(prefers-reduced-motion:reduce){html:has(.simple-home){scroll-behavior:auto}.simple-home *{scroll-behavior:auto!important}}
