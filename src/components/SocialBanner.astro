@@ -43,7 +43,7 @@ const channels = [
   .social-mark { display: grid; place-items: center; flex: 0 0 40px; height: 40px; border-radius: var(--tone-radius-control); background: var(--channel-tint); color: var(--channel-color); font: var(--tone-weight-bold) var(--tone-subtitle-size)/1 system-ui, sans-serif; }
   .social-copy { min-width: 0; }
   .social-copy strong { display: block; font-size: var(--tone-label-size); line-height: var(--tone-label-line); }
-  .social-copy > span { display: block; margin-top: 2px; font-size: var(--tone-caption-size); line-height: var(--tone-caption-line); color: var(--fg-dim); word-break: keep-all; }
+  .social-copy > span { display: block; margin-top: 2px; font-size: var(--tone-caption-size); line-height: var(--tone-caption-line); color: var(--fg-dim); word-break: keep-all; } /* tone:fixed: 두 줄 글자 미세 간격 2px(의장) */
   .social-arrow { margin-left: auto; color: var(--fg-dim); font-size: var(--tone-label-size); }
   @media (max-width: 1000px) { .social-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 640px) {
@@ -56,7 +56,7 @@ const channels = [
   .compact { border: 0; padding: 0; }
   .compact .social-heading { display: none; }
   .compact .social-grid { display: flex; flex-wrap: wrap; gap: var(--tone-space-1) var(--tone-space-3); }
-  .compact .social-card { border: 0; border-radius: 0; background: none; min-height: var(--tone-tap-height); padding: 0; gap: 4px; color: var(--fg); font: var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); }
+  .compact .social-card { border: 0; border-radius: 0; background: none; min-height: var(--tone-tap-height); padding: 0; gap: 4px; color: var(--fg); font: var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); } /* tone:fixed: 아이콘·글자 미세 간격 4px(의장) */
   .compact .social-card:hover { color: var(--accent-hover); background: none; }
   .compact .social-mark, .compact .social-copy > span { display: none; }
   .compact .social-copy strong { font-size: var(--tone-label-size); line-height: var(--tone-label-line); font-weight: var(--tone-weight-bold); }

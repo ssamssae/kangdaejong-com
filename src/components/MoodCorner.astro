@@ -150,7 +150,7 @@ const moods = [
   .mood-scene { position: relative; height: 250px; overflow: hidden; border-radius: var(--tone-radius-card); background: var(--mood-sky); color: var(--mood-ink); transition: background-color 700ms, color 700ms; }
   .mood-scene svg { display: block; width: 100%; height: 100%; }
   .mood-scene-label { position: absolute; top: var(--tone-space-3); left: var(--tone-space-3); font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); }
-  .mood-signature { position: absolute; right: 20px; bottom: 17px; font-family: Georgia, serif; font-style: italic; font-size: 12px; color: #fffdf6; }
+  .mood-signature { position: absolute; right: 20px; bottom: 17px; font-family: Georgia, serif; font-style: italic; font-size: 12px; color: #fffdf6; } /* tone:fixed: 그림 위 서명 글자(그림 의장) */
   .mood-orb { animation: mood-drift var(--mood-speed) ease-in-out infinite alternate; }
   .mood-halo { fill: var(--mood-orb); opacity: .12; }
   .mood-sun { fill: var(--mood-orb); }
@@ -167,7 +167,7 @@ const moods = [
   @keyframes mood-drift { from { transform: translate(-8px, 8px); } to { transform: translate(16px, -24px); } }
   @keyframes mood-water { from { transform: translateX(-36px); } to { transform: translateX(36px); } }
   @media (max-width: 900px) {
-    .mood-options { max-width: 260px; }
+    .mood-options { max-width: 260px; } /* tone:fixed: 선택지 상자 폭(편집 의장) */
   }
   @media (max-width: 620px) {
     .mood-corner { grid-template-columns: 1fr; gap: var(--tone-space-3); }
