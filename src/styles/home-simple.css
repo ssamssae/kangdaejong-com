@@ -88,7 +88,9 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 /* 연락(첫이름 landing 마지막 구역 + trust-footer 링크 줄). */
 .simple-home .contact-heading{display:flex;justify-content:space-between;align-items:center;gap:var(--tone-space-3);margin-bottom:var(--tone-space-4)}
 .simple-home .contact-heading p{margin-top:var(--tone-space-2);color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line)}
-.simple-home .contact-email{white-space:nowrap;flex:none}
+/* T-261025-009: 「이메일 보내기」 옆 「주소 복사」(누르면 토스트). PC 는 나란히, 650px 이하는 위아래로 꽉 차게. */
+.simple-home .contact-actions{display:flex;flex:none;gap:var(--tone-space-1)}
+.simple-home .contact-email,.simple-home .contact-copy{white-space:nowrap;flex:none}
 .simple-home .pause-details{margin-top:var(--tone-space-4);padding:4px var(--tone-card-padding);border:0;border-radius:var(--tone-radius-card);background:var(--bg-elev)}
 .simple-home .pause-details>summary{justify-content:space-between}
 .simple-home .anchor-alias{display:block;scroll-margin-top:var(--tone-space-4)}
@@ -116,7 +118,8 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .book-action{grid-column:2;margin-left:0}
 .simple-home .book-download{width:100%}
 .simple-home .contact-heading{display:block}
-.simple-home .contact-email{display:flex;width:100%;margin-top:var(--tone-space-3)}
+.simple-home .contact-actions{flex-direction:column;margin-top:var(--tone-space-3)}
+.simple-home .contact-actions .mb-btn{display:flex;width:100%}
 }
 @media(max-width:360px){.simple-home .project-visual{max-width:100%}.simple-home .store-links a{padding:0 var(--tone-space-1)}}
 @media(max-width:720px){.simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--tone-space-2) var(--tone-space-3)}.simple-home .text-tool-card>a{grid-column:2;padding-top:0;gap:var(--tone-space-3)}.simple-home .text-tool-card .project-mark{align-self:start}.simple-home .service-sublinks a{min-height:44px}}

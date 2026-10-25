@@ -46,24 +46,25 @@ const jsonLd = {
     </section>
     <section id="projects" class="home-section" aria-labelledby="projects-title">
       <div class="section-title"><h2 id="projects-title">만드는 도구</h2><span>일하는 방식을 조금 더 편하게</span></div>
-      <div class="project-grid">{projects.map(project => project.visual ? <article class="project-card featured">
+      {/* T-261025-009: 링크가 하나뿐인 카드(브릿지·입타·자비스·복붙 정리기)는 카드 전체가 그 링크다(공용 부품 .mb-press-card). 링크가 여러 개인 첫이름은 그대로 둔다. 카드 묶음은 화면에 들어올 때 차례로 나타난다(data-mb-reveal). */}
+      <div class="project-grid" data-mb-reveal>{projects.map(project => project.visual ? <article class="project-card featured mb-press-card">
         <img class="project-visual" src={project.visual.src} srcset={project.visual.srcset} sizes="(max-width: 650px) 260px, 220px" width="1024" height="1024" alt={project.visual.alt} decoding="async"/>
         <div class="project-body">
           <div class="project-top"><span class="project-note mb-chip">{project.note}</span></div>
-          <h3>{project.name}</h3><p>{project.description}</p><a href={project.href}>{project.action}<span aria-hidden="true">↗</span></a>
+          <h3>{project.name}</h3><p>{project.description}</p><a class="mb-press-target" href={project.href}>{project.action}<span aria-hidden="true">↗</span></a>
         </div>
-      </article> : <article class="project-card" data-product-id={project.id}>
+      </article> : <article class="project-card mb-press-card" data-product-id={project.id}>
         <div class="project-top">{project.icon ? <img class="project-icon" src={project.icon} srcset={srcsetFor(project)} width="40" height="40" alt="" decoding="async"/> : <span class="project-mark" aria-hidden="true">{project.mark}</span>}<span class="project-note mb-chip">{project.note}</span></div>
-        <h3>{project.name}</h3><p>{project.description}</p><a href={project.href}>{project.action}<span aria-hidden="true">↗</span></a>
+        <h3>{project.name}</h3><p>{project.description}</p><a class="mb-press-target" href={project.href}>{project.action}<span aria-hidden="true">↗</span></a>
       </article>)}
-        <article class="project-card text-tool-card">
+        <article class="project-card text-tool-card mb-press-card">
           <span class="project-mark" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M5 6h14M5 12h9M5 18h14"/></svg></span>
           <div class="project-body">
             <span class="project-note mb-chip">설치 없이 · PC/휴대전화</span>
             <h3>복붙 정리기</h3>
             <p>복사한 글의 불필요한 공백과 줄바꿈을 정리해요.</p>
           </div>
-          <a href="/tools/text/">글 정리하기<span aria-hidden="true">→</span></a>
+          <a class="mb-press-target" href="/tools/text/">글 정리하기<span aria-hidden="true">→</span></a>
         </article>
         <article class="project-card text-tool-card web-service-card" data-product-id="cheotireum">
           <span class="project-mark" aria-hidden="true">첫</span>
@@ -89,15 +90,15 @@ const jsonLd = {
     <section id="products" class="home-section" aria-labelledby="apps-title">
       <span id="everyday" class="anchor-alias"></span>
       <div class="section-title"><h2 id="apps-title">생활에 가까운 앱</h2><span>필요할 때 가볍게 꺼내 쓰세요</span></div>
-      <div class="app-grid">{apps.map(app => <article class="app-row" data-product-id={app.id}>{app.icon ? <img src={app.icon} srcset={srcsetFor(app)} alt="" width="48" height="48" loading="lazy" decoding="async"/> : <span class="app-letter" aria-hidden="true">{app.name.slice(0,1)}</span>}<div><h3>{app.name}</h3><p>{app.description}</p><div class="store-links">{app.appId && <a href={`https://apps.apple.com/kr/app/id${app.appId}`} aria-label={`${app.name} App Store`}>App Store ↗</a>}{app.package && <a href={`https://play.google.com/store/apps/details?id=${app.package}`} aria-label={`${app.name} Google Play`}>Google Play ↗</a>}{(app.support || appSupport[app.id]) && <a href={app.support || `/apps/${appSupport[app.id].slug}/`} aria-label={`${app.name} 앱 안내와 지원`}>앱 안내·지원 ↗</a>}{app.storeNote && <span class="app-status">{app.storeNote}</span>}{app.status && <span class="app-status">{app.status}</span>}</div></div></article>)}</div>
+      <div class="app-grid" data-mb-reveal>{apps.map(app => <article class="app-row" data-product-id={app.id}>{app.icon ? <img src={app.icon} srcset={srcsetFor(app)} alt="" width="48" height="48" loading="lazy" decoding="async"/> : <span class="app-letter" aria-hidden="true">{app.name.slice(0,1)}</span>}<div><h3>{app.name}</h3><p>{app.description}</p><div class="store-links">{app.appId && <a href={`https://apps.apple.com/kr/app/id${app.appId}`} aria-label={`${app.name} App Store`}>App Store ↗</a>}{app.package && <a href={`https://play.google.com/store/apps/details?id=${app.package}`} aria-label={`${app.name} Google Play`}>Google Play ↗</a>}{(app.support || appSupport[app.id]) && <a href={app.support || `/apps/${appSupport[app.id].slug}/`} aria-label={`${app.name} 앱 안내와 지원`}>앱 안내·지원 ↗</a>}{app.storeNote && <span class="app-status">{app.storeNote}</span>}{app.status && <span class="app-status">{app.status}</span>}</div></div></article>)}</div>
     </section>
     <section id="books" class="home-section" aria-labelledby="books-title">
       <div class="section-title"><h2 id="books-title">만들며 배운 것</h2><span class="section-note">전자책 3권 · PDF 무료 공개</span></div>
-      <div class="book-list">{books.map((book,index) => <div class="book-item mb-card"><a class="book-row" href={book.file} target="_blank" rel="noopener" type="application/pdf"><span class="book-number">0{index+1}</span><span><strong>{book.name}</strong><span>{book.description}</span></span><span class="book-action">무료로 읽기 ↗ · PDF {book.pages}쪽</span></a><a class="book-download mb-btn mb-btn--secondary" href={book.file} download={book.file.split('/').pop()} type="application/pdf" aria-label={`${book.name} PDF 다운로드`}>PDF 다운로드<span aria-hidden="true"> ⤓</span></a></div>)}</div>
+      <div class="book-list" data-mb-reveal>{books.map((book,index) => <div class="book-item mb-card"><a class="book-row" href={book.file} target="_blank" rel="noopener" type="application/pdf"><span class="book-number">0{index+1}</span><span><strong>{book.name}</strong><span>{book.description}</span></span><span class="book-action">무료로 읽기 ↗ · PDF {book.pages}쪽</span></a><a class="book-download mb-btn mb-btn--secondary" href={book.file} download={book.file.split('/').pop()} type="application/pdf" aria-label={`${book.name} PDF 다운로드`}>PDF 다운로드<span aria-hidden="true"> ⤓</span></a></div>)}</div>
     </section>
     <section id="contact" class="home-section contact-section" aria-labelledby="contact-title">
       <span id="company" class="anchor-alias"></span><span id="choso" class="anchor-alias"></span>
-      <div class="contact-heading"><div><h2 id="contact-title">이야기를 나눠요.</h2><p>궁금한 점이나 하고 싶은 이야기가 있다면.</p></div><a class="contact-email mb-btn mb-btn--primary" href="mailto:minusbetastudio@gmail.com">이메일 보내기 ↗</a></div>
+      <div class="contact-heading"><div><h2 id="contact-title">이야기를 나눠요.</h2><p>궁금한 점이나 하고 싶은 이야기가 있다면.</p></div><div class="contact-actions"><a class="contact-email mb-btn mb-btn--primary" href="mailto:minusbetastudio@gmail.com">이메일 보내기 ↗</a><button class="contact-copy mb-btn mb-btn--secondary" type="button" data-mb-copy-email=".contact-email">주소 복사</button></div></div>
       <SocialBanner compact />
       <details class="pause-details"><summary>잠깐 쉬어가기 <span aria-hidden="true">＋</span></summary><MoodCorner /></details>
     </section>
