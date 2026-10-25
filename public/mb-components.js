@@ -86,7 +86,7 @@
           /* T-261024-050: 첫이름(토스 톤) 헤더 — 높이·글자·간격·모서리는 호스트 문서가 읽는 공용 톤 파일(--tone-*)의 이름만 쓴다. 숫자를 여기 다시 적지 않는다. */
           .header { position:relative; z-index:70; border-bottom:1px solid var(--mb-border); background:var(--mb-bg); font-family:var(--tone-font); }
           .inner { width:min(calc(100% - var(--tone-gutter) * 2),var(--mb-max)); min-height:var(--tone-header-height); margin:0 auto; display:grid; grid-template-columns:1fr auto auto; align-items:center; gap:var(--tone-space-3); }
-          .brand { display:inline-flex; align-items:center; gap:10px; min-height:var(--tone-tap-height); color:var(--mb-fg); font:var(--tone-weight-bold) var(--tone-subtitle-size)/var(--tone-subtitle-line) var(--tone-font); letter-spacing:var(--tone-tracking-title); text-decoration:none; white-space:nowrap; }
+          .brand { display:inline-flex; align-items:center; gap:var(--tone-space-2); min-height:var(--tone-tap-height); color:var(--mb-fg); font:var(--tone-weight-bold) var(--tone-subtitle-size)/var(--tone-subtitle-line) var(--tone-font); letter-spacing:var(--tone-tracking-title); text-decoration:none; white-space:nowrap; }
           .brand img { width:32px; height:32px; display:block; }
           .brand small { display:block; color:var(--mb-dim); font:var(--tone-weight) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); letter-spacing:normal; }
           .links { display:flex; justify-content:center; align-items:center; gap:var(--tone-space-1); min-width:0; white-space:nowrap; }
@@ -97,26 +97,26 @@
           .more-button,.panel-close { display:inline-flex; align-items:center; justify-content:center; min-height:var(--tone-tap-height); padding:0 var(--tone-space-1); border:0; border-radius:var(--tone-radius-control); background:transparent; color:var(--mb-fg); cursor:pointer; font:var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); }
           .more-button:hover,.more-button.active,.more.open .more-button { color:var(--mb-accent); }
           .panel-close { min-width:58px; padding:0 var(--tone-space-2); background:var(--mb-soft); }
-          .chevron { display:inline-block; margin-left:6px; font-size:var(--tone-caption-size); transition:transform .16s ease; }
+          .chevron { display:inline-block; margin-left:var(--tone-space-1); font-size:var(--tone-caption-size); transition:transform .16s ease; }
           .more.open .chevron { transform:rotate(180deg); }
           .more-panel { position:absolute; right:max(var(--tone-gutter),calc((100% - var(--mb-max))/2)); top:calc(100% + var(--tone-space-1)); width:min(780px,calc(100% - var(--tone-gutter) * 2)); padding:var(--tone-card-padding); border:1px solid var(--mb-border); background:var(--mb-bg); border-radius:var(--tone-radius-sheet); box-shadow:0 18px 55px var(--mb-shadow); max-height:calc(100dvh - var(--tone-header-height) * 2); overflow-y:auto; overscroll-behavior:contain; }
           .more-panel[hidden] { display:none; }
           .panel-heading { display:flex; justify-content:space-between; align-items:center; gap:var(--tone-space-3); padding-bottom:var(--tone-space-3); border-bottom:1px solid var(--mb-border); }
           .panel-heading strong { font:var(--tone-weight-bold) var(--tone-subtitle-size)/var(--tone-subtitle-line) var(--tone-font); letter-spacing:var(--tone-tracking-title); }
-          .panel-heading p { margin:4px 0 0; color:var(--mb-dim); font:var(--tone-weight) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); }
+          .panel-heading p { margin:4px 0 0; color:var(--mb-dim); font:var(--tone-weight) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); } /* tone:fixed: 미세 간격(의장) */
           .menu-groups { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:var(--tone-space-4) var(--tone-space-3); padding-top:var(--tone-space-3); }
           .menu-group h2 { margin:0 var(--tone-space-2) var(--tone-space-1); color:var(--mb-dim); font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); letter-spacing:normal; }
           .menu-group a { display:block; min-height:var(--tone-control-height); padding:var(--tone-space-2); border-radius:var(--tone-radius-control); color:var(--mb-fg); text-decoration:none; }
           .menu-group a:hover,.menu-group a.active { background:var(--mb-soft); }
           .menu-group a.active .link-title { color:var(--mb-accent); }
-          .link-title { display:flex; align-items:center; gap:7px; font:var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); }
-          .menu-group small { display:block; margin-top:2px; color:var(--mb-dim); font:var(--tone-weight) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); word-break:keep-all; }
+          .link-title { display:flex; align-items:center; gap:var(--tone-space-1); font:var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); }
+          .menu-group small { display:block; margin-top:2px; color:var(--mb-dim); font:var(--tone-weight) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); word-break:keep-all; } /* tone:fixed: 미세 간격(의장) */
           .external-arrow { color:var(--mb-mute); }
           .current { margin-left:auto; color:var(--mb-accent); font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); white-space:nowrap; }
           .contact { display:inline-flex; min-height:var(--tone-tap-height); align-items:center; justify-content:center; padding:0 var(--tone-space-3); border:0; border-radius:var(--tone-radius-control); background:var(--mb-soft); color:var(--mb-fg); font:var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); text-decoration:none; }
           .contact:hover { color:var(--mb-accent); }
-          .lang { display:inline-flex; align-items:center; gap:2px; padding:3px; border:0; border-radius:var(--tone-radius-pill); background:var(--mb-soft); }
-          .lang-button { min-height:38px; padding:0 var(--tone-space-2); border:0; border-radius:var(--tone-radius-pill); background:transparent; color:var(--mb-dim); cursor:pointer; font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); }
+          .lang { display:inline-flex; align-items:center; gap:2px; padding:3px; border:0; border-radius:var(--tone-radius-pill); background:var(--mb-soft); } /* tone:fixed: 미세 간격(의장) */
+          .lang-button { min-height:38px; padding:0 var(--tone-space-2); border:0; border-radius:var(--tone-radius-pill); background:transparent; color:var(--mb-dim); cursor:pointer; font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); } /* tone:fixed: 언어 단추 높이 — 휴대폰 머리글 105px 자리(studio-page.css)에 맞춤(의장) */
           .lang-button:hover { color:var(--mb-accent); }
           .lang-button[aria-pressed="true"] { background:var(--mb-bg); color:var(--mb-accent); }
           :where(a,button):focus-visible { outline:var(--tone-focus-width) solid var(--mb-accent); outline-offset:var(--tone-focus-offset); }
@@ -129,7 +129,7 @@
             .more-panel { right:var(--tone-space-2); width:calc(100% - var(--tone-space-4)); padding:var(--tone-space-3); }
             .menu-groups { gap:var(--tone-space-3) var(--tone-space-1); }.menu-group a { padding:var(--tone-space-1); }.current { display:none; }
           }
-          @media(max-width:380px) { .brand { gap:var(--tone-space-1); font-size:var(--tone-label-size); line-height:var(--tone-label-line); }.brand img { width:24px; height:24px; }.lang-button { padding:0 var(--tone-space-1); }.more-button { padding:0 4px; } }
+          @media(max-width:380px) { .brand { gap:var(--tone-space-1); font-size:var(--tone-label-size); line-height:var(--tone-label-line); }.brand img { width:24px; height:24px; }.lang-button { padding:0 var(--tone-space-1); }.more-button { padding:0 4px; } } /* tone:fixed: 미세 간격(의장) */
           @media(prefers-reduced-motion:reduce) { .chevron { transition:none; } }
         </style>
         <header class="header">
@@ -218,8 +218,8 @@
           :where(a):focus-visible { outline:var(--tone-focus-width) solid var(--mb-accent); outline-offset:var(--tone-focus-offset); }
           @media (max-width:640px) {
             .foot-head { display:block; }
-            .foot-head a { margin-top:4px; }
-            .biz { display:grid; gap:4px; }
+            .foot-head a { margin-top:4px; } /* tone:fixed: 미세 간격(의장) */
+            .biz { display:grid; gap:4px; } /* tone:fixed: 미세 간격(의장) */
           }
         </style>
         <footer>
