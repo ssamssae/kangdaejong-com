@@ -9,7 +9,6 @@ const moods = [
 
 <section id="mood" class="mood-corner" data-mood="clear" data-paused="true" aria-labelledby="mood-title">
   <div class="mood-copy">
-    <p class="mood-kicker"><span aria-hidden="true">✳</span> A LITTLE PAUSE</p>
     <h2 id="mood-title">잠깐, 오늘의 기분.</h2>
     <p class="mood-intro">마음이 가는 쪽을 눌러 보세요.<br />이 작은 풍경은 당신의 속도로 바뀌어요.</p>
     <div class="mood-controls" hidden>
@@ -42,7 +41,6 @@ const moods = [
         <path class="mood-front" d="M-70 308Q180 255 340 296T610 273V360H-70Z" />
       </svg>
       <span class="mood-scene-label">햇살이 머무는 언덕</span>
-      <span class="mood-signature">a moment, just for you.</span>
     </div>
     <p class="mood-quote" role="status" aria-live="polite" aria-atomic="true">{moods[0].quote}</p>
   </div>
@@ -129,8 +127,6 @@ const moods = [
     --mood-ink: #ede4d2;
     --mood-speed: 6s;
   }
-  .mood-kicker { display: flex; align-items: center; gap: var(--tone-space-1); margin: 0 0 var(--tone-space-1); color: var(--fg-dim); font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); letter-spacing: normal; }
-  .mood-kicker span { color: var(--accent); font-size: var(--tone-subtitle-size); line-height: 1; }
   .mood-corner h2 { margin: 0 0 var(--tone-space-2); }
   .mood-intro { color: var(--fg-dim); font-size: var(--tone-body-size); line-height: var(--tone-body-line); margin: 0 0 var(--tone-space-4); }
   .mood-controls[hidden] { display: none; }
@@ -150,7 +146,6 @@ const moods = [
   .mood-scene { position: relative; height: 250px; overflow: hidden; border-radius: var(--tone-radius-card); background: var(--mood-sky); color: var(--mood-ink); transition: background-color 700ms, color 700ms; }
   .mood-scene svg { display: block; width: 100%; height: 100%; }
   .mood-scene-label { position: absolute; top: var(--tone-space-3); left: var(--tone-space-3); font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); }
-  .mood-signature { position: absolute; right: 20px; bottom: 17px; font-family: Georgia, serif; font-style: italic; font-size: 12px; color: #fffdf6; } /* tone:fixed: 그림 위 서명 글자(그림 의장) */
   .mood-orb { animation: mood-drift var(--mood-speed) ease-in-out infinite alternate; }
   .mood-halo { fill: var(--mood-orb); opacity: .12; }
   .mood-sun { fill: var(--mood-orb); }
