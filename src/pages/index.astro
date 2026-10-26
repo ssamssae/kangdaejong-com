@@ -12,6 +12,7 @@ import { appSupport } from '../data/app-support.mjs';
 const srcsetFor = (entry?: { icon: string; icon2x?: string }) => entry?.icon2x ? `${entry.icon}, ${entry.icon2x} 2x` : undefined;
 const ipta = productIcon('ipta');
 const jarvis = productIcon('jarvis');
+const cheotireum = productIcon('cheotireum');
 // 텔레그램 브릿지 카드의 그림 = 그록봇이 2026-10-11 만든 4칸 카드(Claude·Codex·Grok·Cursor), 480/960px WebP.
 const bridgesVisual = { src: '/product-screens/telegram-bridges-531861e1-480.webp', srcset: '/product-screens/telegram-bridges-531861e1-480.webp 480w, /product-screens/telegram-bridges-531861e1-960.webp 960w', alt: 'Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지' };
 const projects = [
@@ -67,7 +68,7 @@ const jsonLd = {
           <a class="mb-press-target" href="/tools/text/">글 정리하기<span aria-hidden="true">→</span></a>
         </article>
         <article class="project-card text-tool-card web-service-card" data-product-id="cheotireum">
-          <span class="project-mark" aria-hidden="true">첫</span>
+          <img class="project-icon" src={cheotireum.icon} srcset={srcsetFor(cheotireum)} width="40" height="40" alt="" decoding="async"/>
           <div class="project-body">
             <span class="project-note mb-chip">웹 서비스 · 작명서 1,000원</span>
             <h3>첫이름</h3>

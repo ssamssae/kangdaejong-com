@@ -5,7 +5,10 @@ import {brand, rgb} from './brand-colors.mjs';
 import {fileURLToPath} from 'node:url';
 import catalog from '../public/brand/products/catalog.json' with {type:'json'};
 const components=fileURLToPath(new URL('../public/mb-components.js',import.meta.url));
-test.beforeEach(async({page})=>{ await page.route('https://kangdaejong.com/mb-components.js',route=>route.fulfill({path:components,contentType:'application/javascript'})); });
+test.beforeEach(async({page})=>{
+ await page.route('https://kangdaejong.com/mb-components.js',route=>route.fulfill({path:components,contentType:'application/javascript'}));
+ await page.route('https://kangdaejong.com/brand/products/*.webp',route=>route.fulfill({path:fileURLToPath(new URL('../public'+new URL(route.request().url()).pathname,import.meta.url))}));
+});
 const header=page=>page.locator('mb-header');
 
 // T-261024-050: 회사 홈은 다크를 풀었다(대종님 「다크도 풀자」) — 기기 설정이 다크여도 첫이름과 같은 라이트 값 하나. 다크 블록은 작업장·대표소개·단백질 몫이다.
@@ -85,7 +88,7 @@ test('the header toggle switches the whole page to English and back without relo
 
 test('product icons use catalog WebP aliases with 2x sources and valid JSON-LD is present',async({page})=>{
  await page.setViewportSize({width:1440,height:900}); await page.goto('/');
- const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(11);
+ const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(12);
  for(const image of await images.all()) {
   const id=await image.evaluate(el=>el.closest('[data-product-id]').dataset.productId);
   const entry=catalog.products.find(product=>product.id===id);
