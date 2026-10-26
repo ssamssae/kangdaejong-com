@@ -41,7 +41,7 @@ test('old chapter links keep anchors and open bridge details', async ({ page }) 
   await page.goto('/archive/?from=old#open-tools');
   await expect(page).toHaveURL(/\/\?from=old#open-tools$/);
   await expect(page.locator('#open-tools')).toHaveAttribute('open', '');
-  await expect(page.locator('#open-tools a[href*="/releases"]')).toHaveCount(4);
+  await expect(page.locator('#open-tools a[href*="/releases"]')).toHaveCount(5);
   await expect(page.locator('#open-tools')).toBeInViewport();
   await page.goto('/archive/#books');
   await expect(page).toHaveURL(/\/#books$/);
