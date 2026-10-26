@@ -1,4 +1,11 @@
 import { test, expect } from '@playwright/test';
+import { fileURLToPath } from 'node:url';
+
+test.beforeEach(async ({ page }) => {
+  await page.route('https://kangdaejong.com/brand/products/*.webp', route => route.fulfill({
+    path: fileURLToPath(new URL('../public' + new URL(route.request().url()).pathname, import.meta.url)),
+  }));
+});
 
 const ALLOWED_KO_IN_EN = [
   '한국어', // The language selector keeps each language's native name.
@@ -69,8 +76,12 @@ for (const width of [390, 1440]) for (const theme of ['light', 'dark']) {
     await page.emulateMedia({ colorScheme: theme });
     await page.goto('/');
     const card = page.locator('#projects [data-product-id="cheotireum"]');
-    await expect(card.locator('img')).toHaveCount(0);
-    await expect(card.locator('.project-mark')).toHaveText('첫');
+    const icon = card.locator('img.project-icon');
+    await expect(card.locator('.project-mark')).toHaveCount(0);
+    await expect(icon).toHaveCount(1);
+    await expect(icon).toHaveAttribute('src', 'https://kangdaejong.com/brand/products/cheotireum.webp');
+    await expect(icon).toHaveAttribute('srcset', 'https://kangdaejong.com/brand/products/cheotireum.webp, https://kangdaejong.com/brand/products/cheotireum@2x.webp 2x');
+    await expect.poll(() => icon.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
     await expect(card.locator('.project-note')).toHaveText('웹 서비스 · 작명서 1,000원');
     for (const [name, href] of [
       ['웹에서 시작하기', 'https://cheotireum.kangdaejong.com/'],
@@ -101,7 +112,8 @@ for (const width of [390, 1440]) for (const theme of ['light', 'dark']) {
     await expect(card).not.toContainText(/[가-힣]/);
     await page.locator('mb-header .lang-button[data-lang="ko"]').click();
     await expect(card.locator('h3')).toHaveText('첫이름');
-    await expect(card.locator('.project-mark')).toHaveText('첫');
+    await expect(card.locator('.project-mark')).toHaveCount(0);
+    await expect(icon).toHaveAttribute('src', 'https://kangdaejong.com/brand/products/cheotireum.webp');
     await card.getByRole('link', { name: '서비스 안내' }).click();
     await expect(page).toHaveURL(/\/cheotireum\/$/);
     await expect(page.locator('main')).toContainText('부족한 오행을 무료로 먼저 살펴보고, 작명서(1,000원)의 제공 내용을 확인한 뒤 결제할 수 있어요.');

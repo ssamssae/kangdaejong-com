@@ -3,7 +3,8 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
 import {chromium} from '@playwright/test';
-import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage,auditScreen} from './contract.mjs';
+import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage,auditScreen,hasValidProductException} from './contract.mjs';
+import {catalogForProductPage} from './candidate-products.mjs';
 import {sitemapLocations} from '../../workshop-router/index.mjs';
 import {workSitemapUrls,mountedSitemapUrls} from './work-sitemap.mjs';
 import {handleProductRequest,PRODUCT_PAGES} from '../../workshop-router/product-guides.mjs';
@@ -24,6 +25,15 @@ const release=json('public/brand/release.json');
 const results=[], pageSet=new Map(), assets=Object.entries(release.files);
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const cache=new Map();
+let liveCatalogPromise;
+function loadLiveCatalog(){
+  // Bypass get(): candidate URLs under ORIGIN normally resolve to local dist.
+  return liveCatalogPromise??=(async()=>{
+    const response=await fetch(ORIGIN+'/brand/products/catalog.json',{signal:AbortSignal.timeout(25000),headers:{'Cache-Control':'no-cache'}});
+    if(!response.ok)throw Error(`live product catalog HTTP ${response.status}`);
+    return response.json();
+  })();
+}
 async function get(url){
   if(!cache.has(url))cache.set(url,(async()=>{
     if(candidate){
@@ -140,22 +150,25 @@ await pool([...pageSet],async([url,site])=>{
     // content-hashed files. Verify their actual bytes against the SAME catalog.
     // This supports a coordinated rollout without accepting an outdated image.
     let productChecks=checks, legacyErrors=[];
+    const pageCatalog=checks.includes('products')
+      ?await catalogForProductPage(text,catalog,{candidate,site,loadLiveCatalog})
+      :catalog;
     if(checks.includes('products')&&!text.includes('data-product-id')){
       productChecks=checks.filter(c=>c!=='products');
       const cards=(text.match(/<article\b[\s\S]*?<\/article>/gi)||[]).filter(c=>c.includes('data-catalog-item'));
       if(!cards.length)legacyErrors.push('no identifiable product cards');
       for(const card of cards){
         const name=card.match(/<h3\b[^>]*>(.*?)<\/h3>/s)?.[1];
-        const product=catalog.products.find(p=>p.name===name||(p.aliases||[]).includes(name));
+        const product=pageCatalog.products.find(p=>p.name===name||(p.aliases||[]).includes(name));
         if(!product){legacyErrors.push(`unknown product ${name}`);continue;}
         const src=card.match(/<img\b[^>]*src="([^"]+)"/)?.[1];
-        if(product.exception&&!src)continue;
+        if(hasValidProductException(product)&&!/<img\b/i.test(card))continue;
         if(!src){legacyErrors.push(`missing icon ${name}`);continue;}
         const actual=hash((await get(new URL(src,url).href)).bytes);
         if(actual!==product.files.icon.sha256)legacyErrors.push(`stale icon bytes ${name}`);
       }
     }
-    const errors=[...auditHtml(text,{...site,checks:productChecks}, {socialHash:release.files['brand/current/social.png']},catalog),...legacyErrors];
+    const errors=[...auditHtml(text,{...site,checks:productChecks}, {socialHash:release.files['brand/current/social.png']},pageCatalog),...legacyErrors];
     results.push({url,status:errors.length?'failed':'passed',checks,errors});
   }catch(e){results.push({url,status:'unverified',errors:[e.message]});}
 });

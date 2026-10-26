@@ -1,14 +1,16 @@
 # 기능 확인 경로
 
-## 첫이름 루트 유입 카드 — T-261024-053
+## 첫이름 루트 유입 카드 — T-261024-053, T-261026-031
 
 - 사전 조건: 로그인 없이 회사홈 `/`에 접속한다. 로컬 검증은 `npm run build` 뒤 Playwright가 실행하는 preview를 사용한다.
-- 진입점: `/#projects` → 「만드는 도구」 → 「복붙 정리기」 다음의 「첫이름」 카드. 글자 마크 「첫」과 「웹 서비스 · 작명서 1,000원」을 확인한다.
+- 진입점: `/#projects` → 「만드는 도구」 → 「복붙 정리기」 다음의 「첫이름」 카드. 기존 파란 원·흰색 ㅊ 아이콘과 「웹 서비스 · 작명서 1,000원」을 확인한다.
 - 조작: 「웹에서 시작하기」의 기존 서비스 루트, 「무료 샘플」의 `/sample-report`, 「한자 확인」의 `/hanja-check` 링크를 확인한다. 「서비스 안내」를 눌러 회사 `/cheotireum/`의 무료 오행 미리보기·작명서 1,000원 안내로 이동한다.
-- 기대 결과: 기존 앱 9개·이미지 아이콘 11개를 유지한다. 390/1440px × 라이트/다크에서 카드 링크가 줄바꿈되고 가로 넘침이 없다. EN 전환 시 카드 문구와 글자 마크(C)를 번역하며 한국어로 돌아오면 원문을 복원한다.
-- 검증 경로: `tests/home-tone.spec.mjs`의 첫이름 카드·문체·EN 검사, `one-page.spec.mjs`, `preparing-home.spec.mjs`, `theme-lang-layout.spec.mjs`, `tests/site-release/contract.test.mjs`. 승인된 객체형 letter-mark 예외는 통과하고 미승인 예외·이미지 혼용은 실패한다.
-- 실측: 2026-10-24 KST, `codex/cheotireum-inflow-restore` 로컬 빌드에서 지정 Playwright 38개와 site-release·라우터 30개를 통과했다. 390/1440px × 라이트/다크 × KO/EN 카드 화면을 확인했다. 기준 커밋 `62ba7b8`의 기존 실패 10개는 종료 템플릿·브릿지 안내·무료 PDF·카탈로그 별칭의 현재 계약에 맞췄다.
-- 효과·미확인: 서비스 안내까지 로컬 이동을 검사한다. 외부 서비스의 결제·주문 생성은 검사하지 않는다. 이번 승인 범위는 `no-auto-merge` PR 생성까지이며 머지·배포를 포함하지 않는다. 실행 로그와 화면 근거는 `/Users/user/reports/T-261024-053/`에 남긴다.
+- 기대 결과: 기존 앱 9개를 유지한다. 이미지 아이콘은 첫이름을 포함해 12개다. 390/1440px × 라이트/다크에서 카드 링크가 줄바꿈되고 가로 넘침이 없다. EN 전환 시 카드 문구를 번역한다. 아이콘은 같은 이미지를 유지한다. 한국어로 돌아오면 원문을 복원한다.
+- 정본: `ssamssae/cheotireum` 커밋 `c9b7fc14c0de43644f2feca355c6c291937ef09d`의 `web/brand-mark.svg`(508 bytes, SHA256 `ef5a765e9fc4baf4e2742cc75bec59727603991aa096680c6cab637ff047de74`)를 바이트 수정 없이 Sharp로 변환했다. `public/product-icons/cheotireum-ef5a765e-{96,192}.webp`의 실제 SHA256을 카탈로그에 기록했다. 공개 별칭 `brand/products/cheotireum{,@2x}.webp`는 `prepare.mjs`가 생성한다.
+- 검증 경로: `tests/home-corrections.spec.mjs`, `tests/home-tone.spec.mjs`, `tests/theme-lang-layout.spec.mjs`, `tests/site-release/candidate-products.test.mjs`. 홈 후보와 모든 프로덕션 검사는 새 아이콘을 요구한다. 후보 검사의 외부 작업장 HTML에 이미지만 없을 때, 현재 라이브 카탈로그의 유효한 letter-mark 승인만 적용한다. 미승인 예외·이미지 혼용은 실패한다.
+- 이전 실측: 2026-10-24 KST, `codex/cheotireum-inflow-restore`의 글자 마크 상태에서 지정 Playwright 38개와 site-release·라우터 30개를 통과했다. 이 결과는 파란 아이콘 적용 전의 이력이다.
+- 아이콘 실측: 2026-10-26 KST, `codex/cheotireum-blue-icon`에서 지정 Playwright 18개와 site-release·라우터 37개를 통과했다. 390/1440px × 라이트/다크 설정 × KO/EN 카드 화면을 저장했다. 화면은 기존 라이트 고정 계약을 유지한다. 두 빌드와 공통 헤더·푸터·다크 카드·팔레트·톤 검사도 통과했다.
+- 효과·미확인: 서비스 안내까지 로컬 이동을 검사한다. 외부 서비스의 결제·주문 생성은 검사하지 않는다. T-261026-031 승인 범위는 `no-auto-merge` PR 생성과 CI 확인까지다. PR은 OPEN 상태로 유지한다. 머지·배포는 금지한다. 최신 실행 근거는 `/Users/user/reports/T-261026-031/checkpoint.json`에 남긴다.
 
 ## 작업장과 사이트맵 통합 — T-261017-004
 
