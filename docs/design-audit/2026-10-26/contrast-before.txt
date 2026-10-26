@@ -1,0 +1,24 @@
+## / mood=clear: 1 fail
+  1.18<4.5 12px span.mood-signature "a moment, just for you." aria-hidden=true
+## / mood=calm: 1 fail
+  1.23<4.5 12px span.mood-signature "a moment, just for you." aria-hidden=true
+## / mood=spark: 1 fail
+  1.26<4.5 12px span.mood-signature "a moment, just for you." aria-hidden=true
+## / mood=rest: 1 fail
+  1.19<4.5 13px span.mood-scene-label "햇살이 머무는 언덕" aria-hidden=true
+## /organization/: 2 fail
+  4.23<4.5 15px a.mb-link "프로젝트 보기" aria-hidden=false
+  4.23<4.5 15px a.mb-link "앱 보기" aria-hidden=false
+## /system/: 0 fail
+## /404.html: 0 fail
+## /ipta/: 2 fail
+  4.23<4.5 17px a. "같은 릴리스의 시작 안내" aria-hidden=false
+  4.23<4.5 17px a. "공식 실행 안내" aria-hidden=false
+## /archive/ mood=clear: 1 fail
+  1.18<4.5 12px span.mood-signature "a moment, just for you." aria-hidden=true
+## /archive/ mood=calm: 1 fail
+  1.23<4.5 12px span.mood-signature "a moment, just for you." aria-hidden=true
+## /archive/ mood=spark: 1 fail
+  1.26<4.5 12px span.mood-signature "a moment, just for you." aria-hidden=true
+## /archive/ mood=rest: 1 fail
+  1.19<4.5 13px span.mood-scene-label "햇살이 머무는 언덕" aria-hidden=true

@@ -1,0 +1,12 @@
+## / mood=clear: 0 fail
+## / mood=calm: 0 fail
+## / mood=spark: 0 fail
+## / mood=rest: 0 fail
+## /organization/: 0 fail
+## /system/: 0 fail
+## /404.html: 0 fail
+## /ipta/: 0 fail
+## /archive/ mood=clear: 0 fail
+## /archive/ mood=calm: 0 fail
+## /archive/ mood=spark: 0 fail
+## /archive/ mood=rest: 0 fail
