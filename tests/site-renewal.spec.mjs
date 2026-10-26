@@ -21,17 +21,20 @@ const retiredTemplateRoutes = [
   "/ebook-automation-workshop/vol1/templates/t10-privacy-quality-check/",
 ];
 
-test("home presents apps, books and all four bridges", async ({ page }) => {
+test("home presents apps, books and all five bridges", async ({ page }) => {
   await page.goto("/");
   await expect(page.locator("h1")).toContainText("강대종");
   await expect(page.locator(".app-row")).toHaveCount(9);
   await expect(page.locator(".book-row")).toHaveCount(3);
   await page.locator("#open-tools > summary").click();
-  await expect(page.locator(".bridge-links > div")).toHaveCount(4);
+  await expect(page.locator(".bridge-links > div")).toHaveCount(5);
   for (const name of ['codex', 'claude', 'cursor', 'grok']) {
     await expect(page.locator(`#open-tools a[href="/product/${name}-telegram-bridge/"]`)).toBeVisible();
     await expect(page.locator(`#open-tools a[href="https://github.com/ssamssae/${name}-telegram-bridge/releases"]`)).toBeVisible();
   }
+  // T-261024-056(#188): Grok Bot 은 웹 설명서가 아직 없어 설치 안내가 README 로 간다.
+  await expect(page.locator('#open-tools a[href="https://github.com/ssamssae/grokbot-telegram-bridge/blob/main/README.ko.md"]')).toBeVisible();
+  await expect(page.locator('#open-tools a[href="https://github.com/ssamssae/grokbot-telegram-bridge/releases"]')).toBeVisible();
   // T-261019-026: 10/18 닫은 초소 카드는 없다.
   await expect(page.locator('.social-grid a[href*="choso.kangdaejong.com"]')).toHaveCount(0);
 });

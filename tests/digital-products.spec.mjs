@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+import {readFileSync} from 'node:fs';
 test('home offers the three ebooks as free PDFs and no purchase links',async({page})=>{
  await page.goto('/');
  await expect(page.locator('a[href="/ai-setup/"]')).toHaveCount(0);
@@ -17,17 +18,13 @@ test('old installation URL closes intake and leads to replacement',async({page})
  await expect(page.locator('main').locator('form, select, textarea, a[href^="mailto:"]')).toHaveCount(0);
  await expect(page.locator('main')).not.toContainText('99,000');
  await expect(page.locator('meta[name="robots"]')).toHaveAttribute('content','noindex,follow');
- await page.getByRole('link',{name:'디지털 상품 살펴보기'}).click();
- await expect(page).toHaveURL(/digital-products/);
+ await expect(page.locator('main').getByRole('link',{name:'제공 종료 안내 보기'})).toHaveAttribute('href','https://kangdaejong.com/work/products/#retired-products');
+ await expect(page.locator('main').getByRole('link',{name:'전체 제품 보기'})).toHaveAttribute('href','https://kangdaejong.com/work/products/');
 });
-test('free sample works without purchase; written support does not promise calls',async({page})=>{
- await page.goto('/digital-products/');
- await expect(page.locator('main')).toContainText('판매를 종료했어요');
- await expect(page.locator('main a[href^="tel:"]')).toHaveCount(0);
- await expect(page.locator('form')).toHaveCount(0);
- await page.getByRole('link',{name:'반복 업무 정리 양식'}).click();
- await expect(page).toHaveURL(/t01-repeat-work-inventory/);
- await expect(page.locator('h1')).toContainText('반복 업무');
+test('retired digital products page is not built and moves to the retired list',async({page})=>{
+ // T-261004-002(#134): 디지털 상품 쪽과 무료 양식은 작업장 제품 목록의 제공 종료 칸으로 옮겼다.
+ expect((await page.request.get('/digital-products/')).status()).toBe(404);
+ expect(readFileSync(new URL('../public/_redirects',import.meta.url),'utf8')).toContain('/digital-products/ https://kangdaejong.com/work/products/#retired-products 301');
 });
 for(const width of [390,1440])test(`digital and closed pages render at ${width}`,async({page},info)=>{
  await page.setViewportSize({width,height:900});
