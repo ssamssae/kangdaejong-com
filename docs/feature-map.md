@@ -238,3 +238,9 @@
 - 효과·승인 경계: 읽기 전용(복사는 방문자 클립보드에만 쓴다). 동작 줄이기 설정·자동화 브라우저(`navigator.webdriver`)에서는 리빌을 하지 않는다 — 배포 뒤 화면 검사·전체 화면 캡처가 화면 밖 카드를 빈 칸으로 찍지 않게. 리빌을 시험할 때만 `navigator.webdriver` 를 끈다.
 - 자동 근거: `tests/home-ui-interactions.spec.mjs`(12개). 2026-10-25 제우스 로컬 실측(Playwright 내장 크로미움 1228) — 전체 브라우저 시험 127개 중 123개 통과, 실패 4개(`digital-products` 2개, `one-page`·`site-renewal` 의 「브릿지 4개」 기대)는 origin/main 1e8e1ef 에서도 똑같이 실패하는 기존 실패다. `npm run verify:shared-header`·`verify:shared-footer`·`verify:dark-cards`·`verify:palette-copies`(직접 숫자 652 ≤ 기준선 652)·`verify:tone-pairs`·`test:site-release`·`live.mjs --candidate`(대상 1,075·미확인 0) 통과. 대표소개(ssamssae.github.io)도 같은 `data-mb-copy-email` 을 쓴다.
 - 미확인·갱신 조건: 공개 배포 뒤 실제 화면·클립보드는 배포 뒤 다시 확인한다.
+
+## Minus Beta Stats 개인정보 처리 안내 — T-261026-024
+
+- 진입점: `/privacy-minusbeta-stats/`. Google 인증 플랫폼 OAuth 앱 「Minus Beta Stats」(프로젝트 `minusbeta-admob-reports`)을 '운영'으로 게시할 때 구글이 요구하는 개인정보처리방침 URL이다. 내부 도구라 홈 앱 목록(`src/data/home.ts`)에는 넣지 않는다.
+- 기대 결과: h1 「Minus Beta Stats 개인정보 처리 안내」, admob.readonly 읽기 전용·AdMob 계정 번호와 날짜별 예상 수익·노출 수만 읽음·열쇠는 운영자 컴퓨터 한 대·요약은 비공개 gist·판매/제3자 공유 없음·서드파티 연결에서 끊기·문의 메일, canonical `https://kangdaejong.com/privacy-minusbeta-stats/`. 문안은 2026-10-26 대종님 승인 원문 그대로다.
+- 검증: `tests/minusbeta-stats.spec.mjs`, 사이트맵 목록 `tests/audit-fixes.spec.mjs`. 라이브 응답은 배포 뒤 200 과 본문을 확인한다.
