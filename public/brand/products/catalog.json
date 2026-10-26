@@ -9,16 +9,20 @@
         "home",
         "workshop"
       ],
-      "icon": null,
-      "icon2x": null,
-      "source": null,
-      "files": null,
-      "exception": {
-        "status": "approved-placeholder",
-        "reason": "Web service card uses approved letter-mark fallback.",
-        "fallback": "letter-mark",
-        "approvedAt": "2026-10-24"
-      }
+      "icon": "https://kangdaejong.com/brand/products/cheotireum.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/cheotireum@2x.webp",
+      "source": "https://github.com/ssamssae/cheotireum/blob/c9b7fc14c0de43644f2feca355c6c291937ef09d/web/brand-mark.svg",
+      "files": {
+        "icon": {
+          "source": "/product-icons/cheotireum-ef5a765e-96.webp",
+          "sha256": "4acabd86ae5d5b82bb44cd2547cdf31eb9a1338f85c512ebae9036a76808208c"
+        },
+        "icon2x": {
+          "source": "/product-icons/cheotireum-ef5a765e-192.webp",
+          "sha256": "47c888eab2554ab4b411758a49cb3bf3d27cada6ec5d98f44eb3c0a11bdd919f"
+        }
+      },
+      "sourceSha256": "ef5a765e9fc4baf4e2742cc75bec59727603991aa096680c6cab637ff047de74"
     },
     {
       "id": "hanjul",

@@ -36,7 +36,7 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home :is(.project-card,.project-body)>p{color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line);word-break:keep-all;max-width:var(--tone-prose-max)}
 .simple-home :is(.project-card,.project-body)>a,.simple-home .text-tool-card>a,.simple-home .bridge-links a,.simple-home .book-action{display:inline-flex;align-items:center;gap:4px;min-height:var(--tone-tap-height);margin-top:auto;padding-top:var(--tone-space-2);color:var(--accent-hover);font:var(--tone-weight-bold) var(--tone-label-size)/var(--tone-body-line) var(--tone-font);text-decoration:underline;text-underline-offset:var(--tone-underline-offset)} /* tone:fixed: 글자·화살표 미세 간격 4px(의장) */
 .simple-home .text-tool-card{grid-column:1 / -1;flex-direction:row;align-items:center;gap:var(--tone-space-3)}
-.simple-home .text-tool-card .project-mark{flex:0 0 40px}
+.simple-home .text-tool-card :is(.project-mark,.project-icon){flex:0 0 40px}
 .simple-home .text-tool-card .project-body{flex:1;align-self:center}
 .simple-home .text-tool-card .project-note{margin-bottom:var(--tone-space-1)}
 .simple-home .text-tool-card>a{margin-top:0;padding-top:0;white-space:nowrap}
@@ -107,7 +107,7 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .project-visual{width:100%;max-width:260px;height:auto;flex:none} /* tone:fixed: 프로젝트 그림 최대 폭(그림) */
 .simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--tone-space-2) var(--tone-space-3)}
 .simple-home .text-tool-card>a{grid-column:2;white-space:normal}
-.simple-home .text-tool-card .project-mark{align-self:start}
+.simple-home .text-tool-card :is(.project-mark,.project-icon){align-self:start}
 .simple-home .bridge-details>summary span{display:none}
 .simple-home .bridge-links{grid-template-columns:1fr}
 .simple-home .service-row>span:first-child{flex-direction:column;align-items:flex-start;gap:2px} /* tone:fixed: 두 줄 글자 미세 간격 2px(의장) */
@@ -122,5 +122,5 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .contact-actions .mb-btn{display:flex;width:100%}
 }
 @media(max-width:360px){.simple-home .project-visual{max-width:100%}.simple-home .store-links a{padding:0 var(--tone-space-1)}}
-@media(max-width:720px){.simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--tone-space-2) var(--tone-space-3)}.simple-home .text-tool-card>a{grid-column:2;padding-top:0;gap:var(--tone-space-3)}.simple-home .text-tool-card .project-mark{align-self:start}.simple-home .service-sublinks a{min-height:var(--tone-tap-height)}}
+@media(max-width:720px){.simple-home .text-tool-card{display:grid;grid-template-columns:40px minmax(0,1fr);gap:var(--tone-space-2) var(--tone-space-3)}.simple-home .text-tool-card>a{grid-column:2;padding-top:0;gap:var(--tone-space-3)}.simple-home .text-tool-card :is(.project-mark,.project-icon){align-self:start}.simple-home .service-sublinks a{min-height:var(--tone-tap-height)}}
 @media(prefers-reduced-motion:reduce){html:has(.simple-home){scroll-behavior:auto}.simple-home *{scroll-behavior:auto!important}}
