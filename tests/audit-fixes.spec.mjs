@@ -4,7 +4,7 @@ import { readFile } from 'node:fs/promises';
 test('sitemap advertises current canonical pages only', async () => {
   const xml=await readFile('dist/sitemap.xml','utf8');
   const urls=[...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]).sort();
-  const paths=['/','/apps/dutchpay/','/apps/memoyo/','/apps/yakmukja/','/cheotireum/','/ipta/','/organization/','/our-sai/','/our-sai/privacy/','/our-sai/support/','/our-sai/terms/','/privacy-minusbeta-stats/','/privacy-noraechatgi/','/privacy-sadariyo/','/privacy-stillhere/','/privacy-tojeong-app/','/protein/','/sangho/','/support-calcalarm/','/support-gagyebu/','/support-noraechatgi/','/support-stillhere/','/system/','/tojeong/','/tools/text/'];
+  const paths=['/','/apps/dutchpay/','/apps/memoyo/','/apps/yakmukja/','/cheotireum/','/ipta/','/organization/','/our-sai/','/our-sai/privacy/','/our-sai/support/','/our-sai/terms/','/privacy-minusbeta-stats/','/privacy-noraechatgi/','/privacy-sadariyo/','/privacy-stillhere/','/privacy-cheotireum-app/','/privacy-tojeong-app/','/protein/','/sangho/','/support-calcalarm/','/support-gagyebu/','/support-noraechatgi/','/support-stillhere/','/system/','/tojeong/','/tools/text/'];
   expect(urls).toEqual(paths.map(p=>'https://kangdaejong.com'+p).sort());
 });
 test('unknown addresses have a usable custom 404 artifact', async ({page}) => {
