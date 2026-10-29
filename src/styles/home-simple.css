@@ -17,9 +17,9 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .intro-label{margin:0 0 var(--tone-space-1);color:var(--fg-dim);font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font)}
 .simple-home .intro h1{margin:0 0 var(--tone-space-3)}
 .simple-home .intro-description{margin:0 0 var(--tone-space-3);color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line);word-break:keep-all}
-/* T-261029-025: 설명 바로 아래, .intro-links 앞. 높이·여백·모서리는 이번 지시의 고정값이라 tone:fixed. */
-.simple-home a.intro-cta,.simple-home a.intro-cta:hover{display:inline-flex;align-items:center;box-sizing:border-box;max-width:100%;background:var(--accent-cta);color:var(--accent-text,#fff);font-weight:700;height:48px;padding:0 18px;border-radius:12px} /* tone:fixed: 직행 버튼 높이 48px·가로 안쪽 18px·모서리 12px(T-261029-025 지시) */
-.simple-home a.intro-cta:hover{background:var(--accent-hover);color:var(--accent-text,#fff)}
+/* T-261029-025: 설명 바로 아래, .intro-links 앞. 글자색은 --cta-fg 만. 높이는 프로젝트 둘러보기(.mb-btn)와 같은 공용 버튼. */
+.simple-home a.intro-cta,.simple-home a.intro-cta:hover{display:flex;align-items:center;justify-content:center;box-sizing:border-box;width:100%;max-width:100%;min-height:var(--tone-control-height);background:var(--accent-cta);color:var(--cta-fg);font-weight:700;font-size:var(--tone-body-size);padding:0 18px;border-radius:12px} /* tone:fixed: 직행 버튼 가로 안쪽 18px·모서리 12px(T-261029-025 지시) */
+.simple-home a.intro-cta:hover{background:var(--accent-hover);color:var(--cta-fg)}
 .simple-home .intro-cta-row{margin-top:18px} /* tone:fixed: 설명과 직행 버튼 간격 18px(T-261029-025 지시) */
 .simple-home .intro-links{display:flex;flex-direction:column;gap:var(--tone-space-1);margin-top:var(--tone-space-4)}
 /* 구역(첫이름 landing section): 56px 간격, 작은 라벨 → 제목(32px 아래) → 카드(24px 아래). */
