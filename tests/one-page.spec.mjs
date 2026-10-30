@@ -65,7 +65,7 @@ test('without JavaScript primary content and links remain usable', async ({ brow
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4321/');
   await expect(page.locator('#products .app-row')).toHaveCount(9);
-  await expect(page.locator('[data-product-id="cheotireum"] > a')).toHaveAttribute('href', 'https://cheotireum.kangdaejong.com/');
+  await expect(page.locator('[data-product-id="cheotireum"] > a')).toHaveAttribute('href', 'https://cheotireum.kangdaejong.com/?src=kdj-card');
   await page.locator('#open-tools summary').click();
   await expect(page.locator('#open-tools a[href*="codex-telegram-bridge"]').first()).toBeVisible();
   await context.close();
