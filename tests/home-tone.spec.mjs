@@ -84,9 +84,9 @@ for (const width of [390, 1440]) for (const theme of ['light', 'dark']) {
     await expect.poll(() => icon.evaluate(img => img.complete && img.naturalWidth > 0)).toBe(true);
     await expect(card.locator('.project-note')).toHaveText('웹 서비스 · 작명서 1,000원');
     for (const [name, href] of [
-      ['웹에서 시작하기', 'https://cheotireum.kangdaejong.com/'],
-      ['무료 샘플', 'https://cheotireum.kangdaejong.com/sample-report'],
-      ['한자 확인', 'https://cheotireum.kangdaejong.com/hanja-check'],
+      ['웹에서 시작하기', 'https://cheotireum.kangdaejong.com/?src=kdj-card'],
+      ['무료 샘플', 'https://cheotireum.kangdaejong.com/sample-report?src=kdj-sample'],
+      ['한자 확인', 'https://cheotireum.kangdaejong.com/hanja-check?src=kdj-hanja'],
       ['서비스 안내', '/cheotireum/'],
     ]) await expect(card.getByRole('link', { name })).toHaveAttribute('href', href);
 
