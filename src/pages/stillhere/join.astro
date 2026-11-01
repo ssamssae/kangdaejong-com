@@ -1,0 +1,72 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+// T-261102-002: 살아있음 초대 링크 착지 페이지.
+// 앱은 https://kangdaejong.com/stillhere/join#STILLHERE2:… 를 보낸다. 초대는 주소의 # 뒤(조각)에만 있어 서버로 가지 않는다.
+// 앱이 깔린 iPhone 은 유니버설 링크(public/.well-known/apple-app-site-association)로 이 페이지 대신 앱을 연다.
+// 앱이 없거나, 메신저 안 브라우저가 유니버설 링크를 따르지 않거나, Android(앱 링크 확인 전)면 이 페이지가 보인다.
+// 아래 스크립트는 초대를 어디에도 보내지 않는다(요청·분석·기록·쿼리 없음).
+// 처음 열 때 앱으로 자동 이동하지 않는다 — 앱이 없으면 iOS Safari 가 오류 창을 띄운다.
+const appStore = "https://apps.apple.com/kr/app/id6812609143";
+const googlePlay = "https://play.google.com/store/apps/details?id=com.daejongkang.stillhere";
+---
+<SiteLayout title="살아있음 연결 초대" description="살아있음은 하루 한 번 버튼을 눌러 서로 잘 지내는지 알리는 앱이에요." canonical="https://kangdaejong.com/stillhere/join/" robots="noindex">
+<main id="main-content" data-join><h1>살아있음 연결 초대</h1>
+<p>살아있음은 하루 한 번 버튼을 눌러 서로 잘 지내는지 알리는 앱이에요.</p>
+<div class="join-open" data-join-valid hidden><a class="mb-btn mb-btn--primary mb-btn--block" data-join-open>살아있음 앱에서 연결하기</a></div>
+<p class="join-error" data-join-invalid hidden>초대 링크가 올바르지 않아요. 받은 링크를 다시 눌러 주세요.</p>
+<section aria-labelledby="join-install"><h2 id="join-install">앱이 없나요?</h2>
+<div class="join-stores"><a class="mb-btn mb-btn--secondary" href={appStore}>App Store</a><a class="mb-btn mb-btn--secondary" href={googlePlay}>Google Play</a></div>
+<p data-join-valid hidden>설치한 뒤 이 페이지로 돌아와 「살아있음 앱에서 연결하기」를 눌러 주세요.</p></section>
+<section aria-labelledby="join-fallback" data-join-valid hidden><h2 id="join-fallback">버튼이 안 되면</h2>
+<button type="button" class="mb-btn mb-btn--secondary" data-join-copy>초대 링크 복사</button>
+<p class="join-status" role="status" data-join-copied></p>
+<p>살아있음 앱 「서로 연결」 탭에서 「클립보드에서 붙여넣기」를 누른 뒤 「코드로 연결」을 눌러 주세요.</p></section>
+<nav aria-label="살아있음 안내"><a href="/privacy-stillhere/">개인정보 처리 안내</a> · <a href="/support-stillhere/">지원 안내</a></nav>
+<script is:inline>
+(() => {
+  const PREFIX = 'STILLHERE2:';
+  const MAX_LENGTH = 4096;
+  const PLAY = 'https://play.google.com/store/apps/details?id=com.daejongkang.stillhere';
+  const root = document.querySelector('[data-join]');
+  const open = root.querySelector('[data-join-open]');
+  const status = root.querySelector('[data-join-copied]');
+  let link = '';
+  const readInvite = () => {
+    let invite = location.hash.replace(/^#/, '');
+    try { invite = decodeURIComponent(invite); } catch { return null; }
+    return invite.startsWith(PREFIX) && invite.length <= MAX_LENGTH && !/\s/.test(invite) ? invite : null;
+  };
+  const render = () => {
+    const invite = readInvite();
+    const code = invite ? encodeURIComponent(invite) : '';
+    link = invite ? `stillhere://join?code=${code}` : '';
+    if (!invite) open.removeAttribute('href');
+    else if (/Android/i.test(navigator.userAgent)) open.href = `intent://join?code=${code}#Intent;scheme=stillhere;package=com.daejongkang.stillhere;S.browser_fallback_url=${encodeURIComponent(PLAY)};end`;
+    else open.href = link;
+    for (const item of root.querySelectorAll('[data-join-valid]')) item.hidden = !invite;
+    for (const item of root.querySelectorAll('[data-join-invalid]')) item.hidden = Boolean(invite);
+    status.textContent = '';
+  };
+  const copyText = async (text) => {
+    try { await navigator.clipboard.writeText(text); return true; } catch { /* 권한이 없거나 오래된 브라우저면 옛 방식으로 */ }
+    const area = document.createElement('textarea');
+    area.value = text;
+    area.setAttribute('readonly', '');
+    area.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+    document.body.append(area);
+    area.select();
+    let copied = false;
+    try { copied = document.execCommand('copy'); } catch { copied = false; }
+    area.remove();
+    return copied;
+  };
+  root.querySelector('[data-join-copy]').addEventListener('click', async () => {
+    if (!link) return;
+    status.textContent = await copyText(link) ? '복사했어요' : '복사하지 못했어요. 브라우저 앱에서 이 페이지를 열어 다시 눌러 주세요.';
+  });
+  addEventListener('hashchange', render);
+  render();
+})();
+</script>
+</main></SiteLayout>
+<style>/* T-261102-002: 살아있음 지원·개인정보 안내와 같은 값(제목 위 가는 줄·회색 본문). 버튼 하나로 이어지는 화면이라 폭은 한 줄 흐름 폭 — 숫자는 공용 톤 값만. h2 위 여백은 공용 studio-page.css(body.studio-page h2)가 정하므로 구분선 위 간격은 앞 요소의 아래 여백으로 둔다. */body.studio-page main#main-content{width:min(calc(100% - var(--tone-gutter) * 2),var(--tone-flow-max));margin:0 auto;padding:var(--tone-space-5) 0 var(--tone-section-gap)}h1{margin:0 0 var(--tone-space-3)}h2{padding-top:var(--tone-space-3);border-top:1px solid var(--border)}p{margin:0 0 var(--tone-space-3);color:var(--fg-dim);line-height:var(--tone-body-line);overflow-wrap:anywhere;word-break:keep-all}.join-open{margin:0 0 var(--tone-space-4)}.join-error{color:var(--danger);font-weight:var(--tone-weight-bold)}.join-stores{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:var(--tone-space-1);margin:0 0 var(--tone-space-3)}.join-status{color:var(--fg);font-weight:var(--tone-weight-bold)}.join-status:empty{margin:0}[data-join-copy]{margin:0 0 var(--tone-space-2)}nav{display:flex;flex-wrap:wrap;gap:var(--tone-space-1) var(--tone-space-3);margin-top:var(--tone-section-gap);padding-top:var(--tone-space-4);border-top:1px solid var(--border);line-height:var(--tone-body-line)}nav a{display:inline-flex;align-items:center;min-height:var(--tone-tap-height);font-weight:var(--tone-weight-bold);text-decoration:underline;text-underline-offset:var(--tone-underline-offset)}</style>

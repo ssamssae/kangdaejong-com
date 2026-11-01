@@ -1,0 +1,27 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "46UH85U2B8.com.daejongkang.stillhere",
+        "appIDs": [
+          "46UH85U2B8.com.daejongkang.stillhere"
+        ],
+        "paths": [
+          "/stillhere/join",
+          "/stillhere/join/*"
+        ],
+        "components": [
+          {
+            "/": "/stillhere/join",
+            "comment": "StillHere invite"
+          },
+          {
+            "/": "/stillhere/join/*",
+            "comment": "StillHere invite"
+          }
+        ]
+      }
+    ]
+  }
+}

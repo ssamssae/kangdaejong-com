@@ -27,3 +27,14 @@
   Referrer-Policy: no-referrer
   X-Content-Type-Options: nosniff
   Permissions-Policy: camera=(), microphone=(), geolocation=()
+
+# T-261102-002: StillHere iOS universal links. Apple reads this extensionless file as JSON.
+/.well-known/apple-app-site-association
+  Content-Type: application/json
+
+# T-261102-002: StillHere invite landing. The invite rides in the URL fragment (never sent to the server);
+# keep the page out of search and referrers and always revalidate it.
+/stillhere/join*
+  Referrer-Policy: no-referrer
+  X-Robots-Tag: noindex
+  Cache-Control: public, max-age=0, must-revalidate
