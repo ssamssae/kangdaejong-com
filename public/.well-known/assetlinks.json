@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.daejongkang.stillhere",
+      "sha256_cert_fingerprints": [
+        "C8:92:BD:19:1F:78:87:08:11:04:D1:30:13:2E:10:46:55:E9:2E:0F:6C:93:31:C4:2B:9F:41:31:25:9E:62:F7",
+        "EB:DD:31:6E:86:12:B3:4F:95:85:0B:7E:7F:48:40:C7:12:F2:73:0D:07:6C:1C:CB:EE:DF:73:08:C0:51:18:32"
+      ]
+    }
+  }
+]

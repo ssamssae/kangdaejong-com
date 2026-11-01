@@ -2,13 +2,14 @@
 
 ## 살아있음 초대 링크 착지 페이지 — T-261102-002
 
-- 진입점: 앱이 보내는 `https://kangdaejong.com/stillhere/join#STILLHERE2:…`. 초대는 주소의 `#` 뒤에만 있어 서버로 가지 않는다. 앱이 깔린 iPhone 은 유니버설 링크(`public/.well-known/apple-app-site-association`, `/stillhere/join`·`/stillhere/join/*`)로 이 페이지 대신 앱을 연다. 앱이 없거나, 메신저 안 브라우저가 유니버설 링크를 따르지 않거나, Android(앱 링크 확인 전)면 이 페이지가 보인다.
+- 진입점: 앱이 보내는 `https://kangdaejong.com/stillhere/join#STILLHERE2:…`. 초대는 주소의 `#` 뒤에만 있어 서버로 가지 않는다. 앱이 깔린 iPhone 은 유니버설 링크(`public/.well-known/apple-app-site-association`, `/stillhere/join`·`/stillhere/join/*`)로 이 페이지 대신 앱을 연다. 앱이 깔린 Android 는 앱 링크(`public/.well-known/assetlinks.json`, Play 앱 서명 키·업로드 키 지문)로 앱을 연다. 앱이 없거나, 메신저 안 브라우저가 앱 링크를 따르지 않거나, Android 가 아직 앱 링크를 확인하지 못했으면 이 페이지가 보인다.
 - 주소: 빌드 결과는 `dist/stillhere/join/index.html` 이다. Cloudflare Pages 는 슬래시 없는 주소를 슬래시 주소로 308 이동한다(2026-11-02 `/support-stillhere` → `/support-stillhere/` 실측). 브라우저는 이동 뒤에도 `#` 뒤를 그대로 붙인다. 로컬 `astro preview` 는 두 주소 모두 바로 200 이다.
 - 기대 결과: 올바른 초대(`STILLHERE2:` 로 시작·4096자 이하·공백 없음)면 「살아있음 앱에서 연결하기」가 iPhone 등에서 `stillhere://join?code=…` 를, Android 에서 `intent://join?code=…#Intent;scheme=stillhere;package=com.daejongkang.stillhere;S.browser_fallback_url=<Google Play>;end` 를 연다. 「앱이 없나요?」의 App Store·Google Play 링크와 「버튼이 안 되면」의 「초대 링크 복사」(`stillhere://join?code=…`, 「복사했어요」)가 함께 보인다. 초대가 없거나 틀리면 「초대 링크가 올바르지 않아요. 받은 링크를 다시 눌러 주세요.」와 스토어 링크만 보인다. 처음 열 때 앱으로 자동 이동하지 않는다(앱이 없으면 iOS Safari 가 오류 창을 띄운다).
-- 초대 보호: 스크립트는 초대를 요청·분석·기록·쿼리로 보내지 않는다. `public/_headers` 가 이 페이지에 `Referrer-Policy: no-referrer`·`X-Robots-Tag: noindex`·`Cache-Control: public, max-age=0, must-revalidate` 를 붙인다. 애플 파일에는 `Content-Type: application/json` 을 붙인다.
+- 초대 보호: 스크립트는 초대를 요청·분석·기록·쿼리로 보내지 않는다. `public/_headers` 가 이 페이지에 `Referrer-Policy: no-referrer`·`X-Robots-Tag: noindex`·`Cache-Control: public, max-age=0, must-revalidate` 를 붙인다. 애플 파일과 `assetlinks.json` 에는 `Content-Type: application/json` 을 붙인다.
 - 사이트맵: `noindex` 라 빠진다. 그래서 `public/brand/sites.json` home `pages` 에 `/stillhere/join/` 을 적었다. 빌드 검사(`registered route missing from build`)와 배포 뒤 `live.mjs` 가 이 주소를 본다.
-- 검증: `tests/stillhere-join.spec.mjs`(Android intent·iPhone 링크·복사·틀린 초대 7종·`#` 변경·요청과 콘솔에 초대 없음·빌드 안 애플 파일).
-- 남은 일: Android 앱 링크 `/.well-known/assetlinks.json` 은 서명 지문이 없어 넣지 않았다. 공개 배포(`npm run deploy:site`)는 승인 뒤에 한다. 배포 뒤 `curl -I` 로 애플 파일의 200·`application/json`·리디렉션 없음과 착지 페이지 헤더를 확인한다.
+- 검증: `tests/stillhere-join.spec.mjs`(Android intent·iPhone 링크·복사·틀린 초대 7종·`#` 변경·요청과 콘솔에 초대 없음·빌드 안 애플 파일·빌드 안 `assetlinks.json` 패키지와 지문 2개).
+- 지문 출처: Play 앱 서명 키 = 볼칸 `~/reports/T-261031-017/play_signing_cert.py com.daejongkang.stillhere 18`(versionCode 18 유니버설 APK), 업로드 키 = `keytool -printcert -jarfile <aab>`. 키를 바꾸면 이 파일과 테스트를 같이 고친다.
+- 배포: 공개 배포(`npm run deploy:site`)는 승인 뒤에 한다. 배포 뒤 `curl -I` 로 두 파일의 200·`application/json`·리디렉션 없음과 착지 페이지 헤더를 확인한다.
 
 ## 말해줘 개인정보 처리 안내 — T-261021-018
 

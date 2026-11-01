@@ -32,6 +32,10 @@
 /.well-known/apple-app-site-association
   Content-Type: application/json
 
+# T-261102-002: StillHere Android app links (Play app signing + upload key fingerprints).
+/.well-known/assetlinks.json
+  Content-Type: application/json
+
 # T-261102-002: StillHere invite landing. The invite rides in the URL fragment (never sent to the server);
 # keep the page out of search and referrers and always revalidate it.
 /stillhere/join*
