@@ -1,8 +1,10 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
 import {chromium} from '@playwright/test';
-import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage} from './contract.mjs';
+import {auditInventory,auditHtml,registered,summarize,ORIGIN,checksForPage,auditScreen,hasValidProductException} from './contract.mjs';
+import {catalogForProductPage} from './candidate-products.mjs';
 import {sitemapLocations} from '../../workshop-router/index.mjs';
 import {workSitemapUrls,mountedSitemapUrls} from './work-sitemap.mjs';
 import {handleProductRequest,PRODUCT_PAGES} from '../../workshop-router/product-guides.mjs';
@@ -13,14 +15,30 @@ const candidate=args.includes('--candidate'),screens=!args.includes('--no-screen
 const out=value('--output','site-release-report');fs.mkdirSync(out,{recursive:true});
 const json=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const inventory=json('public/brand/sites.json'),catalog=json('public/brand/products/catalog.json');
+// T-261024-030: 회사 루트 별칭(www·pages.dev)은 회사 주소와 같은 배포다. 후보 검사에서 라이브로 읽으면 공유 카드를 바꾼 PR 이
+// 배포 전이라 늘 「옛 카드」로 실패한다 → 후보 검사에서만 회사 주소 경로(후보 빌드)로 읽는다. 배포 뒤 검사는 별칭을 라이브로 그대로 본다.
+const HOME_ALIAS_ORIGINS=new Set((inventory.sites.find(s=>s.id==='home')?.aliases||[]).map(a=>new URL(a).origin));
+// T-261024-038: release.json 은 빌드가 만드는 기대값이라 저장소에 없다. 빌드 없이 이 검사만 다시 돌리면 이 PC에 남은 옛 빌드의
+// 기대값으로 실제 사이트를 재서, 멀쩡한 사이트를 「옛 카드·다른 커밋」으로 판정한다 → 지금 코드로 기대값을 다시 만든 뒤 읽는다.
+execFileSync(process.execPath,['scripts/site-release/prepare.mjs'],{stdio:'inherit'});
 const release=json('public/brand/release.json');
 const results=[], pageSet=new Map(), assets=Object.entries(release.files);
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const cache=new Map();
+let liveCatalogPromise;
+function loadLiveCatalog(){
+  // Bypass get(): candidate URLs under ORIGIN normally resolve to local dist.
+  return liveCatalogPromise??=(async()=>{
+    const response=await fetch(ORIGIN+'/brand/products/catalog.json',{signal:AbortSignal.timeout(25000),headers:{'Cache-Control':'no-cache'}});
+    if(!response.ok)throw Error(`live product catalog HTTP ${response.status}`);
+    return response.json();
+  })();
+}
 async function get(url){
   if(!cache.has(url))cache.set(url,(async()=>{
     if(candidate){
       const legacy=new URL(url);
+      if(HOME_ALIAS_ORIGINS.has(legacy.origin))return get(ORIGIN+legacy.pathname+legacy.search);
       if(legacy.hostname==='product.kangdaejong.com')return get(ORIGIN+'/product'+legacy.pathname+legacy.search);
       if(['protein.kangdaejong.com','protein-kangdaejong.pages.dev'].includes(legacy.hostname)&&legacy.pathname==='/')return get(ORIGIN+'/protein/'+legacy.search);
       if(legacy.hostname==='founder.kangdaejong.com'&&/^\/(claude|codex|cursor|grok)-telegram-bridge\//.test(legacy.pathname))return get(ORIGIN+'/product'+legacy.pathname+legacy.search);
@@ -132,22 +150,25 @@ await pool([...pageSet],async([url,site])=>{
     // content-hashed files. Verify their actual bytes against the SAME catalog.
     // This supports a coordinated rollout without accepting an outdated image.
     let productChecks=checks, legacyErrors=[];
+    const pageCatalog=checks.includes('products')
+      ?await catalogForProductPage(text,catalog,{candidate,site,loadLiveCatalog})
+      :catalog;
     if(checks.includes('products')&&!text.includes('data-product-id')){
       productChecks=checks.filter(c=>c!=='products');
       const cards=(text.match(/<article\b[\s\S]*?<\/article>/gi)||[]).filter(c=>c.includes('data-catalog-item'));
       if(!cards.length)legacyErrors.push('no identifiable product cards');
       for(const card of cards){
         const name=card.match(/<h3\b[^>]*>(.*?)<\/h3>/s)?.[1];
-        const product=catalog.products.find(p=>p.name===name||(p.aliases||[]).includes(name));
+        const product=pageCatalog.products.find(p=>p.name===name||(p.aliases||[]).includes(name));
         if(!product){legacyErrors.push(`unknown product ${name}`);continue;}
         const src=card.match(/<img\b[^>]*src="([^"]+)"/)?.[1];
-        if(product.exception&&!src)continue;
+        if(hasValidProductException(product)&&!/<img\b/i.test(card))continue;
         if(!src){legacyErrors.push(`missing icon ${name}`);continue;}
         const actual=hash((await get(new URL(src,url).href)).bytes);
         if(actual!==product.files.icon.sha256)legacyErrors.push(`stale icon bytes ${name}`);
       }
     }
-    const errors=[...auditHtml(text,{...site,checks:productChecks}, {socialHash:release.files['brand/current/social.png']},catalog),...legacyErrors];
+    const errors=[...auditHtml(text,{...site,checks:productChecks}, {socialHash:release.files['brand/current/social.png']},pageCatalog),...legacyErrors];
     results.push({url,status:errors.length?'failed':'passed',checks,errors});
   }catch(e){results.push({url,status:'unverified',errors:[e.message]});}
 });
@@ -180,13 +201,9 @@ if(screens){
         });
         const response=await page.goto(url,{waitUntil:'networkidle',timeout:45000});
         if(![200,410].includes(response.status()))throw Error(`HTTP ${response.status()}`);
-        const root=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,theme:getComputedStyle(document.documentElement).colorScheme,bg:getComputedStyle(document.body).backgroundColor,cards:[...document.querySelectorAll('.catalog-card,.project-card,.app-row,.text-panel')].map(e=>getComputedStyle(e).backgroundColor)}));
-        if(root.overflow)errors.push('horizontal overflow');
-        if(!root.theme.includes(colorScheme))errors.push(`theme mismatch ${root.theme}`);
-        if(colorScheme==='dark')for(const color of [root.bg,...root.cards]){
-          const values=color.match(/[\d.]+/g)?.map(Number)||[];
-          if(values.length>=3&&values[3]!==0&&(values[0]+values[1]+values[2])/3>180)errors.push(`light surface in dark mode: ${color}`);
-        }
+        const root=await page.evaluate(()=>({overflow:document.documentElement.scrollWidth>innerWidth+1,declared:document.documentElement.dataset.theme||'',theme:getComputedStyle(document.documentElement).colorScheme,bg:getComputedStyle(document.body).backgroundColor,cards:[...document.querySelectorAll('.catalog-card,.project-card,.app-row,.text-panel')].map(e=>getComputedStyle(e).backgroundColor)}));
+        // T-261024-050: 라이트 고정 화면(회사 홈)은 다크 기기에서도 라이트가 맞다 — 판정은 contract.mjs auditScreen.
+        errors.push(...auditScreen(root,site,colorScheme));
         const images=page.locator('[data-product-id] img, [data-catalog-item] img');
         for(let i=0;i<await images.count();i++){
           const img=images.nth(i);

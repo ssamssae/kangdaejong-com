@@ -8,6 +8,7 @@ class BooksAnchor(unittest.TestCase):
         archive=(ROOT/'dist/archive/index.html').read_text()
         self.assertIn('id="books"',home)
         self.assertIn('window.location.replace',archive)
-        for product in ('786557','786749','798202'):
-            self.assertIn('https://kmong.com/gig/'+product,home)
+        # T-261003-019(#131): 판매 링크 대신 무료 PDF 3권.
+        for pdf in ('solo-company-ai-automation','solo-ai-team','phone-controls-my-computer-ai'):
+            self.assertIn('href="/books/'+pdf+'.pdf"',home)
 if __name__=='__main__': unittest.main()

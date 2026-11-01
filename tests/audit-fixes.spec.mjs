@@ -4,13 +4,13 @@ import { readFile } from 'node:fs/promises';
 test('sitemap advertises current canonical pages only', async () => {
   const xml=await readFile('dist/sitemap.xml','utf8');
   const urls=[...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]).sort();
-  const paths=['/','/apps/dutchpay/','/apps/memoyo/','/apps/yakmukja/','/cheotireum/','/ipta/','/organization/','/our-sai/','/our-sai/privacy/','/our-sai/support/','/our-sai/terms/','/privacy-noraechatgi/','/privacy-sadariyo/','/privacy-stillhere/','/protein/','/sangho/','/support-calcalarm/','/support-gagyebu/','/support-noraechatgi/','/support-stillhere/','/system/','/tojeong/','/tools/text/'];
+  const paths=['/','/apps/dutchpay/','/apps/memoyo/','/apps/yakmukja/','/cheotireum/','/ipta/','/organization/','/our-sai/','/our-sai/privacy/','/our-sai/support/','/our-sai/terms/','/privacy-minusbeta-stats/','/privacy-noraechatgi/','/privacy-sadariyo/','/privacy-stillhere/','/privacy-cheotireum-app/','/privacy-hanjul-app/','/privacy-tojeong-app/','/protein/','/sangho/','/support-calcalarm/','/support-gagyebu/','/support-noraechatgi/','/support-stillhere/','/system/','/tojeong/','/tools/text/'];
   expect(urls).toEqual(paths.map(p=>'https://kangdaejong.com'+p).sort());
 });
 test('unknown addresses have a usable custom 404 artifact', async ({page}) => {
-  expect(await readFile('dist/404.html','utf8')).toContain('페이지를 찾을 수 없습니다');
+  expect(await readFile('dist/404.html','utf8')).toContain('페이지를 찾을 수 없어요');
   const response=await page.goto('/missing-audit-route/');expect(response.status()).toBe(404);
-  await expect(page.getByRole('heading',{name:'페이지를 찾을 수 없습니다.'})).toBeVisible();
+  await expect(page.getByRole('heading',{name:'페이지를 찾을 수 없어요.'})).toBeVisible();
   await expect(page.getByRole('link',{name:'홈으로 돌아가기'})).toHaveAttribute('href','/');
 });
 test('download buttons keep readable contrast including hover', async ({page}) => {

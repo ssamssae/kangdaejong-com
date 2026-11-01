@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import {createHash} from 'node:crypto';
 import {execFileSync} from 'node:child_process';
-import {auditInventory} from './contract.mjs';
+import {auditInventory,hasValidProductException} from './contract.mjs';
 const json=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const hash=b=>createHash('sha256').update(b).digest('hex');
 const inventory=json('public/brand/sites.json'), discovery=json(process.env.SITE_DISCOVERY||'docs/site-discovery.json');
@@ -10,7 +10,7 @@ const catalog=json('public/brand/products/catalog.json');
 const ids=new Set();
 for(const p of catalog.products){
   if(ids.has(p.id))errors.push(`duplicate product ${p.id}`);ids.add(p.id);
-  if(p.exception){if(p.icon||!p.exception.trim())errors.push(`invalid exception ${p.id}`);continue;}
+  if(p.exception){if(!hasValidProductException(p))errors.push(`invalid exception ${p.id}`);continue;}
   if(!p.source?.startsWith('https://')||!p.files?.icon)errors.push(`missing provenance ${p.id}`);
   for(const [key,file] of Object.entries(p.files||{})){
     const expected=`https://kangdaejong.com/brand/products/${p.id}${key==='icon2x'?'@2x':''}.webp`;

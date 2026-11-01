@@ -61,7 +61,6 @@ async function openMolecule(button) {
   }
   title.textContent = `${button.dataset.name} · ${button.dataset.code}`;
   image.href = `/protein/${button.dataset.molecule}.png`;
-  image.dataset.darkHref = `/protein/dark/${button.dataset.molecule}.webp`;
   stage.setAttribute('aria-label', `${button.dataset.name} 회전 가능한 분자 모형`);
   stage.setAttribute('aria-busy', 'true');
   status.textContent = '3D 구조를 불러오는 중입니다…';

@@ -16,6 +16,8 @@ const checks = [
   ["open shadow navigation has visible keyboard focus", /:where\(a,button\):focus-visible/.test(source)],
   ["mobile navigation retains compact responsive sizing", /@media\(max-width:380px\)/.test(source) && /width:calc\(100% - 40px\)/.test(source)],
   ["contact action keeps the verified email", /mailto:minusbetastudio@gmail\.com/.test(source)],
+  // T-261024-062: 헤더는 스크롤해도 화면 위에 붙어 있어야 한다(대종님 「틀고정 효과」). 되돌리면 4면 전부 다시 사라진다.
+  ["header host stays pinned to the top while scrolling", /:host \{ \$\{hostPalette\(this\)\} display:block; position:sticky; top:0; z-index:70;/.test(source) && /setProperty\('--mb-header-block'/.test(source) && /html\{scroll-padding-top:var\(--mb-header-block,calc\(var\(--tone-header-height\) \+ 1px\)\)\}/.test(readFileSync(new URL("../public/studio-page.css", import.meta.url), "utf8"))],
   ["shared consumers keep the default palette unless studio tone is explicit", /const PALETTE_DEFAULT = `/.test(source) && /const PALETTE_STUDIO = `/.test(source) && /getAttribute\('tone'\)/.test(source) && /dataset\.tone/.test(source) && /hostPalette\(this\)/.test(source)],
 ];
 

@@ -6,12 +6,12 @@ export const projectVersions = [
 ];
 
 export const currentProjects = [
-  { name: '입타', mark: '입', category: '말을 글로', status: 'Mac · Windows', description: '쓰던 입력칸에서 말하면 글이 됩니다. 한국어 받아쓰기는 내 컴퓨터에서 처리합니다.', href: '/ipta/', action: '설치·사용 방법 보기' },
+  { name: '입타', mark: '입', category: '말을 글로', status: 'Mac · Windows', description: '쓰던 입력칸에서 말하면 글이 돼요. 한국어 받아쓰기는 내 컴퓨터에서 처리해요.', href: '/ipta/', action: '설치·사용 방법 보기' },
 ];
 
 // Featured work spans chapters; historical membership remains unchanged.
 export const featuredProjects = [
-  { name: '텔레그램 브릿지', mark: '↔', category: '휴대폰과 내 컴퓨터를 연결', status: '공개 소스', description: '휴대폰에서 내 컴퓨터의 AI에게 요청하고 답을 받습니다. Codex·Cursor·Claude·Grok을 연결하는 도구입니다.', href: '/archive/#open-tools', action: '브릿지 시연·설치 안내 보기' },
+  { name: '텔레그램 브릿지', mark: '↔', category: '휴대폰과 내 컴퓨터를 연결', status: '공개 소스', description: '휴대폰에서 내 컴퓨터의 AI에게 요청하고 답을 받아요. Codex·Cursor·Claude·Grok을 연결하는 도구예요.', href: '/archive/#open-tools', action: '브릿지 시연·설치 안내 보기' },
   currentProjects[0],
-  { name: '자비스', mark: '자', category: '목소리로 부르는 AI 비서', status: '실험 프로젝트 · 소스 공개', description: 'Mac에서 목소리로 부르고, AI의 답을 스피커로 듣는 음성 비서를 만들고 있습니다. 소스를 받아 직접 설정해 사용하는 프로젝트입니다.', href: 'https://github.com/ssamssae/jarvis-mac', action: '자비스 소개·소스 보기' },
+  { name: '자비스', mark: '자', category: '목소리로 부르는 AI 비서', status: '실험 프로젝트 · 소스 공개', description: 'Mac에서 목소리로 부르고, AI의 답을 스피커로 듣는 음성 비서를 만들고 있어요. 소스를 받아 직접 설정해 사용하는 프로젝트예요.', href: 'https://github.com/ssamssae/jarvis-mac', action: '자비스 소개·소스 보기' },
 ];

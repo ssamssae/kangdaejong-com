@@ -7,6 +7,18 @@
 - 검증: `tests/malhaejwo.spec.mjs`. 공개 배포(`npm run deploy:site`)는 대종님 승인 카드 뒤에 하고, 라이브 응답은 배포 뒤 여러 번 받아 200 을 확인한다.
 - 사이트맵: canonical 이 경로와 같아 `dist/sitemap.xml` 에 자동으로 들어간다.
 
+## 첫이름 루트 유입 카드 — T-261024-053, T-261026-031
+
+- 사전 조건: 로그인 없이 회사홈 `/`에 접속한다. 로컬 검증은 `npm run build` 뒤 Playwright가 실행하는 preview를 사용한다.
+- 진입점: `/#projects` → 「만드는 도구」 → 「복붙 정리기」 다음의 「첫이름」 카드. 기존 파란 원·흰색 ㅊ 아이콘과 「웹 서비스 · 작명서 1,000원」을 확인한다.
+- 조작: 「웹에서 시작하기」의 기존 서비스 루트, 「무료 샘플」의 `/sample-report`, 「한자 확인」의 `/hanja-check` 링크를 확인한다. 「서비스 안내」를 눌러 회사 `/cheotireum/`의 무료 오행 미리보기·작명서 1,000원 안내로 이동한다.
+- 기대 결과: 기존 앱 9개를 유지한다. 이미지 아이콘은 첫이름을 포함해 12개다. 390/1440px × 라이트/다크에서 카드 링크가 줄바꿈되고 가로 넘침이 없다. EN 전환 시 카드 문구를 번역한다. 아이콘은 같은 이미지를 유지한다. 한국어로 돌아오면 원문을 복원한다.
+- 정본: `ssamssae/cheotireum` 커밋 `c9b7fc14c0de43644f2feca355c6c291937ef09d`의 `web/brand-mark.svg`(508 bytes, SHA256 `ef5a765e9fc4baf4e2742cc75bec59727603991aa096680c6cab637ff047de74`)를 바이트 수정 없이 Sharp로 변환했다. `public/product-icons/cheotireum-ef5a765e-{96,192}.webp`의 실제 SHA256을 카탈로그에 기록했다. 공개 별칭 `brand/products/cheotireum{,@2x}.webp`는 `prepare.mjs`가 생성한다.
+- 검증 경로: `tests/home-corrections.spec.mjs`, `tests/home-tone.spec.mjs`, `tests/theme-lang-layout.spec.mjs`, `tests/site-release/candidate-products.test.mjs`. 홈 후보와 모든 프로덕션 검사는 새 아이콘을 요구한다. 후보 검사의 외부 작업장 HTML에 이미지만 없을 때, 현재 라이브 카탈로그의 유효한 letter-mark 승인만 적용한다. 미승인 예외·이미지 혼용은 실패한다.
+- 이전 실측: 2026-10-24 KST, `codex/cheotireum-inflow-restore`의 글자 마크 상태에서 지정 Playwright 38개와 site-release·라우터 30개를 통과했다. 이 결과는 파란 아이콘 적용 전의 이력이다.
+- 아이콘 실측: 2026-10-26 KST, `codex/cheotireum-blue-icon`에서 지정 Playwright 18개와 site-release·라우터 37개를 통과했다. 390/1440px × 라이트/다크 설정 × KO/EN 카드 화면을 저장했다. 화면은 기존 라이트 고정 계약을 유지한다. 두 빌드와 공통 헤더·푸터·다크 카드·팔레트·톤 검사도 통과했다.
+- 효과·미확인: 서비스 안내까지 로컬 이동을 검사한다. 외부 서비스의 결제·주문 생성은 검사하지 않는다. T-261026-031 승인 범위는 `no-auto-merge` PR 생성과 CI 확인까지다. PR은 OPEN 상태로 유지한다. 머지·배포는 금지한다. 최신 실행 근거는 `/Users/user/reports/T-261026-031/checkpoint.json`에 남긴다.
+
 ## 작업장과 사이트맵 통합 — T-261017-004
 
 - 진입점: 공통 메뉴 「작업장」 → `https://kangdaejong.com/work/`. 로그인 없이 확인한다.
@@ -31,7 +43,7 @@
 
 ## 복붙 정리기 — T-261013-025
 
-- 진입점: 홈페이지 `/#projects` → 「만드는 도구」 마지막 「복붙 정리기」 카드 → 「글 정리하기」 → `https://kangdaejong.com/tools/text/`. PC·휴대전화 브라우저에서 로그인·설치 없이 사용한다. 도구 하단 「홈페이지」는 `/#projects`로 돌아간다.
+- 진입점: 홈페이지 `/#projects` → 「만드는 도구」의 「복붙 정리기」 카드 → 「글 정리하기」 → `https://kangdaejong.com/tools/text/`. PC·휴대전화 브라우저에서 로그인·설치 없이 사용한다. 도구 하단 「홈페이지」는 `/#projects`로 돌아간다.
 - 헤더 보완(T-261013-031): 상단의 정식 스튜디오 로고(`/brand/current/logo.svg`)와 「홈페이지」 링크는 모두 `/`로 이동한다. 로고 아래에 도구 이름을 표시한다. 320/390/1440px에서 로고 실제 로드·상단 링크 가시성·클릭 이동을 `text-cleaner.spec.mjs`로 검사한다. 로고 이미지만 같은 출처에서 읽도록 CSP `img-src`에 self를 허용하며, 글 처리 API는 없고 `connect-src`는 none을 유지한다.
 - 조작: 「원문」에 글 붙여넣기 → 「정리하기」 → 줄바꿈 유지·끊긴 줄 연결·한 줄로 중 선택 → 「결과 복사」. 원문은 보존한다. 원문을 수정하면 이전 결과와 복사 버튼을 무효화한다. 「비우기」는 한 번 되돌릴 수 있고, 예시는 기존 글을 덮지 않는다.
 - 처리: `public/tools/text/index.html`의 독립 HTML에 정리·복사 스크립트가 들어 있다. 입력 글을 서버로 전송하거나 저장하지 않는다. CSP `connect-src 'none'`으로 연결을 차단한다. 복사가 거절되면 결과를 선택하고 수동 복사를 안내한다. canonical에서 사이트맵을 자동 생성한다. 홈페이지 카드의 EN 문구는 기존 사전에 포함한다.
@@ -59,7 +71,7 @@
 
 ## 다크 모드·PC 넓은 레이아웃·한국어/EN 전환·가벼운 아이콘 — T-261011-068
 
-- 다크 모드: 기기 설정(prefers-color-scheme)을 따르고 토글은 없다. `SiteLayout`의 `theme="auto"`가 `<html data-theme="auto">`를 켜고, `src/styles/tokens.css`의 다크 블록이 토큰을 덮는다(초소와 같은 파란 계열: 바탕 #121519, 강조 #7aa2ff). 라이트는 `var(--토큰, 원래색)` 대체값으로 픽셀 그대로. 공용 헤더·푸터는 호스트의 `--mb-host-*` 변수를 상속해 같이 어두워지고, 변수를 정의하지 않는 founder 는 라이트 그대로다. 로고·사진·단백질·전자책 템플릿 페이지는 켜지 않았다.
+- 다크 모드(이력): 기기 설정(prefers-color-scheme)을 따르고 토글은 없었다. `SiteLayout`의 `theme="auto"`가 `<html data-theme="auto">`를 켜고 공용 tokens.css 의 다크 블록이 토큰을 덮었다. **T-261024-050(2026-10-24, 대종님 「다크도 풀자」)부터 회사 홈은 라이트 고정이다** — `SiteLayout` 기본 `theme="light"`, `<meta name="color-scheme" content="light">`, 복붙 정리기·종료 안내 화면도 같다. 단백질 도감만 `theme="auto"`(별도 사이트, 다크 그림 세트). 공용 헤더·푸터는 호스트의 `--mb-host-*`·`--tone-*` 를 상속하므로 작업장·대표소개에서는 그 사이트 설정대로다. 상세는 `docs/company-brand.md` 「회사 홈은 라이트 고정」.
 - PC 넓은 레이아웃: `tokens.css`의 `--page-max`가 1000px → 1440px. 홈 본문(`.home-width`)·하위 페이지(`.studio-width`)·푸터·공용 헤더(`--mb-max`)가 같은 값을 쓴다. 1100px 이상에서 앱 목록은 3열. 모바일(650px 이하)은 그대로.
 - 한국어/EN 전환: 홈 헤더의 `한국어 | EN` 버튼(`<mb-header lang-toggle>`) → `mb-lang-change` 이벤트 → `src/scripts/lang-toggle.js`가 본문·헤더·푸터(shadow DOM)·aria-label 류 속성을 `src/data/i18n-en.json`(한국어 문자열 → 영어)으로 바꾼다. 새로고침 없이 즉시 바뀌고 `localStorage['mb-lang']`에 기억한다. 영어 문구를 고치려면 JSON 값만 고친다. 한국어 문구를 바꾸면 같은 키를 JSON에도 맞춘다(없는 키는 한국어 그대로 남는다).
 - 아이콘: `public/product-icons/*-96.webp`(+`-192.webp` 2x). 1024px PNG 원본 4장(3.4MB)과 512px JPG 4장을 지우고 `product-icon-sources.json`의 `icon`/`icon2x`/`derivedFrom`으로 가리킨다. 원본 출처(`source`, `sha256`)는 그대로 둔다.
@@ -90,7 +102,7 @@
 ## 헤더·톤·앱 로고·움직임 — T-261003-017
 
 - 홈·소개·상세 페이지와 작업장은 동일 `mb-header`를 쓴다. 프로젝트·앱·연락은 홈의 해당 구역, 둘러보기는 기존 상세 목적지를 제공한다. 키보드 ArrowDown/Escape, 외부 클릭, 320~1440px에서 메뉴 위치를 검사한다.
-- 흰 배경, 파란 강조색 #2458cc, Pretendard, 최대 본문 1000px을 기준으로 맞춘다. 공유 이미지는 현재 승인 로고로 렌더링하며 manifest hash가 포함된 이미지 주소를 쓴다.
+- 흰 배경, 파란 강조색 #2f6feb(첫이름과 같은 값, T-261024-020). 모양·글자 값과 공용 버튼·카드·칩은 같은 공용 톤 파일(`public/brand/current/tokens.css`, T-261024-026), Pretendard, 최대 본문 1000px을 기준으로 맞춘다. 공유 이미지는 현재 승인 로고로 렌더링하며 manifest hash가 포함된 이미지 주소를 쓴다.
 - 세 앱 아이콘은 각 저장소 main의 iOS 1024px 원본을 복사했다. `product-icon-sources.json`의 revision·sha256으로 재확인할 수 있다. App Store 배포 버전과는 구분한다.
 - `/#mood` → 잠깐 쉬기 → 움직임 멈추기/켜기: 정지 시 좌표 고정, 재개 1.8초 후 이동거리 3 CSS px 초과. OS 동작 줄이기와 숨겨진 문서는 정지한다.
 - 검증: `tests/home-corrections.spec.mjs`, `header-navigation.spec.mjs`, `mood-corner.spec.mjs`, `one-page.spec.mjs`, `site-renewal.spec.mjs`. 로컬·배포 근거는 T-261003-017 체크포인트에 구분한다.
@@ -137,6 +149,10 @@
 ## T-261012-024 · 단백질 도감 다크 모드·넓은 폭
 
 단백질 도감(protein.kangdaejong.com)도 홈과 같은 톤: `ProteinAtlas` 가 `SiteLayout theme="auto"` 를 켜고, 본문 폭은 `--page-max`(1440px). 분자 그림은 다크용 `public/protein/dark/<slug>.webp`(바탕 #121519, `npm run render:protein-dark` — 저장소의 SDF·고정 3Dmol 로 원본과 같은 구도, manifest 의 pixelBounds ±2px 확인 후에만 저장)를 `<picture media="(prefers-color-scheme: dark)">` 로 쓰고 다크에선 `mix-blend-mode:lighten` 으로 카드에 녹인다(라이트의 multiply 는 다크에서 분자를 검게 묻는다). 확대 창·3D 뷰어 정적 그림 링크는 `data-dark-href`, 3D 뷰어 바탕은 다크 #191d23. protein.spec.mjs 에 다크 검사 1개.
+
+## T-261024-058 · 다크 해제·전부 라이트 + 생김새 원본 한 곳
+
+대종님 결정(2026-10-24 「응 다크를풀고 전부 라이트」「하나를 고치면 모든 사이트 고쳐질 수 있도록」). 공용 `tokens.css` 에서 다크 블록을 지워 회사 홈·작업장·대표소개·단백질·종료 안내·제품 안내가 기기 설정과 무관하게 같은 라이트 값으로 그려진다. `SiteLayout` 은 `theme` 분기 없이 `data-theme="light"` 고정, 단백질 도감의 다크 그림 전환(`data-dark-href`·`<source media=dark>`·lighten 합성·`render:protein-dark`)은 걷어내고 그림은 `public/protein/<slug>.png` 한 벌만 쓴다(옛 `public/protein/dark/*.webp` 파일은 남겨 두었지만 아무 페이지도 읽지 않는다). 단백질 도감 본문 CSS 는 `--tone-*`·`.mb-btn`·`.mb-card`·`.mb-chip`·`.mb-eyebrow`·`.mb-link`·`.mb-input` 으로 바꿔 직접 숫자 0(그림 폭·3D 무대 최소 높이만 `tone:fixed`). 확인 경로: `/protein/` 을 기기 다크 설정으로 열어도 흰 바탕·검은 글자, 카드 그림은 `.png`, 3D 보기·닫기·초기화 버튼은 공용 버튼 모양(56px·14px 모서리), 분류 칩은 알약, 검색칸은 회색 입력칸. 검사: `tests/protein.spec.mjs`(다크 에뮬 → 라이트 값·png 그림), `scripts/verify-dark-cards.mjs`(모든 HTML light), `scripts/verify-tone-copies.mjs`(원본 밖 다크 규칙·직접 숫자 래칫), `scripts/site-release/contract.mjs auditScreen`(라이브 전 사이트 다크 에뮬 바탕 밝음).
 
 ## T-261003-018 · 사이트 디자인 통일
 
@@ -217,3 +233,21 @@
 - 홈 공개 채널 배너(`SocialBanner`)의 초소 카드, 공통 둘러보기(`public/mb-components.js`)의 「초소」·「운영 정의」, `/system/`의 「초소 둘러보기」·「운영 정의 읽기」 링크를 제거했다. 공통 헤더를 쓰는 작업장·founder 화면도 배포 뒤 같이 바뀐다. 쓰지 않게 된 EN 사전 항목도 지웠다.
 - 확인: 홈 배너 11개 채널, 둘러보기 13개 링크, `/system/` 본문에 초소 링크 없음. `npm run verify:shared-header`의 「retired choso menu stays absent」와 `tests/header-navigation.spec.mjs`·`tests/social-banner.spec.mjs`·`tests/site-renewal.spec.mjs`가 재유입을 막는다.
 - 남긴 것: 옛 `/#choso` 주소용 앵커 별칭, `public/brand/sites.json`의 초소 exception 기록, 작업장 글 속 초소 언급(링크 아님).
+
+## 누르는 카드·메일 주소 복사·스크롤 리빌 — T-261025-009
+
+- 출발: 인사이트 「바이브코더 필수 UI 용어 24가지」(2026-10-25)에서 고른 추천 1~3(대종님 「추천1~4 진행해줘」). 모양은 공용 톤 파일 `public/brand/current/tokens.css`(`.mb-press-card`·`.mb-toast`·`[data-mb-reveal]`, 시간 `--tone-reveal-ms` 400ms·`--tone-reveal-step` 80ms), 동작은 공용 머리글 파일 `public/mb-components.js`(`data-mb-copy-email`·`data-mb-reveal`)다. 회사 홈 배포 한 번으로 4면이 같은 부품을 쓸 수 있다.
+- 진입점: `https://kangdaejong.com/` 로그인 없이.
+- 조작·기대
+  1. 「만드는 도구」에서 링크가 하나뿐인 카드(텔레그램 브릿지·입타·자비스·복붙 정리기)의 아무 곳이나 누른다 → 그 카드의 링크로 간다. PC 에서 올리면 회색이 한 단계 진해지고(`--bg-elev2`), 누르는 동안 0.98 로 작아진다. 키보드 초점은 카드 테두리 전체에 그린다. 링크가 여러 개인 첫이름·앱 카드는 그대로다(대표 링크를 정하면 같은 부품을 달 수 있다).
+  2. 「이야기를 나눠요」의 「주소 복사」를 누른다 → 클립보드에 `minusbetastudio@gmail.com`, 화면 아래 토스트 「메일 주소를 복사했어요」가 3초 뒤 사라진다. 영어 화면은 「Copy address」·「Email address copied」. 복사가 막히면 「복사하지 못했어요. 이메일 보내기를 눌러 주세요」. Cloudflare 가 가린 mailto(`/cdn-cgi/l/email-protection#…`)도 풀어서 복사한다.
+  3. 휴대전화에서 아래로 내린다 → 화면 밖에 있던 카드(도구·앱·전자책)가 들어올 때 아래에서 살짝 올라오며 나타나고, 함께 들어온 카드는 0.08초 간격으로 차례로 나온다. 첫 화면에 이미 보이던 카드는 그대로다.
+- 효과·승인 경계: 읽기 전용(복사는 방문자 클립보드에만 쓴다). 동작 줄이기 설정·자동화 브라우저(`navigator.webdriver`)에서는 리빌을 하지 않는다 — 배포 뒤 화면 검사·전체 화면 캡처가 화면 밖 카드를 빈 칸으로 찍지 않게. 리빌을 시험할 때만 `navigator.webdriver` 를 끈다.
+- 자동 근거: `tests/home-ui-interactions.spec.mjs`(12개). 2026-10-25 제우스 로컬 실측(Playwright 내장 크로미움 1228) — 전체 브라우저 시험 127개 중 123개 통과, 실패 4개(`digital-products` 2개, `one-page`·`site-renewal` 의 「브릿지 4개」 기대)는 origin/main 1e8e1ef 에서도 똑같이 실패하는 기존 실패다. `npm run verify:shared-header`·`verify:shared-footer`·`verify:dark-cards`·`verify:palette-copies`(직접 숫자 652 ≤ 기준선 652)·`verify:tone-pairs`·`test:site-release`·`live.mjs --candidate`(대상 1,075·미확인 0) 통과. 대표소개(ssamssae.github.io)도 같은 `data-mb-copy-email` 을 쓴다.
+- 미확인·갱신 조건: 공개 배포 뒤 실제 화면·클립보드는 배포 뒤 다시 확인한다.
+
+## Minus Beta Stats 개인정보 처리 안내 — T-261026-024
+
+- 진입점: `/privacy-minusbeta-stats/`. Google 인증 플랫폼 OAuth 앱 「Minus Beta Stats」(프로젝트 `minusbeta-admob-reports`)을 '운영'으로 게시할 때 구글이 요구하는 개인정보처리방침 URL이다. 내부 도구라 홈 앱 목록(`src/data/home.ts`)에는 넣지 않는다.
+- 기대 결과: h1 「Minus Beta Stats 개인정보 처리 안내」, admob.readonly 읽기 전용·AdMob 계정 번호와 날짜별 예상 수익·노출 수만 읽음·열쇠는 운영자 컴퓨터 한 대·요약은 비공개 gist·판매/제3자 공유 없음·서드파티 연결에서 끊기·문의 메일, canonical `https://kangdaejong.com/privacy-minusbeta-stats/`. 문안은 2026-10-26 대종님 승인 원문 그대로다.
+- 검증: `tests/minusbeta-stats.spec.mjs`, 사이트맵 목록 `tests/audit-fixes.spec.mjs`. 라이브 응답은 배포 뒤 200 과 본문을 확인한다.

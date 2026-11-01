@@ -1,26 +1,23 @@
 <aside class="insight-banner" aria-labelledby="insight-banner-title">
   <div class="insight-banner-copy">
-    <span class="insight-banner-label">보고 배운 것을 모았습니다</span>
+    <span class="insight-banner-label">보고 배운 것을 모았어요</span>
     <p class="insight-banner-title" id="insight-banner-title">다시 꺼내 읽는 인사이트</p>
-    <p>AI와 일하는 방법, 생각을 넓혀 준 영상의 핵심을 정리합니다.</p>
+    <p>AI와 일하는 방법, 생각을 넓혀 준 영상의 핵심을 정리해요.</p>
   </div>
-  <a href="https://kangdaejong.com/work/insights/">인사이트 모아보기 <span aria-hidden="true">↗</span></a>
+  <a class="mb-btn mb-btn--primary" href="https://kangdaejong.com/work/insights/">인사이트 모아보기 <span aria-hidden="true">↗</span></a>
 </aside>
 
 <style>
-  /* Colors: light literals as var() fallbacks; dark values come from tokens.css (T-261011-068). */
-  .insight-banner { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-top: 24px; padding: 24px 28px; background: var(--accent-tint); border: 1px solid var(--accent-line); border-left: 4px solid var(--accent); border-radius: 12px; }
+  /* 색은 공용 tokens.css. T-261024-050: 모양·글자·간격은 첫이름(연한 파란 둥근 면 .next·카드 안쪽)과 같은 공용 톤 값만. */
+  .insight-banner { display: flex; align-items: center; justify-content: space-between; gap: var(--tone-space-4); margin-top: var(--tone-space-4); padding: var(--tone-card-padding); background: var(--accent-tint); border: 0; border-radius: var(--tone-radius-card); }
   .insight-banner-copy { min-width: 0; }
-  .insight-banner-label { display: block; color: var(--accent-text-2); font-size: 12px; font-weight: 550; margin-bottom: 5px; }
-  .insight-banner .insight-banner-title { margin: 0; color: var(--accent-text); font-size: 23px; font-weight: 650; line-height: 1.4; letter-spacing: -.045em; }
-  .insight-banner p { margin-top: 7px; color: var(--accent-text-3); font-size: 13px; line-height: 1.7; word-break: keep-all; }
-  .insight-banner .insight-banner-title + p { margin-top: 7px; }
-  .insight-banner a { display: inline-flex; align-items: center; justify-content: center; gap: 18px; flex-shrink: 0; min-height: 46px; padding: 0 19px; border-radius: 7px; background: var(--cta-bg); color: var(--cta-fg); font-size: 13px; font-weight: 600; }
-  .insight-banner a:hover { background: var(--accent-hover); color: var(--cta-fg); }
-  .insight-banner a:focus-visible { outline: 3px solid var(--accent-text); outline-offset: 4px; }
+  .insight-banner-label { display: block; color: var(--accent-text-2); font: var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); margin-bottom: var(--tone-space-1); }
+  .insight-banner .insight-banner-title { margin: 0; color: var(--accent-text); font-size: var(--tone-title-size); font-weight: var(--tone-weight-bold); line-height: var(--tone-title-line); letter-spacing: var(--tone-tracking-title); }
+  .insight-banner p { margin-top: var(--tone-space-1); color: var(--accent-text-3); font-size: var(--tone-body-size); line-height: var(--tone-body-line); word-break: keep-all; }
+  .insight-banner a { flex-shrink: 0; }
+  .insight-banner a:focus-visible { outline: var(--tone-focus-width) solid var(--accent-text); outline-offset: var(--tone-focus-offset); }
   @media (max-width: 650px) {
-    .insight-banner { align-items: stretch; flex-direction: column; gap: 18px; margin-top: 18px; padding: 21px 20px; }
-    .insight-banner .insight-banner-title { font-size: 21px; }
-    .insight-banner a { align-self: flex-start; }
+    .insight-banner { align-items: stretch; flex-direction: column; gap: var(--tone-space-3); }
+    .insight-banner a { align-self: stretch; }
   }
 </style>

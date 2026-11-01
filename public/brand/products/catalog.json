@@ -2,6 +2,29 @@
   "schema": 1,
   "products": [
     {
+      "id": "cheotireum",
+      "name": "첫이름",
+      "category": "saas",
+      "surfaces": [
+        "home",
+        "workshop"
+      ],
+      "icon": "https://kangdaejong.com/brand/products/cheotireum.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/cheotireum@2x.webp",
+      "source": "https://github.com/ssamssae/cheotireum/blob/c9b7fc14c0de43644f2feca355c6c291937ef09d/web/brand-mark.svg",
+      "files": {
+        "icon": {
+          "source": "/product-icons/cheotireum-ef5a765e-96.webp",
+          "sha256": "4acabd86ae5d5b82bb44cd2547cdf31eb9a1338f85c512ebae9036a76808208c"
+        },
+        "icon2x": {
+          "source": "/product-icons/cheotireum-ef5a765e-192.webp",
+          "sha256": "47c888eab2554ab4b411758a49cb3bf3d27cada6ec5d98f44eb3c0a11bdd919f"
+        }
+      },
+      "sourceSha256": "ef5a765e9fc4baf4e2742cc75bec59727603991aa096680c6cab637ff047de74"
+    },
+    {
       "id": "hanjul",
       "name": "한줄일기",
       "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e1/ad/b7/e1adb7a4-9704-0369-d058-e4e48dcb9ffa/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
@@ -263,6 +286,19 @@
       "id": "bridge-local",
       "name": "Local Telegram Bridge",
       "exception": "No approved image was supplied. Preserve the existing >_ glyph; no inferred substitute."
+    },
+    {
+      "id": "bridge-grokbot",
+      "name": "Grok Bot Telegram Bridge",
+      "source": "https://github.com/ssamssae/kangdaejong-com/blob/main/public/product-icons/bridge-grokbot-aeed2c96-96.webp",
+      "sourceNote": "2026-10-24 tile drawn to match the four bridge tiles (solid color, Arial Bold), T-261024-056",
+      "files": {
+        "icon": {
+          "source": "/product-icons/bridge-grokbot-aeed2c96-96.webp",
+          "sha256": "7ab6ee9d8eb55389d00027e97309564bde83055d6278c168b921130fa6d11bab"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/bridge-grokbot.webp"
     }
   ]
 }
