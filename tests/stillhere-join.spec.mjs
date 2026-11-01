@@ -82,6 +82,22 @@ test('missing or invalid invite shows the error with install links only', async 
   await expect(page.getByText(INVALID)).toBeHidden();
 });
 
+test('assetlinks.json ships in the build for StillHere Android app links', async ({ request }) => {
+  const response = await request.get('/.well-known/assetlinks.json');
+  expect(response.status()).toBe(200);
+  const statements = JSON.parse(await response.text());
+  expect(statements).toHaveLength(1);
+  const [statement] = statements;
+  expect(statement.relation).toEqual(['delegate_permission/common.handle_all_urls']);
+  expect(statement.target.namespace).toBe('android_app');
+  expect(statement.target.package_name).toBe('com.daejongkang.stillhere');
+  // Play 앱 서명 키(스토어 설치본)와 업로드 키(직접 설치한 릴리스본) 지문.
+  expect(statement.target.sha256_cert_fingerprints).toEqual([
+    'C8:92:BD:19:1F:78:87:08:11:04:D1:30:13:2E:10:46:55:E9:2E:0F:6C:93:31:C4:2B:9F:41:31:25:9E:62:F7',
+    'EB:DD:31:6E:86:12:B3:4F:95:85:0B:7E:7F:48:40:C7:12:F2:73:0D:07:6C:1C:CB:EE:DF:73:08:C0:51:18:32',
+  ]);
+});
+
 test('apple-app-site-association ships in the build for /stillhere/join', async ({ request }) => {
   const response = await request.get('/.well-known/apple-app-site-association');
   expect(response.status()).toBe(200);
