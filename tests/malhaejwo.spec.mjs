@@ -12,7 +12,7 @@ test('말해줘 /privacy-malhaejwo/ renders the on-device, speech and ads policy
   await expect(main).toContainText('iPhone에서는 앱 추적 허용을 요청하지 않습니다.');
   await expect(main).toContainText('마이크와 음성 인식 권한은 마이크 버튼을 처음 누를 때만 요청합니다.');
   await expect(main).toContainText('운영자: 마이너스베타스튜디오 (대표 강대종)');
-  await expect(main).toContainText('적용일: 2026년 10월 24일');
+  await expect(main).toContainText('적용일: 2026년 11월 1일');
   await expect(main.getByRole('link', { name: 'minusbetastudio@gmail.com' })).toHaveAttribute('href', 'mailto:minusbetastudio@gmail.com');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://kangdaejong.com/privacy-malhaejwo/');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
