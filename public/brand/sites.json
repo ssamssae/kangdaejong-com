@@ -366,6 +366,15 @@
       "deployments": []
     },
     {
+      "id": "visit-beacon",
+      "url": "https://v.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Visit-count signal Worker (POST /tojeong, claude-automations workers/visit-beacon) that feeds tojeong visitors into the daily strategy report (T-261030-026). Collection endpoint with no human-facing page, so the corporate shared theme and page checks do not apply.",
+      "deployments": [
+        "cloudflare-worker:visit-beacon"
+      ]
+    },
+    {
       "id": "cheotireum-transactions",
       "url": "https://cheotireum.kangdaejong.com/",
       "mode": "exception",
