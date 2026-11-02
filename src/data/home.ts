@@ -116,7 +116,7 @@ export const apps = [
   {
     "name": "살아있음",
     ...productIcon('stillhere'),
-    "description": "두 사람이 하루 한 번 서로의 안부를 나눠요.",
+    "description": "최대 5명과 하루 한 번 서로의 안부를 나눠요.",
     "appId": "6812609143",
     "package": "com.daejongkang.stillhere",
     "support": "/support-stillhere/"
