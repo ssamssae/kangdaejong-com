@@ -1,5 +1,13 @@
 # 기능 확인 경로
 
+## 살아있음 1.1.0 개인정보·지원 안내 — T-261102-002
+
+- 진입: `/privacy-stillhere/`·`/support-stillhere/`(두 페이지 하단에서 서로 연결, 초대 착지 페이지 `/stillhere/join/` 하단 링크).
+- 기대: 최대 5명·연결마다 따로 암호화, 초대 링크와 「연결하기」 한 번(양쪽 1.0.8 이상이면 코드 비교 없음, 「보안 코드·확인」은 선택), 초대 링크 안의 내 이름, 이름·번호 교환과 이 폰에서만 보이는 이름, 상대 체크인 알림(사람마다 하루 한 번·설정에서 끔)과 여러 사람의 23시 알림, 연결마다 등록하는 푸시 토큰, 사람마다 해제·「모두 연결 해제」·이미 지워진 보관함, 1.0.5 Drive 안내(1.1.0 은 Drive 공유 권한을 바꾸지 않음)가 보인다. 영상통화 문구는 없다. 마크업과 `<style>` 은 그대로이고 글자만 바꿨다.
+- 근거: StillHere main `117bb4b`(PR 4), 상대 체크인 알림 `65bdf56`(T-261102-019, 아직 main 아님), 1.0.5 의 Drive 해제 `4b7345a`. 보관 7일·미사용 30일은 `relay/src/index.ts`.
+- 검증: `npm run build`, `npx playwright test tests/audit-fixes.spec.mjs --workers=1`.
+- 공개 반영: 미실행. 상대 체크인 알림이 들어간 1.1.0 출시에 맞춰 승인 뒤 `npm run deploy:site` 로 공개한다.
+
 ## 살아있음 초대 링크 착지 페이지 — T-261102-002
 
 - 진입점: 앱이 보내는 `https://kangdaejong.com/stillhere/join#STILLHERE2:…`. 초대는 주소의 `#` 뒤에만 있어 서버로 가지 않는다. 앱이 깔린 iPhone 은 유니버설 링크(`public/.well-known/apple-app-site-association`, `/stillhere/join`·`/stillhere/join/*`)로 이 페이지 대신 앱을 연다. 앱이 깔린 Android 는 앱 링크(`public/.well-known/assetlinks.json`, Play 앱 서명 키·업로드 키 지문)로 앱을 연다. 앱이 없거나, 메신저 안 브라우저가 앱 링크를 따르지 않거나, Android 가 아직 앱 링크를 확인하지 못했으면 이 페이지가 보인다.
