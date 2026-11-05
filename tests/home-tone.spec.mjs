@@ -10,7 +10,7 @@ test.beforeEach(async ({ page }) => {
 const ALLOWED_KO_IN_EN = [
   '한국어', // The language selector keeps each language's native name.
   '텔레그램 브릿지', '입타', '자비스', '복붙 정리기', '첫이름',
-  '한줄일기', '메모요', '더치페이 계산기', '약먹자', '심플 가계부',
+  '한줄일기', '메모요', '나눠요', '약먹자', '심플 가계부',
   '계산기알람', '살아있음', '우리 사이', '노래찾기',
   '1인회사 AI자동화', '혼자서 AI팀', '폰으로 내 컴퓨터 AI 부리기',
 ];

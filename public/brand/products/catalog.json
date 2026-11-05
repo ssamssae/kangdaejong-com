@@ -27,16 +27,16 @@
     {
       "id": "hanjul",
       "name": "한줄일기",
-      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/e1/ad/b7/e1adb7a4-9704-0369-d058-e4e48dcb9ffa/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
-      "sourceSha256": "f4fa94ec511dca63fb02f8a62a4fc6731ada0585e26612c048b08b5e6ce382dd",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b0/f3/51/b0f35134-4746-e116-f1f7-1c68a3325e82/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "0ff668c5a55d1330fe9a223727d4b67d40fde61cc7574cfaa2ce1d4df68cda4a",
       "files": {
         "icon": {
-          "source": "/product-icons/6764308678-f4fa94ec-96.webp",
-          "sha256": "440691f0df474c291e1102329bd106a8f5a1a2e7a11d2cef33233e0f5330bb89"
+          "source": "/product-icons/6764308678-0ff668c5-96.webp",
+          "sha256": "fc18860c485c152862c6d12c15a17abc7aba950268f118f2af5332010ef48b97"
         },
         "icon2x": {
-          "source": "/product-icons/6764308678-f4fa94ec-192.webp",
-          "sha256": "dcdbba73add28af87a6bac574110fcb732ea9d17784400fb019f2a132f99ce0d"
+          "source": "/product-icons/6764308678-0ff668c5-192.webp",
+          "sha256": "79b03688d0fc41a2ecb6b9e836e3a25cd6b16eddaafff9a416e600cb18aa3684"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/hanjul.webp",
@@ -45,16 +45,16 @@
     {
       "id": "memoyo",
       "name": "메모요",
-      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/0b/cc/6c/0bcc6cf8-b022-c9f3-37d3-70fdb421f8e0/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
-      "sourceSha256": "9fffec3bbd2eaa6d8e21c97d2748480bb54364e0875d53736fddb35d7cb7ae0c",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/bf/8b/dd/bf8bddd9-b62f-f319-d13d-789346dedfb9/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "34e024b3d8bf96b148ed4659e1e6549223a8c3e510febcf311d14aeb949419ff",
       "files": {
         "icon": {
-          "source": "/product-icons/6762068073-9fffec3b-96.webp",
-          "sha256": "ba7ae0576f091e791c1a3179afee5fce39624ea71385d9e8b6383bf36b059942"
+          "source": "/product-icons/6762068073-34e024b3-96.webp",
+          "sha256": "fbc1d99d9aace9e45e7455a72b5f79b50f390b0917a9e5319a0d37194ab36d2a"
         },
         "icon2x": {
-          "source": "/product-icons/6762068073-9fffec3b-192.webp",
-          "sha256": "e958113bbbfb992b9f5d3033dc300c985a38c1fca3b7a1d008aef42aa7890d48"
+          "source": "/product-icons/6762068073-34e024b3-192.webp",
+          "sha256": "5f65c7846cae7b21ae33a2d561e56c26c3eaf92fab8ea4bac87086d81651c582"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/memoyo.webp",
@@ -62,35 +62,39 @@
     },
     {
       "id": "dutchpay",
-      "name": "더치페이 계산기",
-      "source": "https://github.com/ssamssae/dutch_pay_calculator/blob/b5b1a5f676f0bfed1c4b1c3994b5b0a00bfcbff2/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
-      "sourceSha256": "0e89d465a7f4da65d80592585ff2725f1d374555499c5076469c4ab634d3dff1",
+      "name": "나눠요",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/05/38/84/05388439-636e-526d-874d-b9393799a842/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "256ad0ac5a40abc597375316c652969d788881243d6fb901e596e4bb172895a0",
       "files": {
         "icon": {
-          "source": "/product-icons/dutchPayCalculator-0e89d465-96.webp",
-          "sha256": "7ac147dfa2d3356df8f254e975ee143e07052043ecfca41439ec077586523118"
+          "source": "/product-icons/6762072499-256ad0ac-96.webp",
+          "sha256": "1da2072ece9cd7c1128c47a68734d195cc341ed92c498be340d6efe8feb87829"
         },
         "icon2x": {
-          "source": "/product-icons/dutchPayCalculator-0e89d465-192.webp",
-          "sha256": "26268a10ba86e64a630ff307a00b8e3d4645e00ab350af653830036cceb4971a"
+          "source": "/product-icons/6762072499-256ad0ac-192.webp",
+          "sha256": "2c04ddc6cb264911a3898cbde727860fa7175c813c8d2031432bcc52addbaf12"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/dutchpay.webp",
-      "icon2x": "https://kangdaejong.com/brand/products/dutchpay@2x.webp"
+      "icon2x": "https://kangdaejong.com/brand/products/dutchpay@2x.webp",
+      "aliases": [
+        "더치페이 계산기",
+        "나눠요 - 더치페이 계산기"
+      ]
     },
     {
       "id": "yakmeokja",
       "name": "약먹자",
-      "source": "https://github.com/ssamssae/yakmukja/blob/8aab6ce82c385850c5268fae31d78fd65f25a0eb/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
-      "sourceSha256": "f16ca3ee802305ec605d5974c77dc530a5b0ad942c5e84481b315a07fb142cfe",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/25/b3/0d/25b30d32-dfd9-bff7-3446-8c9717911758/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "afb10ff877412a4a938ddc8fb38e7a7fa45fe858dfb03a1967655ab2e50a993f",
       "files": {
         "icon": {
-          "source": "/product-icons/yakmukja-f16ca3ee-96.webp",
-          "sha256": "1f0887f3a6e7ed342f9b0a0b8a384acc680b66ff204775f4abf14ef11ffcf40c"
+          "source": "/product-icons/6762100639-afb10ff8-96.webp",
+          "sha256": "8d962829b70c04b3476e50a87f3781cf853e1eab059683f3b2987290c1d8b742"
         },
         "icon2x": {
-          "source": "/product-icons/yakmukja-f16ca3ee-192.webp",
-          "sha256": "af511e22444d29c9e1da0439bf1cf7ce55865256dbf5e18567eafa26d4ed57b9"
+          "source": "/product-icons/6762100639-afb10ff8-192.webp",
+          "sha256": "f22ec6e701d0ffeb22cef77ce456ce9f374634e8eefb37516bb13a3c1c73f1fe"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/yakmeokja.webp",
@@ -99,16 +103,16 @@
     {
       "id": "gagyebu",
       "name": "심플 가계부",
-      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/bd/fd/23/bdfd23bd-6982-5241-1a5b-b1165fe61e8d/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
-      "sourceSha256": "2ad919041df6311b93bf030ffcbdd7746948d3646e3e96e273c08e2d1e2d2a73",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/20/da/b0/20dab0f8-25ae-c711-704c-44c9142bc902/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "e11a50f8202a9c22d9ed74ecffe41083c6ac908df34d92ca4567cdebdd2907f0",
       "files": {
         "icon": {
-          "source": "/product-icons/6769037337-2ad91904-96.webp",
-          "sha256": "a30059d353761dc74445a74776eef605220b7454b13308e1db437cdd0b0dc28b"
+          "source": "/product-icons/6769037337-e11a50f8-96.webp",
+          "sha256": "54bc74e487379fe00a095e72a5f81866e574422bd7e92ad982b96d95377bde3a"
         },
         "icon2x": {
-          "source": "/product-icons/6769037337-2ad91904-192.webp",
-          "sha256": "b6e2a50b0c30a3222de5950db70f75e4b997c8e317eead79334ef2c0779d5dff"
+          "source": "/product-icons/6769037337-e11a50f8-192.webp",
+          "sha256": "fadb19fa7acf450a0d0b6f66f5cb11ba85c147d9c4969e8f785571a88e187e5f"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/gagyebu.webp",
@@ -117,16 +121,16 @@
     {
       "id": "calcalarm",
       "name": "계산기알람",
-      "source": "https://github.com/ssamssae/motjayo/blob/e9998bb6b0dedc63fcf58aaae101c49a621032a7/ios/Runner/Assets.xcassets/AppIcon.appiconset/Icon-App-1024x1024@1x.png",
-      "sourceSha256": "14aeddc80846ed737270bbfe8972252ecb4e80917dc5e7dd31bca72122f5c92a",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/a3/52/fd/a352fd45-91dc-126a-2503-69f95c504ba3/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "9d36fd067f19ac3c102a4e3be641ec806e6a423f3b0f7ccdfe04b91561c5cfaa",
       "files": {
         "icon": {
-          "source": "/product-icons/ireonayo-14aeddc8-96.webp",
-          "sha256": "b98de35fdb14ad03c8ad3e499bcaa4d64e605f870a5eba8671d8fa715f4ff317"
+          "source": "/product-icons/6811111727-9d36fd06-96.webp",
+          "sha256": "23cb96e57bd9b9f02ed6854d83c8b1f18179704ac4e843c09bb938ef37649910"
         },
         "icon2x": {
-          "source": "/product-icons/ireonayo-14aeddc8-192.webp",
-          "sha256": "9e1240da2f8939d5dfdf2cd722fd276a1318b825dd06f75d30bb5e44f4a286e6"
+          "source": "/product-icons/6811111727-9d36fd06-192.webp",
+          "sha256": "3f82f361456539155f6c98e857fb8c0c6778370b984dfa953af16df17c6607f3"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/calcalarm.webp",
@@ -135,16 +139,16 @@
     {
       "id": "stillhere",
       "name": "살아있음",
-      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/ba/89/18/ba891857-3b7b-9521-4647-2e46019d6aca/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
-      "sourceSha256": "282708d5fa730ed2e27571f9c8882896b873fae446034297838eb1eb51814e52",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/88/a4/4b/88a44b00-f539-7738-9e46-e2b30d01a10e/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "d4880b563742c247e8c61744732163f276324f2d98dd1c7bdc844134cacdedc8",
       "files": {
         "icon": {
-          "source": "/product-icons/6812609143-282708d5-96.webp",
-          "sha256": "c7f9d7db743550bd8b1133824f8e11ccdb8c3aafacd3cbd96a943f77418ed738"
+          "source": "/product-icons/6812609143-d4880b56-96.webp",
+          "sha256": "898cc00abe298231915f36bfab6420c2e84baaa5c2cf1234cf1139054a24d42c"
         },
         "icon2x": {
-          "source": "/product-icons/6812609143-282708d5-192.webp",
-          "sha256": "4a1d3927fc2507002a0de7ee730a748395f268ed24fe9dcf12dbf883231ee76b"
+          "source": "/product-icons/6812609143-d4880b56-192.webp",
+          "sha256": "e913ada2a26e795d0a3d7c0d3bc5abe0a70ff8e54297f0d6a9cdacdd050f6b5f"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/stillhere.webp",
@@ -153,16 +157,16 @@
     {
       "id": "oursai",
       "name": "우리 사이",
-      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/c7/ab/55/c7ab5552-8110-6f91-2a87-8777909766e5/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
-      "sourceSha256": "ef35b79c24e4471098383dd42065a783d8c98294ecaec47d0eee89ce25c9d99c",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/82/6e/e7/826ee7ff-e643-6640-8faa-41cf7dfe582c/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "ed2db37c22b178e21f162475f0d9e84941ddbd404f78c71a01289454b9a9de2e",
       "files": {
         "icon": {
-          "source": "/product-icons/6816725770-ef35b79c-96.webp",
-          "sha256": "e5fdd5d818b24a9ce2a109d8ec9ba869c9f07b7a67327b823ec4416c126fa12f"
+          "source": "/product-icons/6816725770-ed2db37c-96.webp",
+          "sha256": "fb505f6851d4609b09fea2fd5373bbe32a329b867404e6a6de900ea20ebc0587"
         },
         "icon2x": {
-          "source": "/product-icons/6816725770-ef35b79c-192.webp",
-          "sha256": "79f5c8e23e6a829249882674be8008b6c1a66ec3c5f26fc44de1091ca765cf66"
+          "source": "/product-icons/6816725770-ed2db37c-192.webp",
+          "sha256": "c6e1d64e7619446795db22f7411a5eb9912ae6942a37056a843d06c939b8c874"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/oursai.webp",
@@ -171,16 +175,16 @@
     {
       "id": "noraechatgi",
       "name": "노래찾기",
-      "source": "https://github.com/ssamssae/noraechatgi/blob/main/assets/icon/icon-1024.png",
-      "sourceSha256": "ccdf5b0ad0006aa6facba2e3f39a7c2e8948d8653e9f0cae694722554b84ea2c",
+      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/52/4c/f1/524cf16e-cf45-c79a-5d19-6906e9831d04/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/512x512bb.jpg",
+      "sourceSha256": "0166a830386fb2971d222e833ad35f239c747b86c4919b7aadcce8adac25ced3",
       "files": {
         "icon": {
-          "source": "/product-icons/noraechatgi-ccdf5b0a-96.webp",
-          "sha256": "590e95afa6d2230c1720d47a42eb531eadd6ba8034fd4a20fbefe5d1b5fd9762"
+          "source": "/product-icons/6820080312-0166a830-96.webp",
+          "sha256": "01b1fc29320a1fccbc93cae6b3add2b00a88e01b0aa814053647682c42d2a03a"
         },
         "icon2x": {
-          "source": "/product-icons/noraechatgi-ccdf5b0a-192.webp",
-          "sha256": "756ccb3a23a43a246e6e557ba5882eb1264f98507a12cfad045b99a240f2c261"
+          "source": "/product-icons/6820080312-0166a830-192.webp",
+          "sha256": "66842397520f3900a5982eb1788b54fb9e3bd5eb8553bd85825e87166f355137"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/noraechatgi.webp",

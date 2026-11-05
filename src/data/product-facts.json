@@ -13,13 +13,6 @@
     "source": "https://apps.apple.com/kr/app/id6762068073",
     "checkedAt": "2026-09-22"
   },
-  "더치페이 계산기": {
-    "price": "무료 다운로드",
-    "platform": "iOS · Android",
-    "account": "가입 없이 사용",
-    "source": "https://apps.apple.com/kr/app/id6762072499",
-    "checkedAt": "2026-09-22"
-  },
   "약먹자": {
     "price": "무료 다운로드",
     "platform": "iOS · Android",
@@ -159,5 +152,12 @@
     "account": "신규 구매 불가",
     "source": "https://kangdaejong.com/work/products/#retired-products",
     "checkedAt": "2026-10-03"
+  },
+  "나눠요": {
+    "price": "무료 다운로드",
+    "platform": "iOS · Android",
+    "account": "가입 없이 사용",
+    "source": "https://apps.apple.com/kr/app/id6762072499",
+    "checkedAt": "2026-11-06"
   }
 }
