@@ -270,3 +270,11 @@
 - 진입점: `/privacy-minusbeta-stats/`. Google 인증 플랫폼 OAuth 앱 「Minus Beta Stats」(프로젝트 `minusbeta-admob-reports`)을 '운영'으로 게시할 때 구글이 요구하는 개인정보처리방침 URL이다. 내부 도구라 홈 앱 목록(`src/data/home.ts`)에는 넣지 않는다.
 - 기대 결과: h1 「Minus Beta Stats 개인정보 처리 안내」, admob.readonly 읽기 전용·AdMob 계정 번호와 날짜별 예상 수익·노출 수만 읽음·열쇠는 운영자 컴퓨터 한 대·요약은 비공개 gist·판매/제3자 공유 없음·서드파티 연결에서 끊기·문의 메일, canonical `https://kangdaejong.com/privacy-minusbeta-stats/`. 문안은 2026-10-26 대종님 승인 원문 그대로다.
 - 검증: `tests/minusbeta-stats.spec.mjs`, 사이트맵 목록 `tests/audit-fixes.spec.mjs`. 라이브 응답은 배포 뒤 200 과 본문을 확인한다.
+
+## T-261106-002 · 공개 제품 정보 갱신 (2026-11-06)
+
+- 진입점: `/` 앱 목록, `/apps/dutchpay/`, `/ipta/`, `/support-stillhere/`, `/our-sai/`와 지원 페이지.
+- 조작: 앱 카드와 스토어 링크 확인, 입타 운영체제별 다운로드 선택, 지원 안내 읽기.
+- 기대: 공개 App Store 아이콘 9개, 나눠요 이름과 모임 도구 소개, Mac 0.1.31·Windows 0.1.30 링크, 살아있음 1.1.2 위치 설정, 우리 사이 1.1.1 우체통 연결 안내. 우리 사이 Android는 심사 중이므로 준비 중 표시 유지.
+- 근거: 2026-11-06 iTunes lookup(한국 스토어 9개), GitHub ipta v0.1.31 실제 자산, Android Publisher 우리 사이 production IN_REVIEW. 아이콘 출처와 SHA-256은 `public/brand/products/catalog.json`.
+- 검사: `npm run test:site-release`, `npm run build`, `npx playwright test tests/home-corrections.spec.mjs --grep "home corrections" --workers=1`; 실제 배포·이미지 해시·화면 결과는 T-261106-002 PR 및 `site-release-report/production/`.

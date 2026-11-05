@@ -72,7 +72,7 @@ export const apps = [
   {
     "name": "한줄일기",
     ...productIcon('hanjul'),
-    "description": "하루를 한 줄로 남기는 일기.",
+    "description": "하루 한 줄과 사진으로 남기는 일기.",
     "appId": "6764308678",
     "package": "com.daejongkang.hanjul"
   },
@@ -84,9 +84,9 @@ export const apps = [
     "package": "com.daejongkang.simple_memo_app"
   },
   {
-    "name": "더치페이 계산기",
+    "name": "나눠요",
     ...productIcon('dutchpay'),
-    "description": "모임의 비용을 간편하게 나눠요.",
+    "description": "모임 비용을 나누고 룰렛·사다리·제비뽑기로 정해요.",
     "appId": "6762072499",
     "package": "com.daejongkang.dutchpay"
   },
