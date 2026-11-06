@@ -27,16 +27,16 @@
     {
       "id": "hanjul",
       "name": "한줄일기",
-      "source": "https://is1-ssl.mzstatic.com/image/thumb/Purple211/v4/b0/f3/51/b0f35134-4746-e116-f1f7-1c68a3325e82/AppIcon-0-0-1x_U007emarketing-0-11-0-85-220.png/512x512bb.jpg",
-      "sourceSha256": "0ff668c5a55d1330fe9a223727d4b67d40fde61cc7574cfaa2ce1d4df68cda4a",
+      "source": "https://github.com/ssamssae/hanjul/blob/a03c22157477c4fda45a2a814b4effb2451b2bd6/assets/icon/icon.png",
+      "sourceSha256": "d247129369b47286f2078895aa408f58149193593e8e10aaec4eb9d86c3bc579",
       "files": {
         "icon": {
-          "source": "/product-icons/6764308678-0ff668c5-96.webp",
-          "sha256": "fc18860c485c152862c6d12c15a17abc7aba950268f118f2af5332010ef48b97"
+          "source": "/product-icons/6764308678-d2471293-96.webp",
+          "sha256": "40a20378f280e1b01584e8a2a579321193bfe86cb9bd6646287adb9c0e12a321"
         },
         "icon2x": {
-          "source": "/product-icons/6764308678-0ff668c5-192.webp",
-          "sha256": "79b03688d0fc41a2ecb6b9e836e3a25cd6b16eddaafff9a416e600cb18aa3684"
+          "source": "/product-icons/6764308678-d2471293-192.webp",
+          "sha256": "cc4bd5d229e12ae888cadedf160c21865439037477c32ed9326eb5eab7f7b3f0"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/hanjul.webp",
