@@ -11,18 +11,18 @@
       ],
       "icon": "https://kangdaejong.com/brand/products/cheotireum.webp",
       "icon2x": "https://kangdaejong.com/brand/products/cheotireum@2x.webp",
-      "source": "https://github.com/ssamssae/cheotireum/blob/c9b7fc14c0de43644f2feca355c6c291937ef09d/web/brand-mark.svg",
+      "source": "https://github.com/ssamssae/cheotireum/blob/6e7a6ee0f5bc805db9c955884ea09b04a9bb1dd7/web/brand-mark.svg",
       "files": {
         "icon": {
-          "source": "/product-icons/cheotireum-ef5a765e-96.webp",
-          "sha256": "4acabd86ae5d5b82bb44cd2547cdf31eb9a1338f85c512ebae9036a76808208c"
+          "source": "/product-icons/cheotireum-9d3168c9-96.webp",
+          "sha256": "340bf6c5d312ec962fe8dc68e118760d036a3aff1a5a7a52020a0c39a63fa233"
         },
         "icon2x": {
-          "source": "/product-icons/cheotireum-ef5a765e-192.webp",
-          "sha256": "47c888eab2554ab4b411758a49cb3bf3d27cada6ec5d98f44eb3c0a11bdd919f"
+          "source": "/product-icons/cheotireum-9d3168c9-192.webp",
+          "sha256": "2156c5cc7b6e0bd27a36e856e0f1fcfa7db14bde7e717297b10a30aa6faa9055"
         }
       },
-      "sourceSha256": "ef5a765e9fc4baf4e2742cc75bec59727603991aa096680c6cab637ff047de74"
+      "sourceSha256": "9d3168c986594ab8d4faea451adddcd7c1dfd960a4c322603c8f29a5159da695"
     },
     {
       "id": "hanjul",
