@@ -9,6 +9,7 @@ import { productIcon } from '../lib/product-icons.mjs';
 import { currentProjects } from '../data/project-versions';
 import { apps, books, tools } from '../data/home';
 import { appSupport } from '../data/app-support.mjs';
+import { newBooks } from '../data/new-books.mjs';
 const srcsetFor = (entry?: { icon: string; icon2x?: string }) => entry?.icon2x ? `${entry.icon}, ${entry.icon2x} 2x` : undefined;
 const ipta = productIcon('ipta');
 const jarvis = productIcon('jarvis');
@@ -93,6 +94,10 @@ const jsonLd = {
       <span id="everyday" class="anchor-alias"></span>
       <div class="section-title"><h2 id="apps-title">생활에 가까운 앱</h2><span>필요할 때 가볍게 꺼내 쓰세요</span></div>
       <div class="app-grid" data-mb-reveal>{apps.map(app => <article class="app-row" data-product-id={app.id}>{app.icon ? <img src={app.icon} srcset={srcsetFor(app)} alt="" width="48" height="48" loading="lazy" decoding="async"/> : <span class="app-letter" aria-hidden="true">{app.name.slice(0,1)}</span>}<div><h3>{app.name}</h3><p>{app.description}</p><div class="store-links">{app.appId && <a href={`https://apps.apple.com/kr/app/id${app.appId}`} aria-label={`${app.name} App Store`}>App Store ↗</a>}{app.package && <a href={`https://play.google.com/store/apps/details?id=${app.package}`} aria-label={`${app.name} Google Play`}>Google Play ↗</a>}{(app.support || appSupport[app.id]) && <a href={app.support || `/apps/${appSupport[app.id].slug}/`} aria-label={`${app.name} 앱 안내와 지원`}>앱 안내·지원 ↗</a>}{app.storeNote && <span class="app-status">{app.storeNote}</span>}{app.status && <span class="app-status">{app.status}</span>}</div></div></article>)}</div>
+    </section>
+    <section id="new-books" class="home-section" aria-labelledby="new-books-title">
+      <div class="section-title"><h2 id="new-books-title">새로 쓴 책</h2><span class="section-note">전자책 3권 · 출간 준비 중</span></div>
+      <div class="new-book-list" data-mb-reveal>{newBooks.map(book => <a class="new-book-card mb-card" href={`/books/${book.slug}/`}><img src={book.cover.small} width="320" height={Math.round(book.cover.height / 2)} alt="" loading="lazy" decoding="async"/><span class="new-book-text"><strong>{book.title}</strong><span>{book.shortDescription}</span><span class="new-book-meta">{book.status} · {book.price.toLocaleString('ko-KR')}원</span><span class="new-book-action">소개와 앞부분 읽기 →</span></span></a>)}</div>
     </section>
     <section id="books" class="home-section" aria-labelledby="books-title">
       <div class="section-title"><h2 id="books-title">만들며 배운 것</h2><span class="section-note">전자책 3권 · PDF 무료 공개</span></div>

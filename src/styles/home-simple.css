@@ -89,6 +89,17 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .book-action{margin-left:auto;margin-top:0;padding-top:0;white-space:nowrap}
 .simple-home a.book-row:hover strong,.simple-home a.book-row:focus-visible strong{color:var(--accent-hover)}
 .simple-home .book-download{flex:none;white-space:nowrap}
+/* T-261109-026: 「새로 쓴 책」 — 출간 준비 중 전자책 3권. 표지 그림 폭(width)만 숫자이고 나머지는 톤 값이다. */
+.simple-home .new-book-list{display:grid;gap:var(--tone-space-3);margin-top:var(--tone-space-4)}
+.simple-home .new-book-card{display:flex;gap:var(--tone-space-3);align-items:flex-start;color:inherit;text-decoration:none}
+.simple-home .new-book-card>img{flex:0 0 auto;width:88px;height:auto;border-radius:var(--tone-radius-control);background:var(--bg)}
+.simple-home .new-book-text{display:flex;flex-direction:column;gap:var(--tone-space-1);min-width:0}
+.simple-home .new-book-text>strong{font:var(--tone-weight-bold) var(--tone-subtitle-size)/var(--tone-subtitle-line) var(--tone-font);letter-spacing:var(--tone-tracking-title);word-break:keep-all}
+.simple-home .new-book-text>span{color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line);word-break:keep-all}
+.simple-home .new-book-text>.new-book-meta{font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font)}
+.simple-home .new-book-text>.new-book-action{display:inline-flex;align-items:center;min-height:var(--tone-tap-height);color:var(--accent);font-weight:var(--tone-weight-bold)}
+.simple-home a.new-book-card:hover strong,.simple-home a.new-book-card:focus-visible strong{color:var(--accent-hover)}
+@media(min-width:900px){.simple-home .new-book-card>img{width:112px}}
 /* 연락(첫이름 landing 마지막 구역 + trust-footer 링크 줄). */
 .simple-home .contact-heading{display:flex;justify-content:space-between;align-items:center;gap:var(--tone-space-3);margin-bottom:var(--tone-space-4)}
 .simple-home .contact-heading p{margin-top:var(--tone-space-2);color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line)}
