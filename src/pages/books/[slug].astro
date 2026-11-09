@@ -10,6 +10,7 @@ export function getStaticPaths() {
 const { book } = Astro.props;
 const others = newBooks.filter((item) => item.slug !== book.slug);
 const won = (value) => `${value.toLocaleString("ko-KR")}원`;
+const coverSizes = "(max-width: 640px) 50vw, 240px"; // tone:fixed — 표지 그림 해상도를 고르는 sizes 힌트다(레이아웃 크기 값이 아니다).
 const canonical = `https://kangdaejong.com/books/${book.slug}/`;
 const isPart = (line) => /^(\d+부|부록 —)/.test(line);
 const jsonLd = {
@@ -32,7 +33,7 @@ const jsonLd = {
   <main id="main-content" class="book-page">
     <p class="book-back"><a href="/#new-books">← 새로 쓴 책</a></p>
     <header class="book-hero">
-      <img class="book-cover" src={book.cover.large} srcset={`${book.cover.small} 320w, ${book.cover.large} 640w`} sizes="(max-width: 640px) 50vw, 240px" width={book.cover.width} height={book.cover.height} alt={`『${book.title}』 표지`} decoding="async" />
+      <img class="book-cover" src={book.cover.large} srcset={`${book.cover.small} 320w, ${book.cover.large} 640w`} sizes={coverSizes} width={book.cover.width} height={book.cover.height} alt={`『${book.title}』 표지`} decoding="async" />
       <div class="book-head">
         <p class="book-status">{book.status}</p>
         <h1>{book.title}</h1>
