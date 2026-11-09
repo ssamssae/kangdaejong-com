@@ -1,0 +1,218 @@
+---
+// T-261109-026: 출간 준비 중인 전자책 소개 페이지 — 소개·목차·지은이·「들어가며」 미리 읽기. 판매 링크·결제는 없다.
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { newBooks } from "../../data/new-books.mjs";
+
+export function getStaticPaths() {
+  return newBooks.map((book) => ({ params: { slug: book.slug }, props: { book } }));
+}
+
+const { book } = Astro.props;
+const others = newBooks.filter((item) => item.slug !== book.slug);
+const won = (value) => `${value.toLocaleString("ko-KR")}원`;
+const canonical = `https://kangdaejong.com/books/${book.slug}/`;
+const isPart = (line) => /^(\d+부|부록 —)/.test(line);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Book",
+  name: book.title,
+  alternativeHeadline: book.subtitle,
+  author: { "@type": "Person", name: "강대종" },
+  bookFormat: "https://schema.org/EBook",
+  inLanguage: "ko",
+  genre: book.category,
+  numberOfPages: book.pages,
+  image: `https://kangdaejong.com${book.cover.large}`,
+  url: canonical,
+  description: book.shortDescription,
+};
+---
+
+<SiteLayout title={book.title} description={`${book.shortDescription} 출간 준비 중인 전자책의 소개·목차·앞부분을 먼저 읽어 보세요.`} canonical={canonical} jsonLd={jsonLd}>
+  <main id="main-content" class="book-page">
+    <p class="book-back"><a href="/#new-books">← 새로 쓴 책</a></p>
+    <header class="book-hero">
+      <img class="book-cover" src={book.cover.large} srcset={`${book.cover.small} 320w, ${book.cover.large} 640w`} sizes="(max-width: 640px) 50vw, 240px" width={book.cover.width} height={book.cover.height} alt={`『${book.title}』 표지`} decoding="async" />
+      <div class="book-head">
+        <p class="book-status">{book.status}</p>
+        <h1>{book.title}</h1>
+        <p class="book-subtitle">{book.subtitle}</p>
+        <dl class="book-facts">
+          <div><dt>지은이</dt><dd>강대종</dd></div>
+          <div><dt>분류</dt><dd>{book.category} · 전자책</dd></div>
+          <div><dt>분량</dt><dd>원고 PDF 기준 {book.pages}쪽</dd></div>
+          <div><dt>판매가</dt><dd>{won(book.price)} (출간 뒤)</dd></div>
+        </dl>
+      </div>
+    </header>
+
+    <p class="book-notice">교보문고 바로출판 제휴사 e퍼플에서 전자책으로 만들고 있어요. 출간되면 교보문고·리디북스·알라딘·예스24 같은 전자책 서점에서 살 수 있어요. 지금은 이 페이지에서 소개와 앞부분을 먼저 읽을 수 있어요.</p>
+
+    <h2>책 소개</h2>
+    <p>{book.intro}</p>
+
+    <h2>목차</h2>
+    <ul class="book-toc">
+      {book.toc.map((line) => <li class={isPart(line) ? "book-toc-part" : undefined}>{line}</li>)}
+    </ul>
+
+    <h2>미리 읽기 — {book.previewTitle}</h2>
+    <div class="book-preview">
+      {book.preview.map((paragraph) => <p>{paragraph}</p>)}
+    </div>
+    <p class="book-preview-end">미리 읽기는 여기까지예요. 나머지는 출간 뒤 전자책으로 읽을 수 있어요.</p>
+
+    <h2>지은이</h2>
+    <p>{book.author}</p>
+
+    <h2>AI와 함께 쓴 방식</h2>
+    <p>{book.aiNote}</p>
+
+    <nav class="book-others" aria-label="다른 책">
+      <span>다른 책</span>
+      {others.map((item) => <a href={`/books/${item.slug}/`}>{item.title}</a>)}
+      <a href="/#new-books">홈의 새로 쓴 책</a>
+    </nav>
+  </main>
+</SiteLayout>
+
+<style>
+  /* 숫자는 공용 톤 값만 쓴다(verify-tone-copies). 색은 공용 토큰만 쓴다(verify-palette-copies). */
+  .book-page {
+    width: min(calc(100% - var(--tone-gutter) * 2), var(--tone-prose-max));
+    margin: 0 auto;
+    padding: var(--tone-space-4) 0 var(--tone-section-gap);
+  }
+  .book-back {
+    margin: 0 0 var(--tone-space-3);
+  }
+  .book-back a,
+  .book-others a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tone-tap-height);
+    font-weight: var(--tone-weight-bold);
+    text-decoration: underline;
+    text-underline-offset: var(--tone-underline-offset);
+  }
+  .book-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: var(--tone-space-4);
+    align-items: start;
+  }
+  .book-cover {
+    width: 100%;
+    height: auto;
+    border-radius: var(--tone-radius-control);
+    background: var(--bg-elev);
+  }
+  .book-status {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tone-chip-height);
+    margin: 0 0 var(--tone-space-2);
+    padding: 0 var(--tone-space-2);
+    border-radius: var(--tone-radius-pill);
+    background: var(--bg-elev);
+    color: var(--fg-dim);
+    font: var(--tone-weight-bold) var(--tone-caption-size) / var(--tone-caption-line) var(--tone-font);
+  }
+  .book-head h1 {
+    margin: 0;
+    font: var(--tone-weight-bold) var(--tone-title-size) / var(--tone-title-line) var(--tone-font);
+    letter-spacing: var(--tone-tracking-title);
+    word-break: keep-all;
+  }
+  .book-subtitle {
+    margin: var(--tone-space-1) 0 var(--tone-space-3);
+    color: var(--fg-dim);
+    line-height: var(--tone-body-line);
+    word-break: keep-all;
+  }
+  .book-facts {
+    display: grid;
+    gap: var(--tone-space-1);
+    margin: 0;
+  }
+  .book-facts div {
+    display: flex;
+    gap: var(--tone-space-2);
+  }
+  .book-facts dt {
+    flex: none;
+    color: var(--fg-dim);
+    font: var(--tone-weight-bold) var(--tone-label-size) / var(--tone-label-line) var(--tone-font);
+  }
+  .book-facts dd {
+    margin: 0;
+    font-size: var(--tone-label-size);
+    line-height: var(--tone-label-line);
+  }
+  .book-notice {
+    margin: var(--tone-space-4) 0 0;
+    padding: var(--tone-card-padding);
+    border-radius: var(--tone-radius-card);
+    background: var(--bg-elev);
+    line-height: var(--tone-body-line);
+    word-break: keep-all;
+  }
+  h2 {
+    margin: var(--tone-space-6) 0 var(--tone-space-2);
+    padding-top: var(--tone-space-3);
+    border-top: 1px solid var(--border);
+    word-break: keep-all;
+  }
+  p {
+    margin: 0 0 var(--tone-space-3);
+    color: var(--fg-dim);
+    line-height: var(--tone-body-line);
+    overflow-wrap: anywhere;
+  }
+  .book-toc {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .book-toc li {
+    padding: var(--tone-space-1) 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--fg-dim);
+    line-height: var(--tone-body-line);
+    word-break: keep-all;
+  }
+  .book-toc .book-toc-part {
+    padding-top: var(--tone-space-3);
+    color: var(--fg);
+    font-weight: var(--tone-weight-bold);
+  }
+  .book-preview p {
+    color: var(--fg);
+  }
+  .book-preview-end {
+    padding-top: var(--tone-space-2);
+    border-top: 1px dashed var(--border);
+    font-size: var(--tone-label-size);
+  }
+  .book-others {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--tone-space-1) var(--tone-space-3);
+    margin-top: var(--tone-section-gap);
+    padding-top: var(--tone-space-4);
+    border-top: 1px solid var(--border);
+  }
+  .book-others span {
+    color: var(--fg-dim);
+    font: var(--tone-weight-bold) var(--tone-caption-size) / var(--tone-caption-line) var(--tone-font);
+  }
+  @media (max-width: 640px) {
+    .book-hero {
+      grid-template-columns: 1fr;
+    }
+    .book-cover {
+      width: 60%;
+    }
+  }
+</style>
