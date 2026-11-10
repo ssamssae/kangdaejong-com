@@ -278,3 +278,10 @@
 - 기대: 공개 App Store 아이콘 9개, 나눠요 이름과 모임 도구 소개, Mac 0.1.31·Windows 0.1.30 링크, 살아있음 1.1.2 위치 설정, 우리 사이 1.1.1 우체통 연결 안내. 우리 사이 Android는 심사 중이므로 준비 중 표시 유지.
 - 근거: 2026-11-06 iTunes lookup(한국 스토어 9개), GitHub ipta v0.1.31 실제 자산, Android Publisher 우리 사이 production IN_REVIEW. 아이콘 출처와 SHA-256은 `public/brand/products/catalog.json`.
 - 검사: `npm run test:site-release`, `npm run build`, `npx playwright test tests/home-corrections.spec.mjs --grep "home corrections" --workers=1`; 실제 배포·이미지 해시·화면 결과는 T-261106-002 PR 및 `site-release-report/production/`.
+
+## 할일요 개인정보 처리 안내 — T-261110-011
+
+- 진입점: `/privacy-halilyo/` (App Store·Google Play 제출용 개인정보처리방침 URL). 앱 안 「개인정보 처리방침」(todo_app `assets/legal/privacy_ko.md`, T-261110-010)과 같은 내용이다. 홈 앱 목록 반영은 심사 통과 뒤 별도 단계라 이번에는 페이지만 더한다.
+- 기대 결과: h1 「할일요 개인정보 처리 안내」, 기기 안 저장·계정 없음·백업 파일(JSON, 이용자가 고른 곳)·구글 드라이브 백업(drive.file 권한, Halilyo 폴더, 최신 7개)·AdMob 배너·광고 제거 구매·기기 알림·휴지통 30일·문의 메일.
+- 검증: `tests/halilyo.spec.mjs`. 공개 배포(`npm run deploy:site`)는 대종님 승인 카드 뒤에 하고, 라이브 응답은 배포 뒤 여러 번 받아 200 을 확인한다.
+- 사이트맵: canonical 이 경로와 같아 `dist/sitemap.xml` 에 자동으로 들어간다.
