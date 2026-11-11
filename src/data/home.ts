@@ -127,7 +127,7 @@ export const apps = [
     "description": "사진과 일기, 기념일로 둘만의 일상을 남겨요.",
     "appId": "6816725770",
     "support": "/our-sai/",
-    "storeNote": "iPhone · Android 준비 중"
+    "storeNote": "Android 준비 중"
   },
   {
     "name": "노래찾기",

@@ -3,7 +3,7 @@ import { brand, rgb } from './brand-colors.mjs';
 
 const apps = [
   { name: '살아있음', text: '서로의 안부', links: [['살아있음 App Store', 'https://apps.apple.com/kr/app/id6812609143'], ['살아있음 Google Play', 'https://play.google.com/store/apps/details?id=com.daejongkang.stillhere'], ['살아있음 앱 안내와 지원', '/support-stillhere/']] },
-  { name: '우리 사이', text: '둘만의 일상', note: 'iPhone · Android 준비 중', links: [['우리 사이 App Store', 'https://apps.apple.com/kr/app/id6816725770'], ['우리 사이 앱 안내와 지원', '/our-sai/']] },
+  { name: '우리 사이', text: '둘만의 일상', note: 'Android 준비 중', links: [['우리 사이 App Store', 'https://apps.apple.com/kr/app/id6816725770'], ['우리 사이 앱 안내와 지원', '/our-sai/']] },
 ];
 
 for (const width of [390, 1440]) {
