@@ -293,3 +293,4 @@
 - 조작: `왕좌 보러 가기`를 누르면 `https://rich.kangdaejong.com/` 으로 이동한다. 인사이트 배너(`InsightBanner.astro`)는 숨기지 않고 「만들며 배운 것」(`#books`) 책 목록 아래에 둔다 — `인사이트 모아보기`는 그대로 `/work/insights/` 로 간다.
 - 기대: 320/390/1440px에서 가로 넘침 없이 첫 자리에 후원 배너, `#books` 안에 인사이트 배너 1개. EN 전환 문구는 `src/data/i18n-en.json` 4개 키.
 - 검증: `tests/home-banners.spec.mjs`, `npm run verify:tone-pairs`(후원 배너도 공용 부품·톤 값만 쓰는지 본다). 공개 반영은 머지 뒤 `npm run deploy:site`.
+- 배포 점검 목록: 새로 연 `rich.kangdaejong.com`(Pages `rich-kangdaejong`)과 `halilyo.kangdaejong.com`(Pages `halilyo`)이 `public/brand/sites.json`에 없어 `npm run deploy:site`의 배포 전 시험이 멈췄다(2026-11-11 아테나, `unregistered target`). 두 사이트를 `mode: exception`으로 등록했다. 새 Pages 프로젝트·도메인을 열면 같은 PR 흐름에서 `sites.json` 등록까지 한다.
