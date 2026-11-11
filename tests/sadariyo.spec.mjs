@@ -8,7 +8,10 @@ test('사다리요 /privacy-sadariyo/ renders the no-collection policy', async (
   await expect(main).toContainText('사다리요는 개인정보를 수집하지 않습니다.');
   await expect(main).toContainText('앱은 이 정보를 기기 밖으로 보내지 않습니다.');
   await expect(main).toContainText('운영자: 마이너스베타스튜디오 (대표 강대종)');
-  await expect(main).toContainText('적용일: 2026년 10월 12일');
+  await expect(main).toContainText('적용일: 2026년 10월 12일 · 고친 날: 2026년 11월 11일 · 대상: Android 앱 1.0.0');
+  await expect(main).toContainText('휴대폰 자체 백업(Google 백업)');
+  await expect(main).not.toContainText('iPhone');
+  await expect(main).not.toContainText('iCloud');
   await expect(main.getByRole('link', { name: 'minusbetastudio@gmail.com' })).toHaveAttribute('href', 'mailto:minusbetastudio@gmail.com');
   await expect(page.locator('link[rel="canonical"]')).toHaveAttribute('href', 'https://kangdaejong.com/privacy-sadariyo/');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

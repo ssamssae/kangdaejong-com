@@ -313,3 +313,14 @@
 - 기대: 1.1.1의 새 연결은 휴대폰에 기록을 두고 암호화한 내용만 우리 사이 우체통 서버로 주고받는다. 그 연결에는 Google 계정과 Drive 공간이 필요하지 않다. 동기화에는 인터넷이 필요하고, 없으면 휴대폰에 보관했다가 다시 연결되면 보낸다. 상대 앱이 옛 버전이면 그동안 Google 계정, Drive 공간과 인터넷으로 주고받는다. 이미 Drive로 연결된 두 휴대폰이 우체통으로 옮기기를 마치면 연결을 유지한 채 동기화에는 Drive를 쓰지 않는다. 그 다음 두 문장(전송·알림 지연, 기기·키 분실 시 복구 불가)은 그대로다.
 - 근거: our-sai `github/main` `9a8a3861a93bc003c9ae0f56c5a376eec1e1745e` (`pubspec.yaml` 19행 `1.1.1+15`). `README.md` 8–10행, `lib/api.dart` 130–135·186–198행, `lib/sync/transport_copy.dart` 26–31행, `lib/sync/connection_page.dart` 165행, `lib/sync/relay_connection_page.dart` 41·461–463행, `lib/sync/relay_migration.dart` 15–34·158–175행, `lib/sync/sync_engine.dart` 23–29행. 이 클론의 `origin`은 mac-mini라 `origin/main`이 없다. GitHub `github/main`을 읽었다.
 - 검증(2026-11-11 desktop3060ti, node v22.22.2): `npm run build` 통과(39 pages, site release checks passed). `verify:tone-pairs`·`verify:palette-copies`·`verify:shared-header`·`verify:shared-footer`·`verify:dark-cards` 통과. `npx playwright test tests/life-apps.spec.mjs tests/public-paths.spec.mjs --workers=1` 은 17개 모두 실패했다. 브라우저가 뜨지 않았다. 오류 한 줄: `chrome-headless-shell: error while loading shared libraries: libnspr4.so: cannot open shared object file`. 화면 문장은 확인하지 못했다. 빌드 결과 `dist/our-sai/terms/index.html`에 고친 문장이 있다. 배포는 하지 않는다.
+
+## 사다리요 처리방침 대상 문구 — T-261111-040
+
+- 진입점: `/privacy-sadariyo/`. 로그인 없음. 주소는 그대로다. Google Play `com.daejongkang.sadariyo`가 이 주소를 개인정보처리방침으로 건다. 공개 배포(`npm run deploy:site`)는 이 PR 범위 밖이다.
+- 조작: 쪽을 열어 적용 줄과 기기 저장 문단만 읽는다.
+- 바뀐 문장
+  1. `적용일: 2026년 10월 12일 · 대상: iPhone·Android 앱 1.0.0` → `적용일: 2026년 10월 12일 · 고친 날: 2026년 11월 11일 · 대상: Android 앱 1.0.0`
+  2. `휴대폰 자체 백업(iCloud·Google 백업)` → `휴대폰 자체 백업(Google 백업)`
+- 그 밖 문장은 그대로다. `src/data/i18n-en.json`에는 이 한국어 문장과 완전 일치하는 키가 없어 영어 짝은 고치지 않았다.
+- 근거: 사다리요 `origin/main` `e184bdf59f53d6ddbd54dd7615fe75d6be00cc44`의 `pubspec.yaml` 6행 `version: 1.0.0+1`(표시 판 번호 1.0.0, versionCode 1). 구글 플레이 공개 페이지 HTML의 앱 정보 칸도 `1.0.0`, 업데이트 `2026. 10. 12.`. 아이폰 앱 미공개는 2026-11-11 아폴론 iTunes 조회 0건(이 작업에서 iTunes는 다시 조회하지 않음).
+- 검증(2026-11-11 wsl, node v24.15.0, 22:34 KST): `npm run build` 통과(39 pages, site release checks passed). `verify:tone-pairs`·`verify:palette-copies`·`verify:shared-header`·`verify:shared-footer` 통과. `verify:dark-cards`는 빌드 전 1회 `run npm run build first`로 실패했고, 빌드 뒤 재실행은 통과(40 pages). `npx playwright test tests/sadariyo.spec.mjs tests/audit-fixes.spec.mjs tests/public-paths.spec.mjs --workers=1` 18개 통과(4.0m, exit 0). 빌드 결과 `dist/privacy-sadariyo/index.html`에 고친 두 문장이 있다. 배포는 하지 않는다.
