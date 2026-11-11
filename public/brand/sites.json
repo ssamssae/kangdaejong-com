@@ -536,6 +536,30 @@
         "cloudflare-pages:kangdaejong-com"
       ],
       "theme": "light"
+    },
+    {
+      "id": "rich",
+      "url": "https://rich.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone donation game page (왕좌 뺏기 · 심심한 부자 클럽, T-261110-043) with its own product identity; corporate shared theme does not replace the product design. The company home links to it from its first banner (T-261111-007).",
+      "aliases": [
+        "https://rich-kangdaejong.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:rich-kangdaejong"
+      ]
+    },
+    {
+      "id": "halilyo",
+      "url": "https://halilyo.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone Flutter web app (할일요, T-261110-018) with its own product identity; corporate shared theme does not replace the product design.",
+      "aliases": [
+        "https://halilyo.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:halilyo"
+      ]
     }
   ]
 }
