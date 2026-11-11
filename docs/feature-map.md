@@ -77,6 +77,7 @@
 - 진입점: `/privacy-sadariyo/` (App Store·Google Play 제출용 개인정보처리방침 URL). 홈 앱 목록(`src/data/home.ts`) 반영은 심사 통과 뒤 별도 단계(T-261012-018)라 이번에는 페이지만 더한다.
 - 기대 결과: h1 「사다리요 개인정보 처리 안내」, 수집 없음·기기 안 저장(앱이 밖으로 보내지 않음)·네트워크/광고/분석 없음·권한 없음·문의 메일, canonical `https://kangdaejong.com/privacy-sadariyo/`. 앱 안 안내(`ssamssae/sadariyo` `lib/about/about_sheet.dart`)와 같은 내용이다.
 - 검증: `tests/sadariyo.spec.mjs`. 라이브 응답은 배포 뒤 여러 번 받아 200 을 확인한다.
+- T-261111-064 로 보관됨: 이 페이지와 시험은 더 이상 빌드·실행되지 않는다(아래 「사다리요 처리방침 쪽 보관」).
 - 사이트맵: canonical 이 경로와 같아 `dist/sitemap.xml` 에 자동으로 들어간다. `tests/audit-fixes.spec.mjs` 의 사이트맵 목록 검사는 이 변경 전부터 origin/main 에서 RED 다(목록 10개, 실제 12개 — 노래찾기 2페이지 미반영).
 
 ## 살아있음·우리 사이 앱 등록 — T-261011-070
@@ -316,6 +317,7 @@
 
 ## 사다리요 처리방침 대상 문구 — T-261111-040
 
+- T-261111-064 로 보관됨: 이 페이지는 더 이상 빌드되지 않는다(아래 「사다리요 처리방침 쪽 보관」).
 - 진입점: `/privacy-sadariyo/`. 로그인 없음. 주소는 그대로다. Google Play `com.daejongkang.sadariyo`가 이 주소를 개인정보처리방침으로 건다. 공개 배포(`npm run deploy:site`)는 이 PR 범위 밖이다.
 - 조작: 쪽을 열어 적용 줄과 기기 저장 문단만 읽는다.
 - 바뀐 문장
@@ -324,3 +326,11 @@
 - 그 밖 문장은 그대로다. `src/data/i18n-en.json`에는 이 한국어 문장과 완전 일치하는 키가 없어 영어 짝은 고치지 않았다.
 - 근거: 사다리요 `origin/main` `e184bdf59f53d6ddbd54dd7615fe75d6be00cc44`의 `pubspec.yaml` 6행 `version: 1.0.0+1`(표시 판 번호 1.0.0, versionCode 1). 구글 플레이 공개 페이지 HTML의 앱 정보 칸도 `1.0.0`, 업데이트 `2026. 10. 12.`. 아이폰 앱 미공개는 2026-11-11 아폴론 iTunes 조회 0건(이 작업에서 iTunes는 다시 조회하지 않음).
 - 검증(2026-11-11 wsl, node v24.15.0, 22:34 KST): `npm run build` 통과(39 pages, site release checks passed). `verify:tone-pairs`·`verify:palette-copies`·`verify:shared-header`·`verify:shared-footer` 통과. `verify:dark-cards`는 빌드 전 1회 `run npm run build first`로 실패했고, 빌드 뒤 재실행은 통과(40 pages). `npx playwright test tests/sadariyo.spec.mjs tests/audit-fixes.spec.mjs tests/public-paths.spec.mjs --workers=1` 18개 통과(4.0m, exit 0). 빌드 결과 `dist/privacy-sadariyo/index.html`에 고친 두 문장이 있다. 배포는 하지 않는다.
+
+## 사다리요 처리방침 쪽 보관 — T-261111-064
+
+- 진입점: `/privacy-sadariyo/` 는 더 이상 만들어지지 않는다(빌드 결과에 없고 열면 404). 사다리요(`com.daejongkang.sadariyo`)는 Google Play 에서 내리고 사다리 기능은 나눠요로 옮겼다. 대종님 2026-11-11 「추천대로」.
+- 조작: 삭제가 아니라 보관이다. `src/pages/privacy-sadariyo.astro` → `src/_retired/pages/privacy-sadariyo.astro`(`SiteLayout` import 경로만 `../../layouts/` 로 바뀜), `tests/sadariyo.spec.mjs` → `tests/_retired/sadariyo.spec.mjs`. `src/_retired/` 는 Astro 가 라우트로 읽지 않고, `playwright.config.mjs` 는 `**/_retired/**` 를 실행에서 뺀다. `tests/audit-fixes.spec.mjs` 의 사이트맵 경로 목록에서 이 주소를 뺐고, 404 확인 시험 1개를 더했다.
+- 되돌리기: 두 `git mv` 를 거꾸로 하고 import 경로·`testIgnore`·경로 목록을 원복한다.
+- 머지 조건: Google Play 에서 사다리요 게시 중단과 공개 스토어 페이지 미노출을 확인한 뒤에만 머지한다. 머지만으로 공개 사이트는 바뀌지 않고, 공개 반영은 아테나 수동 `npm run deploy:site` 이다.
+- 검증: `npm run build`, `npx playwright test tests/audit-fixes.spec.mjs --workers=1`.

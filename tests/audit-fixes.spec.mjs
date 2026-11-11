@@ -1,10 +1,11 @@
 import { test, expect } from '@playwright/test';
 import { readFile } from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 
 test('sitemap advertises current canonical pages only', async () => {
   const xml=await readFile('dist/sitemap.xml','utf8');
   const urls=[...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]).sort();
-  const paths=['/','/apps/dutchpay/','/apps/memoyo/','/apps/yakmukja/','/books/ai-app-shift-worker/','/books/five-computers-one-assistant/','/books/heonbeop-without-lawyer/','/cheotireum/','/ipta/','/organization/','/our-sai/','/our-sai/privacy/','/our-sai/support/','/our-sai/terms/','/privacy-minusbeta-stats/','/privacy-noraechatgi/','/privacy-sadariyo/','/privacy-stillhere/','/privacy-cheotireum-app/','/privacy-halilyo/','/privacy-hanjul-app/','/privacy-malhaejwo/','/privacy-tojeong-app/','/protein/','/sangho/','/support-calcalarm/','/support-gagyebu/','/support-noraechatgi/','/support-stillhere/','/system/','/tojeong/','/tools/text/'];
+  const paths=['/','/apps/dutchpay/','/apps/memoyo/','/apps/yakmukja/','/books/ai-app-shift-worker/','/books/five-computers-one-assistant/','/books/heonbeop-without-lawyer/','/cheotireum/','/ipta/','/organization/','/our-sai/','/our-sai/privacy/','/our-sai/support/','/our-sai/terms/','/privacy-minusbeta-stats/','/privacy-noraechatgi/','/privacy-stillhere/','/privacy-cheotireum-app/','/privacy-halilyo/','/privacy-hanjul-app/','/privacy-malhaejwo/','/privacy-tojeong-app/','/protein/','/sangho/','/support-calcalarm/','/support-gagyebu/','/support-noraechatgi/','/support-stillhere/','/system/','/tojeong/','/tools/text/'];
   expect(urls).toEqual(paths.map(p=>'https://kangdaejong.com'+p).sort());
 });
 test('unknown addresses have a usable custom 404 artifact', async ({page}) => {
@@ -32,4 +33,9 @@ test('mobile books show retirement status without false links', async ({page}) =
   expect(await page.evaluate(()=>document.documentElement.scrollWidth)).toBeLessThanOrEqual(320);
   await expect(page.locator('a[href*="callta.kangdaejong.com"]')).toHaveCount(0);
   await expect(page.getByRole('link',{name:'인사이트 모아보기'})).toBeVisible();
+});
+
+test('retired privacy-sadariyo address is no longer built (T-261111-064)', async ({page}) => {
+  expect(existsSync('dist/privacy-sadariyo')).toBe(false);
+  const response=await page.goto('/privacy-sadariyo/');expect(response.status()).toBe(404);
 });
