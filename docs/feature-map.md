@@ -305,3 +305,11 @@
   4. 홈 우리 사이 `storeNote`: `iPhone · Android 준비 중` → `Android 준비 중`. 영어 키도 `Android 준비 중` → `Android in preparation`.
   5. 말해줘 개인정보: 대상을 `Android 앱 1.0.0`으로 바꾸고 iPhone·iCloud·App Store 설명을 뺐다. 적용일 2026년 11월 1일 옆에 고친 날 2026년 11월 11일을 적었다.
 - 검증(2026-11-11 desktop3060ti, node v22.22.2): `npm run build` 통과(39 pages, site release checks passed). `verify:tone-pairs`·`verify:palette-copies`·`verify:shared-header`·`verify:shared-footer`·`verify:dark-cards` 통과. Playwright 9개 중 1개(sitemap, 브라우저 없음)만 통과. 나머지 8개는 브라우저가 뜨지 않아 실패했다. 오류 한 줄: `chrome-headless-shell: error while loading shared libraries: libnspr4.so: cannot open shared object file`. 브라우저 문장은 이 노드에서 확인하지 못했다. 배포(`npm run deploy:site`)는 하지 않는다.
+
+## 우리 사이 이용 안내 「연결과 보관」 — T-261111-044
+
+- 진입점: `/our-sai/terms/` 「연결과 보관」. 로그인 없음. 공개 배포는 이 PR 범위 밖이다.
+- 조작: 이용 안내를 열어 「연결과 보관」만 읽는다.
+- 기대: 1.1.1의 새 연결은 휴대폰에 기록을 두고 암호화한 내용만 우리 사이 우체통 서버로 주고받는다. 그 연결에는 Google 계정과 Drive 공간이 필요하지 않다. 동기화에는 인터넷이 필요하고, 없으면 휴대폰에 보관했다가 다시 연결되면 보낸다. 상대 앱이 옛 버전이면 그동안 Google 계정, Drive 공간과 인터넷으로 주고받는다. 이미 Drive로 연결된 두 휴대폰이 우체통으로 옮기기를 마치면 연결을 유지한 채 동기화에는 Drive를 쓰지 않는다. 그 다음 두 문장(전송·알림 지연, 기기·키 분실 시 복구 불가)은 그대로다.
+- 근거: our-sai `github/main` `9a8a3861a93bc003c9ae0f56c5a376eec1e1745e` (`pubspec.yaml` 19행 `1.1.1+15`). `README.md` 8–10행, `lib/api.dart` 130–135·186–198행, `lib/sync/transport_copy.dart` 26–31행, `lib/sync/connection_page.dart` 165행, `lib/sync/relay_connection_page.dart` 41·461–463행, `lib/sync/relay_migration.dart` 15–34·158–175행, `lib/sync/sync_engine.dart` 23–29행. 이 클론의 `origin`은 mac-mini라 `origin/main`이 없다. GitHub `github/main`을 읽었다.
+- 검증(2026-11-11 desktop3060ti, node v22.22.2): `npm run build` 통과(39 pages, site release checks passed). `verify:tone-pairs`·`verify:palette-copies`·`verify:shared-header`·`verify:shared-footer`·`verify:dark-cards` 통과. `npx playwright test tests/life-apps.spec.mjs tests/public-paths.spec.mjs --workers=1` 은 17개 모두 실패했다. 브라우저가 뜨지 않았다. 오류 한 줄: `chrome-headless-shell: error while loading shared libraries: libnspr4.so: cannot open shared object file`. 화면 문장은 확인하지 못했다. 빌드 결과 `dist/our-sai/terms/index.html`에 고친 문장이 있다. 배포는 하지 않는다.
