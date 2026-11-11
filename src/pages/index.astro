@@ -4,6 +4,7 @@ import SiteLayout from '../layouts/SiteLayout.astro';
 import StudioFooter from '../components/StudioFooter.astro';
 import SocialBanner from '../components/SocialBanner.astro';
 import InsightBanner from '../components/InsightBanner.astro';
+import ThroneBanner from '../components/ThroneBanner.astro';
 import MoodCorner from '../components/MoodCorner.astro';
 import { productIcon } from '../lib/product-icons.mjs';
 import { currentProjects } from '../data/project-versions';
@@ -39,7 +40,8 @@ const jsonLd = {
 <SiteLayout title="강대종 — 직접 만드는 작은 도구들" description="강대종의 프로젝트를 한곳에. 텔레그램 브릿지, 입타, 자비스와 생활 앱, 만들며 배운 기록을 만나보세요." canonical="https://kangdaejong.com/" minimal bodyClass="simple-home" jsonLd={jsonLd} naverSiteVerification="2555d3aa1975c23a1b299d2114f6abcf2d21eeba">
   <mb-header active="home" tone="studio" lang-toggle></mb-header>
   <main id="main-content" class="home-width" tabindex="-1">
-    <InsightBanner />
+    {/* T-261111-007: 첫 자리 = 후원 사이트 배너. 인사이트 배너는 아래 「만들며 배운 것」 절 안으로 옮겼다. */}
+    <ThroneBanner />
     <section class="intro" aria-labelledby="intro-title">
       <p class="intro-label">만들고, 써 보고, 다듬어요.</p>
       <h1 id="intro-title">안녕하세요.<br/>만드는 사람 <span>강대종</span>이에요.</h1>
@@ -102,6 +104,7 @@ const jsonLd = {
     <section id="books" class="home-section" aria-labelledby="books-title">
       <div class="section-title"><h2 id="books-title">만들며 배운 것</h2><span class="section-note">전자책 3권 · PDF 무료 공개</span></div>
       <div class="book-list" data-mb-reveal>{books.map((book,index) => <div class="book-item mb-card"><a class="book-row" href={book.file} target="_blank" rel="noopener" type="application/pdf"><span class="book-number">0{index+1}</span><span><strong>{book.name}</strong><span>{book.description}</span></span><span class="book-action">무료로 읽기 ↗ · PDF {book.pages}쪽</span></a><a class="book-download mb-btn mb-btn--secondary" href={book.file} download={book.file.split('/').pop()} type="application/pdf" aria-label={`${book.name} PDF 다운로드`}>PDF 다운로드<span aria-hidden="true"> ⤓</span></a></div>)}</div>
+      <InsightBanner />
     </section>
     <section id="contact" class="home-section contact-section" aria-labelledby="contact-title">
       <span id="company" class="anchor-alias"></span><span id="choso" class="anchor-alias"></span>
