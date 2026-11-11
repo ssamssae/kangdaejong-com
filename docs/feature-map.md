@@ -294,3 +294,14 @@
 - 기대: 320/390/1440px에서 가로 넘침 없이 첫 자리에 후원 배너, `#books` 안에 인사이트 배너 1개. EN 전환 문구는 `src/data/i18n-en.json` 4개 키.
 - 검증: `tests/home-banners.spec.mjs`, `npm run verify:tone-pairs`(후원 배너도 공용 부품·톤 값만 쓰는지 본다). 공개 반영은 머지 뒤 `npm run deploy:site`.
 - 배포 점검 목록: 새로 연 `rich.kangdaejong.com`(Pages `rich-kangdaejong`)과 `halilyo.kangdaejong.com`(Pages `halilyo`)이 `public/brand/sites.json`에 없어 `npm run deploy:site`의 배포 전 시험이 멈췄다(2026-11-11 아테나, `unregistered target`). 두 사이트를 `mode: exception`으로 등록했다. 새 Pages 프로젝트·도메인을 열면 같은 PR 흐름에서 `sites.json` 등록까지 한다.
+
+## 낡은 정보 정리 — T-261111-023
+
+- 진입점: `/support-stillhere/`, `/our-sai/terms/`, `/our-sai/privacy/`, `/` 우리 사이 행, `/privacy-malhaejwo/`. 로그인 없음. 공개 배포는 이 PR 범위 밖이다.
+- 바뀐 문장
+  1. 살아있음 지원: `대상 버전: 1.1.2` → `대상 버전: 1.1.4`. 1.1.2부터의 위치 동작 설명은 그대로다.
+  2. 우리 사이 이용 안내: 테스트 준비 문구를 빼고, App Store 공개 버전 1.1.1과 고친 날 2026년 11월 11일을 적었다. 인앱 결제·구독·광고는 앱 코드에 없음을 적었다. 가격 숫자는 적지 않았다.
+  3. 우리 사이 개인정보: `고친 날: 2026년 10월 30일 · 버전 1.1.0 기준` → `고친 날: 2026년 11월 11일 · 버전 1.1.1 기준`. 본문 처리 항목은 그대로다.
+  4. 홈 우리 사이 `storeNote`: `iPhone · Android 준비 중` → `Android 준비 중`. 영어 키도 `Android 준비 중` → `Android in preparation`.
+  5. 말해줘 개인정보: 대상을 `Android 앱 1.0.0`으로 바꾸고 iPhone·iCloud·App Store 설명을 뺐다. 적용일 2026년 11월 1일 옆에 고친 날 2026년 11월 11일을 적었다.
+- 검증(2026-11-11 desktop3060ti, node v22.22.2): `npm run build` 통과(39 pages, site release checks passed). `verify:tone-pairs`·`verify:palette-copies`·`verify:shared-header`·`verify:shared-footer`·`verify:dark-cards` 통과. Playwright 9개 중 1개(sitemap, 브라우저 없음)만 통과. 나머지 8개는 브라우저가 뜨지 않아 실패했다. 오류 한 줄: `chrome-headless-shell: error while loading shared libraries: libnspr4.so: cannot open shared object file`. 브라우저 문장은 이 노드에서 확인하지 못했다. 배포(`npm run deploy:site`)는 하지 않는다.
