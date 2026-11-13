@@ -332,3 +332,4 @@
 - 규칙: Play Console 에서 앱을 **삭제**하기 전에는 그 앱의 처리방침 쪽을 내리지 않는다. 게시 중단만으로는 부족하다.
 - 공개 반영: 아테나 수동 `npm run deploy:site`. 그 뒤 Play Console 앱 콘텐츠 → 개인정보처리방침 재저장 → 게시 개요에서 검토 전송.
 - 검증: `npm run build`, `npx playwright test tests/sadariyo.spec.mjs tests/audit-fixes.spec.mjs --workers=1`. 라이브는 캐시 우회 주소(`?cb=…`)로 200 을 본다 — 2026-11-13 캐시 응답은 200, 원 서버는 404 였다.
+- 2026-11-13 배포 막힘 대응(같은 티켓): 같은 날 연 `https://board.kangdaejong.com/`(아이패드 차례판, 아테나 터널, T-261113-013)이 `public/brand/sites.json` 에 없어 `deploy:site` 가 업로드 전에 멈췄다(`unregistered target: https://board.kangdaejong.com/ (cloudflare-dns)`). `mode: exception` 내부 서비스로 등록했다.
