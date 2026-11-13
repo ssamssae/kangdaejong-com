@@ -416,6 +416,13 @@
       "deployments": []
     },
     {
+      "id": "board",
+      "url": "https://board.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Owner's iPad dashboard (T-261113-013) served from an Athena Cloudflare tunnel; internal service endpoint, not a public corporate website.",
+      "deployments": []
+    },
+    {
       "id": "mail-rsend.giroksil",
       "url": "https://rsend.giroksil.kangdaejong.com/",
       "mode": "exception",
