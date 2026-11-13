@@ -4,7 +4,7 @@ export default defineConfig({
   testDir: "./tests",
   // T-261026-008: tests/*.test.mjs 는 node:test 파일이다. playwright 가 집으면 작업자가 안 끝난다.
   testMatch: "**/*.spec.mjs",
-  testIgnore: ["protein.spec.mjs", "**/_retired/**"],
+  testIgnore: "protein.spec.mjs",
   outputDir: "/tmp/kangdaejong-com-playwright",
   reporter: "line",
   use: {
