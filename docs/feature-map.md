@@ -8,6 +8,14 @@
 - 검증: `npm run build`, `npx playwright test tests/audit-fixes.spec.mjs --workers=1`.
 - 공개 반영: 미실행. 상대 체크인 알림이 들어간 1.1.0 출시에 맞춰 승인 뒤 `npm run deploy:site` 로 공개한다.
 
+## 살아있음 위치기반서비스 이용약관 — T-261115-014
+
+- 진입: `/terms-location-stillhere/`. 개인정보 처리 안내·지원 안내·약관 세 페이지 하단에서 서로 연결한다. 앱 1.1.7 의 동의 화면과 설정 「위치기반서비스 이용약관」도 이 주소를 연다(T-261115-015).
+- 기대: 제1조~제17조·부칙(시행 2026-11-15), 1.1.6 이하 안내 문단, 사업자 정보(주소는 도로명까지·호수 없음). 개인정보 처리 안내에 「개인위치정보의 처리」 7항목(위치정보법 제21조의2)과 1.1.7 동의 화면 문장이 있다.
+- 근거: 위치기반서비스사업 신고 D280 접수번호 202617210000432828(T-261104-031), 리서치 `02-lbs-filing-package.md` B5·B6(c).
+- 검증: `npm run build`, `npx playwright test tests/audit-fixes.spec.mjs tests/life-apps.spec.mjs` (사이트맵 고정 목록에 새 주소 추가).
+- 공개 반영: 대종님 승인 카드 뒤 머지·`npm run deploy:site`.
+
 ## 살아있음 초대 링크 착지 페이지 — T-261102-002
 
 - 진입점: 앱이 보내는 `https://kangdaejong.com/stillhere/join#STILLHERE2:…`. 초대는 주소의 `#` 뒤에만 있어 서버로 가지 않는다. 앱이 깔린 iPhone 은 유니버설 링크(`public/.well-known/apple-app-site-association`, `/stillhere/join`·`/stillhere/join/*`)로 이 페이지 대신 앱을 연다. 앱이 깔린 Android 는 앱 링크(`public/.well-known/assetlinks.json`, Play 앱 서명 키·업로드 키 지문)로 앱을 연다. 앱이 없거나, 메신저 안 브라우저가 앱 링크를 따르지 않거나, Android 가 아직 앱 링크를 확인하지 못했으면 이 페이지가 보인다.
