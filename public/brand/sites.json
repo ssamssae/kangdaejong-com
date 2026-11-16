@@ -567,6 +567,18 @@
       "deployments": [
         "cloudflare-pages:halilyo"
       ]
+    },
+    {
+      "id": "ssot",
+      "url": "https://ssot.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "View-only web of the 쏟 성지 Apps-in-Toss mini app (T-261115-030) with its own product identity; corporate shared theme does not replace the product design.",
+      "aliases": [
+        "https://ssot-seongji-web.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:ssot-seongji-web"
+      ]
     }
   ]
 }
