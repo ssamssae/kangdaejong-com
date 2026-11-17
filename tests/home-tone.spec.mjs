@@ -9,7 +9,7 @@ test.beforeEach(async ({ page }) => {
 
 const ALLOWED_KO_IN_EN = [
   '한국어', // The language selector keeps each language's native name.
-  '텔레그램 브릿지', '입타', '자비스', '복붙 정리기', '첫이름',
+  '텔레그램 브릿지', '입타', '자비스', '첫이름',
   '한줄일기', '메모요', '나눠요', '약먹자', '심플 가계부',
   '계산기알람', '살아있음', '우리 사이', '노래찾기',
   '1인회사 AI자동화', '혼자서 AI팀', '폰으로 내 컴퓨터 AI 부리기',
@@ -36,7 +36,7 @@ for (const width of [360, 390, 768, 1440]) {
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('안녕하세요.만드는 사람 강대종이에요.'); // T-261024-020: 공개 문구 = 해요체
     await expect(page.locator('#menu-picker')).toHaveCount(0);
     await expect(page.getByRole('heading', { name: '만드는 도구' })).toBeVisible();
-    await expect(page.locator('#projects h3')).toHaveText(['텔레그램 브릿지', '입타', '자비스', '복붙 정리기', '첫이름']);
+    await expect(page.locator('#projects h3')).toHaveText(['텔레그램 브릿지', '입타', '자비스', '첫이름']);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
     await expect(page.getByRole('link', { name: '설치 안내', exact: true })).toHaveAttribute('href', '#open-tools');
     await expect(page.getByRole('link', { name: '입타 알아보기' })).toHaveAttribute('href', '/ipta/');

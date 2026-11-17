@@ -26,7 +26,7 @@ test('company home stays light even when the device prefers dark',async({page})=
  expect(await header(page).evaluate(e=>getComputedStyle(e.shadowRoot.querySelector('.header')).backgroundColor)).toBe(rgb('light','--bg'));
  expect(await page.evaluate(()=>getComputedStyle(document.documentElement).colorScheme)).toBe('light');
  expect(await page.locator('meta[name="color-scheme"]').getAttribute('content')).toBe('light');
- for(const path of ['/organization/','/system/','/ipta/','/tools/text/','/404-missing/']) { await page.goto(path); await expect(page.locator('html')).toHaveAttribute('data-theme','light'); await expect(page.locator('body')).toHaveCSS('background-color',rgb('light','--bg')); }
+ for(const path of ['/organization/','/system/','/ipta/','/404-missing/']) { await page.goto(path); await expect(page.locator('html')).toHaveAttribute('data-theme','light'); await expect(page.locator('body')).toHaveCSS('background-color',rgb('light','--bg')); }
  await page.goto('/'); await page.screenshot({path:test.info().outputPath('home-device-dark-stays-light.png'),fullPage:true});
 });
 
@@ -65,8 +65,6 @@ test('the header toggle switches the whole page to English and back without relo
  await expect(page.locator('html')).toHaveAttribute('lang','en');
  await expect(page.locator('h1')).toContainText('Daejong Kang');
  await expect(page.locator('#projects-title')).toHaveText('Tools I build');
- await expect(page.locator('.text-tool-card:not(.web-service-card) h3')).toHaveText('복붙 정리기 · Text Cleaner');
- await expect(page.locator('.text-tool-card:not(.web-service-card) > a')).toHaveText('Clean up text→');
  await expect(page.locator('.web-service-card h3')).toHaveText('Cheotireum (First Name)');
  await expect(page.locator('.book-action').first()).toHaveText('Read free ↗ · PDF, 69 pages');
  expect(await header(page).evaluate(e=>[...e.shadowRoot.querySelectorAll('.links a .link-title')].map(a=>a.textContent.trim()))).toEqual(['Projects','Apps','Contact']);
@@ -80,7 +78,7 @@ test('the header toggle switches the whole page to English and back without relo
  await toggle('ko').click();
  await expect(page.locator('html')).toHaveAttribute('lang','ko');
  await expect(page.locator('h1')).toHaveText('안녕하세요.만드는 사람 강대종이에요.');
- await expect(page.locator('.text-tool-card:not(.web-service-card) h3')).toHaveText('복붙 정리기');
+ await expect(page.locator('.text-tool-card:not(.web-service-card)')).toHaveCount(0);
  await expect(page.locator('.web-service-card h3')).toHaveText('첫이름');
  await expect(page.locator('.mood-quote')).toContainText(/[가-힣]/);
  expect(await page.evaluate(()=>localStorage.getItem('mb-lang'))).toBe('ko');
