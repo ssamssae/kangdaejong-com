@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 import { brand, rgb } from './brand-colors.mjs';
 
 const apps = [
-  { name: '살아있음', text: '서로의 안부', links: [['살아있음 App Store', 'https://apps.apple.com/kr/app/id6812609143'], ['살아있음 Google Play', 'https://play.google.com/store/apps/details?id=com.daejongkang.stillhere'], ['살아있음 앱 안내와 지원', '/support-stillhere/']] },
-  { name: '우리 사이', text: '둘만의 일상', note: 'Android 준비 중', links: [['우리 사이 App Store', 'https://apps.apple.com/kr/app/id6816725770'], ['우리 사이 앱 안내와 지원', '/our-sai/']] },
+  { name: '살아있음', text: '서로의 안부', links: [['살아있음 App Store', 'https://apps.apple.com/kr/app/id6812609143?pt=128771490&ct=homepage&mt=8'], ['살아있음 Google Play', 'https://play.google.com/store/apps/details?id=com.daejongkang.stillhere'], ['살아있음 앱 안내와 지원', '/support-stillhere/']] },
+  { name: '우리 사이', text: '둘만의 일상', note: 'Android 준비 중', links: [['우리 사이 App Store', 'https://apps.apple.com/kr/app/id6816725770?pt=128771490&ct=homepage&mt=8'], ['우리 사이 앱 안내와 지원', '/our-sai/']] },
 ];
 
 for (const width of [390, 1440]) {
@@ -42,6 +42,6 @@ test('우리 사이 intro note links to the App Store and says Android is in pre
   await page.goto('/our-sai/');
   const note = page.locator('.note');
   await expect(note).not.toContainText('정식 다운로드는 아직');
-  await expect(note.getByRole('link', { name: 'App Store' })).toHaveAttribute('href', 'https://apps.apple.com/kr/app/id6816725770');
+  await expect(note.getByRole('link', { name: 'App Store' })).toHaveAttribute('href', 'https://apps.apple.com/kr/app/id6816725770?pt=128771490&ct=homepage&mt=8');
   await expect(note).toContainText('Android 버전은 준비하고 있어요');
 });

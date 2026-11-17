@@ -6,7 +6,7 @@ import { test, expect } from '@playwright/test';
 const MARKER = 'T261102JoinMarker';
 const invite = `STILLHERE2:${(MARKER + '_-eyJ2IjoyLCJrIjoiYWJjIn0').repeat(12)}`;
 const code = encodeURIComponent(invite);
-const appStore = 'https://apps.apple.com/kr/app/id6812609143';
+const appStore = 'https://apps.apple.com/kr/app/id6812609143?pt=128771490&ct=homepage&mt=8';
 const googlePlay = 'https://play.google.com/store/apps/details?id=com.daejongkang.stillhere';
 const intent = `intent://join?code=${code}#Intent;scheme=stillhere;package=com.daejongkang.stillhere;S.browser_fallback_url=${encodeURIComponent(googlePlay)};end`;
 const iPhone = 'Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1';

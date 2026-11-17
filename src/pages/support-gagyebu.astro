@@ -1,11 +1,12 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { appStoreUrl } from "../lib/app-store-link.mjs";
 ---
 <SiteLayout title="심플 가계부 지원 안내" description="심플 가계부 지원 안내 · 마이너스베타스튜디오" canonical="https://kangdaejong.com/support-gagyebu/">
 <main id="main-content"><h1>심플 가계부 지원 안내</h1>
 <p>심플 가계부는 수입과 지출을 가볍게 기록하는 앱이에요. iPhone과 Android에서 받을 수 있어요.</p>
 <h2>받기</h2>
-<p><a href="https://apps.apple.com/kr/app/id6769037337">App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.ssamssae.mini_expense">Google Play</a></p>
+<p><a href={appStoreUrl("6769037337")}>App Store</a> · <a href="https://play.google.com/store/apps/details?id=com.ssamssae.mini_expense">Google Play</a></p>
 <h2>개인정보 처리 안내</h2>
 <p>수집하는 정보와 보관 방식은 <a href="/work/privacy-mini-expense.html">개인정보 처리 안내</a>에 적어 두었어요.</p>
 <h2>문의</h2>

@@ -18,6 +18,7 @@
     "verify:dark-cards": "node scripts/verify-dark-cards.mjs",
     "verify:palette-copies": "node scripts/verify-palette-copies.mjs && node scripts/verify-tone-copies.mjs",
     "verify:tone-copies": "node scripts/verify-tone-copies.mjs",
+    "verify:appstore-campaign": "node scripts/verify-appstore-campaign.mjs",
     "test": "playwright test",
     "preview": "astro preview",
     "astro": "astro",

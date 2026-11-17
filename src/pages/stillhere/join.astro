@@ -1,12 +1,13 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import { appStoreUrl } from "../../lib/app-store-link.mjs";
 // T-261102-002: 살아있음 초대 링크 착지 페이지.
 // 앱은 https://kangdaejong.com/stillhere/join#STILLHERE2:… 를 보낸다. 초대는 주소의 # 뒤(조각)에만 있어 서버로 가지 않는다.
 // 앱이 깔린 iPhone 은 유니버설 링크(public/.well-known/apple-app-site-association)로 이 페이지 대신 앱을 연다.
 // 앱이 없거나, 메신저 안 브라우저가 유니버설 링크를 따르지 않거나, Android(앱 링크 확인 전)면 이 페이지가 보인다.
 // 아래 스크립트는 초대를 어디에도 보내지 않는다(요청·분석·기록·쿼리 없음).
 // 처음 열 때 앱으로 자동 이동하지 않는다 — 앱이 없으면 iOS Safari 가 오류 창을 띄운다.
-const appStore = "https://apps.apple.com/kr/app/id6812609143";
+const appStore = appStoreUrl("6812609143");
 const googlePlay = "https://play.google.com/store/apps/details?id=com.daejongkang.stillhere";
 ---
 <SiteLayout title="살아있음 연결 초대" description="살아있음은 하루 한 번 버튼을 눌러 서로 잘 지내는지 알리는 앱이에요." canonical="https://kangdaejong.com/stillhere/join/" robots="noindex">

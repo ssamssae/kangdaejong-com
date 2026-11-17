@@ -2,6 +2,7 @@
 import SiteLayout from '../../../layouts/SiteLayout.astro';
 import {apps} from '../../../data/home';
 import {appSupport} from '../../../data/app-support.mjs';
+import {appStoreUrl} from '../../../lib/app-store-link.mjs';
 import '../../../styles/renewal.css';
 
 export function getStaticPaths() {
@@ -19,7 +20,7 @@ const canonical=`https://kangdaejong.com/apps/${support.slug}/`;
       <p class="r-kicker">앱 안내</p>
       <h1>{app.name}</h1><p class="lead">{app.description}</p>
       <div class="downloads">
-        <a class="r-button" href={`https://apps.apple.com/kr/app/id${app.appId}`}>App Store ↗</a>
+        <a class="r-button" href={appStoreUrl(app.appId)}>App Store ↗</a>
         <a class="r-button secondary" href={`https://play.google.com/store/apps/details?id=${app.package}`}>Google Play ↗</a>
       </div>
     </header>
