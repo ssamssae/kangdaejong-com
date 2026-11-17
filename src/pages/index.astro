@@ -41,8 +41,6 @@ const jsonLd = {
 <SiteLayout title="강대종 — 직접 만드는 작은 도구들" description="강대종의 프로젝트를 한곳에. 텔레그램 브릿지, 입타, 자비스와 생활 앱, 만들며 배운 기록을 만나보세요." canonical="https://kangdaejong.com/" minimal bodyClass="simple-home" jsonLd={jsonLd} naverSiteVerification="2555d3aa1975c23a1b299d2114f6abcf2d21eeba">
   <mb-header active="home" tone="studio" lang-toggle></mb-header>
   <main id="main-content" class="home-width" tabindex="-1">
-    {/* T-261111-007: 첫 자리 = 후원 사이트 배너. 인사이트 배너는 아래 「만들며 배운 것」 절 안으로 옮겼다. */}
-    <ThroneBanner />
     <section class="intro" aria-labelledby="intro-title">
       <p class="intro-label">만들고, 써 보고, 다듬어요.</p>
       <h1 id="intro-title">안녕하세요.<br/>만드는 사람 <span>강대종</span>이에요.</h1>
@@ -104,6 +102,8 @@ const jsonLd = {
       <SocialBanner compact />
       <details class="pause-details"><summary>잠깐 쉬어가기 <span aria-hidden="true">＋</span></summary><MoodCorner /></details>
     </section>
+    {/* T-261118-009: 왕좌 뺏기 = 맨 위 배너에서 맨 아래 구석의 글씨 없는 왕관 그림으로 숨김(대종님 「대놓고 표시하지 말고」). */}
+    <ThroneBanner />
   </main>
   <StudioFooter compact />
   <script>
