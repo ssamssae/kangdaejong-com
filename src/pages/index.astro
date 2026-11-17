@@ -16,8 +16,8 @@ const srcsetFor = (entry?: { icon: string; icon2x?: string }) => entry?.icon2x ?
 const ipta = productIcon('ipta');
 const jarvis = productIcon('jarvis');
 const cheotireum = productIcon('cheotireum');
-// 텔레그램 브릿지 카드의 그림 = 그록봇이 2026-10-11 만든 4칸 카드(Claude·Codex·Grok·Cursor), 480/960px WebP.
-const bridgesVisual = { src: '/product-screens/telegram-bridges-531861e1-480.webp', srcset: '/product-screens/telegram-bridges-531861e1-480.webp 480w, /product-screens/telegram-bridges-531861e1-960.webp 960w', alt: 'Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지' };
+// 텔레그램 브릿지 카드의 그림 = 한 글자 4칸 카드(클·코·그·커 = Claude·Codex·Grok·Cursor, 색은 옛 그록봇 카드에서 실측), 480/960px WebP (T-261118-012).
+const bridgesVisual = { src: '/product-screens/telegram-bridges-b2bd7494-480.webp', srcset: '/product-screens/telegram-bridges-b2bd7494-480.webp 480w, /product-screens/telegram-bridges-b2bd7494-960.webp 960w', alt: 'Claude, Codex, Grok, Cursor 네 가지 오픈소스 텔레그램 브릿지' };
 const projects = [
   { name: '텔레그램 브릿지', mark: '↔', description: '휴대폰에서 내 컴퓨터의 AI에게 요청하고 답을 받아요.', note: '공개 소스', href: '#open-tools', action: '설치 안내', icon: null, icon2x: null, visual: bridgesVisual },
   { id: 'ipta', name: '입타', mark: '입', description: '쓰던 입력칸에서 말하면 글이 돼요. Mac과 Windows에서 써요.', note: '음성 입력', href: '/ipta/', action: '입타 알아보기', icon: ipta?.icon ?? null, icon2x: ipta?.icon2x ?? null, visual: null },

@@ -194,16 +194,16 @@
       "id": "ipta",
       "name": "입타",
       "source": "https://github.com/ssamssae/ipta",
-      "sourceSha256": "3eed2503c85c1240a3a292f2e277f8f27efb7067afd2165f907a026a63e5fcb9",
-      "sourceNote": "대종님 제공 글자 아이콘 ipta-amber-1024.png(2026-10-13, 아테나 /Users/user/icon-swap-20261013/). sourceSha256 = 그 1024px PNG. 96/192px WebP 는 PR #160 산출(Sharp lanczos3, quality 90). T-261013-018 → T-261014-035",
+      "sourceSha256": "907fa5eba1aed1e9227deca9e6f149b64b899c56b8f5c414a3d6cdc61c21bcd8",
+      "sourceNote": "대종님 2026-11-18 「요고 아이콘도 클 코 그 커 입 자 이렇게 색깔만다르게 바꾸자」(T-261118-012) — 앱 아이콘 한 글자 통일(T-261117-088)과 같은 모양: 단색(색은 옛 그림에서 실측)·흰 Pretendard ExtraBold 한 글자. 1024 PNG 와 생성 스크립트 = 아폴론 ~/icon-forge/letter-20261118-tools/(make_letters.py). WebP = PIL lanczos, quality 90.",
       "files": {
         "icon": {
-          "source": "/product-icons/ipta-3eed2503-96.webp",
-          "sha256": "2bd22821a94a72ff7e0d99072a207e9e6449801e1eaa3cab6dc044df5bb8328a"
+          "source": "/product-icons/ipta-907fa5eb-96.webp",
+          "sha256": "67917996dcbdb36d2c86f84f013b8d4f5ed5ef76e33ce964cad7f4603cbd3c20"
         },
         "icon2x": {
-          "source": "/product-icons/ipta-3eed2503-192.webp",
-          "sha256": "3e4d75299cce2746590cc38e2443c08c1ecf94e52d0994db2717fb2b74918d9e"
+          "source": "/product-icons/ipta-907fa5eb-192.webp",
+          "sha256": "661ba9ee24be78903259ff642773d8eedf8462003577c01bce5a74266c107dd3"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/ipta.webp",
@@ -216,16 +216,16 @@
       "id": "jarvis",
       "name": "자비스",
       "source": "https://github.com/ssamssae/jarvis-mac",
-      "sourceSha256": "db2130df587d8b09f5ede45053ea06a167fea22e1810ef96b33bf8c23bf21a34",
-      "sourceNote": "대종님 제공 글자 아이콘 jarvis-purple-1024.png(2026-10-13, 아테나 /Users/user/icon-swap-20261013/). sourceSha256 = 그 1024px PNG. 96/192px WebP 는 PR #160 산출(Sharp lanczos3, quality 90). jarvis-mac 저장소에는 로고가 없다. T-261013-018 → T-261014-035",
+      "sourceSha256": "8a1b96859c14169402592b98cd09ab84e9755654d69d3cfb0392853274249ba6",
+      "sourceNote": "대종님 2026-11-18 「요고 아이콘도 클 코 그 커 입 자 이렇게 색깔만다르게 바꾸자」(T-261118-012) — 앱 아이콘 한 글자 통일(T-261117-088)과 같은 모양: 단색(색은 옛 그림에서 실측)·흰 Pretendard ExtraBold 한 글자. 1024 PNG 와 생성 스크립트 = 아폴론 ~/icon-forge/letter-20261118-tools/(make_letters.py). WebP = PIL lanczos, quality 90.",
       "files": {
         "icon": {
-          "source": "/product-icons/jarvis-db2130df-96.webp",
-          "sha256": "a0d62cc754233c867a3a3ede02fc1b13ab2117ab8fb9cb6c9269687e05e18c6e"
+          "source": "/product-icons/jarvis-8a1b9685-96.webp",
+          "sha256": "e504f478d663f1aeac43f24368080a710dc5696f12949925adfc6bb459b2a0c6"
         },
         "icon2x": {
-          "source": "/product-icons/jarvis-db2130df-192.webp",
-          "sha256": "03f3df865899361cfddf4caddab69e5b729a99f021fa1e1ff823e0c784aa1e89"
+          "source": "/product-icons/jarvis-8a1b9685-192.webp",
+          "sha256": "0d397ac3f1cca7d1ff34498883842c3aa46b2f75c9bb4c6fa6eff68602cad7c5"
         }
       },
       "icon": "https://kangdaejong.com/brand/products/jarvis.webp",
@@ -237,54 +237,58 @@
     {
       "id": "bridge-grok",
       "name": "Grok Telegram Bridge",
-      "source": "https://github.com/ssamssae/kangdaejong-com/tree/b922024a91aded857838a4a606def9fcdce1a10b/public/product-icons",
-      "sourceNote": "Grok 2026-10-11 approved four-panel bridge illustration; preserve current crop",
+      "source": "https://github.com/ssamssae/kangdaejong-com/tree/main/public/product-icons",
+      "sourceNote": "대종님 2026-11-18 「요고 아이콘도 클 코 그 커 입 자 이렇게 색깔만다르게 바꾸자」(T-261118-012) — 앱 아이콘 한 글자 통일(T-261117-088)과 같은 모양: 단색(색은 옛 그림에서 실측)·흰 Pretendard ExtraBold 한 글자. 1024 PNG 와 생성 스크립트 = 아폴론 ~/icon-forge/letter-20261118-tools/(make_letters.py). WebP = PIL lanczos, quality 90.",
       "files": {
         "icon": {
-          "source": "/product-icons/bridge-grok-f431e691-96.webp",
-          "sha256": "6828396340791b84a76da13e875729f4f028290a38e2343f3bb05d18b7cafaac"
+          "source": "/product-icons/bridge-grok-881a147f-96.webp",
+          "sha256": "a172390ea24ca8b6b7944d8f143b211811707ac5f352c48cd139c4981b173388"
         }
       },
-      "icon": "https://kangdaejong.com/brand/products/bridge-grok.webp"
+      "icon": "https://kangdaejong.com/brand/products/bridge-grok.webp",
+      "sourceSha256": "881a147f7f37a3b37d6baf176109e002a25ced95248ab279dde9a03ee89589e8"
     },
     {
       "id": "bridge-codex",
       "name": "Codex Telegram Bridge",
-      "source": "https://github.com/ssamssae/kangdaejong-com/tree/b922024a91aded857838a4a606def9fcdce1a10b/public/product-icons",
-      "sourceNote": "Grok 2026-10-11 approved four-panel bridge illustration; preserve current crop",
+      "source": "https://github.com/ssamssae/kangdaejong-com/tree/main/public/product-icons",
+      "sourceNote": "대종님 2026-11-18 「요고 아이콘도 클 코 그 커 입 자 이렇게 색깔만다르게 바꾸자」(T-261118-012) — 앱 아이콘 한 글자 통일(T-261117-088)과 같은 모양: 단색(색은 옛 그림에서 실측)·흰 Pretendard ExtraBold 한 글자. 1024 PNG 와 생성 스크립트 = 아폴론 ~/icon-forge/letter-20261118-tools/(make_letters.py). WebP = PIL lanczos, quality 90.",
       "files": {
         "icon": {
-          "source": "/product-icons/bridge-codex-41955708-96.webp",
-          "sha256": "db8efa99be9d1a3fdd73c18f690bd18c17d5ed7690cf87f06436ddd1103dcac2"
+          "source": "/product-icons/bridge-codex-6b203a0d-96.webp",
+          "sha256": "ac93ff3d3c034c9f6904c611573c2df0070154f48cd798887f03d4606099bc13"
         }
       },
-      "icon": "https://kangdaejong.com/brand/products/bridge-codex.webp"
+      "icon": "https://kangdaejong.com/brand/products/bridge-codex.webp",
+      "sourceSha256": "6b203a0db40b061d3d7798645284fb7c01e2af19869793ab139f0da51892433c"
     },
     {
       "id": "bridge-claude",
       "name": "Claude Telegram Bridge",
-      "source": "https://github.com/ssamssae/kangdaejong-com/tree/b922024a91aded857838a4a606def9fcdce1a10b/public/product-icons",
-      "sourceNote": "Grok 2026-10-11 approved four-panel bridge illustration; preserve current crop",
+      "source": "https://github.com/ssamssae/kangdaejong-com/tree/main/public/product-icons",
+      "sourceNote": "대종님 2026-11-18 「요고 아이콘도 클 코 그 커 입 자 이렇게 색깔만다르게 바꾸자」(T-261118-012) — 앱 아이콘 한 글자 통일(T-261117-088)과 같은 모양: 단색(색은 옛 그림에서 실측)·흰 Pretendard ExtraBold 한 글자. 1024 PNG 와 생성 스크립트 = 아폴론 ~/icon-forge/letter-20261118-tools/(make_letters.py). WebP = PIL lanczos, quality 90.",
       "files": {
         "icon": {
-          "source": "/product-icons/bridge-claude-9e27b3a5-96.webp",
-          "sha256": "de26fcc3666b87c40ff515f67c212aba510320d314c246ed4f65c143ea2fb376"
+          "source": "/product-icons/bridge-claude-aebbd775-96.webp",
+          "sha256": "187cf374019a1db1343903561d90cbbada985ca9e0ebd3cbff7f8ec39650451a"
         }
       },
-      "icon": "https://kangdaejong.com/brand/products/bridge-claude.webp"
+      "icon": "https://kangdaejong.com/brand/products/bridge-claude.webp",
+      "sourceSha256": "aebbd77543b88c66c100fc6bfa46c9ad24748113546b21df1a2f6a2eae1f9dbe"
     },
     {
       "id": "bridge-cursor",
       "name": "Cursor Telegram Bridge",
-      "source": "https://github.com/ssamssae/kangdaejong-com/tree/b922024a91aded857838a4a606def9fcdce1a10b/public/product-icons",
-      "sourceNote": "Grok 2026-10-11 approved four-panel bridge illustration; preserve current crop",
+      "source": "https://github.com/ssamssae/kangdaejong-com/tree/main/public/product-icons",
+      "sourceNote": "대종님 2026-11-18 「요고 아이콘도 클 코 그 커 입 자 이렇게 색깔만다르게 바꾸자」(T-261118-012) — 앱 아이콘 한 글자 통일(T-261117-088)과 같은 모양: 단색(색은 옛 그림에서 실측)·흰 Pretendard ExtraBold 한 글자. 1024 PNG 와 생성 스크립트 = 아폴론 ~/icon-forge/letter-20261118-tools/(make_letters.py). WebP = PIL lanczos, quality 90.",
       "files": {
         "icon": {
-          "source": "/product-icons/bridge-cursor-2e723079-96.webp",
-          "sha256": "a2a31f81bd81c7a09ca12a9d1ae4c830f33d1c2ff4c0ae4b4931c5a15ac04f9b"
+          "source": "/product-icons/bridge-cursor-28f2578a-96.webp",
+          "sha256": "1ab6a0e71b9d0f9c28923b01e0934605e1eb1d5396d32db4fca977d3dddfd4f3"
         }
       },
-      "icon": "https://kangdaejong.com/brand/products/bridge-cursor.webp"
+      "icon": "https://kangdaejong.com/brand/products/bridge-cursor.webp",
+      "sourceSha256": "28f2578a8f2731a1d1ac08e4eb30e82fccc48b93d718a460a1502bb2d82431e3"
     },
     {
       "id": "bridge-local",
