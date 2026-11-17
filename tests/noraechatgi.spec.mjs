@@ -11,7 +11,7 @@ for (const width of [390, 1440]) {
     await expect(row.locator('a')).toHaveCount(2);
     await expect(row.getByRole('link', { name: '노래찾기 앱 안내와 지원' })).toHaveAttribute('href', '/support-noraechatgi/');
     const link = row.getByRole('link', { name: '노래찾기 App Store' });
-    await expect(link).toHaveAttribute('href', 'https://apps.apple.com/kr/app/id6820080312');
+    await expect(link).toHaveAttribute('href', 'https://apps.apple.com/kr/app/id6820080312?pt=128771490&ct=homepage&mt=8');
     const [headingBox, linkBox] = await Promise.all([row.getByRole('heading', { name: '노래찾기', exact: true }).boundingBox(), link.boundingBox()]);
     expect(Math.abs(linkBox.x - headingBox.x)).toBeLessThan(2);
     const image = row.locator('img');

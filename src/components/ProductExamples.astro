@@ -1,8 +1,9 @@
 ---
 import sources from "../data/product-screen-sources.json";
+import { appStoreUrl } from "../lib/app-store-link.mjs";
 const examples = [
-  { slug: "hanjul", name: "한줄일기", action: "오늘의 한 줄을 적고, 지난 기록을 다시 봐요.", href: "https://apps.apple.com/kr/app/id6764308678" },
-  { slug: "memo", name: "메모요", action: "떠오른 생각을 적고, 목록에서 바로 찾아요.", href: "https://apps.apple.com/kr/app/id6762068073" },
+  { slug: "hanjul", name: "한줄일기", action: "오늘의 한 줄을 적고, 지난 기록을 다시 봐요.", href: appStoreUrl("6764308678") },
+  { slug: "memo", name: "메모요", action: "떠오른 생각을 적고, 목록에서 바로 찾아요.", href: appStoreUrl("6762068073") },
   { slug: "cheotireum", name: "첫이름", action: "이름 후보를 살펴보고, 한자와 풀이를 확인해요.", href: "https://cheotireum.kangdaejong.com/" },
 ];
 ---
