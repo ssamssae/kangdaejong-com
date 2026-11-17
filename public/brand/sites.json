@@ -570,11 +570,12 @@
     },
     {
       "id": "ssot",
-      "url": "https://ssot.kangdaejong.com/",
+      "url": "https://moyeoyo.kangdaejong.com/",
       "mode": "exception",
-      "reason": "View-only web of the 쏟 성지 Apps-in-Toss mini app (T-261115-030) with its own product identity; corporate shared theme does not replace the product design.",
+      "reason": "Web of 모여요 (renamed from 쏟 성지, T-261117-028), the Apps-in-Toss mini app (T-261115-030) with its own product identity; corporate shared theme does not replace the product design. The old host ssot.kangdaejong.com redirects here.",
       "aliases": [
-        "https://ssot-seongji-web.pages.dev/"
+        "https://ssot-seongji-web.pages.dev/",
+        "https://ssot.kangdaejong.com/"
       ],
       "deployments": [
         "cloudflare-pages:ssot-seongji-web"
