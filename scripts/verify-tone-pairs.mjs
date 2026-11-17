@@ -31,7 +31,9 @@ const checks = [
  // T-261024-058: 전부 라이트 — 레이아웃이 data-theme="light"·color-scheme light 를 고정으로 내보내고, theme="auto" 를 넘기는 페이지가 없고, 원본에 다크 블록이 없다.
  ['every page is light-only and the shared tone file has no dark block', /<html lang="ko" data-theme="light">/.test(layout) && /<meta name="color-scheme" content="light" \/>/.test(layout) && autoPages.length === 0 && !/prefers-color-scheme\s*:\s*dark|\[data-theme/.test(shared.replace(/\/\*[\s\S]*?\*\//g, ''))],
  ['shared header and footer read the tone names instead of numbers', ['min-height:var(--tone-header-height)', 'var(--tone-label-size)/var(--tone-label-line) var(--tone-font)', 'border-radius:var(--tone-radius-sheet)', 'width:min(calc(100% - var(--tone-gutter) * 2),var(--mb-max))'].every((part) => components.includes(part)) && !/min-height:9[45]px|font-size:1[0-3]px|border-radius:9px/.test(components)],
- ['home buttons and chips use the shared parts', home.includes('mb-btn mb-btn--primary') && home.includes('mb-btn mb-btn--secondary') && home.includes('mb-chip') && banner.includes('mb-btn mb-btn--primary') && throne.includes('mb-btn mb-btn--primary')],
+ ['home buttons and chips use the shared parts', home.includes('mb-btn mb-btn--primary') && home.includes('mb-btn mb-btn--secondary') && home.includes('mb-chip') && banner.includes('mb-btn mb-btn--primary')],
+  // T-261118-009: 왕좌 뺏기 입구는 버튼·글씨 없이 숨긴 작은 그림(대종님 「대놓고 표시하지 말고 … 글씨 제거 … 설명도 제거」).
+  ['home throne entrance stays a small unlabeled picture', throne.includes('aria-label="왕좌 뺏기"') && throne.includes('<svg') && !throne.includes('mb-btn') && !/<a [^>]*>[^<]*[가-힣A-Za-z]/.test(throne)],
  ['home keeps no local copies of tone values', ![css, banner, throne].some((text) => /border-radius:\s*(14|20)px|min-height:\s*5[26]px/.test(text))],
  ['generic home link hover skips shared buttons', css.includes('.simple-home a:not(.mb-btn):hover')],
  ['site tokens connect to the shared tone file', ['--sans: var(--tone-font)', '--radius-card: var(--tone-radius-card)', '--radius-btn: var(--tone-radius-control)', '--radius-pill: var(--tone-radius-pill)', '--text-body: var(--tone-body-size)'].every((link) => siteTokens.includes(link))],
