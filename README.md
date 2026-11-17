@@ -60,7 +60,7 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 ## 기능 확인
 
-[기능 확인 경로](docs/feature-map.md)에서 홈페이지와 복붙 정리기의 동작 검증 방법을 확인합니다.
+[기능 확인 경로](docs/feature-map.md)에서 홈페이지의 동작 검증 방법(복붙 정리기는 2026-11-18 종료, `_retired/tools-text/`)을 확인합니다.
 
 ## 사이트 변경 검증·배포
 
