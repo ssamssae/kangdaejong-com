@@ -19,7 +19,6 @@
       ],
       "pages": [
         "/",
-        "/tools/text/",
         "/our-sai/privacy/",
         "/logo/privacy/",
         "/logo/terms/",
@@ -35,7 +34,6 @@
       ],
       "screens": [
         "/",
-        "/tools/text/",
         "/photo/",
         "/apps/dutchpay/",
         "/apps/memoyo/",
@@ -47,7 +45,6 @@
         "cloudflare-route:workshop-router"
       ],
       "headerExceptions": {
-        "/tools/text/": "Standalone local text tool uses a static studio header and restrictive CSP.",
         "/logo/": "Retired service notice has a compact company link.",
         "/logo/privacy/": "Retired service policy notice uses the same compact company link.",
         "/logo/terms/": "Retired service policy notice uses the same compact company link.",
