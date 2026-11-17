@@ -578,7 +578,8 @@
         "https://ssot.kangdaejong.com/"
       ],
       "deployments": [
-        "cloudflare-pages:ssot-seongji-web"
+        "cloudflare-pages:ssot-seongji-web",
+        "cloudflare-route:ssot-redirect"
       ]
     }
   ]
