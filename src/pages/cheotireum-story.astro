@@ -1,0 +1,66 @@
+---
+import "../styles/home-simple.css";
+import StudioFooter from "../components/StudioFooter.astro";
+import SiteLayout from "../layouts/SiteLayout.astro";
+// T-261120-003: 회사 홈페이지 첫 글 — 첫이름 소개. 링크의 src=kdj-post 로 이 글에서 들어온 방문·결제를 따로 센다.
+const start = "https://cheotireum.kangdaejong.com/?src=kdj-post#/form";
+const sample = "https://cheotireum.kangdaejong.com/sample-report?src=kdj-post-sample";
+---
+<SiteLayout title="아기 이름, 1,000원으로 가족과 함께 골라요" description="아기 이름 후보를 소리·뜻·오행으로 살펴 한 부의 작명서로 정리해 주는 첫이름을 만든 이야기예요." canonical="https://kangdaejong.com/cheotireum-story/" minimal bodyClass="simple-home">
+  <mb-header tone="studio"></mb-header>
+  <main id="main-content" class="home-width">
+    <section class="intro" aria-labelledby="story-title">
+      <p class="eyebrow">새 글 · 2026년 11월 20일</p>
+      <h1 id="story-title">아기 이름,<br /><span>가족과 함께 골라요.</span></h1>
+      <p class="lead">첫이름은 아기 이름 후보를 소리·뜻·오행으로 살펴<br class="desktop" /> 한 부의 작명서로 정리해 주는 서비스예요.</p>
+    </section>
+    <section class="block" aria-labelledby="why-title">
+      <p class="eyebrow">왜 만들었나요</p>
+      <h2 id="why-title">함께 펼쳐 볼 자료가 있으면 좋겠다고 생각했어요.</h2>
+      <p>이름은 한 번 정하면 평생 부르는 말이에요. 그래서 고민이 길어지기 쉬워요.</p>
+      <p>작명소에 맡기면 비용과 예약이 부담될 수 있어요. 가족이 같은 자료를 보면서 이야기할 수 있게, 필요한 내용만 한 부에 담아 1,000원에 만들었어요.</p>
+    </section>
+    <section class="block" aria-labelledby="what-title">
+      <p class="eyebrow">작명서에 담기는 것</p>
+      <h2 id="what-title">한 부로 정리해 드려요.</h2>
+      <ul>
+        <li>이름 후보와 한자 뜻풀이</li>
+        <li>사주·오행·획수 비교, 이름의 발음과 영문 표기</li>
+        <li>PDF로 저장해 가족과 함께 보기</li>
+      </ul>
+    </section>
+    <section class="block" aria-labelledby="how-title">
+      <p class="eyebrow">이렇게 써요</p>
+      <h2 id="how-title">먼저 무료로 살펴보고 정하세요.</h2>
+      <ol>
+        <li>아기 정보를 넣고 부족한 오행을 무료로 먼저 확인해요.</li>
+        <li>작명서에 담기는 내용을 확인한 뒤 1,000원을 결제해요.</li>
+        <li>작명서를 PDF로 받아 가족과 나눠 봐요.</li>
+      </ol>
+      <div class="story-links">
+        <a class="mb-btn mb-btn--primary" href={start}>무료로 오행 미리보기 <span aria-hidden="true">↗</span></a>
+        <a class="mb-btn mb-btn--secondary" href={sample}>작명서 샘플 보기 <span aria-hidden="true">↗</span></a>
+      </div>
+    </section>
+    <section class="block" aria-labelledby="first-title">
+      <p class="eyebrow">첫 손님</p>
+      <h2 id="first-title">처음으로 모르는 분들이 받아 가셨어요.</h2>
+      <p>11월 15일과 16일, 처음으로 모르는 분 두 분이 작명서를 받아 가셨어요. 작은 서비스지만, 쓰시는 분들이 편하게 고를 수 있도록 계속 다듬을게요.</p>
+      <p class="sign">강대종 드림</p>
+    </section>
+  </main>
+  <StudioFooter />
+</SiteLayout>
+<style>
+/* T-261120-003: 스튜디오 소개(organization) 페이지와 같은 톤 값만 쓴다. */
+.eyebrow{margin:0 0 var(--tone-space-1);color:var(--fg-dim);font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font);letter-spacing:normal}
+.lead{margin:var(--tone-space-3) 0 0!important;color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line)}
+.block{padding:var(--tone-section-gap) 0;border-top:1px solid var(--border)}
+.block h2{margin:0 0 var(--tone-space-2)}
+.block p:not(.eyebrow),.block li{color:var(--fg-dim);font-size:var(--tone-body-size);line-height:var(--tone-body-line)}
+.block p:not(.eyebrow){margin:0 0 var(--tone-space-2)}
+.block ul,.block ol{margin:0;padding-left:var(--tone-space-4)}
+.story-links{display:flex;flex-wrap:wrap;gap:var(--tone-space-2);margin-top:var(--tone-space-4)}
+.sign{margin-top:var(--tone-space-4)!important;color:var(--fg)!important;font-weight:var(--tone-weight-bold)}
+@media(max-width:760px){.desktop{display:none}.block{padding:var(--tone-space-6) 0}}
+</style>
