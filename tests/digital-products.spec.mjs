@@ -39,7 +39,8 @@ test('home keeps books and optional bridge video reachable on mobile',async({pag
  await page.setViewportSize({width:390,height:844});await page.goto('/');
  await expect(page.locator('main h1')).toContainText('강대종');
  await expect(page.locator('.book-row')).toHaveCount(3);
- await expect(page.locator('main a[href="https://kangdaejong.com/work/products/"]')).toBeAttached();
+ // T-261120-020: 「전체 제품」 링크는 홈 연락 칸의 SNS 글 줄에서 공용 꼬리말 사이트맵으로 옮겨 갔다.
+ await expect(page.locator('mb-footer a[href="https://kangdaejong.com/work/products/"]')).toBeAttached();
  await expect(page.locator('#open-tools video')).toBeHidden();
  await page.locator('#open-tools > summary').click();
  await expect(page.locator('#open-tools video')).toBeVisible();

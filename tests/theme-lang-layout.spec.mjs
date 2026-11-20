@@ -75,14 +75,11 @@ test('the header toggle switches the whole page to English and back without relo
  await expect(page.locator('html')).toHaveAttribute('lang','en');
  await expect(page.locator('h1')).toContainText('Daejong Kang');
  await expect(toggle('en')).toHaveAttribute('aria-pressed','true');
- await page.locator('.pause-details summary').click(); await page.locator('.mood-options button[data-choice="rest"]').click();
- await expect(page.locator('.mood-quote')).not.toContainText(/[가-힣]/);
  await toggle('ko').click();
  await expect(page.locator('html')).toHaveAttribute('lang','ko');
  await expect(page.locator('h1')).toHaveText('안녕하세요.만드는 사람 강대종이에요.');
  await expect(page.locator('.text-tool-card:not(.web-service-card)')).toHaveCount(0);
  await expect(page.locator('.web-service-card h3')).toHaveText('첫이름');
- await expect(page.locator('.mood-quote')).toContainText(/[가-힣]/);
  expect(await page.evaluate(()=>localStorage.getItem('mb-lang'))).toBe('ko');
 });
 

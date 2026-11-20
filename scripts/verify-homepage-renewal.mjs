@@ -14,7 +14,8 @@ const checks = [
  ['Cheotireum sample, Hanja check and guide remain reachable', home.includes('https://cheotireum.kangdaejong.com/sample-report?src=kdj-sample') && home.includes('https://cheotireum.kangdaejong.com/hanja-check?src=kdj-hanja') && home.includes('href="/cheotireum/"')],
  ['free books link to public PDFs', !data.includes('kmong.com/gig/') && (data.match(/\/books\/[a-z-]+\.pdf/g) || []).length === 3 && !home.includes('판매 종료') && home.includes('무료로 읽기')],
  ['four bridge repos and releases remain', ['grok','codex','claude','cursor'].every(name => data.includes(`ssamssae/${name}-telegram-bridge`) && data.includes(`ssamssae/${name}-telegram-bridge/releases`))],
- ['optional content and contact remain', home.includes('<MoodCorner') && home.includes('<SocialBanner compact') && home.includes('<mb-footer tone="studio"')],
+ // T-261120-020: 홈의 연락 칸과 「잠깐 쉬어가기」는 뺐다. 연락은 공용 꼬리말이 맡고, 머리말 「연락」(#contact)은 꼬리말에 닿는다.
+ ['contact lives in the shared footer and the #contact anchor still lands', home.includes('<mb-footer tone="studio" id="contact"') && !home.includes('<MoodCorner') && !home.includes('<SocialBanner') && (read('public/mb-components.js').split('class MbFooter')[1] || '').includes('mailto:minusbetastudio@gmail.com')],
  ['business details remain', (read('public/mb-components.js').split('class MbFooter')[1] || '').includes('878-21-02478')],
 ];
 const failed = checks.filter(([,ok]) => !ok);

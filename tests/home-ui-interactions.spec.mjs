@@ -77,13 +77,25 @@ test.describe('pressable tool cards', () => {
   });
 });
 
+// T-261120-020: 홈의 「이야기를 나눠요」 칸(이메일 보내기·주소 복사)이 빠졌다. 복사 동작은 공용 파일(mb-components.js)에 남아 있어,
+// 같은 표식(data-mb-copy-email)을 단 시험용 단추를 꽂아 검사한다.
+const openHomeWithCopyButton = async (page) => {
+  await page.goto('/');
+  await page.evaluate((email) => {
+    const link = Object.assign(document.createElement('a'), { className: 'contact-email', href: `mailto:${email}`, textContent: '이메일 보내기 ↗' });
+    const button = Object.assign(document.createElement('button'), { type: 'button', textContent: '주소 복사' });
+    button.setAttribute('data-mb-copy-email', '.contact-email');
+    document.querySelector('main').append(link, button);
+  }, EMAIL);
+};
+
 test.describe('copy the email address', () => {
   test.beforeEach(async ({ context }) => {
     await context.grantPermissions(['clipboard-read', 'clipboard-write']);
   });
 
   test('copies the address and shows a toast for about three seconds', async ({ page }) => {
-    await page.goto('/');
+    await openHomeWithCopyButton(page);
     await page.getByRole('button', { name: '주소 복사' }).click();
     const toast = page.locator('.mb-toast');
     await expect(toast).toBeVisible();
@@ -96,7 +108,7 @@ test.describe('copy the email address', () => {
   });
 
   test('reads the address back from a Cloudflare-protected link', async ({ page }) => {
-    await page.goto('/');
+    await openHomeWithCopyButton(page);
     await page.locator('.contact-email').evaluate((a, href) => a.setAttribute('href', href), CF_PROTECTED_EMAIL);
     await page.getByRole('button', { name: '주소 복사' }).click();
     await expect(page.locator('.mb-toast')).toHaveText('메일 주소를 복사했어요');
@@ -108,13 +120,13 @@ test.describe('copy the email address', () => {
       navigator.clipboard.writeText = () => Promise.reject(new Error('denied'));
       document.execCommand = () => false;
     });
-    await page.goto('/');
+    await openHomeWithCopyButton(page);
     await page.getByRole('button', { name: '주소 복사' }).click();
     await expect(page.locator('.mb-toast')).toHaveText('복사하지 못했어요. 이메일 보내기를 눌러 주세요');
   });
 
   test('the button and the toast follow the English page', async ({ page }) => {
-    await page.goto('/');
+    await openHomeWithCopyButton(page);
     await page.locator('mb-header .lang-button[data-lang="en"]').click();
     await expect(page.locator('html')).toHaveAttribute('lang', 'en');
     await page.getByRole('button', { name: 'Copy address' }).click();

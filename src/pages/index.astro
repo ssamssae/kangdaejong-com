@@ -1,10 +1,8 @@
 ---
 import '../styles/home-simple.css';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import SocialBanner from '../components/SocialBanner.astro';
 import InsightBanner from '../components/InsightBanner.astro';
 import ThroneBanner from '../components/ThroneBanner.astro';
-import MoodCorner from '../components/MoodCorner.astro';
 import { productIcon } from '../lib/product-icons.mjs';
 import { appStoreUrl } from '../lib/app-store-link.mjs';
 import { currentProjects } from '../data/project-versions';
@@ -96,16 +94,12 @@ const jsonLd = {
       <div class="book-list" data-mb-reveal>{books.map((book,index) => <div class="book-item mb-card"><a class="book-row" href={book.file} target="_blank" rel="noopener" type="application/pdf"><span class="book-number">0{index+1}</span><span><strong>{book.name}</strong><span>{book.description}</span></span><span class="book-action">무료로 읽기 ↗ · PDF {book.pages}쪽</span></a><a class="book-download mb-btn mb-btn--secondary" href={book.file} download={book.file.split('/').pop()} type="application/pdf" aria-label={`${book.name} PDF 다운로드`}>PDF 다운로드<span aria-hidden="true"> ⤓</span></a></div>)}</div>
       <InsightBanner />
     </section>
-    <section id="contact" class="home-section contact-section" aria-labelledby="contact-title">
-      <span id="company" class="anchor-alias"></span><span id="choso" class="anchor-alias"></span>
-      <div class="contact-heading"><div><h2 id="contact-title">이야기를 나눠요.</h2><p>궁금한 점이나 하고 싶은 이야기가 있다면.</p></div><div class="contact-actions"><a class="contact-email mb-btn mb-btn--primary" href="mailto:minusbetastudio@gmail.com">이메일 보내기 ↗</a><button class="contact-copy mb-btn mb-btn--secondary" type="button" data-mb-copy-email=".contact-email">주소 복사</button></div></div>
-      <SocialBanner compact />
-      <details class="pause-details"><summary>잠깐 쉬어가기 <span aria-hidden="true">＋</span></summary><MoodCorner /></details>
-    </section>
+    {/* T-261120-020: 「이야기를 나눠요」「잠깐 쉬어가기」 칸 삭제(대종님 「그냥 없애자」) — 연락은 공용 꼬리말이 맡는다. 옛 주소 #company·#choso 는 여기로, #contact 는 꼬리말로 닿는다. */}
+    <span id="company" class="anchor-alias"></span><span id="choso" class="anchor-alias"></span>
     {/* T-261118-009: 왕좌 뺏기 = 맨 위 배너에서 맨 아래 구석의 글씨 없는 왕관 그림으로 숨김(대종님 「대놓고 표시하지 말고」). */}
     <ThroneBanner />
   </main>
-  <mb-footer tone="studio"></mb-footer>
+  <mb-footer tone="studio" id="contact"></mb-footer>
   <script>
     import '../scripts/lang-toggle.js';
     function revealAnchor() {
