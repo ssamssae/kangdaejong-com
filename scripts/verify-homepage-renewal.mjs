@@ -14,8 +14,8 @@ const checks = [
  ['Cheotireum sample, Hanja check and guide remain reachable', home.includes('https://cheotireum.kangdaejong.com/sample-report?src=kdj-sample') && home.includes('https://cheotireum.kangdaejong.com/hanja-check?src=kdj-hanja') && home.includes('href="/cheotireum/"')],
  ['free books link to public PDFs', !data.includes('kmong.com/gig/') && (data.match(/\/books\/[a-z-]+\.pdf/g) || []).length === 3 && !home.includes('판매 종료') && home.includes('무료로 읽기')],
  ['four bridge repos and releases remain', ['grok','codex','claude','cursor'].every(name => data.includes(`ssamssae/${name}-telegram-bridge`) && data.includes(`ssamssae/${name}-telegram-bridge/releases`))],
- ['optional content and contact remain', home.includes('<MoodCorner') && home.includes('<SocialBanner compact') && home.includes('<StudioFooter compact')],
- ['business details remain', read('src/components/StudioFooter.astro').includes('878-21-02478')],
+ ['optional content and contact remain', home.includes('<MoodCorner') && home.includes('<SocialBanner compact') && home.includes('<mb-footer tone="studio"')],
+ ['business details remain', (read('public/mb-components.js').split('class MbFooter')[1] || '').includes('878-21-02478')],
 ];
 const failed = checks.filter(([,ok]) => !ok);
 if (failed.length) { failed.forEach(([label]) => console.error(label)); process.exit(1); }

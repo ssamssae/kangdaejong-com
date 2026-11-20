@@ -2,6 +2,10 @@ import { test, expect } from '@playwright/test';
 import { fileURLToPath } from 'node:url';
 
 test.beforeEach(async ({ page }) => {
+  await page.route('https://kangdaejong.com/mb-components.js', route => route.fulfill({
+    path: fileURLToPath(new URL('../public/mb-components.js', import.meta.url)),
+    contentType: 'application/javascript',
+  }));
   await page.route('https://kangdaejong.com/brand/products/*.webp', route => route.fulfill({
     path: fileURLToPath(new URL('../public' + new URL(route.request().url()).pathname, import.meta.url)),
   }));
@@ -43,7 +47,7 @@ for (const width of [360, 390, 768, 1440]) {
     await page.getByRole('link', { name: '프로젝트 둘러보기' }).click();
     await expect(page).toHaveURL(/#projects$/);
     await expect(page.locator('#projects')).toBeInViewport();
-    await expect(page.locator('footer')).toContainText('878-21-02478');
+    await expect(page.locator('mb-footer .biz')).toContainText('사업자등록번호 878-21-02478');
     await page.goto('/');
     await page.screenshot({ path: test.info().outputPath(`home-${width}.png`), fullPage: true });
     await page.screenshot({ path: test.info().outputPath(`home-${width}-top.png`) });
@@ -119,3 +123,32 @@ for (const width of [390, 1440]) for (const theme of ['light', 'dark']) {
     await expect(page.locator('main')).toContainText('부족한 오행을 무료로 먼저 살펴보고, 작명서(1,000원)의 제공 내용을 확인한 뒤 결제할 수 있어요.');
   });
 }
+
+test('shared footer draws four sitemap columns, nine labeled icons, and stays inside 390px', async ({ page }) => {
+  const labels = ['GitHub (새 탭)', 'Instagram (새 탭)', 'Threads (새 탭)', 'X (새 탭)', 'YouTube (새 탭)', 'LinkedIn (새 탭)', 'Facebook (새 탭)', '네이버 블로그 (새 탭)', 'Substack (새 탭)'];
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await page.goto('/');
+  const footer = page.locator('mb-footer');
+  await expect(footer.locator('.sitemap > section')).toHaveCount(4);
+  await expect(footer.locator('.sitemap > section').first().locator('a').first()).toHaveText('프로젝트');
+  await expect(footer.locator('.biz')).toContainText('사업자등록번호 878-21-02478');
+  const icons = footer.locator('.sns a');
+  await expect(icons).toHaveCount(9);
+  for (const label of labels) {
+    const link = footer.getByRole('link', { name: label, exact: true });
+    await expect(link).toHaveAttribute('target', '_blank');
+    await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  }
+  const wide = await footer.locator('.sitemap').evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
+  expect(wide).toBe(4);
+  const tap = await footer.locator('.sns a').first().evaluate((el) => {
+    const box = el.getBoundingClientRect();
+    const token = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--tone-tap-height'));
+    return box.width >= token && box.height >= token;
+  });
+  expect(tap).toBe(true);
+  await page.setViewportSize({ width: 390, height: 844 });
+  const narrow = await footer.locator('.sitemap').evaluate((el) => getComputedStyle(el).gridTemplateColumns.split(' ').filter(Boolean).length);
+  expect([1, 2]).toContain(narrow);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+});

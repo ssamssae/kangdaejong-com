@@ -49,7 +49,7 @@ test('home parts share the 첫이름 tone values from the shared tone file',asyn
 // T-261024-050: PC 폭은 첫이름과 같은 공용 톤 값(--tone-page-max 1080px). 공용 원본의 --page-max(1440px)는 작업장 몫으로 남는다.
 test('desktop uses the 첫이름 page width and mobile keeps its gutters',async({page})=>{
  await page.setViewportSize({width:1600,height:900}); await page.goto('/');
- const widths=await page.evaluate(()=>({main:document.querySelector('main').getBoundingClientRect().width,header:document.querySelector('mb-header').shadowRoot.querySelector('.inner').getBoundingClientRect().width,footer:document.querySelector('footer').getBoundingClientRect().width,apps:getComputedStyle(document.querySelector('.app-grid')).gridTemplateColumns.split(' ').length,overflow:document.documentElement.scrollWidth<=innerWidth}));
+ const widths=await page.evaluate(()=>({main:document.querySelector('main').getBoundingClientRect().width,header:document.querySelector('mb-header').shadowRoot.querySelector('.inner').getBoundingClientRect().width,footer:document.querySelector('mb-footer').shadowRoot.querySelector('footer').getBoundingClientRect().width,apps:getComputedStyle(document.querySelector('.app-grid')).gridTemplateColumns.split(' ').length,overflow:document.documentElement.scrollWidth<=innerWidth}));
  const pageMax=parseInt(brand.light['--tone-page-max']);
  expect(widths).toEqual({main:pageMax,header:pageMax,footer:pageMax,apps:3,overflow:true});
  await expect(page.locator('.section-title > span').first()).toHaveCSS('letter-spacing','normal');
@@ -68,6 +68,8 @@ test('the header toggle switches the whole page to English and back without relo
  await expect(page.locator('.web-service-card h3')).toHaveText('Cheotireum (First Name)');
  await expect(page.locator('.book-action').first()).toHaveText('Read free ↗ · PDF, 69 pages');
  expect(await header(page).evaluate(e=>[...e.shadowRoot.querySelectorAll('.links a .link-title')].map(a=>a.textContent.trim()))).toEqual(['Projects','Apps','Contact']);
+ const footerCopy=await page.locator('mb-footer').evaluate(el=>({blurb:el.shadowRoot.querySelector('.blurb').textContent,titles:[...el.shadowRoot.querySelectorAll('.sitemap h2')].map(node=>node.textContent),github:el.shadowRoot.querySelector('.sns a').getAttribute('aria-label'),columns:getComputedStyle(el.shadowRoot.querySelector('.sitemap')).gridTemplateColumns.split(' ').filter(Boolean).length}));
+ expect(footerCopy).toEqual({blurb:"Here's what I build and use myself, all in one place.",titles:['Products and tools','About the company','Work and notes','Systems and experiments'],github:'GitHub (opens in a new tab)',columns:4});
  await expect(page).toHaveTitle(/Daejong Kang/);
  await page.reload();
  await expect(page.locator('html')).toHaveAttribute('lang','en');

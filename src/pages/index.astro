@@ -1,7 +1,6 @@
 ---
 import '../styles/home-simple.css';
 import SiteLayout from '../layouts/SiteLayout.astro';
-import StudioFooter from '../components/StudioFooter.astro';
 import SocialBanner from '../components/SocialBanner.astro';
 import InsightBanner from '../components/InsightBanner.astro';
 import ThroneBanner from '../components/ThroneBanner.astro';
@@ -106,7 +105,7 @@ const jsonLd = {
     {/* T-261118-009: 왕좌 뺏기 = 맨 위 배너에서 맨 아래 구석의 글씨 없는 왕관 그림으로 숨김(대종님 「대놓고 표시하지 말고」). */}
     <ThroneBanner />
   </main>
-  <StudioFooter compact />
+  <mb-footer tone="studio"></mb-footer>
   <script>
     import '../scripts/lang-toggle.js';
     function revealAnchor() {

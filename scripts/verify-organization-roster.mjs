@@ -1,11 +1,12 @@
 import { readFileSync } from "node:fs";
 
 const source = readFileSync(new URL("../src/pages/organization.astro", import.meta.url), "utf8");
+const footer = readFileSync(new URL("../public/mb-components.js", import.meta.url), "utf8").split("class MbFooter")[1] || "";
 const checks = [
   ["owner and contact remain explicit", source.includes('representative: "강대종"') && source.includes('minusbetastudio@gmail.com')],
   ["verified business facts remain", ['2026년 5월 4일', '878-21-02478', '2026-서울마포-1177'].every(value => source.includes(value))],
   ["current work is described without a coming-soon placeholder", source.includes('작은 도구를 만들어 운영하고 있어요') && !/새로운 서비스를 준비하고 있(습니다|어요)/.test(source)],
-  ["projects remain reachable from the footer", source.includes('<StudioFooter />') && readFileSync(new URL('../src/components/StudioFooter.astro', import.meta.url), 'utf8').includes('/#projects`}')],
+  ["projects remain reachable from the footer", source.includes('<mb-footer tone="studio"') && footer.includes('https://kangdaejong.com/#projects')],
   ["internal codenames and AI hierarchy stay off the visitor page", !/(아테나|헤르메스|볼칸|LEGAL OWNER|r-owner-map)/.test(source)],
 ];
 

@@ -1,6 +1,5 @@
 ---
 import "../styles/home-simple.css";
-import StudioFooter from "../components/StudioFooter.astro";
 import SiteLayout from "../layouts/SiteLayout.astro";
 // T-261120-003: 회사 홈페이지 첫 글 — 첫이름 소개. 링크의 src=kdj-post 로 이 글에서 들어온 방문·결제를 따로 센다.
 const start = "https://cheotireum.kangdaejong.com/?src=kdj-post#/form";
@@ -49,7 +48,7 @@ const sample = "https://cheotireum.kangdaejong.com/sample-report?src=kdj-post-sa
       <p class="sign">강대종 드림</p>
     </section>
   </main>
-  <StudioFooter />
+  <mb-footer tone="studio"></mb-footer>
 </SiteLayout>
 <style>
 /* T-261120-003: 스튜디오 소개(organization) 페이지와 같은 톤 값만 쓴다. */
