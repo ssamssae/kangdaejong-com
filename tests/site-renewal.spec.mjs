@@ -1,7 +1,15 @@
 import { test, expect } from "@playwright/test";
 import { brand, rgb } from './brand-colors.mjs';
 import { readFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 import { PRODUCT_PAGES } from '../workshop-router/product-guides.mjs';
+
+test.beforeEach(async ({ page }) => {
+  await page.route('https://kangdaejong.com/mb-components.js', route => route.fulfill({
+    path: fileURLToPath(new URL('../public/mb-components.js', import.meta.url)),
+    contentType: 'application/javascript',
+  }));
+});
 
 const routes = ["/", "/organization/", "/system/", "/cheotireum/"];
 const retiredTemplateRoutes = [
@@ -43,7 +51,9 @@ test("organization explains public responsibility without publishing the interna
   await page.goto("/organization/");
   await expect(page.locator('h1')).toContainText('강대종이에요.');
   await expect(page.locator('dl')).toContainText('2026년 5월 4일');
-  await expect(page.locator('footer')).toContainText('사업자등록번호 878-21-02478');
+  await expect(page.locator('mb-footer')).toHaveAttribute('tone', 'studio');
+  await expect(page.locator('mb-footer .biz')).toContainText('사업자등록번호 878-21-02478');
+  await expect(page.locator('mb-footer .sitemap > section')).toHaveCount(4);
   await expect(page.locator('main')).not.toContainText('법적 대표');
 });
 
