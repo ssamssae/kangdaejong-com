@@ -15,7 +15,18 @@ const serviceIcon=service.slug==='cheotireum'?productIcon(service.slug):null;
     <section aria-labelledby="contents-title">
       <h2 id="contents-title">어떤 내용을 받나요?</h2>
       <ul>{service.details.map(detail=><li>{detail}</li>)}</ul>
+    </section>{service.tossApp&&<>
+    <section aria-labelledby="toss-app-title">
+      <h2 id="toss-app-title">{service.tossApp.title}</h2>
+      <p>{service.tossApp.description}</p>
+      <div class="actions">
+        <a class="r-button" href={service.tossApp.href}>{service.tossApp.action}</a>
+      </div>
+      <p class="service-note"><img src={service.tossApp.qr} alt={service.tossApp.qrAlt}/></p>
+      <p class="service-note">{service.tossApp.qrNote}</p>
+      <p>{service.tossApp.disclaimer}</p>
     </section>
+    </>}
     <section aria-labelledby="start-title">
       <h2 id="start-title">이용하기</h2>
       <p>{service.notice}</p>
