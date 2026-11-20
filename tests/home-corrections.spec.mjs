@@ -23,18 +23,14 @@ for(const width of [390,1440]) test(`home corrections and organization tone at $
  expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
  await page.screenshot({path:test.info().outputPath(`organization-${width}.png`),fullPage:true});
 });
-test('night motion visibly moves, freezes, and resumes',async({page})=>{
- await page.emulateMedia({reducedMotion:'no-preference'});
- await page.goto('/#mood'); await page.getByRole('button',{name:'잠깐 쉬기',exact:true}).click();
- const corner=page.locator('#mood'); const orb=corner.locator('.mood-orb');
- const settle=()=>page.evaluate(()=>new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve))));
- const pos=()=>orb.evaluate(e=>{const r=e.getBoundingClientRect();return {x:r.x,y:r.y};});
- await corner.getByRole('button',{name:'움직임 멈추기'}).click(); await settle();
- const frozen=await pos(); await page.waitForTimeout(400); expect(await pos()).toEqual(frozen);
- await corner.getByRole('button',{name:'움직임 켜기'}).click();
- const start=await pos(); await page.waitForTimeout(1800); const end=await pos();
- expect(Math.hypot(end.x-start.x,end.y-start.y)).toBeGreaterThan(3);
- await corner.screenshot({path:test.info().outputPath('night-moving.png')});
- await corner.getByRole('button',{name:'움직임 멈추기'}).click(); await settle();
- const stopped=await pos(); await page.waitForTimeout(400); expect(await pos()).toEqual(stopped);
+// T-261120-020: 홈의 「이야기를 나눠요」「잠깐 쉬어가기」 칸을 뺐다. 연락은 공용 꼬리말이 맡는다.
+test('the contact strip and pause corner are gone and 연락 lands on the shared footer',async({page})=>{
+ await page.setViewportSize({width:1280,height:900}); await page.goto('/');
+ await expect(page.locator('main')).not.toContainText(/이야기를 나눠요|잠깐 쉬어가기/);
+ await expect(page.locator('main .contact-section, main .pause-details, main #mood')).toHaveCount(0);
+ await expect(page.locator('mb-footer#contact a[href="mailto:minusbetastudio@gmail.com"]')).toBeVisible();
+ await page.locator('mb-header').getByRole('link',{name:'연락'}).click();
+ await expect(page).toHaveURL(/#contact$/);
+ await expect(page.locator('mb-footer')).toBeInViewport();
+ for(const id of ['company','choso']) await expect(page.locator(`#${id}`)).toBeAttached();
 });

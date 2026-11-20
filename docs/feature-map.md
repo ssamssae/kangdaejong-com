@@ -269,7 +269,7 @@
 - 진입점: `https://kangdaejong.com/` 로그인 없이.
 - 조작·기대
   1. 「만드는 도구」에서 링크가 하나뿐인 카드(텔레그램 브릿지·입타·자비스)의 아무 곳이나 누른다 → 그 카드의 링크로 간다. PC 에서 올리면 회색이 한 단계 진해지고(`--bg-elev2`), 누르는 동안 0.98 로 작아진다. 키보드 초점은 카드 테두리 전체에 그린다. 링크가 여러 개인 첫이름·앱 카드는 그대로다(대표 링크를 정하면 같은 부품을 달 수 있다).
-  2. 「이야기를 나눠요」의 「주소 복사」를 누른다 → 클립보드에 `minusbetastudio@gmail.com`, 화면 아래 토스트 「메일 주소를 복사했어요」가 3초 뒤 사라진다. 영어 화면은 「Copy address」·「Email address copied」. 복사가 막히면 「복사하지 못했어요. 이메일 보내기를 눌러 주세요」. Cloudflare 가 가린 mailto(`/cdn-cgi/l/email-protection#…`)도 풀어서 복사한다.
+  2. (2026-11-20 T-261120-020: 홈의 「이야기를 나눠요」 칸을 빼서 이 단추는 홈에 없다. 동작은 공용 파일에 남아 있고 `tests/home-ui-interactions.spec.mjs` 가 시험용 단추로 검사한다.) 옛 조작 — 「이야기를 나눠요」의 「주소 복사」를 누른다 → 클립보드에 `minusbetastudio@gmail.com`, 화면 아래 토스트 「메일 주소를 복사했어요」가 3초 뒤 사라진다. 영어 화면은 「Copy address」·「Email address copied」. 복사가 막히면 「복사하지 못했어요. 이메일 보내기를 눌러 주세요」. Cloudflare 가 가린 mailto(`/cdn-cgi/l/email-protection#…`)도 풀어서 복사한다.
   3. 휴대전화에서 아래로 내린다 → 화면 밖에 있던 카드(도구·앱·전자책)가 들어올 때 아래에서 살짝 올라오며 나타나고, 함께 들어온 카드는 0.08초 간격으로 차례로 나온다. 첫 화면에 이미 보이던 카드는 그대로다.
 - 효과·승인 경계: 읽기 전용(복사는 방문자 클립보드에만 쓴다). 동작 줄이기 설정·자동화 브라우저(`navigator.webdriver`)에서는 리빌을 하지 않는다 — 배포 뒤 화면 검사·전체 화면 캡처가 화면 밖 카드를 빈 칸으로 찍지 않게. 리빌을 시험할 때만 `navigator.webdriver` 를 끈다.
 - 자동 근거: `tests/home-ui-interactions.spec.mjs`(12개). 2026-10-25 제우스 로컬 실측(Playwright 내장 크로미움 1228) — 전체 브라우저 시험 127개 중 123개 통과, 실패 4개(`digital-products` 2개, `one-page`·`site-renewal` 의 「브릿지 4개」 기대)는 origin/main 1e8e1ef 에서도 똑같이 실패하는 기존 실패다. `npm run verify:shared-header`·`verify:shared-footer`·`verify:dark-cards`·`verify:palette-copies`(직접 숫자 652 ≤ 기준선 652)·`verify:tone-pairs`·`test:site-release`·`live.mjs --candidate`(대상 1,075·미확인 0) 통과. 대표소개(ssamssae.github.io)도 같은 `data-mb-copy-email` 을 쓴다.
@@ -342,3 +342,15 @@
 - 공개 반영: 아테나 수동 `npm run deploy:site`. 그 뒤 Play Console 앱 콘텐츠 → 개인정보처리방침 재저장 → 게시 개요에서 검토 전송.
 - 검증: `npm run build`, `npx playwright test tests/sadariyo.spec.mjs tests/audit-fixes.spec.mjs --workers=1`. 라이브는 캐시 우회 주소(`?cb=…`)로 200 을 본다 — 2026-11-13 캐시 응답은 200, 원 서버는 404 였다.
 - 2026-11-13 배포 막힘 대응(같은 티켓): 같은 날 연 `https://board.kangdaejong.com/`(아이패드 차례판, 아테나 터널, T-261113-013)이 `public/brand/sites.json` 에 없어 `deploy:site` 가 업로드 전에 멈췄다(`unregistered target: https://board.kangdaejong.com/ (cloudflare-dns)`). `mode: exception` 내부 서비스로 등록했다.
+
+## 홈 「이야기를 나눠요」「잠깐 쉬어가기」 삭제 — T-261120-020
+
+- 출발: 대종님 2026-11-20 「이야기를나눠요 잠시쉬어가기 그냥 없애자 이야기는 아래쪽에 중복있잖아 버튼」. 같은 날 공용 꼬리말(T-261120-015)에 메일 링크와 SNS 아이콘 줄이 들어가 연락 칸이 겹쳤다.
+- 바뀐 것: `src/pages/index.astro` 의 `#contact` 구역(이메일 보내기·주소 복사·SNS 글 링크 줄·「잠깐 쉬어가기」 접는 상자)을 뺐다. `SocialBanner.astro`·`MoodCorner.astro` 와 그 시험 2개는 `_retired/` 로 옮겼다.
+- 진입점: `https://kangdaejong.com/` 로그인 없이.
+- 조작·기대
+  1. 첫 화면을 맨 아래로 내린다 → 「만들며 배운 것」(전자책·인사이트 띠) 다음에 왕관 그림, 그 아래 공용 꼬리말이 바로 온다. 「이야기를 나눠요」「잠깐 쉬어가기」는 없다.
+  2. 머리말의 「연락」을 누른다 → 주소가 `#contact` 로 바뀌고 꼬리말(메일 링크·SNS 아이콘)로 내려간다.
+  3. 옛 주소 `/#company`·`/#choso` 로 연다 → 첫 화면 맨 아래(왕관 그림 위)로 내려간다.
+- 자동 근거: `npm run verify:homepage-renewal` 의 「contact lives in the shared footer and the #contact anchor still lands」 검사, `tests/home-ui-interactions.spec.mjs`·`tests/theme-lang-layout.spec.mjs`.
+- 미확인·갱신 조건: 공개 배포 뒤 실제 화면은 배포 뒤 다시 확인한다.
