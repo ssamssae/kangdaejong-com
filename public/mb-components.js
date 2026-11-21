@@ -116,7 +116,7 @@
           .contact { display:inline-flex; min-height:var(--tone-tap-height); align-items:center; justify-content:center; padding:0 var(--tone-space-3); border:0; border-radius:var(--tone-radius-control); background:var(--mb-soft); color:var(--mb-fg); font:var(--tone-weight-bold) var(--tone-label-size)/var(--tone-label-line) var(--tone-font); text-decoration:none; }
           .contact:hover { color:var(--mb-accent); }
           .lang { display:inline-flex; align-items:center; gap:2px; padding:3px; border:0; border-radius:var(--tone-radius-pill); background:var(--mb-soft); } /* tone:fixed: 미세 간격(의장) */
-          .lang-button { min-height:38px; padding:0 var(--tone-space-2); border:0; border-radius:var(--tone-radius-pill); background:transparent; color:var(--mb-dim); cursor:pointer; font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); } /* tone:fixed: 언어 단추 높이 — 휴대폰 머리글 105px 자리(studio-page.css)에 맞춤(의장) */
+          .lang-button { white-space:nowrap; min-height:38px; padding:0 var(--tone-space-2); border:0; border-radius:var(--tone-radius-pill); background:transparent; color:var(--mb-dim); cursor:pointer; font:var(--tone-weight-bold) var(--tone-caption-size)/var(--tone-caption-line) var(--tone-font); } /* tone:fixed: 언어 단추 높이 — 휴대폰 머리글 105px 자리(studio-page.css)에 맞춤(의장) */
           .lang-button:hover { color:var(--mb-accent); }
           .lang-button[aria-pressed="true"] { background:var(--mb-bg); color:var(--mb-accent); }
           :where(a,button):focus-visible { outline:var(--tone-focus-width) solid var(--mb-accent); outline-offset:var(--tone-focus-offset); }
@@ -137,7 +137,7 @@
             <a class="brand" href="${BRAND_HREF}" aria-label="강대종 홈"><img src="${BADGE}" alt="" width="32" height="32"/><span>강대종<small>마이너스베타스튜디오</small></span></a>
             <nav class="links" aria-label="주요 메뉴">${NAV_PRIMARY.map(makeLink).join('')}</nav>
             <div class="actions">
-              ${this.hasAttribute('lang-toggle') ? `<div class="lang" role="group" aria-label="언어 선택"><button class="lang-button" type="button" data-lang="ko" lang="ko" aria-pressed="true" data-i18n-skip>한국어</button><button class="lang-button" type="button" data-lang="en" lang="en" aria-pressed="false" data-i18n-skip>EN</button></div>` : ''}
+              ${this.hasAttribute('lang-toggle') ? `<div class="lang" role="group" aria-label="언어 선택"><button class="lang-button" type="button" data-lang="ko" lang="ko" aria-label="한국어" aria-pressed="true" data-i18n-skip>KO</button><button class="lang-button" type="button" data-lang="en" lang="en" aria-pressed="false" data-i18n-skip>EN</button></div>` : ''}
               <div class="more">
                 <button class="more-button${moreActive ? ' active' : ''}" type="button" aria-expanded="false" aria-controls="studio-navigation">둘러보기<span class="chevron" aria-hidden="true">⌄</span></button>
                 <nav class="more-panel" id="studio-navigation" aria-label="스튜디오 둘러보기" hidden>
