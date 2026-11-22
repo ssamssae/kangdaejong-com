@@ -354,3 +354,10 @@
   3. 옛 주소 `/#company`·`/#choso` 로 연다 → 첫 화면 맨 아래(왕관 그림 위)로 내려간다.
 - 자동 근거: `npm run verify:homepage-renewal` 의 「contact lives in the shared footer and the #contact anchor still lands」 검사, `tests/home-ui-interactions.spec.mjs`·`tests/theme-lang-layout.spec.mjs`.
 - 미확인·갱신 조건: 공개 배포 뒤 실제 화면은 배포 뒤 다시 확인한다.
+
+## 쉬운 글 검사기 개인정보 처리 안내 — T-261122-018
+
+- 진입점: `/privacy-easy-writing/` (크롬 웹스토어 제출용 개인정보처리방침 URL). 확장 원본은 비공개 저장소 `ssamssae/chrome-extensions-dev` 의 `easy-writing/`, 쪽 초안은 `store/easy-writing/privacy-easy-writing.astro` 다. 홈 목록 반영은 웹스토어 심사 통과 뒤 별도 단계라 이번에는 쪽만 더한다.
+- 기대 결과: h1 「쉬운 글 검사기 개인정보 처리 안내」, 아이콘을 누른 탭에서 그때만 고른 글을 읽음·컴퓨터 밖으로 보내지 않음·저장 안 함·activeTab·scripting 권한 설명·광고와 결제 없음·문의 메일.
+- 검증: `tests/easy-writing.spec.mjs`, `tests/audit-fixes.spec.mjs` 사이트맵 목록. 확장 쪽 약속은 확장 저장소 `tests/easy-writing.test.js` 「개인정보 약속을 코드로 잠근다」가 잠근다.
+- 공개 배포: 대종님 승인 카드(2026-11-22 「승인 (①②③ 전부)」) 뒤 `npm run deploy:site`.
