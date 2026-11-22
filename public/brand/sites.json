@@ -566,6 +566,18 @@
       ]
     },
     {
+      "id": "docbox",
+      "url": "https://docbox.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone in-browser document tool (신분증 가리개, T-261122-036) with its own product identity and a strict no-network CSP; corporate shared theme and shared scripts are not loaded.",
+      "aliases": [
+        "https://docbox-kangdaejong.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:docbox-kangdaejong"
+      ]
+    },
+    {
       "id": "ssot",
       "url": "https://moyeoyo.kangdaejong.com/",
       "mode": "exception",
