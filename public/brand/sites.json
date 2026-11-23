@@ -614,6 +614,18 @@
       ]
     },
     {
+      "id": "calendar",
+      "url": "https://calendar.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone in-browser 2027 printable calendar maker (T-261124-009) with Korean public holidays and lunar dates, its own product identity and a strict no-network CSP; corporate shared theme and shared scripts are not loaded.",
+      "aliases": [
+        "https://calendar-kangdaejong.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:calendar-kangdaejong"
+      ]
+    },
+    {
       "id": "ssot",
       "url": "https://moyeoyo.kangdaejong.com/",
       "mode": "exception",
