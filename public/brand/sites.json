@@ -578,6 +578,18 @@
       ]
     },
     {
+      "id": "jibang",
+      "url": "https://jibang.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone in-browser memorial-tablet (지방) PDF and table-setting guide (T-261123-016) with its own product identity and a strict no-network CSP; corporate shared theme and shared scripts are not loaded.",
+      "aliases": [
+        "https://jibang-kangdaejong.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:jibang-kangdaejong"
+      ]
+    },
+    {
       "id": "ssot",
       "url": "https://moyeoyo.kangdaejong.com/",
       "mode": "exception",
