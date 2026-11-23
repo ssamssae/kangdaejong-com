@@ -602,6 +602,18 @@
       ]
     },
     {
+      "id": "talkyear",
+      "url": "https://talkyear.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone in-browser KakaoTalk chat year-in-review (우리 방 결산) tool (T-261123-047) that reads an exported chat file locally with its own product identity and a strict no-network CSP; corporate shared theme and shared scripts are not loaded.",
+      "aliases": [
+        "https://talkyear-kangdaejong.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:talkyear-kangdaejong"
+      ]
+    },
+    {
       "id": "ssot",
       "url": "https://moyeoyo.kangdaejong.com/",
       "mode": "exception",
