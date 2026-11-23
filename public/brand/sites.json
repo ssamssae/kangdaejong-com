@@ -590,6 +590,18 @@
       ]
     },
     {
+      "id": "yeonmal",
+      "url": "https://yeonmal.kangdaejong.com/",
+      "mode": "exception",
+      "reason": "Standalone in-browser year-end tax (연말정산) preview calculator (T-261123-038) with its own product identity and a strict no-network CSP; corporate shared theme and shared scripts are not loaded.",
+      "aliases": [
+        "https://yeonmal-kangdaejong.pages.dev/"
+      ],
+      "deployments": [
+        "cloudflare-pages:yeonmal-kangdaejong"
+      ]
+    },
+    {
       "id": "ssot",
       "url": "https://moyeoyo.kangdaejong.com/",
       "mode": "exception",
