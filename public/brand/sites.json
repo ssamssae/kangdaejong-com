@@ -51,7 +51,7 @@
         "/photo/": "Retired service notice has a compact company link."
       },
       "identityIconExceptions": {
-        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%233182f6'/%3E%3Cpath d='M7 6h10v2H7zm0 4h10v2H7zm0 4h6v2H7z' fill='white'/%3E%3C/svg%3E": "/alba/ 알바 급여 계산기(T-261124-032)는 종호 님 앱을 옮긴 무료 웹앱이라 회사 로고 대신 앱 자체 아이콘을 쓴다."
+        "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%233182f6'/%3E%3Cpath d='M7 6h10v2H7zm0 4h10v2H7zm0 4h6v2H7z' fill='white'/%3E%3C/svg%3E": "/alba/ 알바 급여 계산기(T-261124-032)는 원본 안드로이드 앱을 옮긴 무료 웹앱이라 회사 로고 대신 앱 자체 아이콘을 쓴다."
       },
       "theme": "light"
     },

@@ -1,6 +1,6 @@
 /* 알바 급여 계산기 웹판 — 토스 톤(평평한 흰 카드 · #F2F4F6 바탕 · 파랑 #3182F6 · 테두리·그림자 없음)
    작은 글자 대비 4.5:1 을 맞추려고 파랑·빨강·주황·초록 글자는 같은 계열의 진한 색(-ink)을 쓴다. */
-/* kangdaejong.com/alba 사본(T-261124-032): 이 앱은 회사 공용 톤이 아니라 종호 님 앱을 옮긴 자체 톤을 쓴다.
+/* kangdaejong.com/alba 사본(T-261124-032): 이 앱은 회사 공용 톤이 아니라 원본 안드로이드 앱을 옮긴 자체 톤을 쓴다.
    줄 끝 tone:fixed·tokens:fixed 는 회사 저장소 검사(verify-tone-copies·verify-palette-copies)의 줄 예외 표시이고 화면 모양은 원본(alba-pay-web)과 같다. */
 :root {
   --blue: #3182f6;
