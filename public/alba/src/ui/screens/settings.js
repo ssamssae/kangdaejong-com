@@ -9,7 +9,7 @@ import {
 } from '../view-model.js';
 import {
   DISCLAIMER, VERSION_LINE, SIZE_DESC, HOLIDAY_INFO, PAYDAY_DESC, GUIDE, REFERENCE,
-  PRIVACY, PRIVACY_TITLE, PRIVACY_DATE, PRIVACY_URL, EXPORT_BULLETS,
+  PRIVACY, PRIVACY_TITLE, PRIVACY_DATE, EXPORT_BULLETS,
 } from '../texts.js';
 import { toBackup, serializeBackup, backupFileName, parseBackup, BackupError } from '../../data/backup.js';
 import { seedSample, SAMPLE_DONE_MESSAGE } from '../../data/sample.js';
@@ -49,7 +49,7 @@ export function settingsScreen(app) {
     h('section', { class: 'card list' },
       listItem({ title: '휴일 · 매장 휴무 설정', sub: '공휴일마다 영업/휴무를 정하면 주휴수당에 자동 반영', onclick: () => app.push({ name: 'holidays' }) }),
       listItem({ title: '엑셀 내보내기', sub: '요약 + 근무자별 시트, A4 가로 1장', onclick: () => app.push({ name: 'export' }) })),
-    sectionLabel('데이터 · 이 휴대폰에만 저장'),
+    sectionLabel('데이터 · 이 브라우저에만 저장'),
     h('section', { class: 'card list' },
       listItem({ iconName: 'upload', title: '백업 파일 만들기', sub: '근무자·계약·근태·휴일·매장 설정을 JSON 파일 1개로. 공유하거나 폴더에 저장', chevron: false, onclick: () => makeBackup(app) }),
       listItem({ iconName: 'restore', title: '백업 불러오기', sub: '새 휴대폰에 그대로 복원(덮어쓰기) 또는 지금 데이터와 합치기', chevron: false, onclick: () => pickBackup(app) }),
@@ -169,18 +169,8 @@ export function referenceScreen(app) {
 }
 
 export function privacyScreen(app) {
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(PRIVACY_URL);
-      app.toast('주소를 복사했습니다');
-    } catch {
-      app.toast(PRIVACY_URL);
-    }
-  };
   return h('div', { class: 'screen' }, topbar({ title: '개인정보처리방침', back: back(app) }), h('main', { class: 'body' },
     h('section', { class: 'card ref' },
       h('h2', null, PRIVACY_TITLE), h('p', { class: 'muted' }, PRIVACY_DATE)),
-    PRIVACY.map(([title, body]) => h('section', { class: 'card ref' }, h('h2', null, title), h('p', null, body))),
-    h('section', { class: 'card ref url-card' }, h('span', { class: 'url' }, PRIVACY_URL),
-      h('button', { class: 'pill-btn', onclick: copy }, '주소 복사'))));
+    PRIVACY.map(([title, body]) => h('section', { class: 'card ref' }, h('h2', null, title), h('p', null, body)))));
 }
