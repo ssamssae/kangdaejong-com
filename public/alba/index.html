@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko" data-theme="light">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f2f4f6">
+  <meta name="robots" content="noindex">
+  <meta name="description" content="시급제 알바 급여 계산 — 근태, 주휴수당, 세금 3.3%, 엑셀 급여대장. 데이터는 이 브라우저에만 저장됩니다.">
+  <title>알바 급여 계산기</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%233182f6'/%3E%3Cpath d='M7 6h10v2H7zm0 4h10v2H7zm0 4h6v2H7z' fill='white'/%3E%3C/svg%3E">
+  <!-- T-261124-032: 회사 저장소 빌드 검사(site-release check·verify-dark-cards)가 모든 HTML 에 요구하는 공용 연결.
+       data-theme·공유 카드·tokens.css 는 화면 모양을 바꾸지 않는다(이 앱은 tokens.css 의 이름·부품을 쓰지 않고 자기 styles.css 가 뒤에서 읽힌다). -->
+  <link rel="stylesheet" href="/brand/current/tokens.css">
+  <meta property="og:image" content="https://kangdaejong.com/brand/current/social.png">
+  <meta name="twitter:image" content="https://kangdaejong.com/brand/current/social.png">
+  <link rel="stylesheet" href="src/ui/styles.css">
+</head>
+<body>
+  <div id="app"></div>
+  <noscript>이 페이지는 JavaScript 가 필요합니다.</noscript>
+  <script type="module">
+    import { start } from './src/ui/app.js';
+    start();
+  </script>
+</body>
+</html>
