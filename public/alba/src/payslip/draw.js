@@ -68,7 +68,7 @@ export function drawPayslip(ctx, model) {
   const R = A4.w - MARGIN;
   const W = R - L;
   ctx.textBaseline = 'alphabetic';
-  ctx.fillStyle = '#ffffff';
+  ctx.fillStyle = '#ffffff'; // tokens:fixed: 흰 종이(PDF 바탕, 테마 무관)
   ctx.fillRect(0, 0, A4.w, A4.h);
 
   // 머리: 제목 · 몇 월분 · 매장 이름
