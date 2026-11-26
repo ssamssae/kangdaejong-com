@@ -53,6 +53,19 @@ export function emptyWorkers(app) {
       icon('personAdd', 22), '근무자 추가'));
 }
 
+/**
+ * 투명 날짜·시간 입력을 누르면 선택 창을 직접 연다(onclick 에 단다).
+ * PC 크로미움은 글자 칸(연·월·일·시·분)을 눌러도 창이 안 열리고 오른쪽 끝 아이콘만 여는데,
+ * 입력이 투명이라 아이콘이 안 보인다. 휴대폰은 원래 열리고, 이미 열려 있으면 브라우저가 무시한다.
+ */
+export function openPicker(e) {
+  try {
+    e.currentTarget?.showPicker?.();
+  } catch {
+    // showPicker 를 막는 환경(사용자 동작 아님·옛 브라우저)에서는 브라우저 기본 동작에 맡긴다
+  }
+}
+
 export function toggleSwitch(on, onchange, label) {
   return h('button', {
     class: `switch${on ? ' on' : ''}`, role: 'switch', 'aria-checked': on ? 'true' : 'false', 'aria-label': label,
@@ -72,6 +85,11 @@ export function segmented(options, value, onpick, cls = '') {
 /** 화면 맨 아래 폭 가득 주 단추 자리 */
 export function bottomCta(...children) {
   return h('div', { class: 'bottom-cta' }, children);
+}
+
+/** 넓은 화면에서 두 단으로 나눠 채우는 묶음(휴대폰 폭에서는 그냥 한 줄로 쌓임) */
+export function cols(...children) {
+  return h('div', { class: 'cols' }, children);
 }
 
 export function card(...children) {

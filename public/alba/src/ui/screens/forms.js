@@ -1,7 +1,7 @@
 // 근로계약 설정 · 근무자 정보(추가) 화면
 
 import { h, icon } from '../dom.js';
-import { topbar, iconButton, card, segmented, toggleSwitch, bottomCta } from '../widgets.js';
+import { topbar, iconButton, card, segmented, toggleSwitch, bottomCta, openPicker, cols } from '../widgets.js';
 import { contractView, validateContract, PAY_NOW, DEFER } from '../view-model.js';
 import { contractFor } from '../../engine/payroll.js';
 import { comma } from '../../engine/format.js';
@@ -67,6 +67,7 @@ export function contractScreen(app, route) {
     h('span', null, d[key] || '--:--'),
     h('input', {
       type: 'time', value: d[key] || '', step: 300, 'aria-label': key,
+      onclick: openPicker,
       onchange: (e) => { d[key] = e.target.value; rerender(); },
     }));
   return h('div', { class: 'screen' },
@@ -77,7 +78,7 @@ export function contractScreen(app, route) {
         iconButton('person', '근무자 정보 (이름·계좌·퇴사일·보건증)', () => app.push({ name: 'workerForm', workerId: worker.id })),
       ],
     }),
-    h('main', { class: 'body' },
+    h('main', { class: 'body' }, cols(
       card(
         h('div', { class: 'field-label' }, '시급'),
         h('label', { class: 'wage-field' },
@@ -122,7 +123,7 @@ export function contractScreen(app, route) {
       h('section', { class: 'card weekly-card' },
         h('div', { class: 'wk-row' }, h('span', null, '주 소정근로시간'), h('strong', null, v.weeklyLine)),
         h('div', { class: 'wk-row' }, h('span', null, '주휴수당 · 매주'), h('strong', { class: 'big' }, v.weeklyPay)),
-        v.formula ? h('div', { class: 'wk-formula' }, v.formula) : null)),
+        v.formula ? h('div', { class: 'wk-formula' }, v.formula) : null))),
     bottomCta(h('button', { class: 'pill-btn primary block save-btn', disabled: !route.dirty, onclick: save }, '저장')));
 }
 
@@ -139,11 +140,24 @@ export function workerFormScreen(app, route) {
   const text = (key, label, hint) => h('label', { class: 'text-field' },
     h('span', { class: 'tf-label' }, label),
     h('input', { type: 'text', value: d[key] || '', placeholder: hint, oninput: (e) => { d[key] = e.target.value; } }));
-  const datePill = (key, emptyText, { clearable = false } = {}) => h('div', { class: 'date-wrap' },
-    h('label', { class: 'date-pill' }, icon('event', 22),
-      h('span', null, d[key] ? dotted(d[key]) : emptyText),
-      h('input', { type: 'date', value: d[key] || '', onchange: (e) => { d[key] = e.target.value || (clearable ? null : d[key]); rerender(); } })),
-    clearable && d[key] ? h('button', { class: 'clear-date', 'aria-label': '지우기', onclick: () => { d[key] = null; rerender(); } }, icon('close', 18)) : null);
+  const datePill = (key, emptyText, { clearable = false } = {}) => {
+    const shown = h('span', null, d[key] ? dotted(d[key]) : emptyText);
+    const clear = clearable
+      ? h('button', { class: 'clear-date', 'aria-label': '지우기', hidden: !d[key], onclick: () => { d[key] = null; rerender(); } }, icon('close', 18))
+      : null;
+    // 값이 바뀌어도 화면 전체를 다시 그리지 않고 알약 글자·지우기 단추만 바꾼다.
+    // 키보드로 연·월·일을 치는 중에 다시 그리면 입력 칸이 새것으로 바뀌어 초점이 빠지고 나머지 글자가 사라진다
+    // (실측: 「2026」 을 치다 「2」 에서 0002.11.20 으로 저장됨).
+    const commit = (e) => {
+      d[key] = e.target.value || (clearable ? null : d[key]);
+      shown.textContent = d[key] ? dotted(d[key]) : emptyText;
+      if (clear) clear.hidden = !d[key];
+    };
+    return h('div', { class: 'date-wrap' },
+      h('label', { class: 'date-pill' }, icon('event', 22), shown,
+        h('input', { type: 'date', value: d[key] || '', onclick: openPicker, onchange: commit })),
+      clear);
+  };
   const save = () => {
     const name = (d.name || '').trim();
     if (!name) { app.toast('이름을 입력하세요'); return; }
@@ -168,7 +182,7 @@ export function workerFormScreen(app, route) {
   };
   return h('div', { class: 'screen' },
     topbar({ title: existing ? '근무자 정보' : '근무자 추가', back: () => app.pop() }),
-    h('main', { class: 'body' },
+    h('main', { class: 'body' }, cols(
       card(
         h('div', { class: 'field-label' }, '기본 정보'),
         text('name', '이름', '예: 김민지'),
@@ -187,6 +201,6 @@ export function workerFormScreen(app, route) {
         h('div', { class: 'field-label' }, '퇴사'),
         h('div', { class: 'date-row' }, h('span', { class: 'row-title' }, '퇴사일'), datePill('endDate', '재직 중', { clearable: true })),
         h('div', { class: 'helper' }, '그만둔 사람은 삭제하지 말고 퇴사일을 넣으세요. 기록은 남고 재직 인원에서만 빠집니다.')),
-      existing ? h('button', { class: 'danger-btn', onclick: () => app.openOverlay({ type: 'deleteWorker', workerId: existing.id }) }, icon('trash', 22), '근무자 삭제') : null),
+      existing ? h('button', { class: 'danger-btn', onclick: () => app.openOverlay({ type: 'deleteWorker', workerId: existing.id }) }, icon('trash', 22), '근무자 삭제') : null)),
     bottomCta(h('button', { class: 'pill-btn primary block save-btn', onclick: save }, '저장')));
 }

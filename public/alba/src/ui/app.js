@@ -7,6 +7,7 @@ import { homeScreen, attendanceScreen, settlementScreen } from './screens/main.j
 import { settingsScreen, holidaysScreen, exportScreen, guideScreen, referenceScreen, privacyScreen } from './screens/settings.js';
 import { contractScreen, workerFormScreen } from './screens/forms.js';
 import { renderOverlay } from './screens/overlays.js';
+import { makePayslipPdf } from '../payslip/make.js';
 
 // [키, 이름, 고른 탭 아이콘, 안 고른 탭 아이콘(외곽선)]
 const TABS = [
@@ -37,7 +38,10 @@ export function createApp(root, { storage = globalThis.localStorage, now = () =>
     state: loadState(storage),
     ui: { tab: 'home', stack: [], month: { y: t.y, m: t.m }, workerId: null, overlay: null, toast: null },
     today,
+    now,
     scroll: new Map(),
+    /** 급여명세서 모델 → PDF 바이트(브라우저 캔버스로 그림). 테스트는 바꿔 끼운다. */
+    makePayslipPdf: (model) => makePayslipPdf(model),
   };
 
   app.persist = () => {
@@ -128,7 +132,7 @@ export function createApp(root, { storage = globalThis.localStorage, now = () =>
     const route = app.route();
     const screen = route ? SCREENS[route.name](app, route) : tabScreen(app);
     const full = route && FULLSCREEN.has(route.name);
-    root.replaceChildren(h('div', { class: 'app' },
+    root.replaceChildren(h('div', { class: full ? 'app full' : 'app' },
       screen,
       full ? null : bottomNav(app),
       renderOverlay(app),

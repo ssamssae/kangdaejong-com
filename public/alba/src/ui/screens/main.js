@@ -8,6 +8,7 @@ import { homeView, attView, settleView, PAY_NOW, DEFER } from '../view-model.js'
 import { computeMonth, contractFor } from '../../engine/payroll.js';
 import { monthEnd } from '../../engine/dates.js';
 import { DISCLAIMER } from '../texts.js';
+import { payslipModel } from '../../payslip/model.js';
 
 const WEEK_HEAD = ['월', '화', '수', '목', '금', '토', '일'];
 
@@ -129,9 +130,28 @@ export function settlementScreen(app) {
     body.push(h('section', { class: 'card account-card' },
       h('div', null, h('div', { class: 'd-sub' }, s.account.label), h('div', { class: 'acc' }, nowrapWords(s.account.text))),
       h('button', { class: 'pill-btn primary', onclick: () => app.push({ name: 'export' }) }, icon('download', 22), '엑셀')));
+    // 웹판에만 있는 급여명세서 PDF(대종님 2026-11-24 승인). 숫자는 이 화면과 같은 settleView 글자를 쓴다.
+    body.push(h('button', { class: 'pill-btn block payslip-btn', disabled: Boolean(app.ui.payslipBusy), onclick: () => downloadPayslip(app, worker.id, y, m) },
+      icon('doc', 22), app.ui.payslipBusy ? '만드는 중…' : '급여명세서 PDF'));
     body.push(h('div', { class: 'foot-note' }, s.footer));
   }
-  return h('div', { class: 'screen' }, bar, h('main', { class: 'body' }, body), h('div', { class: 'disclaimer' }, DISCLAIMER));
+  return h('div', { class: 'screen' }, bar, h('main', { class: 'body settle-body' }, body), h('div', { class: 'disclaimer' }, DISCLAIMER));
+}
+
+/** 급여명세서 PDF 만들어 내려받기(A4 한 장) */
+async function downloadPayslip(app, workerId, y, m) {
+  if (app.ui.payslipBusy) return;
+  app.setUi({ payslipBusy: true });
+  try {
+    const model = payslipModel(app.state, workerId, y, m, app.now());
+    const bytes = await app.makePayslipPdf(model);
+    app.download(bytes, model.fileName, 'application/pdf');
+    app.ui.payslipBusy = false;
+    app.toast('저장했습니다');
+  } catch (e) {
+    app.ui.payslipBusy = false;
+    app.toast(`급여명세서를 만들지 못했습니다: ${e.message}`);
+  }
 }
 
 /** 띄어쓰기에서만 줄바꿈되게 낱말마다 감싼다(글자는 그대로) */

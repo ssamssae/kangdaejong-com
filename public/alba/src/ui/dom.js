@@ -57,6 +57,7 @@ const P = {
   trashX: '<path d="M15 4V3H9v1H4v2h1v13c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2V6h1V4h-5zm2 15H7V6h10v13zm-7.59-3.17L11.59 13 9.41 10.83l1.42-1.42L13 11.59l2.17-2.18 1.42 1.42L14.41 13l2.18 2.17-1.42 1.42L13 14.41l-2.17 2.18z"/>',
   warn: '<path d="M12 5.99 19.53 19H4.47L12 5.99M12 2 1 21h22L12 2zm1 14h-2v2h2v-2zm0-6h-2v4h2v-4z"/>',
   drop: '<path d="M7 10l5 5 5-5z"/>',
+  doc: '<path d="M8 16h8v2H8zm0-4h8v2H8zm6-10H6c-1.1 0-2 .9-2 2v16c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm4 18H6V4h7v5h5v11z"/>',
 };
 
 export function icon(name, size = 24, cls = '') {

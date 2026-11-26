@@ -229,6 +229,7 @@ button:disabled { cursor: default; }
 .date-pill input, .time-pill input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
 .date-pill:focus-within, .time-pill:focus-within { outline: 2px solid var(--blue); outline-offset: 2px; }
 .clear-date { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; color: var(--grey500); }
+.clear-date[hidden] { display: none; }
 .time-row { display: flex; align-items: center; gap: 8px; margin: 4px 0 14px; } /* tone:fixed: 알바 앱 자체 톤 */
 .time-pill { flex: 1; justify-content: center; height: 52px; border-radius: 14px; background: var(--grey100); font-size: 19px; font-weight: 700; color: var(--grey900); } /* tone:fixed: 알바 앱 자체 톤 */
 .time-pill.work { background: var(--blue-weak); color: var(--blue-ink); }
@@ -301,6 +302,9 @@ button:disabled { cursor: default; }
 .pill-btn.block { width: 100%; height: 56px; border-radius: 16px; margin-top: 20px; } /* tone:fixed: 알바 앱 자체 톤 */
 .bottom-cta { flex: none; padding: 12px 16px calc(16px + env(safe-area-inset-bottom)); background: var(--grey100); } /* tone:fixed: 알바 앱 자체 톤 */
 .bottom-cta .pill-btn.block { margin-top: 0; }
+.payslip-btn { background: var(--white); color: var(--blue-ink); }
+.payslip-btn .ic { color: var(--blue); }
+.payslip-btn:active { background: var(--grey200); }
 .danger-btn { display: flex; align-items: center; justify-content: center; gap: 6px; width: 100%; height: 56px; border-radius: 16px; background: var(--white); color: var(--red-ink); font-size: 16px; font-weight: 600; margin: 12px 0; } /* tone:fixed: 알바 앱 자체 톤 */
 
 /* 빈 화면 */
@@ -394,4 +398,84 @@ button:disabled { cursor: default; }
 }
 @media (max-width: 370px) {
   .seg-btn { font-size: 14.5px; padding: 0 6px; } /* tone:fixed: 알바 앱 자체 톤 */
+}
+
+/* ── 넓은 화면(PC·가로 태블릿, 900px 이상) ─────────────────────────────
+   휴대폰 폭은 위 규칙 그대로. 여기서는 가운데 480px 기둥을 풀어 화면 폭을 쓴다:
+   아래 탭 → 왼쪽 세로 메뉴, 내용은 최대 1200px(휴일 목록 760px) 가운데, 겹창은 가운데 창. */
+@media (min-width: 900px) {
+  html, body { background: var(--grey100); }
+  .app {
+    max-width: none; display: grid; grid-template-columns: 232px minmax(0, 1fr); grid-template-rows: minmax(0, 1fr);
+  }
+  .app > .screen { grid-column: 2; grid-row: 1; }
+  .app.full { grid-template-columns: minmax(0, 1fr); }
+  .app.full > .screen { grid-column: 1; }
+  .screen { --wide: 1200px; --gutter: max(32px, calc((100% - var(--wide)) / 2)); }
+  .screen.narrow { --wide: 760px; }
+
+  .tabs {
+    grid-column: 1; grid-row: 1; display: flex; flex-direction: column; gap: 4px; height: auto; /* tone:fixed: 알바 앱 자체 톤 */
+    padding: 72px 12px 24px; border-top: 0; border-right: 1px solid var(--grey200); /* tone:fixed: 알바 앱 자체 톤 */
+  }
+  .tab { flex: none; flex-direction: row; justify-content: flex-start; gap: 12px; height: 52px; padding: 0 16px; font-size: 16px; font-weight: 600; color: var(--grey600); } /* tone:fixed: 알바 앱 자체 톤 */
+  .tab:hover { background: var(--grey50); }
+  .tab.on, .tab.on:hover { background: var(--grey100); color: var(--grey900); }
+
+  .topbar { height: 72px; padding: 0 calc(var(--gutter) - 12px); } /* tone:fixed: 알바 앱 자체 톤 */
+  .topbar.root { padding: 0 calc(var(--gutter) - 8px) 0 calc(var(--gutter) + 4px); } /* tone:fixed: 알바 앱 자체 톤 */
+  .topbar.root .tb-title { font-size: 26px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .body, .body.cal-body { padding: 4px var(--gutter) 48px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .bottom-cta { display: flex; justify-content: center; padding: 16px var(--gutter) 24px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .bottom-cta .pill-btn.block { width: min(100%, 420px); }
+
+  /* 달력: 칸을 키운다 */
+  .cal-head, .att-head { font-size: 14px; margin: 12px 0 6px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .hday { min-height: 100px; gap: 5px; padding: 8px 4px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .hday .num, .aday .num { width: 32px; height: 32px; line-height: 32px; font-size: 15px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .badge { font-size: 12.5px; padding: 1px 6px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .aday { min-height: 80px; gap: 6px; padding: 8px 0; } /* tone:fixed: 알바 앱 자체 톤 */
+  .aday .lbl { font-size: 12.5px; padding: 1px 6px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .wk { min-height: 72px; font-size: 12.5px; margin-left: 8px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .hday:hover, .aday:hover { background: var(--grey50); }
+  .list-item:hover { background: var(--grey50); }
+  .home-foot { margin-top: 20px; } /* tone:fixed: 알바 앱 자체 톤 */
+
+  /* 겹창: 아래에서 올라오는 창 → 가운데 창 */
+  .overlay.bottom, .overlay.menu-host { align-items: center; justify-content: center; padding: 24px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .sheet { max-width: 520px; max-height: 88%; border-radius: 24px; padding-bottom: 24px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .toast { left: 50%; right: auto; width: min(440px, calc(100% - 32px)); transform: translateX(-50%); bottom: 32px; }
+  .toast.toast-low { bottom: 108px; }
+}
+
+/* 아주 넓은 화면(1100px 이상): 카드를 두 단으로 */
+@media (min-width: 1100px) {
+  /* 정산: 왼쪽 = 합계·월 경계 주·계좌·명세서·맺음말, 오른쪽 = 항목별 내역 (맨 아래 1fr 줄이 남는 높이를 받아 왼쪽 카드 사이가 벌어지지 않음) */
+  .settle-body {
+    display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 20px; align-items: start; align-content: start; /* tone:fixed: 알바 앱 자체 톤 */
+    grid-template-areas: "chips chips" "month month" "notice notice" "sum detail" "bd detail" "acc detail" "pdf detail" "foot detail";
+    grid-template-rows: auto auto auto auto auto auto auto 1fr;
+  }
+  .settle-body > .worker-chips { grid-area: chips; }
+  .settle-body > .month { grid-area: month; }
+  .settle-body > .notice-box { grid-area: notice; margin: 0 0 16px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .settle-body > .sum-card { grid-area: sum; }
+  .settle-body > .boundary-card { grid-area: bd; }
+  .settle-body > .account-card { grid-area: acc; }
+  .settle-body > .payslip-btn { grid-area: pdf; margin: 0 0 16px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .settle-body > .detail-card { grid-area: detail; }
+  .settle-body > .foot-note { grid-area: foot; }
+  .settle-body > .card { margin: 0 0 16px; } /* tone:fixed: 알바 앱 자체 톤 */
+
+  /* 설정·근로계약·근무자 정보·도움말 글: 위에서 아래로 채우는 두 단(.cols 묶음 — 스크롤 칸 안쪽이라 높이가 자라서 옆으로 넘치지 않음) */
+  .cols { columns: 2; column-gap: 20px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .cols > * { break-inside: avoid; }
+  .cols > .card, .cols > .danger-btn { margin: 0 0 16px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .cols > .set-group { display: flow-root; margin-bottom: 4px; } /* tone:fixed: 알바 앱 자체 톤 */
+  .cols > .set-group > .section-label { margin-top: 12px; } /* tone:fixed: 알바 앱 자체 톤 */
+
+  /* 엑셀 내보내기: 만들어질 파일 | 설명 */
+  .export-body { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: 20px; align-items: start; align-content: start; } /* tone:fixed: 알바 앱 자체 톤 */
+  .export-body > .month, .export-body > .notice-box { grid-column: 1 / -1; }
+  .export-body > .card { margin: 0; }
 }
