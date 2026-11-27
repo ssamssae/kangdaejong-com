@@ -370,3 +370,11 @@
 - 기대 결과: 이미지 아이콘은 쉬운 글 검사기를 포함해 13개다. 390/1440px 에서 칸이 넘치지 않는다. EN 전환 시 「쉬운 글 검사기 · Easy Writing Checker」·「Get it on the Chrome Web Store」로 바뀌고 한국어로 돌아오면 원문을 되살린다.
 - 검증: `tests/easy-writing.spec.mjs`(홈 카드), `tests/theme-lang-layout.spec.mjs`, `tests/home-tone.spec.mjs`, `tests/home-ui-interactions.spec.mjs`.
 - 공개 배포: 머지 뒤 아테나가 `npm run deploy:site`.
+
+## 통역요 개인정보 처리 안내 — T-261127-014
+
+- 진입점: `/privacy-tongyeokyo/` (Google Play `com.daejongkang.tongyeokyo` 개인정보처리방침 URL). 홈 목록 반영은 하지 않고 쪽만 더한다.
+- 글: 대종님 2026-11-27 21시대 승인 카드 「통역요 안드로이드 1.0.0을 플레이에 정식 출시할까요?」의 「[공개될 글 4] 처리방침 페이지 전문」을 글자 그대로 옮겼다(첫 줄 = h1, 소제목 7개 = h2, `- ` 두 줄 = 목록). 글을 고치려면 새 승인을 받는다.
+- 기대 결과: h1 「통역요 개인정보 처리 안내」, 폰 안 받아쓰기·번역(대화 소리·글 안 보냄)·구글 ML Kit 가 보내는 설치 식별자·진단 기록·기기 저장·네트워크·마이크 권한·문의 메일, canonical `https://kangdaejong.com/privacy-tongyeokyo/`.
+- 검증: `tests/tongyeokyo.spec.mjs`, `tests/audit-fixes.spec.mjs` 사이트맵 목록.
+- 공개 배포: 머지 뒤 아테나가 `npm run deploy:site`.
