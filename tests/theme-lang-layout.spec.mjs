@@ -66,6 +66,8 @@ test('the header toggle switches the whole page to English and back without relo
  await expect(page.locator('h1')).toContainText('Daejong Kang');
  await expect(page.locator('#projects-title')).toHaveText('Tools I build');
  await expect(page.locator('.web-service-card h3')).toHaveText('Cheotireum (First Name)');
+ await expect(page.locator('.text-tool-card:not(.web-service-card) h3')).toHaveText('쉬운 글 검사기 · Easy Writing Checker');
+ await expect(page.locator('.text-tool-card:not(.web-service-card) > a')).toHaveText('Get it on the Chrome Web Store↗');
  await expect(page.locator('.book-action').first()).toHaveText('Read free ↗ · PDF, 69 pages');
  expect(await header(page).evaluate(e=>[...e.shadowRoot.querySelectorAll('.links a .link-title')].map(a=>a.textContent.trim()))).toEqual(['Projects','Apps','Contact']);
  const footerCopy=await page.locator('mb-footer').evaluate(el=>({blurb:el.shadowRoot.querySelector('.blurb').textContent,titles:[...el.shadowRoot.querySelectorAll('.sitemap h2')].map(node=>node.textContent),github:el.shadowRoot.querySelector('.sns a').getAttribute('aria-label'),columns:getComputedStyle(el.shadowRoot.querySelector('.sitemap')).gridTemplateColumns.split(' ').filter(Boolean).length}));
@@ -78,14 +80,14 @@ test('the header toggle switches the whole page to English and back without relo
  await toggle('ko').click();
  await expect(page.locator('html')).toHaveAttribute('lang','ko');
  await expect(page.locator('h1')).toHaveText('안녕하세요.만드는 사람 강대종이에요.');
- await expect(page.locator('.text-tool-card:not(.web-service-card)')).toHaveCount(0);
+ await expect(page.locator('.text-tool-card:not(.web-service-card) h3')).toHaveText('쉬운 글 검사기');
  await expect(page.locator('.web-service-card h3')).toHaveText('첫이름');
  expect(await page.evaluate(()=>localStorage.getItem('mb-lang'))).toBe('ko');
 });
 
 test('product icons use catalog WebP aliases with 2x sources and valid JSON-LD is present',async({page})=>{
  await page.setViewportSize({width:1440,height:900}); await page.goto('/');
- const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(12);
+ const images=page.locator('.app-row img, .project-icon'); await expect(images).toHaveCount(13);
  for(const image of await images.all()) {
   const id=await image.evaluate(el=>el.closest('[data-product-id]').dataset.productId);
   const entry=catalog.products.find(product=>product.id===id);

@@ -235,6 +235,25 @@
       ]
     },
     {
+      "id": "easy-writing",
+      "name": "쉬운 글 검사기",
+      "source": "https://github.com/ssamssae/chrome-extensions-dev/blob/442ee64bd85b0b7537b7bcb1f12f693783d9c8ea/easy-writing/icons/icon128.png",
+      "sourceSha256": "c0134987e09059148e9046f0121e07fe927347743db99ae820f0d8224250017f",
+      "sourceNote": "대종님 2026-11-27 승인 카드 「아이콘: 스토어와 같은 「가」 아이콘」(T-261122-018) — 크롬 웹스토어(https://chromewebstore.google.com/detail/annognjibpjomgopeakkbcnbabgpbpol)에 올린 확장 0.1.0 의 128px PNG 그대로(비공개 저장소 chrome-extensions-dev 442ee64). 더 큰 원본이 없어 96px 는 줄이고 192px 는 늘렸다. 둘레 투명은 그대로 둔다. WebP = PIL lanczos, quality 90.",
+      "files": {
+        "icon": {
+          "source": "/product-icons/easy-writing-c0134987-96.webp",
+          "sha256": "18ded746bd626d772c3d965455614c3b8ef2d1b3a5596bec242540ff44e4f698"
+        },
+        "icon2x": {
+          "source": "/product-icons/easy-writing-c0134987-192.webp",
+          "sha256": "0312574c7ba800a933fbd1024bd3903e80521c9d29ce4c41629185333b4e83c7"
+        }
+      },
+      "icon": "https://kangdaejong.com/brand/products/easy-writing.webp",
+      "icon2x": "https://kangdaejong.com/brand/products/easy-writing@2x.webp"
+    },
+    {
       "id": "bridge-grok",
       "name": "Grok Telegram Bridge",
       "source": "https://github.com/ssamssae/kangdaejong-com/tree/main/public/product-icons",

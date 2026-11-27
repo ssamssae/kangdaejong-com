@@ -43,7 +43,7 @@ html:has(.simple-home){background:var(--bg);scroll-padding-top:calc(var(--mb-hea
 .simple-home .text-tool-card{grid-column:1 / -1;flex-direction:row;align-items:center;gap:var(--tone-space-3)}
 .simple-home .text-tool-card :is(.project-mark,.project-icon){flex:0 0 40px}
 .simple-home .text-tool-card .project-body{flex:1;align-self:center}
-.simple-home .text-tool-card .project-note{margin-bottom:var(--tone-space-1)}
+.simple-home .text-tool-card .project-note{margin-bottom:var(--tone-space-1);word-break:keep-all} /* T-261122-018: 긴 이용 정보 칩은 낱말 가운데가 아니라 「·」 자리에서 줄을 바꾼다 */
 .simple-home .text-tool-card>a{margin-top:0;padding-top:0;white-space:nowrap}
 .simple-home .service-sublinks{display:flex;flex-wrap:wrap;gap:var(--tone-space-1) var(--tone-space-3);margin-top:var(--tone-space-1);font-size:var(--tone-caption-size)}
 .simple-home .service-sublinks a{display:inline-flex;align-items:center;gap:4px;min-height:var(--tone-tap-height);color:var(--accent-hover)} /* tone:fixed: 글자·화살표 미세 간격 4px(의장) */
