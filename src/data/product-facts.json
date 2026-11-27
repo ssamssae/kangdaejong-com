@@ -159,5 +159,12 @@
     "account": "가입 없이 사용",
     "source": "https://apps.apple.com/kr/app/id6762072499",
     "checkedAt": "2026-11-06"
+  },
+  "쉬운 글 검사기": {
+    "price": "무료 · 광고 없음",
+    "platform": "크롬 확장(PC)",
+    "account": "가입 없이 사용",
+    "source": "https://chromewebstore.google.com/detail/annognjibpjomgopeakkbcnbabgpbpol",
+    "checkedAt": "2026-11-27"
   }
 }

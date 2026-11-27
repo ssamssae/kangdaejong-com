@@ -361,3 +361,12 @@
 - 기대 결과: h1 「쉬운 글 검사기 개인정보 처리 안내」, 아이콘을 누른 탭에서 그때만 고른 글을 읽음·컴퓨터 밖으로 보내지 않음·저장 안 함·activeTab·scripting 권한 설명·광고와 결제 없음·문의 메일.
 - 검증: `tests/easy-writing.spec.mjs`, `tests/audit-fixes.spec.mjs` 사이트맵 목록. 확장 쪽 약속은 확장 저장소 `tests/easy-writing.test.js` 「개인정보 약속을 코드로 잠근다」가 잠근다.
 - 공개 배포: 대종님 승인 카드(2026-11-22 「승인 (①②③ 전부)」) 뒤 `npm run deploy:site`.
+
+## 쉬운 글 검사기 홈 카드 — T-261122-018
+
+- 근거: 대종님 2026-11-27 14:4x KST 승인 카드 「승인」. 원문 그대로 쓴다 — 이름 「쉬운 글 검사기」, 한 줄 소개(스토어 요약), 이용 정보 「무료 · 광고 없음 / 크롬 확장(PC) / 가입 없이 사용」, 단추 「크롬 웹스토어에서 받기」(`https://chromewebstore.google.com/detail/annognjibpjomgopeakkbcnbabgpbpol`), 스토어와 같은 「가」 아이콘. 확장은 웹스토어에 0.1.0 으로 공개돼 있다.
+- 진입점: `/#projects` → 「만드는 도구」 → 「자비스」 다음, 「첫이름」 앞의 한 줄 카드(옛 복붙 정리기 자리와 같은 `.text-tool-card`). 카드 어디를 눌러도 웹스토어로 간다(`.mb-press-card`).
+- 아이콘: 확장 저장소 `easy-writing/icons/icon128.png`(442ee64, SHA256 `c0134987…`) → 96/192px WebP. 카탈로그 id `easy-writing`. 이용 정보는 `src/data/product-facts.json` 에도 같은 값으로 둔다.
+- 기대 결과: 이미지 아이콘은 쉬운 글 검사기를 포함해 13개다. 390/1440px 에서 칸이 넘치지 않는다. EN 전환 시 「쉬운 글 검사기 · Easy Writing Checker」·「Get it on the Chrome Web Store」로 바뀌고 한국어로 돌아오면 원문을 되살린다.
+- 검증: `tests/easy-writing.spec.mjs`(홈 카드), `tests/theme-lang-layout.spec.mjs`, `tests/home-tone.spec.mjs`, `tests/home-ui-interactions.spec.mjs`.
+- 공개 배포: 머지 뒤 아테나가 `npm run deploy:site`.

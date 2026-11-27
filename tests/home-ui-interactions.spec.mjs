@@ -30,6 +30,7 @@ test.describe('pressable tool cards', () => {
       ['텔레그램 브릿지', '#open-tools'],
       ['입타', '/ipta/'],
       ['자비스', 'https://github.com/ssamssae/jarvis-mac'],
+      ['쉬운 글 검사기', 'https://chromewebstore.google.com/detail/annognjibpjomgopeakkbcnbabgpbpol'],
     ]) {
       await card(page, name).scrollIntoViewIfNeeded();
       expect(await linkUnderTitle(page, name), name).toBe(href);
